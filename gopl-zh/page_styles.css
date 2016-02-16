@@ -1,0 +1,116 @@
+@page {
+    margin-bottom: 5pt;
+    margin-top: 5pt
+    }
+@font-face {
+    font-family: KaTeX_AMS;
+    src: url(katex_ams-regular.eot);
+    src: url(katex_ams-regular.eot#iefix) format("embedded-opentype"), url(katex_ams-regular.woff2) format("woff2"), url(katex_ams-regular.woff) format("woff"), url(katex_ams-regular.ttf) format("ttf");
+    font-weight: 400;
+    font-style: normal
+    }
+@font-face {
+    font-family: KaTeX_Caligraphic;
+    src: url(katex_caligraphic-bold.eot);
+    src: url(katex_caligraphic-bold.eot#iefix) format("embedded-opentype"), url(katex_caligraphic-bold.woff2) format("woff2"), url(katex_caligraphic-bold.woff) format("woff"), url(katex_caligraphic-bold.ttf) format("ttf");
+    font-weight: 700;
+    font-style: normal
+    }
+@font-face {
+    font-family: KaTeX_Caligraphic;
+    src: url(katex_caligraphic-regular.eot);
+    src: url(katex_caligraphic-regular.eot#iefix) format("embedded-opentype"), url(katex_caligraphic-regular.woff2) format("woff2"), url(katex_caligraphic-regular.woff) format("woff"), url(katex_caligraphic-regular.ttf) format("ttf");
+    font-weight: 400;
+    font-style: normal
+    }
+@font-face {
+    font-family: KaTeX_Fraktur;
+    src: url(katex_fraktur-bold.eot);
+    src: url(katex_fraktur-bold.eot#iefix) format("embedded-opentype"), url(katex_fraktur-bold.woff2) format("woff2"), url(katex_fraktur-bold.woff) format("woff"), url(katex_fraktur-bold.ttf) format("ttf");
+    font-weight: 700;
+    font-style: normal
+    }
+@font-face {
+    font-family: KaTeX_Fraktur;
+    src: url(katex_fraktur-regular.eot);
+    src: url(katex_fraktur-regular.eot#iefix) format("embedded-opentype"), url(katex_fraktur-regular.woff2) format("woff2"), url(katex_fraktur-regular.woff) format("woff"), url(katex_fraktur-regular.ttf) format("ttf");
+    font-weight: 400;
+    font-style: normal
+    }
+@font-face {
+    font-family: KaTeX_Main;
+    src: url(katex_main-bold.eot);
+    src: url(katex_main-bold.eot#iefix) format("embedded-opentype"), url(katex_main-bold.woff2) format("woff2"), url(katex_main-bold.woff) format("woff"), url(katex_main-bold.ttf) format("ttf");
+    font-weight: 700;
+    font-style: normal
+    }
+@font-face {
+    font-family: KaTeX_Main;
+    src: url(katex_main-italic.eot);
+    src: url(katex_main-italic.eot#iefix) format("embedded-opentype"), url(katex_main-italic.woff2) format("woff2"), url(katex_main-italic.woff) format("woff"), url(katex_main-italic.ttf) format("ttf");
+    font-weight: 400;
+    font-style: italic
+    }
+@font-face {
+    font-family: KaTeX_Main;
+    src: url(katex_main-regular.eot);
+    src: url(katex_main-regular.eot#iefix) format("embedded-opentype"), url(katex_main-regular.woff2) format("woff2"), url(katex_main-regular.woff) format("woff"), url(katex_main-regular.ttf) format("ttf");
+    font-weight: 400;
+    font-style: normal
+    }
+@font-face {
+    font-family: KaTeX_Math;
+    src: url(katex_math-italic.eot);
+    src: url(katex_math-italic.eot#iefix) format("embedded-opentype"), url(katex_math-italic.woff2) format("woff2"), url(katex_math-italic.woff) format("woff"), url(katex_math-italic.ttf) format("ttf");
+    font-weight: 400;
+    font-style: italic
+    }
+@font-face {
+    font-family: KaTeX_SansSerif;
+    src: url(katex_sansserif-regular.eot);
+    src: url(katex_sansserif-regular.eot#iefix) format("embedded-opentype"), url(katex_sansserif-regular.woff2) format("woff2"), url(katex_sansserif-regular.woff) format("woff"), url(katex_sansserif-regular.ttf) format("ttf");
+    font-weight: 400;
+    font-style: normal
+    }
+@font-face {
+    font-family: KaTeX_Script;
+    src: url(katex_script-regular.eot);
+    src: url(katex_script-regular.eot#iefix) format("embedded-opentype"), url(katex_script-regular.woff2) format("woff2"), url(katex_script-regular.woff) format("woff"), url(katex_script-regular.ttf) format("ttf");
+    font-weight: 400;
+    font-style: normal
+    }
+@font-face {
+    font-family: KaTeX_Size1;
+    src: url(katex_size1-regular.eot);
+    src: url(katex_size1-regular.eot#iefix) format("embedded-opentype"), url(katex_size1-regular.woff2) format("woff2"), url(katex_size1-regular.woff) format("woff"), url(katex_size1-regular.ttf) format("ttf");
+    font-weight: 400;
+    font-style: normal
+    }
+@font-face {
+    font-family: KaTeX_Size2;
+    src: url(katex_size2-regular.eot);
+    src: url(katex_size2-regular.eot#iefix) format("embedded-opentype"), url(katex_size2-regular.woff2) format("woff2"), url(katex_size2-regular.woff) format("woff"), url(katex_size2-regular.ttf) format("ttf");
+    font-weight: 400;
+    font-style: normal
+    }
+@font-face {
+    font-family: KaTeX_Size3;
+    src: url(katex_size3-regular.eot);
+    src: url(katex_size3-regular.eot#iefix) format("embedded-opentype"), url(katex_size3-regular.woff2) format("woff2"), url(katex_size3-regular.woff) format("woff"), url(katex_size3-regular.ttf) format("ttf");
+    font-weight: 400;
+    font-style: normal
+    }
+@font-face {
+    font-family: KaTeX_Size4;
+    src: url(katex_size4-regular.eot);
+    src: url(katex_size4-regular.eot#iefix) format("embedded-opentype"), url(katex_size4-regular.woff2) format("woff2"), url(katex_size4-regular.woff) format("woff"), url(katex_size4-regular.ttf) format("ttf");
+    font-weight: 400;
+    font-style: normal
+    }
+@font-face {
+    font-family: KaTeX_Typewriter;
+    src: url(katex_typewriter-regular.eot);
+    src: url(katex_typewriter-regular.eot#iefix) format("embedded-opentype"), url(katex_typewriter-regular.woff2) format("woff2"), url(katex_typewriter-regular.woff) format("woff"), url(katex_typewriter-regular.ttf) format("ttf");
+    font-weight: 400;
+    font-style: normal
+    }

@@ -1,0 +1,777 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="zh">
+  <head>
+    <meta content="647def24-f439-4019-b5f2-e52fde1ce9e4" name="dtb:uid"/>
+    <meta content="3" name="dtb:depth"/>
+    <meta content="calibre (2.48.0)" name="dtb:generator"/>
+    <meta content="0" name="dtb:totalPageCount"/>
+    <meta content="0" name="dtb:maxPageNumber"/>
+  </head>
+  <docTitle>
+    <text>Go语言圣经</text>
+  </docTitle>
+  <navMap>
+    <navPoint id="u9zk4OyaKiEhz94KxYisWz9" playOrder="1">
+      <navLabel>
+        <text>前言</text>
+      </navLabel>
+      <content src="index.html"/>
+      <navPoint id="ubNFRZG9ToqIgYVTp5riDU7" playOrder="2">
+        <navLabel>
+          <text>Go语言起源</text>
+        </navLabel>
+        <content src="ch0-01.html"/>
+      </navPoint>
+      <navPoint id="uLyHZORs9DuwYQF2jS2E6E7" playOrder="3">
+        <navLabel>
+          <text>Go语言项目</text>
+        </navLabel>
+        <content src="ch0-02.html"/>
+      </navPoint>
+      <navPoint id="uwiWBuNmv5LoD2TjMiusqm5" playOrder="4">
+        <navLabel>
+          <text>本书的组织</text>
+        </navLabel>
+        <content src="ch0-03.html"/>
+      </navPoint>
+      <navPoint id="uDbcjPRH6l9hyqKDu44gckB" playOrder="5">
+        <navLabel>
+          <text>更多的信息</text>
+        </navLabel>
+        <content src="ch0-04.html"/>
+      </navPoint>
+      <navPoint id="ueoJuR5noowLWiY4wvVjwIC" playOrder="6">
+        <navLabel>
+          <text>致谢</text>
+        </navLabel>
+        <content src="ch0-05.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="uGHXpUnOeltfGFtziNfPWBH" playOrder="7">
+      <navLabel>
+        <text>入门</text>
+      </navLabel>
+      <content src="ch1.html"/>
+      <navPoint id="u98eqOkQheyJffgb4NpS4IF" playOrder="8">
+        <navLabel>
+          <text>Hello, World</text>
+        </navLabel>
+        <content src="ch1-01.html"/>
+      </navPoint>
+      <navPoint id="urTbjmgtNKh2gRQlFwcLFt2" playOrder="9">
+        <navLabel>
+          <text>命令行参数</text>
+        </navLabel>
+        <content src="ch1-02.html"/>
+      </navPoint>
+      <navPoint id="uIDmrgcANQzVhNhOt87UJsA" playOrder="10">
+        <navLabel>
+          <text>查找重复的行</text>
+        </navLabel>
+        <content src="ch1-03.html"/>
+      </navPoint>
+      <navPoint id="uAzIiJ3FCTTuXRySWI6ZkW8" playOrder="11">
+        <navLabel>
+          <text>GIF动画</text>
+        </navLabel>
+        <content src="ch1-04.html"/>
+      </navPoint>
+      <navPoint id="uQsGh9gfA63aq6d9EbdvuYA" playOrder="12">
+        <navLabel>
+          <text>获取URL</text>
+        </navLabel>
+        <content src="ch1-05.html"/>
+      </navPoint>
+      <navPoint id="uQXhBAPNLVBGasczSc6LRjD" playOrder="13">
+        <navLabel>
+          <text>并发获取多个URL</text>
+        </navLabel>
+        <content src="ch1-06.html"/>
+      </navPoint>
+      <navPoint id="uNSnpxBLYg9w5OlABTYu6PG" playOrder="14">
+        <navLabel>
+          <text>Web服务</text>
+        </navLabel>
+        <content src="ch1-07.html"/>
+      </navPoint>
+      <navPoint id="uG3mshWxzmJdsTRbPxoQc2B" playOrder="15">
+        <navLabel>
+          <text>本章要点</text>
+        </navLabel>
+        <content src="ch1-08.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="uyCaNaikr5hekGIzzoSVDjG" playOrder="16">
+      <navLabel>
+        <text>程序结构</text>
+      </navLabel>
+      <content src="ch2.html"/>
+      <navPoint id="ugvcangQOiKObpLz6gBo5GB" playOrder="17">
+        <navLabel>
+          <text>命名</text>
+        </navLabel>
+        <content src="ch2-01.html"/>
+      </navPoint>
+      <navPoint id="u9xCwE8fkNLnMwZY7lfVps8" playOrder="18">
+        <navLabel>
+          <text>声明</text>
+        </navLabel>
+        <content src="ch2-02.html"/>
+      </navPoint>
+      <navPoint id="uU9M7gOd3bmrckFBKYNhY55" playOrder="19">
+        <navLabel>
+          <text>变量</text>
+        </navLabel>
+        <content src="ch2-03.html"/>
+      </navPoint>
+      <navPoint id="uqjWd3dTCYoLHarS62Rlg4H" playOrder="20">
+        <navLabel>
+          <text>赋值</text>
+        </navLabel>
+        <content src="ch2-04.html"/>
+      </navPoint>
+      <navPoint id="usDEWNNJiFobNd8A2agz9RF" playOrder="21">
+        <navLabel>
+          <text>类型</text>
+        </navLabel>
+        <content src="ch2-05.html"/>
+      </navPoint>
+      <navPoint id="urDmfGOsaxCrHU43DzT2Uh3" playOrder="22">
+        <navLabel>
+          <text>包和文件</text>
+        </navLabel>
+        <content src="ch2-06.html"/>
+      </navPoint>
+      <navPoint id="ucTFqmB3K43PlyQVXhjbzlF" playOrder="23">
+        <navLabel>
+          <text>作用域</text>
+        </navLabel>
+        <content src="ch2-07.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="u7Bwyeu9xgKNj4DLaIiXvC3" playOrder="24">
+      <navLabel>
+        <text>基础数据类型</text>
+      </navLabel>
+      <content src="ch3.html"/>
+      <navPoint id="uHJMtfvf2hRYBNsova3rYn5" playOrder="25">
+        <navLabel>
+          <text>整型</text>
+        </navLabel>
+        <content src="ch3-01.html"/>
+      </navPoint>
+      <navPoint id="u4dcWCAvDaxkuL7HOOrHUo9" playOrder="26">
+        <navLabel>
+          <text>浮点数</text>
+        </navLabel>
+        <content src="ch3-02.html"/>
+      </navPoint>
+      <navPoint id="uCas4NMdGRdsDLJKekuWVPD" playOrder="27">
+        <navLabel>
+          <text>复数</text>
+        </navLabel>
+        <content src="ch3-03.html"/>
+      </navPoint>
+      <navPoint id="uqmhNxRLLgedjkpZipwqYMB" playOrder="28">
+        <navLabel>
+          <text>布尔型</text>
+        </navLabel>
+        <content src="ch3-04.html"/>
+      </navPoint>
+      <navPoint id="upYPK4fAv6bA7tebF6kOElG" playOrder="29">
+        <navLabel>
+          <text>字符串</text>
+        </navLabel>
+        <content src="ch3-05.html"/>
+      </navPoint>
+      <navPoint id="uEhMDWrKrvrmlVrNO6xmrPA" playOrder="30">
+        <navLabel>
+          <text>常量</text>
+        </navLabel>
+        <content src="ch3-06.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="ukuurekSfSH4n4KZmyGMl34" playOrder="31">
+      <navLabel>
+        <text>复合数据类型</text>
+      </navLabel>
+      <content src="ch4.html"/>
+      <navPoint id="uwV59fXxRx4GxEze3KoQbD5" playOrder="32">
+        <navLabel>
+          <text>数组</text>
+        </navLabel>
+        <content src="ch4-01.html"/>
+      </navPoint>
+      <navPoint id="uI4ohy3bSBAyVsgDf8J3MOD" playOrder="33">
+        <navLabel>
+          <text>Slice</text>
+        </navLabel>
+        <content src="ch4-02.html"/>
+      </navPoint>
+      <navPoint id="uPMndvlXXX4y7S7HK3SDad5" playOrder="34">
+        <navLabel>
+          <text>Map</text>
+        </navLabel>
+        <content src="ch4-03.html"/>
+      </navPoint>
+      <navPoint id="uFHcxbQkyvceIlbidPO8Jp3" playOrder="35">
+        <navLabel>
+          <text>结构体</text>
+        </navLabel>
+        <content src="ch4-04.html"/>
+      </navPoint>
+      <navPoint id="uRU4QEfhhTbRqik59a7mrI7" playOrder="36">
+        <navLabel>
+          <text>JSON</text>
+        </navLabel>
+        <content src="ch4-05.html"/>
+      </navPoint>
+      <navPoint id="uf3F5KTrmuAfS6GJ92y7TE7" playOrder="37">
+        <navLabel>
+          <text>文本和HTML模板</text>
+        </navLabel>
+        <content src="ch4-06.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="uZK29aTgqIUZhZygsfWJDtD" playOrder="38">
+      <navLabel>
+        <text>函数</text>
+      </navLabel>
+      <content src="ch5.html"/>
+      <navPoint id="uDD4rdX7Ksd6SRZgG5quT65" playOrder="39">
+        <navLabel>
+          <text>函数声明</text>
+        </navLabel>
+        <content src="ch5-01.html"/>
+      </navPoint>
+      <navPoint id="uoshWe46SNPfLCTrYeHusJD" playOrder="40">
+        <navLabel>
+          <text>递归</text>
+        </navLabel>
+        <content src="ch5-02.html"/>
+      </navPoint>
+      <navPoint id="uGSK6wUeLoVDDTzeo3OVuI6" playOrder="41">
+        <navLabel>
+          <text>多返回值</text>
+        </navLabel>
+        <content src="ch5-03.html"/>
+      </navPoint>
+      <navPoint id="udvtMWSXWuqWXE6JCwVnxMD" playOrder="42">
+        <navLabel>
+          <text>错误</text>
+        </navLabel>
+        <content src="ch5-04.html"/>
+      </navPoint>
+      <navPoint id="uPrMHKgw2mZIJzV2Ji56pZD" playOrder="43">
+        <navLabel>
+          <text>函数值</text>
+        </navLabel>
+        <content src="ch5-05.html"/>
+      </navPoint>
+      <navPoint id="uyIru6RAx3hB72cuN4iyCtA" playOrder="44">
+        <navLabel>
+          <text>匿名函数</text>
+        </navLabel>
+        <content src="ch5-06.html"/>
+      </navPoint>
+      <navPoint id="uLirmUMSEQS7Y4m2Bqt9VX6" playOrder="45">
+        <navLabel>
+          <text>可变参数</text>
+        </navLabel>
+        <content src="ch5-07.html"/>
+      </navPoint>
+      <navPoint id="uiX64Jarc7PbIdcNaHcW3RB" playOrder="46">
+        <navLabel>
+          <text>Deferred函数</text>
+        </navLabel>
+        <content src="ch5-08.html"/>
+      </navPoint>
+      <navPoint id="uSvfrxj2MqpsJpf77COaVHD" playOrder="47">
+        <navLabel>
+          <text>Panic异常</text>
+        </navLabel>
+        <content src="ch5-09.html"/>
+      </navPoint>
+      <navPoint id="uxeHIuSFyQGpHId4hrYAMXF" playOrder="48">
+        <navLabel>
+          <text>Recover捕获异常</text>
+        </navLabel>
+        <content src="ch5-10.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="uDoMqqlPzoaHiZIGTt53DA5" playOrder="49">
+      <navLabel>
+        <text>方法</text>
+      </navLabel>
+      <content src="ch6.html"/>
+      <navPoint id="u4dhBfJbttQ9tU6sYvTzWaD" playOrder="50">
+        <navLabel>
+          <text>方法声明</text>
+        </navLabel>
+        <content src="ch6-01.html"/>
+      </navPoint>
+      <navPoint id="u8nymFBXoTyoO8Ao3NfV4mA" playOrder="51">
+        <navLabel>
+          <text>基于指针对象的方法</text>
+        </navLabel>
+        <content src="ch6-02.html"/>
+      </navPoint>
+      <navPoint id="uGU3dpuwKVl6JC3MUHTIrN3" playOrder="52">
+        <navLabel>
+          <text>通过嵌入结构体来扩展类型</text>
+        </navLabel>
+        <content src="ch6-03.html"/>
+      </navPoint>
+      <navPoint id="uvm6zHU64tZtVUdcqBcfQF9" playOrder="53">
+        <navLabel>
+          <text>方法值和方法表达式</text>
+        </navLabel>
+        <content src="ch6-04.html"/>
+      </navPoint>
+      <navPoint id="uWLZu7fo2lkTVdfAO9Dyez4" playOrder="54">
+        <navLabel>
+          <text>示例: Bit数组</text>
+        </navLabel>
+        <content src="ch6-05.html"/>
+      </navPoint>
+      <navPoint id="utTSmxA54GEeipQDeFKyJC2" playOrder="55">
+        <navLabel>
+          <text>封装</text>
+        </navLabel>
+        <content src="ch6-06.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="uKTBy2ws5CYtpMsjElgcJs4" playOrder="56">
+      <navLabel>
+        <text>接口</text>
+      </navLabel>
+      <content src="ch7.html"/>
+      <navPoint id="uD44Zm5F2RvbyLHKcRoJp52" playOrder="57">
+        <navLabel>
+          <text>接口是合约</text>
+        </navLabel>
+        <content src="ch7-01.html"/>
+      </navPoint>
+      <navPoint id="uNmsJuzSdlFAebMSASyicp5" playOrder="58">
+        <navLabel>
+          <text>接口类型</text>
+        </navLabel>
+        <content src="ch7-02.html"/>
+      </navPoint>
+      <navPoint id="ubiV5z3hnCN42E4lP2WRGW4" playOrder="59">
+        <navLabel>
+          <text>实现接口的条件</text>
+        </navLabel>
+        <content src="ch7-03.html"/>
+      </navPoint>
+      <navPoint id="uHW3LWLGubQi7mGmhVWrf6D" playOrder="60">
+        <navLabel>
+          <text>flag.Value接口</text>
+        </navLabel>
+        <content src="ch7-04.html"/>
+      </navPoint>
+      <navPoint id="uBPHIgX9fyANQkxGaO7TggE" playOrder="61">
+        <navLabel>
+          <text>接口值</text>
+        </navLabel>
+        <content src="ch7-05.html"/>
+      </navPoint>
+      <navPoint id="uXeK6wNdX6hmC6jfw2tzOw2" playOrder="62">
+        <navLabel>
+          <text>sort.Interface接口</text>
+        </navLabel>
+        <content src="ch7-06.html"/>
+      </navPoint>
+      <navPoint id="uhAMhoecxIhTfGWmYfYu644" playOrder="63">
+        <navLabel>
+          <text>http.Handler接口</text>
+        </navLabel>
+        <content src="ch7-07.html"/>
+      </navPoint>
+      <navPoint id="usy2cKXCzFcmYs9tJaQLHh9" playOrder="64">
+        <navLabel>
+          <text>error接口</text>
+        </navLabel>
+        <content src="ch7-08.html"/>
+      </navPoint>
+      <navPoint id="unUtCaqQjJJbwlgSwKdSHxE" playOrder="65">
+        <navLabel>
+          <text>示例: 表达式求值</text>
+        </navLabel>
+        <content src="ch7-09.html"/>
+      </navPoint>
+      <navPoint id="upDtXPMyxmh97snnU9oBrS6" playOrder="66">
+        <navLabel>
+          <text>类型断言</text>
+        </navLabel>
+        <content src="ch7-10.html"/>
+      </navPoint>
+      <navPoint id="uUcj7ngf2ir92baEbWndWBE" playOrder="67">
+        <navLabel>
+          <text>基于类型断言识别错误类型</text>
+        </navLabel>
+        <content src="ch7-11.html"/>
+      </navPoint>
+      <navPoint id="ujUGagzGeOEVJ2h2lIJuybF" playOrder="68">
+        <navLabel>
+          <text>通过类型断言查询接口</text>
+        </navLabel>
+        <content src="ch7-12.html"/>
+      </navPoint>
+      <navPoint id="ukVZJwGze5lcu8aLrObU2lF" playOrder="69">
+        <navLabel>
+          <text>类型分支</text>
+        </navLabel>
+        <content src="ch7-13.html"/>
+      </navPoint>
+      <navPoint id="u7DPCQeGiDbhShHMJxIAlB9" playOrder="70">
+        <navLabel>
+          <text>示例: 基于标记的XML解码</text>
+        </navLabel>
+        <content src="ch7-14.html"/>
+      </navPoint>
+      <navPoint id="ujUpF6ZoHQqrEk7hxjrY9XD" playOrder="71">
+        <navLabel>
+          <text>补充几点</text>
+        </navLabel>
+        <content src="ch7-15.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="ua53aLrwAq8a4oRLbbwmniB" playOrder="72">
+      <navLabel>
+        <text>Goroutines和Channels</text>
+      </navLabel>
+      <content src="ch8.html"/>
+      <navPoint id="u6Z7tPqzT39nzvinFwK3l96" playOrder="73">
+        <navLabel>
+          <text>Goroutines</text>
+        </navLabel>
+        <content src="ch8-01.html"/>
+      </navPoint>
+      <navPoint id="uHMUXHbyLAKTppoWLsvexn6" playOrder="74">
+        <navLabel>
+          <text>示例: 并发的Clock服务</text>
+        </navLabel>
+        <content src="ch8-02.html"/>
+      </navPoint>
+      <navPoint id="ukmidERaqQJKYNpSaRsg5EC" playOrder="75">
+        <navLabel>
+          <text>示例: 并发的Echo服务</text>
+        </navLabel>
+        <content src="ch8-03.html"/>
+      </navPoint>
+      <navPoint id="uByvaojUIA5efppZfJYlHW4" playOrder="76">
+        <navLabel>
+          <text>Channels</text>
+        </navLabel>
+        <content src="ch8-04.html"/>
+      </navPoint>
+      <navPoint id="ucVeJr3NSAvu3EHof4Y5RbE" playOrder="77">
+        <navLabel>
+          <text>并发的循环</text>
+        </navLabel>
+        <content src="ch8-05.html"/>
+      </navPoint>
+      <navPoint id="uhmmHSwGujbsolVc7AfALU6" playOrder="78">
+        <navLabel>
+          <text>示例: 并发的Web爬虫</text>
+        </navLabel>
+        <content src="ch8-06.html"/>
+      </navPoint>
+      <navPoint id="uiE5V37blSNXuM5ZM9sQO6F" playOrder="79">
+        <navLabel>
+          <text>基于select的多路复用</text>
+        </navLabel>
+        <content src="ch8-07.html"/>
+      </navPoint>
+      <navPoint id="uP2NRgYRLUnENr3NqCCPq6G" playOrder="80">
+        <navLabel>
+          <text>示例: 并发的字典遍历</text>
+        </navLabel>
+        <content src="ch8-08.html"/>
+      </navPoint>
+      <navPoint id="ut9svIBxunCK5nCkz8Wz2tC" playOrder="81">
+        <navLabel>
+          <text>并发的退出</text>
+        </navLabel>
+        <content src="ch8-09.html"/>
+      </navPoint>
+      <navPoint id="upuxAgmVNvyaAgBtUpDohMA" playOrder="82">
+        <navLabel>
+          <text>示例: 聊天服务</text>
+        </navLabel>
+        <content src="ch8-10.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="utl7QrayaszOsWRvxNiiS88" playOrder="83">
+      <navLabel>
+        <text>基于共享变量的并发</text>
+      </navLabel>
+      <content src="ch9.html"/>
+      <navPoint id="uUcO8Vr8qlOjk3ozDnbA7L9" playOrder="84">
+        <navLabel>
+          <text>竞争条件</text>
+        </navLabel>
+        <content src="ch9-01.html"/>
+      </navPoint>
+      <navPoint id="uxHSYYpPAJdHQkdwPfeqX34" playOrder="85">
+        <navLabel>
+          <text>sync.Mutex互斥锁</text>
+        </navLabel>
+        <content src="ch9-02.html"/>
+      </navPoint>
+      <navPoint id="uOVmCLPjbzq4MKcEzewKDS3" playOrder="86">
+        <navLabel>
+          <text>sync.RWMutex读写锁</text>
+        </navLabel>
+        <content src="ch9-03.html"/>
+      </navPoint>
+      <navPoint id="uGnzHR9BHM2dY9HUqt5c4o5" playOrder="87">
+        <navLabel>
+          <text>内存同步</text>
+        </navLabel>
+        <content src="ch9-04.html"/>
+      </navPoint>
+      <navPoint id="u9cOHd4oI2ySnUUAssxuDCD" playOrder="88">
+        <navLabel>
+          <text>sync.Once初始化</text>
+        </navLabel>
+        <content src="ch9-05.html"/>
+      </navPoint>
+      <navPoint id="uNzLFvMNVCVEU6KWJd7d8NB" playOrder="89">
+        <navLabel>
+          <text>竞争条件检测</text>
+        </navLabel>
+        <content src="ch9-06.html"/>
+      </navPoint>
+      <navPoint id="uDJ6Y5bnMvScVumQrUUAorF" playOrder="90">
+        <navLabel>
+          <text>示例: 并发的非阻塞缓存</text>
+        </navLabel>
+        <content src="ch9-07.html"/>
+      </navPoint>
+      <navPoint id="u8AvzvBRscmPbnaO4JrA3h2" playOrder="91">
+        <navLabel>
+          <text>Goroutines和线程</text>
+        </navLabel>
+        <content src="ch9-08.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="uaYVo84OQSWwNchzEcHJIcD" playOrder="92">
+      <navLabel>
+        <text>包和工具</text>
+      </navLabel>
+      <content src="ch10.html"/>
+      <navPoint id="u2DlKkDDnrJRPVtVgRAJ8a6" playOrder="93">
+        <navLabel>
+          <text>包简介</text>
+        </navLabel>
+        <content src="ch10-01.html"/>
+      </navPoint>
+      <navPoint id="usf84FXBZUqlf5BBw2gUjnF" playOrder="94">
+        <navLabel>
+          <text>导入路径</text>
+        </navLabel>
+        <content src="ch10-02.html"/>
+      </navPoint>
+      <navPoint id="u9mpcS8DKZLTYvMVipNLi3D" playOrder="95">
+        <navLabel>
+          <text>包声明</text>
+        </navLabel>
+        <content src="ch10-03.html"/>
+      </navPoint>
+      <navPoint id="uZJ7KpG4FKk6ChBijOIqMm2" playOrder="96">
+        <navLabel>
+          <text>导入声明</text>
+        </navLabel>
+        <content src="ch10-04.html"/>
+      </navPoint>
+      <navPoint id="u4fIuactBUohMaxUCAjboXA" playOrder="97">
+        <navLabel>
+          <text>包的匿名导入</text>
+        </navLabel>
+        <content src="ch10-05.html"/>
+      </navPoint>
+      <navPoint id="uxttkGvIm3zA8qEDpOHAmSD" playOrder="98">
+        <navLabel>
+          <text>包和命名</text>
+        </navLabel>
+        <content src="ch10-06.html"/>
+      </navPoint>
+      <navPoint id="uP7ZpHZyF7LDtTuKfH69dl5" playOrder="99">
+        <navLabel>
+          <text>工具</text>
+        </navLabel>
+        <content src="ch10-07.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="uiuLmlPX3MYosPKjZYpEeA8" playOrder="100">
+      <navLabel>
+        <text>测试</text>
+      </navLabel>
+      <content src="ch11.html"/>
+      <navPoint id="uYPxsOycTA8k2Zn7ueJRvoB" playOrder="101">
+        <navLabel>
+          <text>go test</text>
+        </navLabel>
+        <content src="ch11-01.html"/>
+      </navPoint>
+      <navPoint id="uUYe2TBhAsNfH8K8FoZ2pQA" playOrder="102">
+        <navLabel>
+          <text>测试函数</text>
+        </navLabel>
+        <content src="ch11-02.html"/>
+      </navPoint>
+      <navPoint id="uhZ7ebUryC3TVbYMKjDRRJ8" playOrder="103">
+        <navLabel>
+          <text>测试覆盖率</text>
+        </navLabel>
+        <content src="ch11-03.html"/>
+      </navPoint>
+      <navPoint id="uTfYtfV7o9EsybccKgfEBK9" playOrder="104">
+        <navLabel>
+          <text>基准测试</text>
+        </navLabel>
+        <content src="ch11-04.html"/>
+      </navPoint>
+      <navPoint id="ux4zbzkkFbDbrJA8ioRlAD3" playOrder="105">
+        <navLabel>
+          <text>剖析</text>
+        </navLabel>
+        <content src="ch11-05.html"/>
+      </navPoint>
+      <navPoint id="ukQ5Q2szRRIkQvAFQb5VrjC" playOrder="106">
+        <navLabel>
+          <text>示例函数</text>
+        </navLabel>
+        <content src="ch11-06.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="ubrSJ9LbQTnmWuZLrUa2fc6" playOrder="107">
+      <navLabel>
+        <text>反射</text>
+      </navLabel>
+      <content src="ch12.html"/>
+      <navPoint id="uBNE39ej545qFyYarD9Mk7C" playOrder="108">
+        <navLabel>
+          <text>为何需要反射?</text>
+        </navLabel>
+        <content src="ch12-01.html"/>
+      </navPoint>
+      <navPoint id="uLSIMSgi8feGXteOWKah7i4" playOrder="109">
+        <navLabel>
+          <text>reflect.Type和reflect.Value</text>
+        </navLabel>
+        <content src="ch12-02.html"/>
+      </navPoint>
+      <navPoint id="uop7DDLoqcSo6qZI5GC4PbE" playOrder="110">
+        <navLabel>
+          <text>Display递归打印</text>
+        </navLabel>
+        <content src="ch12-03.html"/>
+      </navPoint>
+      <navPoint id="u3FHoEyqjgXKDww9l9KgrGF" playOrder="111">
+        <navLabel>
+          <text>示例: 编码S表达式</text>
+        </navLabel>
+        <content src="ch12-04.html"/>
+      </navPoint>
+      <navPoint id="urwJ6znajy98KWy4JVNNalA" playOrder="112">
+        <navLabel>
+          <text>通过reflect.Value修改值</text>
+        </navLabel>
+        <content src="ch12-05.html"/>
+      </navPoint>
+      <navPoint id="uA9ElTBIjUWd2WSrUE9NLi7" playOrder="113">
+        <navLabel>
+          <text>示例: 解码S表达式</text>
+        </navLabel>
+        <content src="ch12-06.html"/>
+      </navPoint>
+      <navPoint id="usItox3eeBJQQB9qQ5wwsfG" playOrder="114">
+        <navLabel>
+          <text>获取结构体字段标识</text>
+        </navLabel>
+        <content src="ch12-07.html"/>
+      </navPoint>
+      <navPoint id="ugoEs8hypzhv4yuJNT3V7z8" playOrder="115">
+        <navLabel>
+          <text>显示一个类型的方法集</text>
+        </navLabel>
+        <content src="ch12-08.html"/>
+      </navPoint>
+      <navPoint id="uBoVLfkhNKD8m8Aw6lJExQH" playOrder="116">
+        <navLabel>
+          <text>几点忠告</text>
+        </navLabel>
+        <content src="ch12-09.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="uglOO2ymbmfHVmqQdQ8myv2" playOrder="117">
+      <navLabel>
+        <text>底层编程</text>
+      </navLabel>
+      <content src="ch13.html"/>
+      <navPoint id="uHI39vWU3PtoEf8JTaFvYtA" playOrder="118">
+        <navLabel>
+          <text>unsafe.Sizeof, Alignof 和 Offsetof</text>
+        </navLabel>
+        <content src="ch13-01.html"/>
+      </navPoint>
+      <navPoint id="usOgD99hX76X7JFCw2iU2tB" playOrder="119">
+        <navLabel>
+          <text>unsafe.Pointer</text>
+        </navLabel>
+        <content src="ch13-02.html"/>
+      </navPoint>
+      <navPoint id="u6UAglmqPhWCqrjLa6XMjK8" playOrder="120">
+        <navLabel>
+          <text>示例: 深度相等判断</text>
+        </navLabel>
+        <content src="ch13-03.html"/>
+      </navPoint>
+      <navPoint id="uQTjyJHVYOSmfsiixnWx8oB" playOrder="121">
+        <navLabel>
+          <text>通过cgo调用C代码</text>
+        </navLabel>
+        <content src="ch13-04.html"/>
+      </navPoint>
+      <navPoint id="utIfltI5Uf5rU9HeNh4aSm4" playOrder="122">
+        <navLabel>
+          <text>几点忠告</text>
+        </navLabel>
+        <content src="ch13-05.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="uDcyQqsFtyeCYyGn92hqGl4" playOrder="123">
+      <navLabel>
+        <text>附录</text>
+      </navLabel>
+      <content src="appendix.html"/>
+      <navPoint id="uSqzdgFSuNQpPiyy8bNKMXG" playOrder="124">
+        <navLabel>
+          <text>附录A：原文勘误</text>
+        </navLabel>
+        <content src="appendix-a-errata.html"/>
+      </navPoint>
+      <navPoint id="u9DxpmyAzNE6CIDp3cSZfm9" playOrder="125">
+        <navLabel>
+          <text>附录B：作者译者</text>
+        </navLabel>
+        <content src="appendix-b-author.html"/>
+      </navPoint>
+      <navPoint id="uoQuYiyMXoWHAm9OcYNbqP5" playOrder="126">
+        <navLabel>
+          <text>附录C：译文授权</text>
+        </navLabel>
+        <content src="appendix-c-cpoyright.html"/>
+      </navPoint>
+      <navPoint id="uROIu7ZtlMuuarWCIACSsUD" playOrder="127">
+        <navLabel>
+          <text>附录D：其它语言</text>
+        </navLabel>
+        <content src="appendix-d-translations.html"/>
+      </navPoint>
+    </navPoint>
+  </navMap>
+</ncx>

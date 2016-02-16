@@ -1,0 +1,237 @@
+.bt {
+    display: block;
+    font-weight: bold;
+    text-indent: 0;
+    margin: 1em 0 0
+    }
+.calibre {
+    display: block;
+    font-size: 1em;
+    line-height: 1.618em;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: justify;
+    word-wrap: break-word;
+    margin: 0 5pt
+    }
+.calibre1 {
+    color: #00C
+    }
+.calibre2 {
+    color: gray;
+    display: block;
+    height: 2px;
+    margin: 0.5em auto;
+    border: currentColor inset 1px
+    }
+.calibre3 {
+    display: block
+    }
+.calibre4 {
+    font-weight: bold
+    }
+.calibre5 {
+    height: auto;
+    width: auto
+    }
+.calibre6 {
+    height: auto;
+    vertical-align: middle;
+    width: 1em
+    }
+.calibre7 {
+    display: block
+    }
+.calibre8 {
+    font-size: 0.76923em;
+    line-height: 1.2;
+    vertical-align: sub
+    }
+.calibre9 {
+    font-style: italic
+    }
+.contents {
+    display: block;
+    margin-left: 0
+    }
+.contents-title {
+    display: block;
+    font-size: 2em;
+    font-weight: bold;
+    letter-spacing: 1em;
+    line-height: 1.2;
+    margin-bottom: 1em;
+    text-align: center;
+    border-bottom: #000 dotted 1.5px
+    }
+.contents1 {
+    display: block;
+    margin-left: 2em
+    }
+.contents2 {
+    display: block;
+    margin-left: 4em
+    }
+.copyright-text {
+    display: block;
+    line-height: 1.618em;
+    text-indent: 0;
+    margin: 1em 0
+    }
+.fy {
+    display: block;
+    text-indent: 2em;
+    padding: 2pt;
+    margin: 1em 0
+    }
+.normaltext {
+    display: block;
+    text-indent: 2em;
+    margin: 0
+    }
+.normaltext1 {
+    display: block;
+    text-align: right;
+    text-indent: 2em;
+    margin: 0
+    }
+.normaltext2 {
+    display: block;
+    font-family: "微软雅黑", STKai, "MKai PRC", Kai;
+    text-indent: 2em;
+    margin: 0
+    }
+.normaltext3 {
+    display: block;
+    text-indent: 0;
+    margin: 0
+    }
+.note {
+    display: block;
+    font-size: 1.23077em;
+    font-weight: bold;
+    text-align: left;
+    text-indent: 0;
+    margin: 1em 0 0.5em
+    }
+.note1 {
+    display: block;
+    font-size: 0.84615em;
+    text-indent: 2em;
+    margin: 0
+    }
+.picture {
+    display: block;
+    text-indent: 0;
+    margin: 0.5em 0
+    }
+.picture1 {
+    display: block;
+    text-indent: 2em;
+    margin: 0.5em 0
+    }
+.picture2 {
+    display: block;
+    text-align: center;
+    text-indent: 0;
+    margin: 10px 0
+    }
+.subtitle {
+    display: block;
+    font-size: 1.23077em;
+    text-align: center;
+    text-indent: 0;
+    margin: 0
+    }
+.subtitle1 {
+    display: block;
+    font-weight: bold;
+    text-indent: 0;
+    margin: 1em 0
+    }
+.subtitle2 {
+    display: block;
+    font-weight: bold;
+    text-indent: 2em;
+    margin: 1em 0 0
+    }
+.subtitle3 {
+    display: block;
+    text-align: center;
+    text-indent: 0;
+    margin: 0
+    }
+.subtitle4 {
+    display: block;
+    font-size: 1.23077em;
+    font-weight: bold;
+    text-indent: 2em;
+    margin: 0.5em 0
+    }
+.suptext {
+    font-size: 0.76923em;
+    line-height: 1.2;
+    vertical-align: super
+    }
+.title {
+    display: block;
+    font-size: 2em;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+    margin: 1em 0
+    }
+.title1 {
+    display: block;
+    font-size: 2em;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+    text-indent: 2em;
+    margin: 1em 0
+    }
+.title2 {
+    display: block;
+    font-size: 1.23077em;
+    font-weight: bold;
+    text-indent: 0;
+    margin: 1em 0
+    }
+.title2a {
+    display: block;
+    font-size: 1.69231em;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: right;
+    margin: 0 0 1em
+    }
+.title3 {
+    display: block;
+    font-size: 1.38462em;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+    margin: 1em 0
+    }
+.title4 {
+    display: block;
+    font-weight: bold;
+    text-indent: 0;
+    margin: 0
+    }
+.tpzz {
+    height: 1em;
+    vertical-align: middle;
+    width: auto
+    }
+.tpzz1 {
+    height: auto;
+    vertical-align: middle;
+    width: auto
+    }
+.tz {
+    display: block;
+    font-weight: bold;
+    text-indent: 0;
+    margin: 0 0 1em
+    }

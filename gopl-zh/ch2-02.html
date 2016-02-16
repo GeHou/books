@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>声明 | Go语言圣经</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_18">声明</h1>
+        
+            <div class="section" id="section-">
+            
+                <h2 id="22-声明" class="calibre14">2.2. 声明</h2>
+<p class="calibre6">声明语句定义了程序的各种实体对象以及部分或全部的属性。Go语言主要有四种类型的声明语句：var、const、type和func，分别对应变量、常量、类型和函数实体对象的声明。这一章我们重点讨论变量和类型的声明，第三章将讨论常量的声明，第五章将讨论函数的声明。</p>
+<p class="calibre6">一个Go语言编写的程序对应一个或多个以.go为文件后缀名的源文件中。每个源文件以包的声明语句开始，说明该源文件是属于哪个包。包声明语句之后是import语句导入依赖的其它包，然后是包一级的类型、变量、常量、函数的声明语句，包一级的各种类型的声明语句的顺序无关紧要（译注：函数内部的名字则必须先声明之后才能使用）。例如，下面的例子中声明了一个常量、一个函数和两个变量：</p>
+<p class="calibre6"><span class="calibre18"><i class="calibre13">gopl.io/ch2/boiling</i></span></p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-comment">// Boiling prints the boiling point of water.</span>
+<span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">"fmt"</span>
+
+<span class="hljs-keyword">const</span> boilingF = <span class="hljs-number">212.0</span>
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">var</span> f = boilingF
+    <span class="hljs-keyword">var</span> c = (f - <span class="hljs-number">32</span>) * <span class="hljs-number">5</span> / <span class="hljs-number">9</span>
+    fmt.Printf(<span class="hljs-string">"boiling point = %g°F or %g°C\n"</span>, f, c)
+    <span class="hljs-comment">// Output:</span>
+    <span class="hljs-comment">// boiling point = 212°F or 100°C</span>
+}
+</code></pre>
+<p class="calibre6">其中常量boilingF是在包一级范围声明语句声明的，然后f和c两个变量是在main函数内部声明的声明语句声明的。在包一级声明语句声明的名字可在整个包对应的每个源文件中访问，而不是仅仅在其声明语句所在的源文件中访问。相比之下，局部声明的名字就只能在函数内部很小的范围被访问。</p>
+<p class="calibre6">一个函数的声明由一个函数名字、参数列表（由函数的调用者提供参数变量的具体值）、一个可选的返回值列表和包含函数定义的函数体组成。如果函数没有返回值，那么返回值列表是省略的。执行函数从函数的第一个语句开始，依次顺序执行直到遇到renturn返回语句，如果没有返回语句则是执行到函数末尾，然后返回到函数调用者。</p>
+<p class="calibre6">我们已经看到过很多函数声明和函数调用的例子了，在第五章将深入讨论函数的相关细节，这里只简单解释下。下面的fToC函数封装了温度转换的处理逻辑，这样它只需要被定义一次，就可以在多个地方多次被使用。在这个例子中，main函数就调用了两次fToC函数，分别是使用在局部定义的两个常量作为调用函数的参数。</p>
+<p class="calibre6"><span class="calibre18"><i class="calibre13">gopl.io/ch2/ftoc</i></span></p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-comment">// Ftoc prints two Fahrenheit-to-Celsius conversions.</span>
+<span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">"fmt"</span>
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">const</span> freezingF, boilingF = <span class="hljs-number">32.0</span>, <span class="hljs-number">212.0</span>
+    fmt.Printf(<span class="hljs-string">"%g°F = %g°C\n"</span>, freezingF, fToC(freezingF)) <span class="hljs-comment">// "32°F = 0°C"</span>
+    fmt.Printf(<span class="hljs-string">"%g°F = %g°C\n"</span>, boilingF, fToC(boilingF))   <span class="hljs-comment">// "212°F = 100°C"</span>
+}
+
+<span class="hljs-keyword">func</span> fToC(f <span class="hljs-typename">float64</span>) <span class="hljs-typename">float64</span> {
+    <span class="hljs-keyword">return</span> (f - <span class="hljs-number">32</span>) * <span class="hljs-number">5</span> / <span class="hljs-number">9</span>
+}
+</code></pre>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

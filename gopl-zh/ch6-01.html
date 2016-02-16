@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>方法声明 | Go语言圣经</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_50">方法声明</h1>
+        
+            <div class="section" id="section-">
+            
+                <h2 id="61-方法声明" class="calibre14">6.1. 方法声明</h2>
+<p class="calibre6">在函数声明时，在其名字之前放上一个变量，即是一个方法。这个附加的参数会将该函数附加到这种类型上，即相当于为这种类型定义了一个独占的方法。</p>
+<p class="calibre6">下面来写我们第一个方法的例子，这个例子在package geometry下：</p>
+<p class="calibre6"><span class="calibre18"><i class="calibre13">gopl.io/ch6/geometry</i></span></p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">package</span> geometry
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">"math"</span>
+
+<span class="hljs-keyword">type</span> Point <span class="hljs-keyword">struct</span>{ X, Y <span class="hljs-typename">float64</span> }
+
+<span class="hljs-comment">// traditional function</span>
+<span class="hljs-keyword">func</span> Distance(p, q Point) <span class="hljs-typename">float64</span> {
+    <span class="hljs-keyword">return</span> math.Hypot(q.X-p.X, q.Y-p.Y)
+}
+
+<span class="hljs-comment">// same thing, but as a method of the Point type</span>
+<span class="hljs-keyword">func</span> (p Point) Distance(q Point) <span class="hljs-typename">float64</span> {
+    <span class="hljs-keyword">return</span> math.Hypot(q.X-p.X, q.Y-p.Y)
+}
+</code></pre>
+<p class="calibre6">上面的代码里那个附加的参数p，叫做方法的接收器(receiver)，早期的面向对象语言留下的遗产将调用一个方法称为“向一个对象发送消息”。</p>
+<p class="calibre6">在Go语言中，我们并不会像其它语言那样用this或者self作为接收器；我们可以任意的选择接收器的名字。由于接收器的名字经常会被使用到，所以保持其在方法间传递时的一致性和简短性是不错的主意。这里的建议是可以使用其类型的第一个字母，比如这里使用了Point的首字母p。</p>
+<p class="calibre6">在方法调用过程中，接收器参数一般会在方法名之前出现。这和方法声明是一样的，都是接收器参数在方法名字之前。下面是例子：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">p := Point{<span class="hljs-number">1</span>, <span class="hljs-number">2</span>}
+q := Point{<span class="hljs-number">4</span>, <span class="hljs-number">6</span>}
+fmt.Println(Distance(p, q)) <span class="hljs-comment">// "5", function call</span>
+fmt.Println(p.Distance(q))  <span class="hljs-comment">// "5", method call</span>
+</code></pre>
+<p class="calibre6">可以看到，上面的两个函数调用都是Distance，但是却没有发生冲突。第一个Distance的调用实际上用的是包级别的函数geometry.Distance，而第二个则是使用刚刚声明的Point，调用的是Point类下声明的Point.Distance方法。</p>
+<p class="calibre6">这种p.Distance的表达式叫做选择器，因为他会选择合适的对应p这个对象的Distance方法来执行。选择器也会被用来选择一个struct类型的字段，比如p.X。由于方法和字段都是在同一命名空间，所以如果我们在这里声明一个X方法的话，编译器会报错，因为在调用p.X时会有歧义(译注：这里确实挺奇怪的)。</p>
+<p class="calibre6">因为每种类型都有其方法的命名空间，我们在用Distance这个名字的时候，不同的Distance调用指向了不同类型里的Distance方法。让我们来定义一个Path类型，这个Path代表一个线段的集合，并且也给这个Path定义一个叫Distance的方法。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-comment">// A Path is a journey connecting the points with straight lines.</span>
+<span class="hljs-keyword">type</span> Path []Point
+<span class="hljs-comment">// Distance returns the distance traveled along the path.</span>
+<span class="hljs-keyword">func</span> (path Path) Distance() <span class="hljs-typename">float64</span> {
+    sum := <span class="hljs-number">0.0</span>
+    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> path {
+        <span class="hljs-keyword">if</span> i &gt; <span class="hljs-number">0</span> {
+            sum += path[i-<span class="hljs-number">1</span>].Distance(path[i])
+        }
+    }
+    <span class="hljs-keyword">return</span> sum
+}
+</code></pre>
+<p class="calibre6">Path是一个命名的slice类型，而不是Point那样的struct类型，然而我们依然可以为它定义方法。在能够给任意类型定义方法这一点上，Go和很多其它的面向对象的语言不太一样。因此在Go语言里，我们为一些简单的数值、字符串、slice、map来定义一些附加行为很方便。方法可以被声明到任意类型，只要不是一个指针或者一个interface。</p>
+<p class="calibre6">两个Distance方法有不同的类型。他们两个方法之间没有任何关系，尽管Path的Distance方法会在内部调用Point.Distance方法来计算每个连接邻接点的线段的长度。</p>
+<p class="calibre6">让我们来调用一个新方法，计算三角形的周长：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">perim := Path{
+    {<span class="hljs-number">1</span>, <span class="hljs-number">1</span>},
+    {<span class="hljs-number">5</span>, <span class="hljs-number">1</span>},
+    {<span class="hljs-number">5</span>, <span class="hljs-number">4</span>},
+    {<span class="hljs-number">1</span>, <span class="hljs-number">1</span>},
+}
+fmt.Println(perim.Distance()) <span class="hljs-comment">// "12"</span>
+</code></pre>
+<p class="calibre6">在上面两个对Distance名字的方法的调用中，编译器会根据方法的名字以及接收器来决定具体调用的是哪一个函数。第一个例子中path[i-1]数组中的类型是Point，因此Point.Distance这个方法被调用；在第二个例子中perim的类型是Path，因此Distance调用的是Path.Distance。</p>
+<p class="calibre6">对于一个给定的类型，其内部的方法都必须有唯一的方法名，但是不同的类型却可以有同样的方法名，比如我们这里Point和Path就都有Distance这个名字的方法；所以我们没有必要非在方法名之前加类型名来消除歧义，比如PathDistance。这里我们已经看到了方法比之函数的一些好处：方法名可以简短。当我们在包外调用的时候这种好处就会被放大，因为我们可以使用这个短名字，而可以省略掉包的名字，下面是例子：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">import</span> <span class="hljs-string">"gopl.io/ch6/geometry"</span>
+
+perim := geometry.Path{{<span class="hljs-number">1</span>, <span class="hljs-number">1</span>}, {<span class="hljs-number">5</span>, <span class="hljs-number">1</span>}, {<span class="hljs-number">5</span>, <span class="hljs-number">4</span>}, {<span class="hljs-number">1</span>, <span class="hljs-number">1</span>}}
+fmt.Println(geometry.PathDistance(perim)) <span class="hljs-comment">// "12", standalone function</span>
+fmt.Println(perim.Distance())             <span class="hljs-comment">// "12", method of geometry.Path</span>
+</code></pre>
+<p class="calibre6"><strong class="calibre19">译注：</strong> 如果我们要用方法去计算perim的distance，还需要去写全geometry的包名，和其函数名，但是因为Path这个变量定义了一个可以直接用的Distance方法，所以我们可以直接写perim.Distance()。相当于可以少打很多字，作者应该是这个意思。因为在Go里包外调用函数需要带上包名，还是挺麻烦的。</p>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

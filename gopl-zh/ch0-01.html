@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>Go语言起源 | Go语言圣经</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_2">Go语言起源</h1>
+        
+            <div class="section" id="section-">
+            
+                <h2 id="go语言起源" class="calibre14">Go语言起源</h2>
+<p class="calibre6">编程语言的演化就像生物物种的演化类似，一个成功的编程语言的后代一般都会继承它们祖先的优点；当然有时多种语言杂合也可能会产生令人惊讶的特性；还有一些激进的新特性可能并没有先例。我们可以通过观察编程语言和软硬件环境是如何相互促进、相互影响的演化过程而学到很多。</p>
+<p class="calibre6">下图展示了有哪些早期的编程语言对Go语言的设计产生了重要影响。</p>
+<p class="calibre6"><img alt="" src="ch0-01.png" class="calibre8"/></p>
+<p class="calibre6">Go语言有时候被描述为“C类似语言”，或者是“21世纪的C语言”。Go从C语言继承了相似的表达式语法、控制流结构、基础数据类型、调用参数传值、指针等很多思想，还有C语言一直所看中的编译后机器码的运行效率以及和现有操作系统的无缝适配。</p>
+<p class="calibre6">但是在Go语言的家族树中还有其它的祖先。其中一个有影响力的分支来自<a target="_blank" href="https://en.wikipedia.org/wiki/Niklaus_Wirth" class="pcalibre1 pcalibre2 pcalibre calibre7">Niklaus Wirth</a>所设计的<a target="_blank" href="https://en.wikipedia.org/wiki/Pascal_(programming_language)" class="pcalibre1 pcalibre2 pcalibre calibre7">Pascal</a>语言。然后<a target="_blank" href="https://en.wikipedia.org/wiki/Modula-2" class="pcalibre1 pcalibre2 pcalibre calibre7">Modula-2</a>语言激发了包的概念。然后<a target="_blank" href="https://en.wikipedia.org/wiki/Oberon_(programming_language)" class="pcalibre1 pcalibre2 pcalibre calibre7">Oberon</a>语言摒弃了模块接口文件和模块实现文件之间的区别。第二代的<a target="_blank" href="https://en.wikipedia.org/wiki/Oberon-2_(programming_language)" class="pcalibre1 pcalibre2 pcalibre calibre7">Oberon-2</a>语言直接影响了包的导入和声明的语法，还有<a target="_blank" href="https://en.wikipedia.org/wiki/Oberon_(programming_language)" class="pcalibre1 pcalibre2 pcalibre calibre7">Oberon</a>语言的面向对象特性所提供的方法的声明语法等。</p>
+<p class="calibre6">Go语言的另一支祖先，带来了Go语言区别其他语言的重要特性，灵感来自于贝尔实验室的<a target="_blank" href="https://en.wikipedia.org/wiki/Tony_Hoare" class="pcalibre1 pcalibre2 pcalibre calibre7">Tony Hoare</a>于1978年发表的鲜为外界所知的关于并发研究的基础文献 <em class="calibre13">顺序通信进程</em> （ <em class="calibre13"><a target="_blank" href="https://en.wikipedia.org/wiki/Communicating_sequential_processes" class="pcalibre1 pcalibre2 pcalibre calibre7">communicating sequential processes</a></em> ，缩写为<a target="_blank" href="https://en.wikipedia.org/wiki/Communicating_sequential_processes" class="pcalibre1 pcalibre2 pcalibre calibre7">CSP</a>。在<a target="_blank" href="https://en.wikipedia.org/wiki/Communicating_sequential_processes" class="pcalibre1 pcalibre2 pcalibre calibre7">CSP</a>中，程序是一组中间没有共享状态的平行运行的处理过程，它们之间使用管道进行通信和控制同步。不过<a target="_blank" href="https://en.wikipedia.org/wiki/Tony_Hoare" class="pcalibre1 pcalibre2 pcalibre calibre7">Tony Hoare</a>的<a target="_blank" href="https://en.wikipedia.org/wiki/Communicating_sequential_processes" class="pcalibre1 pcalibre2 pcalibre calibre7">CSP</a>只是一个用于描述并发性基本概念的描述语言，并不是一个可以编写可执行程序的通用编程语言。</p>
+<p class="calibre6">接下来，Rob Pike和其他人开始不断尝试将<a target="_blank" href="https://en.wikipedia.org/wiki/Communicating_sequential_processes" class="pcalibre1 pcalibre2 pcalibre calibre7">CSP</a>引入实际的编程语言中。他们第一次尝试引入<a target="_blank" href="https://en.wikipedia.org/wiki/Communicating_sequential_processes" class="pcalibre1 pcalibre2 pcalibre calibre7">CSP</a>特性的编程语言叫<a target="_blank" href="http://doc.cat-v.org/bell_labs/squeak/" class="pcalibre1 pcalibre2 pcalibre calibre7">Squeak</a>（老鼠间交流的语言），是一个提供鼠标和键盘事件处理的编程语言，它的管道是静态创建的。然后是改进版的<a target="_blank" href="http://doc.cat-v.org/bell_labs/squeak/" class="pcalibre1 pcalibre2 pcalibre calibre7">Newsqueak</a>语言，提供了类似C语言语句和表达式的语法和类似<a target="_blank" href="https://en.wikipedia.org/wiki/Pascal_(programming_language)" class="pcalibre1 pcalibre2 pcalibre calibre7">Pascal</a>语言的推导语法。Newsqueak是一个带垃圾回收的纯函数式语言，它再次针对键盘、鼠标和窗口事件管理。但是在Newsqueak语言中管道是动态创建的，属于第一类值, 可以保存到变量中。</p>
+<p class="calibre6">在Plan9操作系统中，这些优秀的想法被吸收到了一个叫<a target="_blank" href="http://doc.cat-v.org/plan_9/2nd_edition/papers/alef/" class="pcalibre1 pcalibre2 pcalibre calibre7">Alef</a>的编程语言中。Alef试图将Newsqueak语言改造为系统编程语言，但是因为缺少垃圾回收机制而导致并发编程很痛苦。（译注：在Aelf之后还有一个叫<a target="_blank" href="http://doc.cat-v.org/inferno/4th_edition/limbo_language/" class="pcalibre1 pcalibre2 pcalibre calibre7">Limbo</a>的编程语言，Go语言从其中借鉴了很多特性。 具体请参考Pike的讲稿：<a target="_blank" href="http://talks.golang.org/2012/concurrency.slide#9" class="pcalibre1 pcalibre2 pcalibre calibre7">http://talks.golang.org/2012/concurrency.slide#9</a> ）</p>
+<p class="calibre6">Go语言的其他的一些特性零散地来自于其他一些编程语言；比如iota语法是从<a target="_blank" href="https://en.wikipedia.org/wiki/APL_(programming_language)" class="pcalibre1 pcalibre2 pcalibre calibre7">APL</a>语言借鉴，词法作用域与嵌套函数来自于<a target="_blank" href="https://en.wikipedia.org/wiki/Scheme_(programming_language)" class="pcalibre1 pcalibre2 pcalibre calibre7">Scheme</a>语言（和其他很多语言）。当然，我们也可以从Go中发现很多创新的设计。比如Go语言的切片为动态数组提供了有效的随机存取的性能，这可能会让人联想到链表的底层的共享机制。还有Go语言新发明的defer语句。</p>
+<!-- 链接文件，用于被其它md文件包含 -->
+<!-- 人名 -->
+<!-- 图书 -->
+<!-- Go语言 -->
+<!-- 其他语言 -->
+<!-- 系统 -->
+<!-- 其他 -->
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

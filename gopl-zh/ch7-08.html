@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>error接口 | Go语言圣经</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_64">error接口</h1>
+        
+            <div class="section" id="section-">
+            
+                <h2 id="78-error接口" class="calibre14">7.8. error接口</h2>
+<p class="calibre6">从本书的开始，我们就已经创建和使用过神秘的预定义error类型，而且没有解释它究竟是什么。实际上它就是interface类型，这个类型有一个返回错误信息的单一方法：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">type</span> error <span class="hljs-keyword">interface</span> {
+    Error() <span class="hljs-typename">string</span>
+}
+</code></pre>
+<p class="calibre6">创建一个error最简单的方法就是调用errors.New函数，它会根据传入的错误信息返回一个新的error。整个errors包仅只有4行：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">package</span> errors
+
+<span class="hljs-keyword">func</span> New(text <span class="hljs-typename">string</span>) error { <span class="hljs-keyword">return</span> &amp;errorString{text} }
+
+<span class="hljs-keyword">type</span> errorString <span class="hljs-keyword">struct</span> { text <span class="hljs-typename">string</span> }
+
+<span class="hljs-keyword">func</span> (e *errorString) Error() <span class="hljs-typename">string</span> { <span class="hljs-keyword">return</span> e.text }
+</code></pre>
+<p class="calibre6">承载errorString的类型是一个结构体而非一个字符串，这是为了保护它表示的错误避免粗心（或有意）的更新。并且因为是指针类型*errorString满足error接口而非errorString类型，所以每个New函数的调用都分配了一个独特的和其他错误不相同的实例。我们也不想要重要的error例如io.EOF和一个刚好有相同错误消息的error比较后相等。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">fmt.Println(errors.New(<span class="hljs-string">"EOF"</span>) == errors.New(<span class="hljs-string">"EOF"</span>)) <span class="hljs-comment">// "false"</span>
+</code></pre>
+<p class="calibre6">调用errors.New函数是非常稀少的，因为有一个方便的封装函数fmt.Errorf，它还会处理字符串格式化。我们曾多次在第5章中用到它。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">package</span> fmt
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">"errors"</span>
+
+<span class="hljs-keyword">func</span> Errorf(format <span class="hljs-typename">string</span>, args ...<span class="hljs-keyword">interface</span>{}) error {
+    <span class="hljs-keyword">return</span> errors.New(Sprintf(format, args...))
+}
+</code></pre>
+<p class="calibre6">虽然*errorString可能是最简单的错误类型，但远非只有它一个。例如，syscall包提供了Go语言底层系统调用API。在多个平台上，它定义一个实现error接口的数字类型Errno，并且在Unix平台上，Errno的Error方法会从一个字符串表中查找错误消息，如下面展示的这样：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">package</span> syscall
+
+<span class="hljs-keyword">type</span> Errno <span class="hljs-typename">uintptr</span> <span class="hljs-comment">// operating system error code</span>
+
+<span class="hljs-keyword">var</span> errors = [...]<span class="hljs-typename">string</span>{
+    <span class="hljs-number">1</span>:   <span class="hljs-string">"operation not permitted"</span>,   <span class="hljs-comment">// EPERM</span>
+    <span class="hljs-number">2</span>:   <span class="hljs-string">"no such file or directory"</span>, <span class="hljs-comment">// ENOENT</span>
+    <span class="hljs-number">3</span>:   <span class="hljs-string">"no such process"</span>,           <span class="hljs-comment">// ESRCH</span>
+    <span class="hljs-comment">// ...</span>
+}
+
+<span class="hljs-keyword">func</span> (e Errno) Error() <span class="hljs-typename">string</span> {
+    <span class="hljs-keyword">if</span> <span class="hljs-number">0</span> &lt;= <span class="hljs-typename">int</span>(e) &amp;&amp; <span class="hljs-typename">int</span>(e) &lt; <span class="hljs-number">len</span>(errors) {
+        <span class="hljs-keyword">return</span> errors[e]
+    }
+    <span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">"errno %d"</span>, e)
+}
+</code></pre>
+<p class="calibre6">下面的语句创建了一个持有Errno值为2的接口值，表示POSIX ENOENT状况：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">var</span> err error = syscall.Errno(<span class="hljs-number">2</span>)
+fmt.Println(err.Error()) <span class="hljs-comment">// "no such file or directory"</span>
+fmt.Println(err)         <span class="hljs-comment">// "no such file or directory"</span>
+</code></pre>
+<p class="calibre6">err的值图形化的呈现在图7.6中。</p>
+<p class="calibre6"><img alt="" src="ch7-06.png" class="calibre8"/></p>
+<p class="calibre6">Errno是一个系统调用错误的高效表示方式，它通过一个有限的集合进行描述，并且它满足标准的错误接口。我们会在第7.11节了解到其它满足这个接口的类型。</p>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>显示一个类型的方法集 | Go语言圣经</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_115">显示一个类型的方法集</h1>
+        
+            <div class="section" id="section-">
+            
+                <h2 id="128-显示一个类型的方法集" class="calibre14">12.8. 显示一个类型的方法集</h2>
+<p class="calibre6">我们的最后一个例子是使用reflect.Type来打印任意值的类型和枚举它的方法：</p>
+<p class="calibre6"><span class="calibre18"><i class="calibre13">gopl.io/ch12/methods</i></span></p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-comment">// Print prints the method set of the value x.</span>
+<span class="hljs-keyword">func</span> Print(x <span class="hljs-keyword">interface</span>{}) {
+    v := reflect.ValueOf(x)
+    t := v.Type()
+    fmt.Printf(<span class="hljs-string">"type %s\n"</span>, t)
+
+    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; v.NumMethod(); i++ {
+        methType := v.Method(i).Type()
+        fmt.Printf(<span class="hljs-string">"func (%s) %s%s\n"</span>, t, t.Method(i).Name,
+            strings.TrimPrefix(methType.String(), <span class="hljs-string">"func"</span>))
+    }
+}
+</code></pre>
+<p class="calibre6">reflect.Type和reflect.Value都提供了一个Method方法。每次t.Method(i)调用将一个reflect.Method的实例，对应一个用于描述一个方法的名称和类型的结构体。每次v.Method(i)方法调用都返回一个reflect.Value以表示对应的值（§6.4），也就是一个方法是帮到它的接收者的。使用reflect.Value.Call方法（我们之类没有演示），将可以调用一个Func类型的Value，但是这个例子中只用到了它的类型。</p>
+<p class="calibre6">这是属于time.Duration和<code class="calibre12 pcalibre5 pcalibre6">*strings.Replacer</code>两个类型的方法：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">methods.Print(time.Hour)
+<span class="hljs-comment">// Output:</span>
+<span class="hljs-comment">// type time.Duration</span>
+<span class="hljs-comment">// func (time.Duration) Hours() float64</span>
+<span class="hljs-comment">// func (time.Duration) Minutes() float64</span>
+<span class="hljs-comment">// func (time.Duration) Nanoseconds() int64</span>
+<span class="hljs-comment">// func (time.Duration) Seconds() float64</span>
+<span class="hljs-comment">// func (time.Duration) String() string</span>
+
+methods.Print(<span class="hljs-number">new</span>(strings.Replacer))
+<span class="hljs-comment">// Output:</span>
+<span class="hljs-comment">// type *strings.Replacer</span>
+<span class="hljs-comment">// func (*strings.Replacer) Replace(string) string</span>
+<span class="hljs-comment">// func (*strings.Replacer) WriteString(io.Writer, string) (int, error)</span>
+<span class="hljs-string">`
+</span></code></pre>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

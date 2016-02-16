@@ -1,0 +1,188 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>sort.Interface接口 | Go语言圣经</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_62">sort.Interface接口</h1>
+        
+            <div class="section" id="section-">
+            
+                <h2 id="76-sortinterface接口" class="calibre14">7.6. sort.Interface接口</h2>
+<p class="calibre6">排序操作和字符串格式化一样是很多程序经常使用的操作。尽管一个最短的快排程序只要15行就可以搞定，但是一个健壮的实现需要更多的代码，并且我们不希望每次我们需要的时候都重写或者拷贝这些代码。</p>
+<p class="calibre6">幸运的是，sort包内置的提供了根据一些排序函数来对任何序列排序的功能。它的设计非常独到。在很多语言中，排序算法都是和序列数据类型关联，同时排序函数和具体类型元素关联。相比之下，Go语言的sort.Sort函数不会对具体的序列和它的元素做任何假设。相反，它使用了一个接口类型sort.Interface来指定通用的排序算法和可能被排序到的序列类型之间的约定。这个接口的实现由序列的具体表示和它希望排序的元素决定，序列的表示经常是一个切片。</p>
+<p class="calibre6">一个内置的排序算法需要知道三个东西：序列的长度，表示两个元素比较的结果，一种交换两个元素的方式；这就是sort.Interface的三个方法：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">package</span> sort
+
+<span class="hljs-keyword">type</span> Interface <span class="hljs-keyword">interface</span> {
+    Len() <span class="hljs-typename">int</span>
+    Less(i, j <span class="hljs-typename">int</span>) <span class="hljs-typename">bool</span> <span class="hljs-comment">// i, j are indices of sequence elements</span>
+    Swap(i, j <span class="hljs-typename">int</span>)
+}
+</code></pre>
+<p class="calibre6">为了对序列进行排序，我们需要定义一个实现了这三个方法的类型，然后对这个类型的一个实例应用sort.Sort函数。思考对一个字符串切片进行排序，这可能是最简单的例子了。下面是这个新的类型StringSlice和它的Len，Less和Swap方法</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">type</span> StringSlice []<span class="hljs-typename">string</span>
+<span class="hljs-keyword">func</span> (p StringSlice) Len() <span class="hljs-typename">int</span>           { <span class="hljs-keyword">return</span> <span class="hljs-number">len</span>(p) }
+<span class="hljs-keyword">func</span> (p StringSlice) Less(i, j <span class="hljs-typename">int</span>) <span class="hljs-typename">bool</span> { <span class="hljs-keyword">return</span> p[i] &lt; p[j] }
+<span class="hljs-keyword">func</span> (p StringSlice) Swap(i, j <span class="hljs-typename">int</span>)      { p[i], p[j] = p[j], p[i] }
+</code></pre>
+<p class="calibre6">现在我们可以通过像下面这样将一个切片转换为一个StringSlice类型来进行排序：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">sort.Sort(StringSlice(names))
+</code></pre>
+<p class="calibre6">这个转换得到一个相同长度，容量，和基于names数组的切片值；并且这个切片值的类型有三个排序需要的方法。</p>
+<p class="calibre6">对字符串切片的排序是很常用的需要，所以sort包提供了StringSlice类型，也提供了Strings函数能让上面这些调用简化成sort.Strings(names)。</p>
+<p class="calibre6">这里用到的技术很容易适用到其它排序序列中，例如我们可以忽略大些或者含有特殊的字符。（本书使用Go程序对索引词和页码进行排序也用到了这个技术，对罗马数字做了额外逻辑处理。）对于更复杂的排序，我们使用相同的方法，但是会用更复杂的数据结构和更复杂地实现sort.Interface的方法。</p>
+<p class="calibre6">我们会运行上面的例子来对一个表格中的音乐播放列表进行排序。每个track都是单独的一行，每一列都是这个track的属性像艺术家，标题，和运行时间。想象一个图形用户界面来呈现这个表格，并且点击一个属性的顶部会使这个列表按照这个属性进行排序；再一次点击相同属性的顶部会进行逆向排序。让我们看下每个点击会发生什么响应。</p>
+<p class="calibre6">下面的变量tracks包好了一个播放列表。（One of the authors apologizes for the other author’s musical tastes.）每个元素都不是Track本身而是指向它的指针。尽管我们在下面的代码中直接存储Tracks也可以工作，sort函数会交换很多对元素，所以如果每个元素都是指针会更快而不是全部Track类型，指针是一个机器字码长度而Track类型可能是八个或更多。</p>
+<p class="calibre6"><span class="calibre18"><i class="calibre13">gopl.io/ch7/sorting</i></span></p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">type</span> Track <span class="hljs-keyword">struct</span> {
+    Title  <span class="hljs-typename">string</span>
+    Artist <span class="hljs-typename">string</span>
+    Album  <span class="hljs-typename">string</span>
+    Year   <span class="hljs-typename">int</span>
+    Length time.Duration
+}
+
+<span class="hljs-keyword">var</span> tracks = []*Track{
+    {<span class="hljs-string">"Go"</span>, <span class="hljs-string">"Delilah"</span>, <span class="hljs-string">"From the Roots Up"</span>, <span class="hljs-number">2012</span>, length(<span class="hljs-string">"3m38s"</span>)},
+    {<span class="hljs-string">"Go"</span>, <span class="hljs-string">"Moby"</span>, <span class="hljs-string">"Moby"</span>, <span class="hljs-number">1992</span>, length(<span class="hljs-string">"3m37s"</span>)},
+    {<span class="hljs-string">"Go Ahead"</span>, <span class="hljs-string">"Alicia Keys"</span>, <span class="hljs-string">"As I Am"</span>, <span class="hljs-number">2007</span>, length(<span class="hljs-string">"4m36s"</span>)},
+    {<span class="hljs-string">"Ready 2 Go"</span>, <span class="hljs-string">"Martin Solveig"</span>, <span class="hljs-string">"Smash"</span>, <span class="hljs-number">2011</span>, length(<span class="hljs-string">"4m24s"</span>)},
+}
+
+<span class="hljs-keyword">func</span> length(s <span class="hljs-typename">string</span>) time.Duration {
+    d, err := time.ParseDuration(s)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-number">nil</span> {
+        <span class="hljs-number">panic</span>(s)
+    }
+    <span class="hljs-keyword">return</span> d
+}
+</code></pre>
+<p class="calibre6">printTracks函数将播放列表打印成一个表格。一个图形化的展示可能会更好点，但是这个小程序使用text/tabwriter包来生成一个列是整齐对齐和隔开的表格，像下面展示的这样。注意到*tabwriter.Writer是满足io.Writer接口的。它会收集每一片写向它的数据；它的Flush方法会格式化整个表格并且将它写向os.Stdout（标准输出）。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">func</span> printTracks(tracks []*Track) {
+    <span class="hljs-keyword">const</span> format = <span class="hljs-string">"%v\t%v\t%v\t%v\t%v\t\n"</span>
+    tw := <span class="hljs-number">new</span>(tabwriter.Writer).Init(os.Stdout, <span class="hljs-number">0</span>, <span class="hljs-number">8</span>, <span class="hljs-number">2</span>, <span class="hljs-string">' '</span>, <span class="hljs-number">0</span>)
+    fmt.Fprintf(tw, format, <span class="hljs-string">"Title"</span>, <span class="hljs-string">"Artist"</span>, <span class="hljs-string">"Album"</span>, <span class="hljs-string">"Year"</span>, <span class="hljs-string">"Length"</span>)
+    fmt.Fprintf(tw, format, <span class="hljs-string">"-----"</span>, <span class="hljs-string">"------"</span>, <span class="hljs-string">"-----"</span>, <span class="hljs-string">"----"</span>, <span class="hljs-string">"------"</span>)
+    <span class="hljs-keyword">for</span> _, t := <span class="hljs-keyword">range</span> tracks {
+        fmt.Fprintf(tw, format, t.Title, t.Artist, t.Album, t.Year, t.Length)
+    }
+    tw.Flush() <span class="hljs-comment">// calculate column widths and print table</span>
+}
+</code></pre>
+<p class="calibre6">为了能按照Artist字段对播放列表进行排序，我们会像对StringSlice那样定义一个新的带有必须Len，Less和Swap方法的切片类型。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">type</span> byArtist []*Track
+<span class="hljs-keyword">func</span> (x byArtist) Len() <span class="hljs-typename">int</span>           { <span class="hljs-keyword">return</span> <span class="hljs-number">len</span>(x) }
+<span class="hljs-keyword">func</span> (x byArtist) Less(i, j <span class="hljs-typename">int</span>) <span class="hljs-typename">bool</span> { <span class="hljs-keyword">return</span> x[i].Artist &lt; x[j].Artist }
+<span class="hljs-keyword">func</span> (x byArtist) Swap(i, j <span class="hljs-typename">int</span>)      { x[i], x[j] = x[j], x[i] }
+</code></pre>
+<p class="calibre6">为了调用通用的排序程序，我们必须先将tracks转换为新的byArtist类型，它定义了具体的排序：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">sort.Sort(byArtist(tracks))
+</code></pre>
+<p class="calibre6">在按照artist对这个切片进行排序后，printTrack的输出如下</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">Title       Artist          Album               Year Length
+-----       ------          -----               ---- ------
+Go Ahead    Alicia Keys     As I Am             2007 4m36s
+Go          Delilah         From the Roots Up   2012 3m38s
+Ready 2 Go  Martin Solveig  Smash               2011 4m24s
+Go          Moby            Moby                1992 3m37s
+</code></pre><p class="calibre6">如果用户第二次请求“按照artist排序”，我们会对tracks进行逆向排序。然而我们不需要定义一个有颠倒Less方法的新类型byReverseArtist，因为sort包中提供了Reverse函数将排序顺序转换成逆序。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">sort.Sort(sort.Reverse(byArtist(tracks)))
+</code></pre>
+<p class="calibre6">在按照artist对这个切片进行逆向排序后，printTrack的输出如下</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">Title       Artist          Album               Year Length
+-----       ------          -----               ---- ------
+Go          Moby            Moby                1992 3m37s
+Ready 2 Go  Martin Solveig  Smash               2011 4m24s
+Go          Delilah         From the Roots Up   2012 3m38s
+Go Ahead    Alicia Keys     As I Am             2007 4m36s
+</code></pre><p class="calibre6">sort.Reverse函数值得进行更近一步的学习因为它使用了(§6.3)章中的组合，这是一个重要的思路。sort包定义了一个不公开的struct类型reverse，它嵌入了一个sort.Interface。reverse的Less方法调用了内嵌的sort.Interface值的Less方法，但是通过交换索引的方式使排序结果变成逆序。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">package</span> sort
+
+<span class="hljs-keyword">type</span> reverse <span class="hljs-keyword">struct</span>{ Interface } <span class="hljs-comment">// that is, sort.Interface</span>
+
+<span class="hljs-keyword">func</span> (r reverse) Less(i, j <span class="hljs-typename">int</span>) <span class="hljs-typename">bool</span> { <span class="hljs-keyword">return</span> r.Interface.Less(j, i) }
+
+<span class="hljs-keyword">func</span> Reverse(data Interface) Interface { <span class="hljs-keyword">return</span> reverse{data} }
+</code></pre>
+<p class="calibre6">reverse的另外两个方法Len和Swap隐式地由原有内嵌的sort.Interface提供。因为reverse是一个不公开的类型，所以导出函数Reverse函数返回一个包含原有sort.Interface值的reverse类型实例。</p>
+<p class="calibre6">为了可以按照不同的列进行排序，我们必须定义一个新的类型例如byYear：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">type</span> byYear []*Track
+<span class="hljs-keyword">func</span> (x byYear) Len() <span class="hljs-typename">int</span>           { <span class="hljs-keyword">return</span> <span class="hljs-number">len</span>(x) }
+<span class="hljs-keyword">func</span> (x byYear) Less(i, j <span class="hljs-typename">int</span>) <span class="hljs-typename">bool</span> { <span class="hljs-keyword">return</span> x[i].Year &lt; x[j].Year }
+<span class="hljs-keyword">func</span> (x byYear) Swap(i, j <span class="hljs-typename">int</span>)      { x[i], x[j] = x[j], x[i] }
+</code></pre>
+<p class="calibre6">在使用sort.Sort(byYear(tracks))按照年对tracks进行排序后，printTrack展示了一个按时间先后顺序的列表：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">Title       Artist          Album               Year Length
+-----       ------          -----               ---- ------
+Go          Moby            Moby                1992 3m37s
+Go Ahead    Alicia Keys     As I Am             2007 4m36s
+Ready 2 Go  Martin Solveig  Smash               2011 4m24s
+Go          Delilah         From the Roots Up   2012 3m38s
+</code></pre><p class="calibre6">对于我们需要的每个切片元素类型和每个排序函数，我们需要定义一个新的sort.Interface实现。如你所见，Len和Swap方法对于所有的切片类型都有相同的定义。下个例子，具体的类型customSort会将一个切片和函数结合，使我们只需要写比较函数就可以定义一个新的排序。顺便说下，实现了sort.Interface的具体类型不一定是切片类型；customSort是一个结构体类型。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">type</span> customSort <span class="hljs-keyword">struct</span> {
+    t    []*Track
+    less <span class="hljs-keyword">func</span>(x, y *Track) <span class="hljs-typename">bool</span>
+}
+
+<span class="hljs-keyword">func</span> (x customSort) Len() <span class="hljs-typename">int</span>
+<span class="hljs-keyword">func</span> (x customSort) Less(i, j <span class="hljs-typename">int</span>) <span class="hljs-typename">bool</span> { <span class="hljs-keyword">return</span> x.less(x.t[i], x.t[j]) }
+<span class="hljs-keyword">func</span> (x customSort) Swap(i, j <span class="hljs-typename">int</span>)      { x.t[i], x.t[j] = x.t[j], x.t[i] }
+</code></pre>
+<p class="calibre6">让我们定义一个多层的排序函数，它主要的排序键是标题，第二个键是年，第三个键是运行时间Length。下面是该排序的调用，其中这个排序使用了匿名排序函数：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">sort.Sort(customSort{tracks, <span class="hljs-keyword">func</span>(x, y *Track) <span class="hljs-typename">bool</span> {
+    <span class="hljs-keyword">if</span> x.Title != y.Title {
+        <span class="hljs-keyword">return</span> x.Title &lt; y.Title
+    }
+    <span class="hljs-keyword">if</span> x.Year != y.Year {
+        <span class="hljs-keyword">return</span> x.Year &lt; y.Year
+    }
+    <span class="hljs-keyword">if</span> x.Length != y.Length {
+        <span class="hljs-keyword">return</span> x.Length &lt; y.Length
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-number">false</span>
+}})
+</code></pre>
+<p class="calibre6">这下面是排序的结果。注意到两个标题是“Go”的track按照标题排序是相同的顺序，但是在按照year排序上更久的那个track优先。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">Title       Artist          Album               Year Length
+-----       ------          -----               ---- ------
+Go          Moby            Moby                1992 3m37s
+Go          Delilah         From the Roots Up   2012 3m38s
+Go Ahead    Alicia Keys     As I Am             2007 4m36s
+Ready 2 Go  Martin Solveig  Smash               2011 4m24s
+</code></pre><p class="calibre6">尽管对长度为n的序列排序需要 O(n log n)次比较操作，检查一个序列是否已经有序至少需要n−1次比较。sort包中的IsSorted函数帮我们做这样的检查。像sort.Sort一样，它也使用sort.Interface对这个序列和它的排序函数进行抽象，但是它从不会调用Swap方法：这段代码示范了IntsAreSorted和Ints函数和IntSlice类型的使用：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">values := []<span class="hljs-typename">int</span>{<span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>}
+fmt.Println(sort.IntsAreSorted(values)) <span class="hljs-comment">// "false"</span>
+sort.Ints(values)
+fmt.Println(values)                     <span class="hljs-comment">// "[1 1 3 4]"</span>
+fmt.Println(sort.IntsAreSorted(values)) <span class="hljs-comment">// "true"</span>
+sort.Sort(sort.Reverse(sort.IntSlice(values)))
+fmt.Println(values)                     <span class="hljs-comment">// "[4 3 1 1]"</span>
+fmt.Println(sort.IntsAreSorted(values)) <span class="hljs-comment">// "false"</span>
+</code></pre>
+<p class="calibre6">为了使用方便，sort包为[]int,[]string和[]float64的正常排序提供了特定版本的函数和类型。对于其他类型，例如[]int64或者[]uint，尽管路径也很简单，还是依赖我们自己实现。</p>
+<p class="calibre6"><strong class="calibre19">练习 7.8：</strong> 很多图形界面提供了一个有状态的多重排序表格插件：主要的排序键是最近一次点击过列头的列，第二个排序键是第二最近点击过列头的列，等等。定义一个sort.Interface的实现用在这样的表格中。比较这个实现方式和重复使用sort.Stable来排序的方式。</p>
+<p class="calibre6"><strong class="calibre19">练习 7.9：</strong> 使用html/template包 (§4.6) 替代printTracks将tracks展示成一个HTML表格。将这个解决方案用在前一个练习中，让每次点击一个列的头部产生一个HTTP请求来排序这个表格。</p>
+<p class="calibre6"><strong class="calibre19">练习 7.10：</strong> sort.Interface类型也可以适用在其它地方。编写一个IsPalindrome(s sort.Interface) bool函数表明序列s是否是回文序列，换句话说反向排序不会改变这个序列。假设如果!s.Less(i, j) &amp;&amp; !s.Less(j, i)则索引i和j上的元素相等。</p>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

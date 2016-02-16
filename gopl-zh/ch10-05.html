@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>包的匿名导入 | Go语言圣经</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_97">包的匿名导入</h1>
+        
+            <div class="section" id="section-">
+            
+                <h2 id="105-包的匿名导入" class="calibre14">10.5. 包的匿名导入</h2>
+<p class="calibre6">如果只是导入一个包而并不使用导入的包将会导致一个编译错误。但是有时候我们只是想利用导入包而产生的副作用：它会计算包级变量的初始化表达式和执行导入包的init初始化函数（§2.6.2）。这时候我们需要抑制“unused import”编译错误，我们可以用下划线<code class="calibre12 pcalibre5 pcalibre6">_</code>来重命名导入的包。像往常一样，下划线<code class="calibre12 pcalibre5 pcalibre6">_</code>为空白标识符，并不能被访问。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">import</span> _ <span class="hljs-string">"image/png"</span> <span class="hljs-comment">// register PNG decoder</span>
+</code></pre>
+<p class="calibre6">这个被称为包的匿名导入。它通常是用来实现一个编译时机制，然后通过在main主程序入口选择性地导入附加的包。首先，让我们看看如何使用该特性，然后再看看它是如何工作的。</p>
+<p class="calibre6">标准库的image图像包包含了一个<code class="calibre12 pcalibre5 pcalibre6">Decode</code>函数，用于从<code class="calibre12 pcalibre5 pcalibre6">io.Reader</code>接口读取数据并解码图像，它调用底层注册的图像解码器来完成任务，然后返回image.Image类型的图像。使用<code class="calibre12 pcalibre5 pcalibre6">image.Decode</code>很容易编写一个图像格式的转换工具，读取一种格式的图像，然后编码为另一种图像格式：</p>
+<p class="calibre6"><span class="calibre18"><i class="calibre13">gopl.io/ch10/jpeg</i></span></p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-comment">// The jpeg command reads a PNG image from the standard input</span>
+<span class="hljs-comment">// and writes it as a JPEG image to the standard output.</span>
+<span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">"fmt"</span>
+    <span class="hljs-string">"image"</span>
+    <span class="hljs-string">"image/jpeg"</span>
+    _ <span class="hljs-string">"image/png"</span> <span class="hljs-comment">// register PNG decoder</span>
+    <span class="hljs-string">"io"</span>
+    <span class="hljs-string">"os"</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">if</span> err := toJPEG(os.Stdin, os.Stdout); err != <span class="hljs-number">nil</span> {
+        fmt.Fprintf(os.Stderr, <span class="hljs-string">"jpeg: %v\n"</span>, err)
+        os.Exit(<span class="hljs-number">1</span>)
+    }
+}
+
+<span class="hljs-keyword">func</span> toJPEG(in io.Reader, out io.Writer) error {
+    img, kind, err := image.Decode(in)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-number">nil</span> {
+        <span class="hljs-keyword">return</span> err
+    }
+    fmt.Fprintln(os.Stderr, <span class="hljs-string">"Input format ="</span>, kind)
+    <span class="hljs-keyword">return</span> jpeg.Encode(out, img, &amp;jpeg.Options{Quality: <span class="hljs-number">95</span>})
+}
+</code></pre>
+<p class="calibre6">如果我们将<code class="calibre12 pcalibre5 pcalibre6">gopl.io/ch3/mandelbrot</code>（§3.3）的输出导入到这个程序的标准输入，它将解码输入的PNG格式图像，然后转换为JPEG格式的图像输出（图3.3）。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">$ go build gopl.io/ch3/mandelbrot
+$ go build gopl.io/ch10/jpeg
+$ ./mandelbrot | ./jpeg &gt;mandelbrot.jpg
+Input format = png
+</code></pre><p class="calibre6">要注意image/png包的匿名导入语句。如果没有这一行语句，程序依然可以编译和运行，但是它将不能正确识别和解码PNG格式的图像：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">$ go build gopl.io/ch10/jpeg
+$ ./mandelbrot | ./jpeg &gt;mandelbrot.jpg
+jpeg: image: unknown format
+</code></pre><p class="calibre6">下面的代码演示了它的工作机制。标准库还提供了GIF、PNG和JPEG等格式图像的解码器，用户也可以提供自己的解码器，但是为了保持程序体积较小，很多解码器并没有被全部包含，除非是明确需要支持的格式。image.Decode函数在解码时会依次查询支持的格式列表。每个格式驱动列表的每个入口指定了四件事情：格式的名称；一个用于描述这种图像数据开头部分模式的字符串，用于解码器检测识别；一个Decode函数用于完成解码图像工作；一个DecodeConfig函数用于解码图像的大小和颜色空间的信息。每个驱动入口是通过调用image.RegisterFormat函数注册，一般是在每个格式包的init初始化函数中调用，例如image/png包是这样注册的：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">package</span> png <span class="hljs-comment">// image/png</span>
+
+<span class="hljs-keyword">func</span> Decode(r io.Reader) (image.Image, error)
+<span class="hljs-keyword">func</span> DecodeConfig(r io.Reader) (image.Config, error)
+
+<span class="hljs-keyword">func</span> init() {
+    <span class="hljs-keyword">const</span> pngHeader = <span class="hljs-string">"\x89PNG\r\n\x1a\n"</span>
+    image.RegisterFormat(<span class="hljs-string">"png"</span>, pngHeader, Decode, DecodeConfig)
+}
+</code></pre>
+<p class="calibre6">最终的效果是，主程序只需要匿名导入特定图像驱动包就可以用image.Decode解码对应格式的图像了。</p>
+<p class="calibre6">数据库包database/sql也是采用了类似的技术，让用户可以根据自己需要选择导入必要的数据库驱动。例如：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">import</span> (
+    <span class="hljs-string">"database/sql"</span>
+    _ <span class="hljs-string">"github.com/lib/pq"</span>              <span class="hljs-comment">// enable support for Postgres</span>
+    _ <span class="hljs-string">"github.com/go-sql-driver/mysql"</span> <span class="hljs-comment">// enable support for MySQL</span>
+)
+
+db, err = sql.Open(<span class="hljs-string">"postgres"</span>, dbname) <span class="hljs-comment">// OK</span>
+db, err = sql.Open(<span class="hljs-string">"mysql"</span>, dbname)    <span class="hljs-comment">// OK</span>
+db, err = sql.Open(<span class="hljs-string">"sqlite3"</span>, dbname)  <span class="hljs-comment">// returns error: unknown driver "sqlite3"</span>
+</code></pre>
+<p class="calibre6"><strong class="calibre19">练习 10.1：</strong> 扩展jpeg程序，以支持任意图像格式之间的相互转换，使用image.Decode检测支持的格式类型，然后通过flag命令行标志参数选择输出的格式。</p>
+<p class="calibre6"><strong class="calibre19">练习 10.2：</strong> 设计一个通用的压缩文件读取框架，用来读取ZIP（archive/zip）和POSIX tar（archive/tar）格式压缩的文档。使用类似上面的注册技术来扩展支持不同的压缩格式，然后根据需要通过匿名导入选择导入要支持的压缩格式的驱动包。</p>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

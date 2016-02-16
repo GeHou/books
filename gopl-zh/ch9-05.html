@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>sync.Once初始化 | Go语言圣经</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_88">sync.Once初始化</h1>
+        
+            <div class="section" id="section-">
+            
+                <h2 id="95-synconce初始化" class="calibre14">9.5. sync.Once初始化</h2>
+<p class="calibre6">如果初始化成本比较大的话，那么将初始化延迟到需要的时候再去做就是一个比较好的选择。如果在程序启动的时候就去做这类的初始化的话会增加程序的启动时间并且因为执行的时候可能也并不需要这些变量所以实际上有一些浪费。让我们在本章早一些时候看到的icons变量：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">var</span> icons <span class="hljs-keyword">map</span>[<span class="hljs-typename">string</span>]image.Image
+</code></pre>
+<p class="calibre6">这个版本的Icon用到了懒初始化(lazy initialization)。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">func</span> loadIcons() {
+    icons = <span class="hljs-keyword">map</span>[<span class="hljs-typename">string</span>]image.Image{
+        <span class="hljs-string">"spades.png"</span>:   loadIcon(<span class="hljs-string">"spades.png"</span>),
+        <span class="hljs-string">"hearts.png"</span>:   loadIcon(<span class="hljs-string">"hearts.png"</span>),
+        <span class="hljs-string">"diamonds.png"</span>: loadIcon(<span class="hljs-string">"diamonds.png"</span>),
+        <span class="hljs-string">"clubs.png"</span>:    loadIcon(<span class="hljs-string">"clubs.png"</span>),
+    }
+}
+
+<span class="hljs-comment">// <span class="hljs-typename">NOTE:</span> not concurrency-safe!</span>
+<span class="hljs-keyword">func</span> Icon(name <span class="hljs-typename">string</span>) image.Image {
+    <span class="hljs-keyword">if</span> icons == <span class="hljs-number">nil</span> {
+        loadIcons() <span class="hljs-comment">// one-time initialization</span>
+    }
+    <span class="hljs-keyword">return</span> icons[name]
+}
+</code></pre>
+<p class="calibre6">如果一个变量只被一个单独的goroutine所访问的话，我们可以使用上面的这种模板，但这种模板在Icon被并发调用时并不安全。就像前面银行的那个Deposit(存款)函数一样，Icon函数也是由多个步骤组成的：首先测试icons是否为空，然后load这些icons，之后将icons更新为一个非空的值。直觉会告诉我们最差的情况是loadIcons函数被多次访问会带来数据竞争。当第一个goroutine在忙着loading这些icons的时候，另一个goroutine进入了Icon函数，发现变量是nil，然后也会调用loadIcons函数。</p>
+<p class="calibre6">不过这种直觉是错误的。(我们希望现在你从现在开始能够构建自己对并发的直觉，也就是说对并发的直觉总是不能被信任的！)回忆一下9.4节。因为缺少显式的同步，编译器和CPU是可以随意地去更改访问内存的指令顺序，以任意方式，只要保证每一个goroutine自己的执行顺序一致。其中一种可能loadIcons的语句重排是下面这样。它会在填写icons变量的值之前先用一个空map来初始化icons变量。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">func</span> loadIcons() {
+    icons = <span class="hljs-number">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-typename">string</span>]image.Image)
+    icons[<span class="hljs-string">"spades.png"</span>] = loadIcon(<span class="hljs-string">"spades.png"</span>)
+    icons[<span class="hljs-string">"hearts.png"</span>] = loadIcon(<span class="hljs-string">"hearts.png"</span>)
+    icons[<span class="hljs-string">"diamonds.png"</span>] = loadIcon(<span class="hljs-string">"diamonds.png"</span>)
+    icons[<span class="hljs-string">"clubs.png"</span>] = loadIcon(<span class="hljs-string">"clubs.png"</span>)
+}
+</code></pre>
+<p class="calibre6">因此，一个goroutine在检查icons是非空时，也并不能就假设这个变量的初始化流程已经走完了(译注：可能只是塞了个空map，里面的值还没填完，也就是说填值的语句都没执行完呢)。</p>
+<p class="calibre6">最简单且正确的保证所有goroutine能够观察到loadIcons效果的方式，是用一个mutex来同步检查。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">var</span> mu sync.Mutex <span class="hljs-comment">// guards icons</span>
+<span class="hljs-keyword">var</span> icons <span class="hljs-keyword">map</span>[<span class="hljs-typename">string</span>]image.Image
+
+<span class="hljs-comment">// Concurrency-safe.</span>
+<span class="hljs-keyword">func</span> Icon(name <span class="hljs-typename">string</span>) image.Image {
+    mu.Lock()
+    <span class="hljs-keyword">defer</span> mu.Unlock()
+    <span class="hljs-keyword">if</span> icons == <span class="hljs-number">nil</span> {
+        loadIcons()
+    }
+    <span class="hljs-keyword">return</span> icons[name]
+}
+</code></pre>
+<p class="calibre6">然而使用互斥访问icons的代价就是没有办法对该变量进行并发访问，即使变量已经被初始化完毕且再也不会进行变动。这里我们可以引入一个允许多读的锁：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">var</span> mu sync.RWMutex <span class="hljs-comment">// guards icons</span>
+<span class="hljs-keyword">var</span> icons <span class="hljs-keyword">map</span>[<span class="hljs-typename">string</span>]image.Image
+<span class="hljs-comment">// Concurrency-safe.</span>
+<span class="hljs-keyword">func</span> Icon(name <span class="hljs-typename">string</span>) image.Image {
+    mu.RLock()
+    <span class="hljs-keyword">if</span> icons != <span class="hljs-number">nil</span> {
+        icon := icons[name]
+        mu.RUnlock()
+        <span class="hljs-keyword">return</span> icon
+    }
+    mu.RUnlock()
+
+    <span class="hljs-comment">// acquire an exclusive lock</span>
+    mu.Lock()
+    <span class="hljs-keyword">if</span> icons == <span class="hljs-number">nil</span> { <span class="hljs-comment">// <span class="hljs-typename">NOTE:</span> must recheck for nil</span>
+        loadIcons()
+    }
+    icon := icons[name]
+    mu.Unlock()
+    <span class="hljs-keyword">return</span> icon
+}
+</code></pre>
+<p class="calibre6">上面的代码有两个临界区。goroutine首先会获取一个写锁，查询map，然后释放锁。如果条目被找到了(一般情况下)，那么会直接返回。如果没有找到，那goroutine会获取一个写锁。不释放共享锁的话，也没有任何办法来将一个共享锁升级为一个互斥锁，所以我们必须重新检查icons变量是否为nil，以防止在执行这一段代码的时候，icons变量已经被其它gorouine初始化过了。</p>
+<p class="calibre6">上面的模板使我们的程序能够更好的并发，但是有一点太复杂且容易出错。幸运的是，sync包为我们提供了一个专门的方案来解决这种一次性初始化的问题：sync.Once。概念上来讲，一次性的初始化需要一个互斥量mutex和一个boolean变量来记录初始化是不是已经完成了；互斥量用来保护boolean变量和客户端数据结构。Do这个唯一的方法需要接收初始化函数作为其参数。让我们用sync.Once来简化前面的Icon函数吧：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">var</span> loadIconsOnce sync.Once
+<span class="hljs-keyword">var</span> icons <span class="hljs-keyword">map</span>[<span class="hljs-typename">string</span>]image.Image
+<span class="hljs-comment">// Concurrency-safe.</span>
+<span class="hljs-keyword">func</span> Icon(name <span class="hljs-typename">string</span>) image.Image {
+    loadIconsOnce.Do(loadIcons)
+    <span class="hljs-keyword">return</span> icons[name]
+}
+</code></pre>
+<p class="calibre6">每一次对Do(loadIcons)的调用都会锁定mutex，并会检查boolean变量。在第一次调用时，变量的值是false，Do会调用loadIcons并会将boolean设置为true。随后的调用什么都不会做，但是mutex同步会保证loadIcons对内存(这里其实就是指icons变量啦)产生的效果能够对所有goroutine可见。用这种方式来使用sync.Once的话，我们能够避免在变量被构建完成之前和其它goroutine共享该变量。</p>
+<p class="calibre6"><strong class="calibre19">练习 9.2：</strong> 重写2.6.2节中的PopCount的例子，使用sync.Once，只在第一次需要用到的时候进行初始化。(虽然实际上，对PopCount这样很小且高度优化的函数进行同步可能代价没法接受)</p>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

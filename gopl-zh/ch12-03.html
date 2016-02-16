@@ -1,0 +1,207 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>Display递归打印 | Go语言圣经</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_110">Display递归打印</h1>
+        
+            <div class="section" id="section-">
+            
+                <h2 id="123-display递归打印" class="calibre14">12.3. Display递归打印</h2>
+<p class="calibre6">接下来，让我们看看如何改善聚合数据类型的显示。我们并不想完全克隆一个fmt.Sprint函数，我们只是像构建一个用于调式用的Display函数，给定一个聚合类型x，打印这个值对应的完整的结构，同时记录每个发现的每个元素的路径。让我们从一个例子开始。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">e, _ := eval.Parse(<span class="hljs-string">"sqrt(A / pi)"</span>)
+Display(<span class="hljs-string">"e"</span>, e)
+</code></pre>
+<p class="calibre6">在上面的调用中，传入Display函数的参数是在7.9节一个表达式求值函数返回的语法树。Display函数的输出如下：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">Display e (eval.call):
+e.fn = <span class="hljs-string">"sqrt"</span>
+e.args[<span class="hljs-number">0</span>].<span class="hljs-keyword">type</span> = eval.binary
+e.args[<span class="hljs-number">0</span>].value.op = <span class="hljs-number">47</span>
+e.args[<span class="hljs-number">0</span>].value.x.<span class="hljs-keyword">type</span> = eval.Var
+e.args[<span class="hljs-number">0</span>].value.x.value = <span class="hljs-string">"A"</span>
+e.args[<span class="hljs-number">0</span>].value.y.<span class="hljs-keyword">type</span> = eval.Var
+e.args[<span class="hljs-number">0</span>].value.y.value = <span class="hljs-string">"pi"</span>
+</code></pre>
+<p class="calibre6">在可能的情况下，你应该避免在一个包中暴露和反射相关的接口。我们将定义一个未导出的display函数用于递归处理工作，导出的是Display函数，它只是display函数简单的包装以接受interface{}类型的参数：</p>
+<p class="calibre6"><span class="calibre18"><i class="calibre13">gopl.io/ch12/display</i></span></p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">func</span> Display(name <span class="hljs-typename">string</span>, x <span class="hljs-keyword">interface</span>{}) {
+    fmt.Printf(<span class="hljs-string">"Display %s (%T):\n"</span>, name, x)
+    display(name, reflect.ValueOf(x))
+}
+</code></pre>
+<p class="calibre6">在display函数中，我们使用了前面定义的打印基础类型——基本类型、函数和chan等——元素值的formatAtom函数，但是我们会使用reflect.Value的方法来递归显示聚合类型的每一个成员或元素。在递归下降过程中，path字符串，从最开始传入的起始值（这里是“e”），将逐步增长以表示如何达到当前值（例如“e.args[0].value”）。</p>
+<p class="calibre6">因为我们不再模拟fmt.Sprint函数，我们将直接使用fmt包来简化我们的例子实现。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">func</span> display(path <span class="hljs-typename">string</span>, v reflect.Value) {
+    <span class="hljs-keyword">switch</span> v.Kind() {
+    <span class="hljs-keyword">case</span> reflect.Invalid:
+        fmt.Printf(<span class="hljs-string">"%s = invalid\n"</span>, path)
+    <span class="hljs-keyword">case</span> reflect.Slice, reflect.Array:
+        <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; v.Len(); i++ {
+            display(fmt.Sprintf(<span class="hljs-string">"%s[%d]"</span>, path, i), v.Index(i))
+        }
+    <span class="hljs-keyword">case</span> reflect.Struct:
+        <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; v.NumField(); i++ {
+            fieldPath := fmt.Sprintf(<span class="hljs-string">"%s.%s"</span>, path, v.Type().Field(i).Name)
+            display(fieldPath, v.Field(i))
+        }
+    <span class="hljs-keyword">case</span> reflect.Map:
+        <span class="hljs-keyword">for</span> _, key := <span class="hljs-keyword">range</span> v.MapKeys() {
+            display(fmt.Sprintf(<span class="hljs-string">"%s[%s]"</span>, path,
+                formatAtom(key)), v.MapIndex(key))
+        }
+    <span class="hljs-keyword">case</span> reflect.Ptr:
+        <span class="hljs-keyword">if</span> v.IsNil() {
+            fmt.Printf(<span class="hljs-string">"%s = nil\n"</span>, path)
+        } <span class="hljs-keyword">else</span> {
+            display(fmt.Sprintf(<span class="hljs-string">"(*%s)"</span>, path), v.Elem())
+        }
+    <span class="hljs-keyword">case</span> reflect.Interface:
+        <span class="hljs-keyword">if</span> v.IsNil() {
+            fmt.Printf(<span class="hljs-string">"%s = nil\n"</span>, path)
+        } <span class="hljs-keyword">else</span> {
+            fmt.Printf(<span class="hljs-string">"%s.type = %s\n"</span>, path, v.Elem().Type())
+            display(path+<span class="hljs-string">".value"</span>, v.Elem())
+        }
+    <span class="hljs-keyword">default</span>: <span class="hljs-comment">// basic types, channels, funcs</span>
+        fmt.Printf(<span class="hljs-string">"%s = %s\n"</span>, path, formatAtom(v))
+    }
+}
+</code></pre>
+<p class="calibre6">让我们针对不同类型分别讨论。</p>
+<p class="calibre6"><strong class="calibre19">Slice和数组：</strong> 两种的处理逻辑是一样的。Len方法返回slice或数组值中的元素个数，Index(i)活动索引i对应的元素，返回的也是一个reflect.Value类型的值；如果索引i超出范围的话将导致panic异常，这些行为和数组或slice类型内建的len(a)和a[i]等操作类似。display针对序列中的每个元素递归调用自身处理，我们通过在递归处理时向path附加“[i]”来表示访问路径。</p>
+<p class="calibre6">虽然reflect.Value类型带有很多方法，但是只有少数的方法对任意值都是可以安全调用的。例如，Index方法只能对Slice、数组或字符串类型的值调用，其它类型如果调用将导致panic异常。</p>
+<p class="calibre6"><strong class="calibre19">结构体：</strong> NumField方法报告结构体中成员的数量，Field(i)以reflect.Value类型返回第i个成员的值。成员列表包含了匿名成员在内的全部成员。通过在path添加“.f”来表示成员路径，我们必须获得结构体对应的reflect.Type类型信息，包含结构体类型和第i个成员的名字。</p>
+<p class="calibre6"><strong class="calibre19">Maps:</strong> MapKeys方法返回一个reflect.Value类型的slice，每一个都对应map的可以。和往常一样，遍历map时顺序是随机的。MapIndex(key)返回map中key对应的value。我们向path添加“[key]”来表示访问路径。（我们这里有一个未完成的工作。其实map的key的类型并不局限于formatAtom能完美处理的类型；数组、结构体和接口都可以作为map的key。针对这种类型，完善key的显示信息是练习12.1的任务。）</p>
+<p class="calibre6"><strong class="calibre19">指针：</strong> Elem方法返回指针指向的变量，还是reflect.Value类型。技术指针是nil，这个操作也是安全的，在这种情况下指针是Invalid无效类型，但是我们可以用IsNil方法来显式地测试一个空指针，这样我们可以打印更合适的信息。我们在path前面添加“*”，并用括弧包含以避免歧义。</p>
+<p class="calibre6"><strong class="calibre19">接口：</strong> 再一次，我们使用IsNil方法来测试接口是否是nil，如果不是，我们可以调用v.Elem()来获取接口对应的动态值，并且打印对应的类型和值。</p>
+<p class="calibre6">现在我们的Display函数总算完工了，让我们看看它的表现吧。下面的Movie类型是在4.5节的电影类型上演变来的：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">type</span> Movie <span class="hljs-keyword">struct</span> {
+    Title, Subtitle <span class="hljs-typename">string</span>
+    Year            <span class="hljs-typename">int</span>
+    Color           <span class="hljs-typename">bool</span>
+    Actor           <span class="hljs-keyword">map</span>[<span class="hljs-typename">string</span>]<span class="hljs-typename">string</span>
+    Oscars          []<span class="hljs-typename">string</span>
+    Sequel          *<span class="hljs-typename">string</span>
+}
+</code></pre>
+<p class="calibre6">让我们声明一个该类型的变量，然后看看Display函数如何显示它：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">strangelove := Movie{
+    Title:    <span class="hljs-string">"Dr. Strangelove"</span>,
+    Subtitle: <span class="hljs-string">"How I Learned to Stop Worrying and Love the Bomb"</span>,
+    Year:     <span class="hljs-number">1964</span>,
+    Color:    <span class="hljs-number">false</span>,
+    Actor: <span class="hljs-keyword">map</span>[<span class="hljs-typename">string</span>]<span class="hljs-typename">string</span>{
+        <span class="hljs-string">"Dr. Strangelove"</span>:            <span class="hljs-string">"Peter Sellers"</span>,
+        <span class="hljs-string">"Grp. Capt. Lionel Mandrake"</span>: <span class="hljs-string">"Peter Sellers"</span>,
+        <span class="hljs-string">"Pres. Merkin Muffley"</span>:       <span class="hljs-string">"Peter Sellers"</span>,
+        <span class="hljs-string">"Gen. Buck Turgidson"</span>:        <span class="hljs-string">"George C. Scott"</span>,
+        <span class="hljs-string">"Brig. Gen. Jack D. Ripper"</span>:  <span class="hljs-string">"Sterling Hayden"</span>,
+        <span class="hljs-string">`Maj. T.J. "King" Kong`</span>:      <span class="hljs-string">"Slim Pickens"</span>,
+    },
+
+    Oscars: []<span class="hljs-typename">string</span>{
+        <span class="hljs-string">"Best Actor (Nomin.)"</span>,
+        <span class="hljs-string">"Best Adapted Screenplay (Nomin.)"</span>,
+        <span class="hljs-string">"Best Director (Nomin.)"</span>,
+        <span class="hljs-string">"Best Picture (Nomin.)"</span>,
+    },
+}
+</code></pre>
+<p class="calibre6">Display("strangelove", strangelove)调用将显示（strangelove电影对应的中文名是《奇爱博士》）：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">Display strangelove (display.Movie):
+strangelove.Title = <span class="hljs-string">"Dr. Strangelove"</span>
+strangelove.Subtitle = <span class="hljs-string">"How I Learned to Stop Worrying and Love the Bomb"</span>
+strangelove.Year = <span class="hljs-number">1964</span>
+strangelove.Color = <span class="hljs-number">false</span>
+strangelove.Actor[<span class="hljs-string">"Gen. Buck Turgidson"</span>] = <span class="hljs-string">"George C. Scott"</span>
+strangelove.Actor[<span class="hljs-string">"Brig. Gen. Jack D. Ripper"</span>] = <span class="hljs-string">"Sterling Hayden"</span>
+strangelove.Actor[<span class="hljs-string">"Maj. T.J. \"King\" Kong"</span>] = <span class="hljs-string">"Slim Pickens"</span>
+strangelove.Actor[<span class="hljs-string">"Dr. Strangelove"</span>] = <span class="hljs-string">"Peter Sellers"</span>
+strangelove.Actor[<span class="hljs-string">"Grp. Capt. Lionel Mandrake"</span>] = <span class="hljs-string">"Peter Sellers"</span>
+strangelove.Actor[<span class="hljs-string">"Pres. Merkin Muffley"</span>] = <span class="hljs-string">"Peter Sellers"</span>
+strangelove.Oscars[<span class="hljs-number">0</span>] = <span class="hljs-string">"Best Actor (Nomin.)"</span>
+strangelove.Oscars[<span class="hljs-number">1</span>] = <span class="hljs-string">"Best Adapted Screenplay (Nomin.)"</span>
+strangelove.Oscars[<span class="hljs-number">2</span>] = <span class="hljs-string">"Best Director (Nomin.)"</span>
+strangelove.Oscars[<span class="hljs-number">3</span>] = <span class="hljs-string">"Best Picture (Nomin.)"</span>
+strangelove.Sequel = <span class="hljs-number">nil</span>
+</code></pre>
+<p class="calibre6">我们也可以使用Display函数来显示标准库中类型的内部结构，例如<code class="calibre12 pcalibre5 pcalibre6">*os.File</code>类型：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">Display(<span class="hljs-string">"os.Stderr"</span>, os.Stderr)
+<span class="hljs-comment">// Output:</span>
+<span class="hljs-comment">// Display os.Stderr (*os.File):</span>
+<span class="hljs-comment">// (*(*os.Stderr).file).fd = 2</span>
+<span class="hljs-comment">// (*(*os.Stderr).file).name = "/dev/stderr"</span>
+<span class="hljs-comment">// (*(*os.Stderr).file).nepipe = 0</span>
+</code></pre>
+<p class="calibre6">要注意的是，结构体中未导出的成员对反射也是可见的。需要当心的是这个例子的输出在不同操作系统上可能是不同的，并且随着标准库的发展也可能导致结果不同。（这也是将这些成员定义为私有成员的原因之一！）我们深圳可以用Display函数来显示reflect.Value，来查看<code class="calibre12 pcalibre5 pcalibre6">*os.File</code>类型的内部表示方式。<code class="calibre12 pcalibre5 pcalibre6">Display("rV",  reflect.ValueOf(os.Stderr))</code>调用的输出如下，当然不同环境得到的结果可能有差异：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">Display rV (reflect.Value):
+(*rV.typ).size = <span class="hljs-number">8</span>
+(*rV.typ).hash = <span class="hljs-number">871609668</span>
+(*rV.typ).align = <span class="hljs-number">8</span>
+(*rV.typ).fieldAlign = <span class="hljs-number">8</span>
+(*rV.typ).kind = <span class="hljs-number">22</span>
+(*(*rV.typ).<span class="hljs-typename">string</span>) = <span class="hljs-string">"*os.File"</span>
+
+(*(*(*rV.typ).uncommonType).methods[<span class="hljs-number">0</span>].name) = <span class="hljs-string">"Chdir"</span>
+(*(*(*(*rV.typ).uncommonType).methods[<span class="hljs-number">0</span>].mtyp).<span class="hljs-typename">string</span>) = <span class="hljs-string">"func() error"</span>
+(*(*(*(*rV.typ).uncommonType).methods[<span class="hljs-number">0</span>].typ).<span class="hljs-typename">string</span>) = <span class="hljs-string">"func(*os.File) error"</span>
+...
+</code></pre>
+<p class="calibre6">观察下面两个例子的区别：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">var</span> i <span class="hljs-keyword">interface</span>{} = <span class="hljs-number">3</span>
+
+Display(<span class="hljs-string">"i"</span>, i)
+<span class="hljs-comment">// Output:</span>
+<span class="hljs-comment">// Display i (int):</span>
+<span class="hljs-comment">// i = 3</span>
+
+Display(<span class="hljs-string">"&amp;i"</span>, &amp;i)
+<span class="hljs-comment">// Output:</span>
+<span class="hljs-comment">// Display &amp;i (*interface {}):</span>
+<span class="hljs-comment">// (*&amp;i).type = int</span>
+<span class="hljs-comment">// (*&amp;i).value = 3</span>
+</code></pre>
+<p class="calibre6">在第一个例子中，Display函数将调用reflect.ValueOf(i)，它返回一个Int类型的值。正如我们在12.2节中提到的，reflect.ValueOf总是返回一个值的具体类型，因为它是从一个接口值提取的内容。</p>
+<p class="calibre6">在第二个例子中，Display函数调用的是reflect.ValueOf(&amp;i)，它返回一个指向i的指针，对应Ptr类型。在switch的Ptr分支中，通过调用Elem来返回这个值，返回一个Value来表示i，对应Interface类型。一个间接获得的Value，就像这一个，可能代表任意类型的值，包括接口类型。内部的display函数递归调用自身，这次它将打印接口的动态类型和值。</p>
+<p class="calibre6">目前的实现，Display如果显示一个带环的数据结构将会陷入死循环，例如首位项链的链表：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-comment">// a struct that points to itself</span>
+<span class="hljs-keyword">type</span> Cycle <span class="hljs-keyword">struct</span>{ Value <span class="hljs-typename">int</span>; Tail *Cycle }
+<span class="hljs-keyword">var</span> c Cycle
+c = Cycle{<span class="hljs-number">42</span>, &amp;c}
+Display(<span class="hljs-string">"c"</span>, c)
+</code></pre>
+<p class="calibre6">Display会永远不停地进行深度递归打印：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">Display c (display.Cycle):
+c.Value = <span class="hljs-number">42</span>
+(*c.Tail).Value = <span class="hljs-number">42</span>
+(*(*c.Tail).Tail).Value = <span class="hljs-number">42</span>
+(*(*(*c.Tail).Tail).Tail).Value = <span class="hljs-number">42</span>
+...ad infinitum...
+</code></pre>
+<p class="calibre6">许多Go语言程序都包含了一些循环的数据结果。Display支持这类带环的数据结构是比较棘手的，需要增加一个额外的记录访问的路径；代价是昂贵的。一般的解决方案是采用不安全的语言特性，我们将在13.3节看到具体的解决方案。</p>
+<p class="calibre6">带环的数据结构很少会对fmt.Sprint函数造成问题，因为它很少尝试打印完整的数据结构。例如，当它遇到一个指针的时候，它只是简单第打印指针的数值。虽然，在打印包含自身的slice或map时可能遇到困难，但是不保证处理这种是罕见情况却可以避免额外的麻烦。</p>
+<p class="calibre6"><strong class="calibre19">练习 12.1：</strong> 扩展Displayhans，以便它可以显示包含以结构体或数组作为map的key类型的值。</p>
+<p class="calibre6"><strong class="calibre19">练习 12.2：</strong> 增强display函数的稳健性，通过记录边界的步数来确保在超出一定限制前放弃递归。（在13.3节，我们会看到另一种探测数据结构是否存在环的技术。）</p>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

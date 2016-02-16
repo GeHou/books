@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>reflect.Type和reflect.Value | Go语言圣经</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_109">reflect.Type和reflect.Value</h1>
+        
+            <div class="section" id="section-">
+            
+                <h2 id="122-reflecttype和reflectvalue" class="calibre14">12.2. reflect.Type和reflect.Value</h2>
+<p class="calibre6">反射是由 reflect 包提供支持. 它定义了两个重要的类型, Type 和 Value. 一个 Type 表示一个Go类型. 它是一个接口, 有许多方法来区分类型和检查它们的组件, 例如一个结构体的成员或一个函数的参数等. 唯一能反映 reflect.Type 实现的是接口的类型描述信息(§7.5), 同样的实体标识了动态类型的接口值.</p>
+<p class="calibre6">函数 reflect.TypeOf 接受任意的 interface{} 类型, 并返回对应动态类型的reflect.Type:</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">t := reflect.TypeOf(<span class="hljs-number">3</span>)  <span class="hljs-comment">// a reflect.Type</span>
+fmt.Println(t.String()) <span class="hljs-comment">// "int"</span>
+fmt.Println(t)          <span class="hljs-comment">// "int"</span>
+</code></pre>
+<p class="calibre6">其中 TypeOf(3) 调用将值 3 作为 interface{} 类型参数传入. 回到 7.5节 的将一个具体的值转为接口类型会有一个隐式的接口转换操作, 它会创建一个包含两个信息的接口值: 操作数的动态类型(这里是int)和它的动态的值(这里是3).</p>
+<p class="calibre6">因为 reflect.TypeOf 返回的是一个动态类型的接口值, 它总是返回具体的类型. 因此, 下面的代码将打印 "*os.File" 而不是 "io.Writer". 稍后, 我们将看到 reflect.Type 是具有识别接口类型的表达方式功能的.</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">var</span> w io.Writer = os.Stdout
+fmt.Println(reflect.TypeOf(w)) <span class="hljs-comment">// "*os.File"</span>
+</code></pre>
+<p class="calibre6">要注意的是 reflect.Type 接口是满足 fmt.Stringer 接口的. 因为打印动态类型值对于调试和日志是有帮助的, fmt.Printf 提供了一个简短的 %T 标志参数, 内部使用 reflect.TypeOf 的结果输出:</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">fmt.Printf(<span class="hljs-string">"%T\n"</span>, <span class="hljs-number">3</span>) <span class="hljs-comment">// "int"</span>
+</code></pre>
+<p class="calibre6">reflect 包中另一个重要的类型是 Value. 一个 reflect.Value 可以持有一个任意类型的值. 函数 reflect.ValueOf 接受任意的 interface{} 类型, 并返回对应动态类型的reflect.Value. 和 reflect.TypeOf 类似, reflect.ValueOf 返回的结果也是对于具体的类型, 但是 reflect.Value 也可以持有一个接口值.</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">v := reflect.ValueOf(<span class="hljs-number">3</span>) <span class="hljs-comment">// a reflect.Value</span>
+fmt.Println(v)          <span class="hljs-comment">// "3"</span>
+fmt.Printf(<span class="hljs-string">"%v\n"</span>, v)   <span class="hljs-comment">// "3"</span>
+fmt.Println(v.String()) <span class="hljs-comment">// <span class="hljs-typename">NOTE:</span> "&lt;int Value&gt;"</span>
+</code></pre>
+<p class="calibre6">和 reflect.Type 类似, reflect.Value 也满足 fmt.Stringer 接口, 但是除非 Value 持有的是字符串, 否则 String 只是返回具体的类型. 相同, 使用 fmt 包的 %v 标志参数, 将使用 reflect.Values 的结果格式化.</p>
+<p class="calibre6">调用 Value 的 Type 方法将返回具体类型所对应的 reflect.Type:</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">t := v.Type()           <span class="hljs-comment">// a reflect.Type</span>
+fmt.Println(t.String()) <span class="hljs-comment">// "int"</span>
+</code></pre>
+<p class="calibre6">逆操作是调用 reflect.ValueOf 对应的 reflect.Value.Interface 方法. 它返回一个 interface{} 类型表示 reflect.Value 对应类型的具体值:</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">v := reflect.ValueOf(<span class="hljs-number">3</span>) <span class="hljs-comment">// a reflect.Value</span>
+x := v.Interface()      <span class="hljs-comment">// an interface{}</span>
+i := x.(<span class="hljs-typename">int</span>)            <span class="hljs-comment">// an int</span>
+fmt.Printf(<span class="hljs-string">"%d\n"</span>, i)   <span class="hljs-comment">// "3"</span>
+</code></pre>
+<p class="calibre6">一个 reflect.Value 和 interface{} 都能保存任意的值. 所不同的是, 一个空的接口隐藏了值对应的表示方式和所有的公开的方法, 因此只有我们知道具体的动态类型才能使用类型断言来访问内部的值(就像上面那样), 对于内部值并没有特别可做的事情. 相比之下, 一个 Value 则有很多方法来检查其内容, 无论它的具体类型是什么. 让我们再次尝试实现我们的格式化函数 format.Any.</p>
+<p class="calibre6">我们使用 reflect.Value 的 Kind 方法来替代之前的类型 switch. 虽然还是有无穷多的类型, 但是它们的kinds类型却是有限的: Bool, String 和 所有数字类型的基础类型; Array 和 Struct 对应的聚合类型; Chan, Func, Ptr, Slice, 和 Map 对应的引用类似; 接口类型; 还有表示空值的无效类型. (空的 reflect.Value 对应 Invalid 无效类型.)</p>
+<p class="calibre6"><span class="calibre18"><i class="calibre13">gopl.io/ch12/format</i></span></p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">package</span> format
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">"reflect"</span>
+    <span class="hljs-string">"strconv"</span>
+)
+
+<span class="hljs-comment">// Any formats any value as a string.</span>
+<span class="hljs-keyword">func</span> Any(value <span class="hljs-keyword">interface</span>{}) <span class="hljs-typename">string</span> {
+    <span class="hljs-keyword">return</span> formatAtom(reflect.ValueOf(value))
+}
+
+<span class="hljs-comment">// formatAtom formats a value without inspecting its internal structure.</span>
+<span class="hljs-keyword">func</span> formatAtom(v reflect.Value) <span class="hljs-typename">string</span> {
+    <span class="hljs-keyword">switch</span> v.Kind() {
+    <span class="hljs-keyword">case</span> reflect.Invalid:
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"invalid"</span>
+    <span class="hljs-keyword">case</span> reflect.Int, reflect.Int8, reflect.Int16,
+        reflect.Int32, reflect.Int64:
+        <span class="hljs-keyword">return</span> strconv.FormatInt(v.Int(), <span class="hljs-number">10</span>)
+    <span class="hljs-keyword">case</span> reflect.Uint, reflect.Uint8, reflect.Uint16,
+        reflect.Uint32, reflect.Uint64, reflect.Uintptr:
+        <span class="hljs-keyword">return</span> strconv.FormatUint(v.Uint(), <span class="hljs-number">10</span>)
+    <span class="hljs-comment">// ...floating-point and complex cases omitted for brevity...</span>
+    <span class="hljs-keyword">case</span> reflect.Bool:
+        <span class="hljs-keyword">return</span> strconv.FormatBool(v.Bool())
+    <span class="hljs-keyword">case</span> reflect.String:
+        <span class="hljs-keyword">return</span> strconv.Quote(v.String())
+    <span class="hljs-keyword">case</span> reflect.Chan, reflect.Func, reflect.Ptr, reflect.Slice, reflect.Map:
+        <span class="hljs-keyword">return</span> v.Type().String() + <span class="hljs-string">" 0x"</span> +
+            strconv.FormatUint(<span class="hljs-typename">uint64</span>(v.Pointer()), <span class="hljs-number">16</span>)
+    <span class="hljs-keyword">default</span>: <span class="hljs-comment">// reflect.Array, reflect.Struct, reflect.Interface</span>
+        <span class="hljs-keyword">return</span> v.Type().String() + <span class="hljs-string">" value"</span>
+    }
+}
+</code></pre>
+<p class="calibre6">到目前为止, 我们的函数将每个值视作一个不可分割没有内部结构的, 因此它叫 formatAtom. 对于聚合类型(结构体和数组)个接口只是打印类型的值, 对于引用类型(channels, functions, pointers, slices, 和 maps), 它十六进制打印类型的引用地址. 虽然还不够理想, 但是依然是一个重大的进步, 并且 Kind 只关心底层表示, format.Any 也支持新命名的类型. 例如:</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">var</span> x <span class="hljs-typename">int64</span> = <span class="hljs-number">1</span>
+<span class="hljs-keyword">var</span> d time.Duration = <span class="hljs-number">1</span> * time.Nanosecond
+fmt.Println(format.Any(x))                  <span class="hljs-comment">// "1"</span>
+fmt.Println(format.Any(d))                  <span class="hljs-comment">// "1"</span>
+fmt.Println(format.Any([]<span class="hljs-typename">int64</span>{x}))         <span class="hljs-comment">// "[]int64 0x8202b87b0"</span>
+fmt.Println(format.Any([]time.Duration{d})) <span class="hljs-comment">// "[]time.Duration 0x8202b87e0"</span>
+</code></pre>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>并发获取多个URL | Go语言圣经</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_13">并发获取多个URL</h1>
+        
+            <div class="section" id="section-">
+            
+                <h2 id="16-并发获取多个url" class="calibre14">1.6. 并发获取多个URL</h2>
+<p class="calibre6">Go语言最有意思并且最新奇的特性就是对并发编程的支持。并发编程是一个大话题，在第八章和第九章中会专门讲到。这里我们只浅尝辄止地来体验一下Go语言里的goroutine和channel。</p>
+<p class="calibre6">下面的例子fetchall，和前面小节的fetch程序所要做的工作基本一致，fetchall的特别之处在于它会同时去获取所有的URL，所以这个程序的总执行时间不会超过执行时间最长的那一个任务，前面的fetch程序执行时间则是所有任务执行时间之和。fetchall程序只会打印获取的内容大小和经过的时间，不会像之前那样打印获取的内容。</p>
+<p class="calibre6"><span class="calibre18"><i class="calibre13">gopl.io/ch1/fetchall</i></span></p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-comment">// Fetchall fetches URLs in parallel and reports their times and sizes.</span>
+<span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">"fmt"</span>
+    <span class="hljs-string">"io"</span>
+    <span class="hljs-string">"io/ioutil"</span>
+    <span class="hljs-string">"net/http"</span>
+    <span class="hljs-string">"os"</span>
+    <span class="hljs-string">"time"</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    start := time.Now()
+    ch := <span class="hljs-number">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-typename">string</span>)
+    <span class="hljs-keyword">for</span> _, url := <span class="hljs-keyword">range</span> os.Args[<span class="hljs-number">1</span>:] {
+        <span class="hljs-keyword">go</span> fetch(url, ch) <span class="hljs-comment">// start a goroutine</span>
+    }
+    <span class="hljs-keyword">for</span> <span class="hljs-keyword">range</span> os.Args[<span class="hljs-number">1</span>:] {
+        fmt.Println(&lt;-ch) <span class="hljs-comment">// receive from channel ch</span>
+    }
+    fmt.Printf(<span class="hljs-string">"%.2fs elapsed\n"</span>, time.Since(start).Seconds())
+}
+
+<span class="hljs-keyword">func</span> fetch(url <span class="hljs-typename">string</span>, ch <span class="hljs-keyword">chan</span>&lt;- <span class="hljs-typename">string</span>) {
+    start := time.Now()
+    resp, err := http.Get(url)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-number">nil</span> {
+        ch &lt;- fmt.Sprint(err) <span class="hljs-comment">// send to channel ch</span>
+        <span class="hljs-keyword">return</span>
+    }
+    nbytes, err := io.Copy(ioutil.Discard, resp.Body)
+    resp.Body.Close() <span class="hljs-comment">// don't leak resources</span>
+    <span class="hljs-keyword">if</span> err != <span class="hljs-number">nil</span> {
+        ch &lt;- fmt.Sprintf(<span class="hljs-string">"while reading %s: %v"</span>, url, err)
+        <span class="hljs-keyword">return</span>
+    }
+    secs := time.Since(start).Seconds()
+    ch &lt;- fmt.Sprintf(<span class="hljs-string">"%.2fs  %7d  %s"</span>, secs, nbytes, url)
+}
+</code></pre>
+<p class="calibre6">下面使用fetchall来请求几个地址：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">$ go build gopl.io/ch1/fetchall
+$ ./fetchall https://golang.org http://gopl.io https://godoc.org
+0.14s     6852  https://godoc.org
+0.16s     7261  https://golang.org
+0.48s     2475  http://gopl.io
+0.48s elapsed
+</code></pre><p class="calibre6">goroutine是一种函数的并发执行方式，而channel是用来在goroutine之间进行参数传递。main函数本身也运行在一个goroutine中，而go function则表示创建一个新的goroutine，并在这个新的goroutine中执行这个函数。</p>
+<p class="calibre6">main函数中用make函数创建了一个传递string类型参数的channel，对每一个命令行参数，我们都用go这个关键字来创建一个goroutine，并且让函数在这个goroutine异步执行http.Get方法。这个程序里的io.Copy会把响应的Body内容拷贝到ioutil.Discard输出流中（译注：可以把这个变量看作一个垃圾桶，可以向里面写一些不需要的数据），因为我们需要这个方法返回的字节数，但是又不想要其内容。每当请求返回内容时，fetch函数都会往ch这个channel里写入一个字符串，由main函数里的第二个for循环来处理并打印channel里的这个字符串。</p>
+<p class="calibre6">当一个goroutine尝试在一个channel上做send或者receive操作时，这个goroutine会阻塞在调用处，直到另一个goroutine往这个channel里写入、或者接收值，这样两个goroutine才会继续执行channel操作之后的逻辑。在这个例子中，每一个fetch函数在执行时都会往channel里发送一个值(ch &lt;- expression)，主函数负责接收这些值(&lt;-ch)。这个程序中我们用main函数来接收所有fetch函数传回的字符串，可以避免在goroutine异步执行还没有完成时main函数提前退出。</p>
+<p class="calibre6"><strong class="calibre19">练习 1.10：</strong> 找一个数据量比较大的网站，用本小节中的程序调研网站的缓存策略，对每个URL执行两遍请求，查看两次时间是否有较大的差别，并且每次获取到的响应内容是否一致，修改本节中的程序，将响应结果输出，以便于进行对比。</p>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

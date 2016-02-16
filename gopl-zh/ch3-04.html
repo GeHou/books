@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>布尔型 | Go语言圣经</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_28">布尔型</h1>
+        
+            <div class="section" id="section-">
+            
+                <h2 id="34-布尔型" class="calibre14">3.4. 布尔型</h2>
+<p class="calibre6">一个布尔类型的值只有两种：true和false。if和for语句的条件部分都是布尔类型的值，并且==和&lt;等比较操作也会产生布尔型的值。一元操作符<code class="calibre12 pcalibre5 pcalibre6">!</code>对应逻辑非操作，因此<code class="calibre12 pcalibre5 pcalibre6">!true</code>的值为<code class="calibre12 pcalibre5 pcalibre6">false</code>，更罗嗦的说法是<code class="calibre12 pcalibre5 pcalibre6">(!true==false)==true</code>，虽然表达方式不一样，不过我们一般会采用简洁的布尔表达式，就像用x来表示<code class="calibre12 pcalibre5 pcalibre6">x==true</code>。</p>
+<p class="calibre6">布尔值可以和&amp;&amp;（AND）和||（OR）操作符结合，并且可能会有短路行为：如果运算符左边值已经可以确定整个布尔表达式的值，那么运算符右边的值将不在被求值，因此下面的表达式总是安全的：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">s != <span class="hljs-string">""</span> &amp;&amp; s[<span class="hljs-number">0</span>] == <span class="hljs-string">'x'</span>
+</code></pre>
+<p class="calibre6">其中s[0]操作如果应用于空字符串将会导致panic异常。</p>
+<p class="calibre6">因为<code class="calibre12 pcalibre5 pcalibre6">&amp;&amp;</code>的优先级比<code class="calibre12 pcalibre5 pcalibre6">||</code>高（助记：<code class="calibre12 pcalibre5 pcalibre6">&amp;&amp;</code>对应逻辑乘法，<code class="calibre12 pcalibre5 pcalibre6">||</code>对应逻辑加法，乘法比加法优先级要高），下面形式的布尔表达式是不需要加小括弧的：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">if</span> <span class="hljs-string">'a'</span> &lt;= c &amp;&amp; c &lt;= <span class="hljs-string">'z'</span> ||
+    <span class="hljs-string">'A'</span> &lt;= c &amp;&amp; c &lt;= <span class="hljs-string">'Z'</span> ||
+    <span class="hljs-string">'0'</span> &lt;= c &amp;&amp; c &lt;= <span class="hljs-string">'9'</span> {
+    <span class="hljs-comment">// ...ASCII letter or digit...</span>
+}
+</code></pre>
+<p class="calibre6">布尔值并不会隐式转换为数字值0或1，反之亦然。必须使用一个显式的if语句辅助转换：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">i := <span class="hljs-number">0</span>
+<span class="hljs-keyword">if</span> b {
+    i = <span class="hljs-number">1</span>
+}
+</code></pre>
+<p class="calibre6">如果需要经常做类似的转换, 包装成一个函数会更方便:</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-comment">// btoi returns 1 if b is true and 0 if false.</span>
+<span class="hljs-keyword">func</span> btoi(b <span class="hljs-typename">bool</span>) <span class="hljs-typename">int</span> {
+    <span class="hljs-keyword">if</span> b {
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+}
+</code></pre>
+<p class="calibre6">数字到布尔型的逆转换则非常简单, 不过为了保持对称, 我们也可以包装一个函数:</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-comment">// itob reports whether i is non-zero.</span>
+<span class="hljs-keyword">func</span> itob(i <span class="hljs-typename">int</span>) <span class="hljs-typename">bool</span> { <span class="hljs-keyword">return</span> i != <span class="hljs-number">0</span> }
+</code></pre>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

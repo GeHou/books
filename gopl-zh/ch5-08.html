@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>Deferred函数 | Go语言圣经</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_46">Deferred函数</h1>
+        
+            <div class="section" id="section-">
+            
+                <h2 id="58-deferred函数" class="calibre14">5.8. Deferred函数</h2>
+<p class="calibre6">在findLinks的例子中，我们用http.Get的输出作为html.Parse的输入。只有url的内容的确是HTML格式的，html.Parse才可以正常工作，但实际上，url指向的内容很丰富，可能是图片，纯文本或是其他。将这些格式的内容传递给html.parse，会产生不良后果。</p>
+<p class="calibre6">下面的例子获取HTML页面并输出页面的标题。title函数会检查服务器返回的Content-Type字段，如果发现页面不是HTML，将终止函数运行，返回错误。</p>
+<p class="calibre6"><span class="calibre18"><i class="calibre13">gopl.io/ch5/title1</i></span></p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">func</span> title(url <span class="hljs-typename">string</span>) error {
+    resp, err := http.Get(url)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-number">nil</span> {
+        <span class="hljs-keyword">return</span> err
+    }
+    <span class="hljs-comment">// Check Content-Type is HTML (e.g., "text/html;charset=utf-8").</span>
+    ct := resp.Header.Get(<span class="hljs-string">"Content-Type"</span>)
+    <span class="hljs-keyword">if</span> ct != <span class="hljs-string">"text/html"</span> &amp;&amp; !strings.HasPrefix(ct,<span class="hljs-string">"text/html;"</span>) {
+        resp.Body.Close()
+        <span class="hljs-keyword">return</span> fmt.Errorf(<span class="hljs-string">"%s has type %s, not text/html"</span>,url, ct)
+    }
+    doc, err := html.Parse(resp.Body)
+    resp.Body.Close()
+    <span class="hljs-keyword">if</span> err != <span class="hljs-number">nil</span> {
+        <span class="hljs-keyword">return</span> fmt.Errorf(<span class="hljs-string">"parsing %s as HTML: %v"</span>, url,err)
+    }
+    visitNode := <span class="hljs-keyword">func</span>(n *html.Node) {
+        <span class="hljs-keyword">if</span> n.Type == html.ElementNode &amp;&amp; n.Data == <span class="hljs-string">"title"</span>&amp;&amp;n.FirstChild != <span class="hljs-number">nil</span> {
+            fmt.Println(n.FirstChild.Data)
+        }
+    }
+    forEachNode(doc, visitNode, <span class="hljs-number">nil</span>)
+    <span class="hljs-keyword">return</span> <span class="hljs-number">nil</span>
+}
+</code></pre>
+<p class="calibre6">下面展示了运行效果：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">$ go build gopl.io/ch5/title1
+$ ./title1 http://gopl.io
+The Go Programming Language
+$ ./title1 https://golang.org/doc/effective_go.html
+Effective Go - The Go Programming Language
+$ ./title1 https://golang.org/doc/gopher/frontpage.png
+title: https://golang.org/doc/gopher/frontpage.png has type image/png, not text/html
+</code></pre><p class="calibre6">resp.Body.close调用了多次，这是为了确保title在所有执行路径下（即使函数运行失败）都关闭了网络连接。随着函数变得复杂，需要处理的错误也变多，维护清理逻辑变得越来越困难。而Go语言独有的defer机制可以让事情变得简单。</p>
+<p class="calibre6">你只需要在调用普通函数或方法前加上关键字defer，就完成了defer所需要的语法。当defer语句被执行时，跟在defer后面的函数会被延迟执行。直到包含该defer语句的函数执行完毕时，defer后的函数才会被执行，不论包含defer语句的函数是通过return正常结束，还是由于panic导致的异常结束。你可以在一个函数中执行多条defer语句，它们的执行顺序与声明顺序相反。</p>
+<p class="calibre6">defer语句经常被用于处理成对的操作，如打开、关闭、连接、断开连接、加锁、释放锁。通过defer机制，不论函数逻辑多复杂，都能保证在任何执行路径下，资源被释放。释放资源的defer应该直接跟在请求资源的语句后。在下面的代码中，一条defer语句替代了之前的所有resp.Body.Close</p>
+<p class="calibre6"><span class="calibre18"><i class="calibre13">gopl.io/ch5/title2</i></span></p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">func</span> title(url <span class="hljs-typename">string</span>) error {
+    resp, err := http.Get(url)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-number">nil</span> {
+        <span class="hljs-keyword">return</span> err
+    }
+    <span class="hljs-keyword">defer</span> resp.Body.Close()
+    ct := resp.Header.Get(<span class="hljs-string">"Content-Type"</span>)
+    <span class="hljs-keyword">if</span> ct != <span class="hljs-string">"text/html"</span> &amp;&amp; !strings.HasPrefix(ct,<span class="hljs-string">"text/html;"</span>) {
+        <span class="hljs-keyword">return</span> fmt.Errorf(<span class="hljs-string">"%s has type %s, not text/html"</span>,url, ct)
+    }
+    doc, err := html.Parse(resp.Body)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-number">nil</span> {
+        <span class="hljs-keyword">return</span> fmt.Errorf(<span class="hljs-string">"parsing %s as HTML: %v"</span>, url,err)
+    }
+    <span class="hljs-comment">// ...print doc's title element…</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-number">nil</span>
+}
+</code></pre>
+<p class="calibre6">在处理其他资源时，也可以采用defer机制，比如对文件的操作：</p>
+<p class="calibre6"><span class="calibre18"><i class="calibre13">io/ioutil</i></span></p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">package</span> ioutil
+<span class="hljs-keyword">func</span> ReadFile(filename <span class="hljs-typename">string</span>) ([]<span class="hljs-typename">byte</span>, error) {
+    f, err := os.Open(filename)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-number">nil</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-number">nil</span>, err
+    }
+    <span class="hljs-keyword">defer</span> f.Close()
+    <span class="hljs-keyword">return</span> ReadAll(f)
+}
+</code></pre>
+<p class="calibre6">或是处理互斥锁（9.2章）</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">var</span> mu sync.Mutex
+<span class="hljs-keyword">var</span> m = <span class="hljs-number">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-typename">string</span>]<span class="hljs-typename">int</span>)
+<span class="hljs-keyword">func</span> lookup(key <span class="hljs-typename">string</span>) <span class="hljs-typename">int</span> {
+    mu.Lock()
+    <span class="hljs-keyword">defer</span> mu.Unlock()
+    <span class="hljs-keyword">return</span> m[key]
+}
+</code></pre>
+<p class="calibre6">调试复杂程序时，defer机制也常被用于记录何时进入和退出函数。下例中的bigSlowOperation函数，直接调用trace记录函数的被调情况。bigSlowOperation被调时，trace会返回一个函数值，该函数值会在bigSlowOperation退出时被调用。通过这种方式， 我们可以只通过一条语句控制函数的入口和所有的出口，甚至可以记录函数的运行时间，如例子中的start。需要注意一点：不要忘记defer语句后的圆括号，否则本该在进入时执行的操作会在退出时执行，而本该在退出时执行的，永远不会被执行。</p>
+<p class="calibre6"><span class="calibre18"><i class="calibre13">gopl.io/ch5/trace</i></span></p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">func</span> bigSlowOperation() {
+    <span class="hljs-keyword">defer</span> trace(<span class="hljs-string">"bigSlowOperation"</span>)() <span class="hljs-comment">// don't forget the</span>
+    extra parentheses
+    <span class="hljs-comment">// ...lots of work…</span>
+    time.Sleep(<span class="hljs-number">10</span> * time.Second) <span class="hljs-comment">// simulate slow</span>
+    operation by sleeping
+}
+<span class="hljs-keyword">func</span> trace(msg <span class="hljs-typename">string</span>) <span class="hljs-keyword">func</span>() {
+    start := time.Now()
+    log.Printf(<span class="hljs-string">"enter %s"</span>, msg)
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">func</span>() { 
+        log.Printf(<span class="hljs-string">"exit %s (%s)"</span>, msg,time.Since(start)) 
+    }
+}
+</code></pre>
+<p class="calibre6">每一次bigSlowOperation被调用，程序都会记录函数的进入，退出，持续时间。（我们用time.Sleep模拟一个耗时的操作）</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">$ go build gopl.io/ch5/trace
+$ ./trace
+2015/11/18 09:53:26 enter bigSlowOperation
+2015/11/18 09:53:36 exit bigSlowOperation (10.000589217s)
+</code></pre><p class="calibre6">我们知道，defer语句中的函数会在return语句更新返回值变量后再执行，又因为在函数中定义的匿名函数可以访问该函数包括返回值变量在内的所有变量，所以，对匿名函数采用defer机制，可以使其观察函数的返回值。</p>
+<p class="calibre6">以double函数为例：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">func</span> double(x <span class="hljs-typename">int</span>) <span class="hljs-typename">int</span> {
+    <span class="hljs-keyword">return</span> x + x
+}
+</code></pre>
+<p class="calibre6">我们只需要首先命名double的返回值，再增加defer语句，我们就可以在double每次被调用时，输出参数以及返回值。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">func</span> double(x <span class="hljs-typename">int</span>) (result <span class="hljs-typename">int</span>) {
+    <span class="hljs-keyword">defer</span> <span class="hljs-keyword">func</span>() { fmt.Printf(<span class="hljs-string">"double(%d) = %d\n"</span>, x,result) }()
+    <span class="hljs-keyword">return</span> x + x
+}
+_ = double(<span class="hljs-number">4</span>)
+<span class="hljs-comment">// Output:</span>
+<span class="hljs-comment">// "double(4) = 8"</span>
+</code></pre>
+<p class="calibre6">可能doulbe函数过于简单，看不出这个小技巧的作用，但对于有许多return语句的函数而言，这个技巧很有用。</p>
+<p class="calibre6">被延迟执行的匿名函数甚至可以修改函数返回给调用者的返回值：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">func</span> triple(x <span class="hljs-typename">int</span>) (result <span class="hljs-typename">int</span>) {
+    <span class="hljs-keyword">defer</span> <span class="hljs-keyword">func</span>() { result += x }()
+    <span class="hljs-keyword">return</span> double(x)
+}
+fmt.Println(triple(<span class="hljs-number">4</span>)) <span class="hljs-comment">// "12"</span>
+</code></pre>
+<p class="calibre6">在循环体中的defer语句需要特别注意，因为只有在函数执行完毕后，这些被延迟的函数才会执行。下面的代码会导致系统的文件描述符耗尽，因为在所有文件都被处理之前，没有文件会被关闭。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">for</span> _, filename := <span class="hljs-keyword">range</span> filenames {
+    f, err := os.Open(filename)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-number">nil</span> {
+        <span class="hljs-keyword">return</span> err
+    }
+    <span class="hljs-keyword">defer</span> f.Close() <span class="hljs-comment">// <span class="hljs-typename">NOTE:</span> risky; could run out of file</span>
+    descriptors
+    <span class="hljs-comment">// ...process f…</span>
+}
+</code></pre>
+<p class="calibre6">一种解决方法是将循环体中的defer语句移至另外一个函数。在每次循环时，调用这个函数。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">for</span> _, filename := <span class="hljs-keyword">range</span> filenames {
+    <span class="hljs-keyword">if</span> err := doFile(filename); err != <span class="hljs-number">nil</span> {
+        <span class="hljs-keyword">return</span> err
+    }
+}
+<span class="hljs-keyword">func</span> doFile(filename <span class="hljs-typename">string</span>) error {
+    f, err := os.Open(filename)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-number">nil</span> {
+        <span class="hljs-keyword">return</span> err
+    }
+    <span class="hljs-keyword">defer</span> f.Close()
+    <span class="hljs-comment">// ...process f…</span>
+}
+</code></pre>
+<p class="calibre6">下面的代码是fetch（1.5节）的改进版，我们将http响应信息写入本地文件而不是从标准输出流输出。我们通过path.Base提出url路径的最后一段作为文件名。</p>
+<p class="calibre6"><span class="calibre18"><i class="calibre13">gopl.io/ch5/fetch</i></span></p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-comment">// Fetch downloads the URL and returns the</span>
+<span class="hljs-comment">// name and length of the local file.</span>
+<span class="hljs-keyword">func</span> fetch(url <span class="hljs-typename">string</span>) (filename <span class="hljs-typename">string</span>, n <span class="hljs-typename">int64</span>, err error) {
+    resp, err := http.Get(url)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-number">nil</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>, <span class="hljs-number">0</span>, err
+    }
+    <span class="hljs-keyword">defer</span> resp.Body.Close()
+    local := path.Base(resp.Request.URL.Path)
+    <span class="hljs-keyword">if</span> local == <span class="hljs-string">"/"</span> {
+        local = <span class="hljs-string">"index.html"</span>
+    }
+    f, err := os.Create(local)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-number">nil</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>, <span class="hljs-number">0</span>, err
+    }
+    n, err = io.Copy(f, resp.Body)
+    <span class="hljs-comment">// Close file, but prefer error from Copy, if any.</span>
+    <span class="hljs-keyword">if</span> closeErr := f.Close(); err == <span class="hljs-number">nil</span> {
+        err = closeErr
+    }
+    <span class="hljs-keyword">return</span> local, n, err
+}
+</code></pre>
+<p class="calibre6">对resp.Body.Close延迟调用我们已经见过了，在此不做解释。上例中，通过os.Create打开文件进行写入，在关闭文件时，我们没有对f.close采用defer机制，因为这会产生一些微妙的错误。许多文件系统，尤其是NFS，写入文件时发生的错误会被延迟到文件关闭时反馈。如果没有检查文件关闭时的反馈信息，可能会导致数据丢失，而我们还误以为写入操作成功。如果io.Copy和f.close都失败了，我们倾向于将io.Copy的错误信息反馈给调用者，因为它先于f.close发生，更有可能接近问题的本质。</p>
+<p class="calibre6"><strong class="calibre19">练习5.18：</strong>不修改fetch的行为，重写fetch函数，要求使用defer机制关闭文件。</p>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

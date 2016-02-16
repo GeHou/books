@@ -1,0 +1,385 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uuid_id" version="2.0">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:calibre="http://calibre.kovidgoyal.net/2009/metadata" xmlns:opf="http://www.idpf.org/2007/opf" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <dc:language>zh</dc:language>
+    <dc:title>Go语言圣经</dc:title>
+    <dc:identifier id="uuid_id" opf:scheme="uuid">647def24-f439-4019-b5f2-e52fde1ce9e4</dc:identifier>
+    <meta name="calibre:timestamp" content="2016-01-21T02:48:10.889727+00:00"/>
+    <dc:creator>Unknown</dc:creator>
+    <dc:contributor opf:role="bkp">GitBook</dc:contributor>
+    <dc:publisher>GitBook</dc:publisher>
+    <meta name="cover" content="cover"/>
+    <dc:description>&lt;The Go Programming Language&gt;中文版</dc:description>
+  </metadata>
+  <manifest>
+    <item href="cover.jpg" id="cover" media-type="image/jpeg"/>
+    <item href="SUMMARY.html" id="html" media-type="application/xhtml+xml"/>
+    <item href="appendix-a-errata.html" id="html124" media-type="application/xhtml+xml"/>
+    <item href="appendix-b-author.html" id="html125" media-type="application/xhtml+xml"/>
+    <item href="appendix-c-cpoyright.html" id="html126" media-type="application/xhtml+xml"/>
+    <item href="appendix-d-translations.html" id="html127" media-type="application/xhtml+xml"/>
+    <item href="appendix.html" id="html123" media-type="application/xhtml+xml"/>
+    <item href="by-nc-sa-4.0-88x31.png" id="added40" media-type="image/png"/>
+    <item href="ch0-01.html" id="html2" media-type="application/xhtml+xml"/>
+    <item href="ch0-01.png" id="added5" media-type="image/png"/>
+    <item href="ch0-02.html" id="html3" media-type="application/xhtml+xml"/>
+    <item href="ch0-03.html" id="html4" media-type="application/xhtml+xml"/>
+    <item href="ch0-04.html" id="html5" media-type="application/xhtml+xml"/>
+    <item href="ch0-05.html" id="html6" media-type="application/xhtml+xml"/>
+    <item href="ch1-01.gif" id="added7" media-type="image/gif"/>
+    <item href="ch1-01.html" id="html8" media-type="application/xhtml+xml"/>
+    <item href="ch1-01.png" id="added6" media-type="image/png"/>
+    <item href="ch1-02.html" id="html9" media-type="application/xhtml+xml"/>
+    <item href="ch1-02.png" id="added8" media-type="image/png"/>
+    <item href="ch1-03.html" id="html10" media-type="application/xhtml+xml"/>
+    <item href="ch1-03.png" id="added9" media-type="image/png"/>
+    <item href="ch1-04.html" id="html11" media-type="application/xhtml+xml"/>
+    <item href="ch1-05.html" id="html12" media-type="application/xhtml+xml"/>
+    <item href="ch1-06.html" id="html13" media-type="application/xhtml+xml"/>
+    <item href="ch1-07.html" id="html14" media-type="application/xhtml+xml"/>
+    <item href="ch1-08.html" id="html15" media-type="application/xhtml+xml"/>
+    <item href="ch1.html" id="html7" media-type="application/xhtml+xml"/>
+    <item href="ch10-01.html" id="html93" media-type="application/xhtml+xml"/>
+    <item href="ch10-01.png" id="added34" media-type="image/png"/>
+    <item href="ch10-02.html" id="html94" media-type="application/xhtml+xml"/>
+    <item href="ch10-03.html" id="html95" media-type="application/xhtml+xml"/>
+    <item href="ch10-04.html" id="html96" media-type="application/xhtml+xml"/>
+    <item href="ch10-05.html" id="html97" media-type="application/xhtml+xml"/>
+    <item href="ch10-06.html" id="html98" media-type="application/xhtml+xml"/>
+    <item href="ch10-07.html" id="html99" media-type="application/xhtml+xml"/>
+    <item href="ch10.html" id="html92" media-type="application/xhtml+xml"/>
+    <item href="ch11-01.html" id="html101" media-type="application/xhtml+xml"/>
+    <item href="ch11-01.png" id="added35" media-type="image/png"/>
+    <item href="ch11-02.html" id="html102" media-type="application/xhtml+xml"/>
+    <item href="ch11-02.png" id="added36" media-type="image/png"/>
+    <item href="ch11-03.html" id="html103" media-type="application/xhtml+xml"/>
+    <item href="ch11-03.png" id="added37" media-type="image/png"/>
+    <item href="ch11-04.html" id="html104" media-type="application/xhtml+xml"/>
+    <item href="ch11-04.png" id="added38" media-type="image/png"/>
+    <item href="ch11-05.html" id="html105" media-type="application/xhtml+xml"/>
+    <item href="ch11-06.html" id="html106" media-type="application/xhtml+xml"/>
+    <item href="ch11.html" id="html100" media-type="application/xhtml+xml"/>
+    <item href="ch12-01.html" id="html108" media-type="application/xhtml+xml"/>
+    <item href="ch12-02.html" id="html109" media-type="application/xhtml+xml"/>
+    <item href="ch12-03.html" id="html110" media-type="application/xhtml+xml"/>
+    <item href="ch12-04.html" id="html111" media-type="application/xhtml+xml"/>
+    <item href="ch12-05.html" id="html112" media-type="application/xhtml+xml"/>
+    <item href="ch12-06.html" id="html113" media-type="application/xhtml+xml"/>
+    <item href="ch12-07.html" id="html114" media-type="application/xhtml+xml"/>
+    <item href="ch12-08.html" id="html115" media-type="application/xhtml+xml"/>
+    <item href="ch12-09.html" id="html116" media-type="application/xhtml+xml"/>
+    <item href="ch12.html" id="html107" media-type="application/xhtml+xml"/>
+    <item href="ch13-01.html" id="html118" media-type="application/xhtml+xml"/>
+    <item href="ch13-01.png" id="added39" media-type="image/png"/>
+    <item href="ch13-02.html" id="html119" media-type="application/xhtml+xml"/>
+    <item href="ch13-03.html" id="html120" media-type="application/xhtml+xml"/>
+    <item href="ch13-04.html" id="html121" media-type="application/xhtml+xml"/>
+    <item href="ch13-05.html" id="html122" media-type="application/xhtml+xml"/>
+    <item href="ch13.html" id="html117" media-type="application/xhtml+xml"/>
+    <item href="ch2-01.html" id="html17" media-type="application/xhtml+xml"/>
+    <item href="ch2-02.html" id="html18" media-type="application/xhtml+xml"/>
+    <item href="ch2-03.html" id="html19" media-type="application/xhtml+xml"/>
+    <item href="ch2-04.html" id="html20" media-type="application/xhtml+xml"/>
+    <item href="ch2-05.html" id="html21" media-type="application/xhtml+xml"/>
+    <item href="ch2-06.html" id="html22" media-type="application/xhtml+xml"/>
+    <item href="ch2-07.html" id="html23" media-type="application/xhtml+xml"/>
+    <item href="ch2.html" id="html16" media-type="application/xhtml+xml"/>
+    <item href="ch3-01.html" id="html25" media-type="application/xhtml+xml"/>
+    <item href="ch3-01.png" id="added10" media-type="image/png"/>
+    <item href="ch3-02.html" id="html26" media-type="application/xhtml+xml"/>
+    <item href="ch3-02.png" id="added11" media-type="image/png"/>
+    <item href="ch3-03.html" id="html27" media-type="application/xhtml+xml"/>
+    <item href="ch3-03.png" id="added12" media-type="image/png"/>
+    <item href="ch3-04.html" id="html28" media-type="application/xhtml+xml"/>
+    <item href="ch3-04.png" id="added13" media-type="image/png"/>
+    <item href="ch3-05.html" id="html29" media-type="application/xhtml+xml"/>
+    <item href="ch3-05.png" id="added14" media-type="image/png"/>
+    <item href="ch3-06.html" id="html30" media-type="application/xhtml+xml"/>
+    <item href="ch3.html" id="html24" media-type="application/xhtml+xml"/>
+    <item href="ch4-01.html" id="html32" media-type="application/xhtml+xml"/>
+    <item href="ch4-01.png" id="added15" media-type="image/png"/>
+    <item href="ch4-02.html" id="html33" media-type="application/xhtml+xml"/>
+    <item href="ch4-02.png" id="added16" media-type="image/png"/>
+    <item href="ch4-03.html" id="html34" media-type="application/xhtml+xml"/>
+    <item href="ch4-03.png" id="added17" media-type="image/png"/>
+    <item href="ch4-04.html" id="html35" media-type="application/xhtml+xml"/>
+    <item href="ch4-04.png" id="added19" media-type="image/png"/>
+    <item href="ch4-05.html" id="html36" media-type="application/xhtml+xml"/>
+    <item href="ch4-05.png" id="added20" media-type="image/png"/>
+    <item href="ch4-06.html" id="html37" media-type="application/xhtml+xml"/>
+    <item href="ch4-06.png" id="added21" media-type="image/png"/>
+    <item href="ch4-xx-01.png" id="added18" media-type="image/png"/>
+    <item href="ch4.html" id="html31" media-type="application/xhtml+xml"/>
+    <item href="ch5-01.html" id="html39" media-type="application/xhtml+xml"/>
+    <item href="ch5-02.html" id="html40" media-type="application/xhtml+xml"/>
+    <item href="ch5-03.html" id="html41" media-type="application/xhtml+xml"/>
+    <item href="ch5-04.html" id="html42" media-type="application/xhtml+xml"/>
+    <item href="ch5-05.html" id="html43" media-type="application/xhtml+xml"/>
+    <item href="ch5-06.html" id="html44" media-type="application/xhtml+xml"/>
+    <item href="ch5-07.html" id="html45" media-type="application/xhtml+xml"/>
+    <item href="ch5-08.html" id="html46" media-type="application/xhtml+xml"/>
+    <item href="ch5-09.html" id="html47" media-type="application/xhtml+xml"/>
+    <item href="ch5-10.html" id="html48" media-type="application/xhtml+xml"/>
+    <item href="ch5.html" id="html38" media-type="application/xhtml+xml"/>
+    <item href="ch6-01.html" id="html50" media-type="application/xhtml+xml"/>
+    <item href="ch6-02.html" id="html51" media-type="application/xhtml+xml"/>
+    <item href="ch6-03.html" id="html52" media-type="application/xhtml+xml"/>
+    <item href="ch6-04.html" id="html53" media-type="application/xhtml+xml"/>
+    <item href="ch6-05.html" id="html54" media-type="application/xhtml+xml"/>
+    <item href="ch6-06.html" id="html55" media-type="application/xhtml+xml"/>
+    <item href="ch6.html" id="html49" media-type="application/xhtml+xml"/>
+    <item href="ch7-01.html" id="html57" media-type="application/xhtml+xml"/>
+    <item href="ch7-01.png" id="added22" media-type="image/png"/>
+    <item href="ch7-02.html" id="html58" media-type="application/xhtml+xml"/>
+    <item href="ch7-02.png" id="added23" media-type="image/png"/>
+    <item href="ch7-03.html" id="html59" media-type="application/xhtml+xml"/>
+    <item href="ch7-03.png" id="added24" media-type="image/png"/>
+    <item href="ch7-04.html" id="html60" media-type="application/xhtml+xml"/>
+    <item href="ch7-04.png" id="added25" media-type="image/png"/>
+    <item href="ch7-05.html" id="html61" media-type="application/xhtml+xml"/>
+    <item href="ch7-05.png" id="added26" media-type="image/png"/>
+    <item href="ch7-06.html" id="html62" media-type="application/xhtml+xml"/>
+    <item href="ch7-06.png" id="added27" media-type="image/png"/>
+    <item href="ch7-07.html" id="html63" media-type="application/xhtml+xml"/>
+    <item href="ch7-07.png" id="added28" media-type="image/png"/>
+    <item href="ch7-08.html" id="html64" media-type="application/xhtml+xml"/>
+    <item href="ch7-09.html" id="html65" media-type="application/xhtml+xml"/>
+    <item href="ch7-10.html" id="html66" media-type="application/xhtml+xml"/>
+    <item href="ch7-11.html" id="html67" media-type="application/xhtml+xml"/>
+    <item href="ch7-12.html" id="html68" media-type="application/xhtml+xml"/>
+    <item href="ch7-13.html" id="html69" media-type="application/xhtml+xml"/>
+    <item href="ch7-14.html" id="html70" media-type="application/xhtml+xml"/>
+    <item href="ch7-15.html" id="html71" media-type="application/xhtml+xml"/>
+    <item href="ch7.html" id="html56" media-type="application/xhtml+xml"/>
+    <item href="ch8-01.html" id="html73" media-type="application/xhtml+xml"/>
+    <item href="ch8-01.png" id="added29" media-type="image/png"/>
+    <item href="ch8-02.html" id="html74" media-type="application/xhtml+xml"/>
+    <item href="ch8-02.png" id="added30" media-type="image/png"/>
+    <item href="ch8-03.html" id="html75" media-type="application/xhtml+xml"/>
+    <item href="ch8-03.png" id="added31" media-type="image/png"/>
+    <item href="ch8-04.html" id="html76" media-type="application/xhtml+xml"/>
+    <item href="ch8-04.png" id="added32" media-type="image/png"/>
+    <item href="ch8-05.html" id="html77" media-type="application/xhtml+xml"/>
+    <item href="ch8-05.png" id="added33" media-type="image/png"/>
+    <item href="ch8-06.html" id="html78" media-type="application/xhtml+xml"/>
+    <item href="ch8-07.html" id="html79" media-type="application/xhtml+xml"/>
+    <item href="ch8-08.html" id="html80" media-type="application/xhtml+xml"/>
+    <item href="ch8-09.html" id="html81" media-type="application/xhtml+xml"/>
+    <item href="ch8-10.html" id="html82" media-type="application/xhtml+xml"/>
+    <item href="ch8.html" id="html72" media-type="application/xhtml+xml"/>
+    <item href="ch9-01.html" id="html84" media-type="application/xhtml+xml"/>
+    <item href="ch9-02.html" id="html85" media-type="application/xhtml+xml"/>
+    <item href="ch9-03.html" id="html86" media-type="application/xhtml+xml"/>
+    <item href="ch9-04.html" id="html87" media-type="application/xhtml+xml"/>
+    <item href="ch9-05.html" id="html88" media-type="application/xhtml+xml"/>
+    <item href="ch9-06.html" id="html89" media-type="application/xhtml+xml"/>
+    <item href="ch9-07.html" id="html90" media-type="application/xhtml+xml"/>
+    <item href="ch9-08.html" id="html91" media-type="application/xhtml+xml"/>
+    <item href="ch9.html" id="html83" media-type="application/xhtml+xml"/>
+    <item href="cover_middle.jpg" id="added3" media-type="image/jpeg"/>
+    <item href="go-log04.png" id="added4" media-type="image/png"/>
+    <item href="index.html" id="html1" media-type="application/xhtml+xml"/>
+    <item href="katex_ams-regular.eot" id="added41" media-type="application/vnd.ms-fontobject"/>
+    <item href="katex_ams-regular.ttf" id="added44" media-type="application/x-font-truetype"/>
+    <item href="katex_ams-regular.woff" id="added43" media-type="application/font-woff"/>
+    <item href="katex_ams-regular.woff2" id="added42" media-type="application/octet-stream"/>
+    <item href="katex_caligraphic-bold.eot" id="added45" media-type="application/vnd.ms-fontobject"/>
+    <item href="katex_caligraphic-bold.ttf" id="added48" media-type="application/x-font-truetype"/>
+    <item href="katex_caligraphic-bold.woff" id="added47" media-type="application/font-woff"/>
+    <item href="katex_caligraphic-bold.woff2" id="added46" media-type="application/octet-stream"/>
+    <item href="katex_caligraphic-regular.eot" id="added49" media-type="application/vnd.ms-fontobject"/>
+    <item href="katex_caligraphic-regular.ttf" id="added52" media-type="application/x-font-truetype"/>
+    <item href="katex_caligraphic-regular.woff" id="added51" media-type="application/font-woff"/>
+    <item href="katex_caligraphic-regular.woff2" id="added50" media-type="application/octet-stream"/>
+    <item href="katex_fraktur-bold.eot" id="added53" media-type="application/vnd.ms-fontobject"/>
+    <item href="katex_fraktur-bold.ttf" id="added56" media-type="application/x-font-truetype"/>
+    <item href="katex_fraktur-bold.woff" id="added55" media-type="application/font-woff"/>
+    <item href="katex_fraktur-bold.woff2" id="added54" media-type="application/octet-stream"/>
+    <item href="katex_fraktur-regular.eot" id="added57" media-type="application/vnd.ms-fontobject"/>
+    <item href="katex_fraktur-regular.ttf" id="added60" media-type="application/x-font-truetype"/>
+    <item href="katex_fraktur-regular.woff" id="added59" media-type="application/font-woff"/>
+    <item href="katex_fraktur-regular.woff2" id="added58" media-type="application/octet-stream"/>
+    <item href="katex_main-bold.eot" id="added61" media-type="application/vnd.ms-fontobject"/>
+    <item href="katex_main-bold.ttf" id="added64" media-type="application/x-font-truetype"/>
+    <item href="katex_main-bold.woff" id="added63" media-type="application/font-woff"/>
+    <item href="katex_main-bold.woff2" id="added62" media-type="application/octet-stream"/>
+    <item href="katex_main-italic.eot" id="added65" media-type="application/vnd.ms-fontobject"/>
+    <item href="katex_main-italic.ttf" id="added68" media-type="application/x-font-truetype"/>
+    <item href="katex_main-italic.woff" id="added67" media-type="application/font-woff"/>
+    <item href="katex_main-italic.woff2" id="added66" media-type="application/octet-stream"/>
+    <item href="katex_main-regular.eot" id="added69" media-type="application/vnd.ms-fontobject"/>
+    <item href="katex_main-regular.ttf" id="added72" media-type="application/x-font-truetype"/>
+    <item href="katex_main-regular.woff" id="added71" media-type="application/font-woff"/>
+    <item href="katex_main-regular.woff2" id="added70" media-type="application/octet-stream"/>
+    <item href="katex_math-italic.eot" id="added73" media-type="application/vnd.ms-fontobject"/>
+    <item href="katex_math-italic.ttf" id="added76" media-type="application/x-font-truetype"/>
+    <item href="katex_math-italic.woff" id="added75" media-type="application/font-woff"/>
+    <item href="katex_math-italic.woff2" id="added74" media-type="application/octet-stream"/>
+    <item href="katex_sansserif-regular.eot" id="added77" media-type="application/vnd.ms-fontobject"/>
+    <item href="katex_sansserif-regular.ttf" id="added80" media-type="application/x-font-truetype"/>
+    <item href="katex_sansserif-regular.woff" id="added79" media-type="application/font-woff"/>
+    <item href="katex_sansserif-regular.woff2" id="added78" media-type="application/octet-stream"/>
+    <item href="katex_script-regular.eot" id="added81" media-type="application/vnd.ms-fontobject"/>
+    <item href="katex_script-regular.ttf" id="added84" media-type="application/x-font-truetype"/>
+    <item href="katex_script-regular.woff" id="added83" media-type="application/font-woff"/>
+    <item href="katex_script-regular.woff2" id="added82" media-type="application/octet-stream"/>
+    <item href="katex_size1-regular.eot" id="added85" media-type="application/vnd.ms-fontobject"/>
+    <item href="katex_size1-regular.ttf" id="added88" media-type="application/x-font-truetype"/>
+    <item href="katex_size1-regular.woff" id="added87" media-type="application/font-woff"/>
+    <item href="katex_size1-regular.woff2" id="added86" media-type="application/octet-stream"/>
+    <item href="katex_size2-regular.eot" id="added89" media-type="application/vnd.ms-fontobject"/>
+    <item href="katex_size2-regular.ttf" id="added92" media-type="application/x-font-truetype"/>
+    <item href="katex_size2-regular.woff" id="added91" media-type="application/font-woff"/>
+    <item href="katex_size2-regular.woff2" id="added90" media-type="application/octet-stream"/>
+    <item href="katex_size3-regular.eot" id="added93" media-type="application/vnd.ms-fontobject"/>
+    <item href="katex_size3-regular.ttf" id="added96" media-type="application/x-font-truetype"/>
+    <item href="katex_size3-regular.woff" id="added95" media-type="application/font-woff"/>
+    <item href="katex_size3-regular.woff2" id="added94" media-type="application/octet-stream"/>
+    <item href="katex_size4-regular.eot" id="added97" media-type="application/vnd.ms-fontobject"/>
+    <item href="katex_size4-regular.ttf" id="added100" media-type="application/x-font-truetype"/>
+    <item href="katex_size4-regular.woff" id="added99" media-type="application/font-woff"/>
+    <item href="katex_size4-regular.woff2" id="added98" media-type="application/octet-stream"/>
+    <item href="katex_typewriter-regular.eot" id="added101" media-type="application/vnd.ms-fontobject"/>
+    <item href="katex_typewriter-regular.ttf" id="added104" media-type="application/x-font-truetype"/>
+    <item href="katex_typewriter-regular.woff" id="added103" media-type="application/font-woff"/>
+    <item href="katex_typewriter-regular.woff2" id="added102" media-type="application/octet-stream"/>
+    <item href="page_styles.css" id="page_css" media-type="text/css"/>
+    <item href="stylesheet.css" id="css" media-type="text/css"/>
+    <item href="titlepage.xhtml" id="titlepage" media-type="application/xhtml+xml"/>
+    <item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="titlepage"/>
+    <itemref idref="html"/>
+    <itemref idref="html1"/>
+    <itemref idref="html2"/>
+    <itemref idref="html3"/>
+    <itemref idref="html4"/>
+    <itemref idref="html5"/>
+    <itemref idref="html6"/>
+    <itemref idref="html7"/>
+    <itemref idref="html8"/>
+    <itemref idref="html9"/>
+    <itemref idref="html10"/>
+    <itemref idref="html11"/>
+    <itemref idref="html12"/>
+    <itemref idref="html13"/>
+    <itemref idref="html14"/>
+    <itemref idref="html15"/>
+    <itemref idref="html16"/>
+    <itemref idref="html17"/>
+    <itemref idref="html18"/>
+    <itemref idref="html19"/>
+    <itemref idref="html20"/>
+    <itemref idref="html21"/>
+    <itemref idref="html22"/>
+    <itemref idref="html23"/>
+    <itemref idref="html24"/>
+    <itemref idref="html25"/>
+    <itemref idref="html26"/>
+    <itemref idref="html27"/>
+    <itemref idref="html28"/>
+    <itemref idref="html29"/>
+    <itemref idref="html30"/>
+    <itemref idref="html31"/>
+    <itemref idref="html32"/>
+    <itemref idref="html33"/>
+    <itemref idref="html34"/>
+    <itemref idref="html35"/>
+    <itemref idref="html36"/>
+    <itemref idref="html37"/>
+    <itemref idref="html38"/>
+    <itemref idref="html39"/>
+    <itemref idref="html40"/>
+    <itemref idref="html41"/>
+    <itemref idref="html42"/>
+    <itemref idref="html43"/>
+    <itemref idref="html44"/>
+    <itemref idref="html45"/>
+    <itemref idref="html46"/>
+    <itemref idref="html47"/>
+    <itemref idref="html48"/>
+    <itemref idref="html49"/>
+    <itemref idref="html50"/>
+    <itemref idref="html51"/>
+    <itemref idref="html52"/>
+    <itemref idref="html53"/>
+    <itemref idref="html54"/>
+    <itemref idref="html55"/>
+    <itemref idref="html56"/>
+    <itemref idref="html57"/>
+    <itemref idref="html58"/>
+    <itemref idref="html59"/>
+    <itemref idref="html60"/>
+    <itemref idref="html61"/>
+    <itemref idref="html62"/>
+    <itemref idref="html63"/>
+    <itemref idref="html64"/>
+    <itemref idref="html65"/>
+    <itemref idref="html66"/>
+    <itemref idref="html67"/>
+    <itemref idref="html68"/>
+    <itemref idref="html69"/>
+    <itemref idref="html70"/>
+    <itemref idref="html71"/>
+    <itemref idref="html72"/>
+    <itemref idref="html73"/>
+    <itemref idref="html74"/>
+    <itemref idref="html75"/>
+    <itemref idref="html76"/>
+    <itemref idref="html77"/>
+    <itemref idref="html78"/>
+    <itemref idref="html79"/>
+    <itemref idref="html80"/>
+    <itemref idref="html81"/>
+    <itemref idref="html82"/>
+    <itemref idref="html83"/>
+    <itemref idref="html84"/>
+    <itemref idref="html85"/>
+    <itemref idref="html86"/>
+    <itemref idref="html87"/>
+    <itemref idref="html88"/>
+    <itemref idref="html89"/>
+    <itemref idref="html90"/>
+    <itemref idref="html91"/>
+    <itemref idref="html92"/>
+    <itemref idref="html93"/>
+    <itemref idref="html94"/>
+    <itemref idref="html95"/>
+    <itemref idref="html96"/>
+    <itemref idref="html97"/>
+    <itemref idref="html98"/>
+    <itemref idref="html99"/>
+    <itemref idref="html100"/>
+    <itemref idref="html101"/>
+    <itemref idref="html102"/>
+    <itemref idref="html103"/>
+    <itemref idref="html104"/>
+    <itemref idref="html105"/>
+    <itemref idref="html106"/>
+    <itemref idref="html107"/>
+    <itemref idref="html108"/>
+    <itemref idref="html109"/>
+    <itemref idref="html110"/>
+    <itemref idref="html111"/>
+    <itemref idref="html112"/>
+    <itemref idref="html113"/>
+    <itemref idref="html114"/>
+    <itemref idref="html115"/>
+    <itemref idref="html116"/>
+    <itemref idref="html117"/>
+    <itemref idref="html118"/>
+    <itemref idref="html119"/>
+    <itemref idref="html120"/>
+    <itemref idref="html121"/>
+    <itemref idref="html122"/>
+    <itemref idref="html123"/>
+    <itemref idref="html124"/>
+    <itemref idref="html125"/>
+    <itemref idref="html126"/>
+    <itemref idref="html127"/>
+  </spine>
+  <guide>
+    <reference href="titlepage.xhtml" title="Cover" type="cover"/>
+  </guide>
+</package>

@@ -1,0 +1,236 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>Map | Go语言圣经</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_34">Map</h1>
+        
+            <div class="section" id="section-">
+            
+                <h2 id="43-map" class="calibre14">4.3. Map</h2>
+<p class="calibre6">哈希表是一种巧妙并且实用的数据结构。它是一个无序的key/value对的集合，其中所有的key都是不同的，然后通过给定的key可以在常数时间复杂度内检索、更新或删除对应的value。</p>
+<p class="calibre6">在Go语言中，一个map就是一个哈希表的引用，map类型可以写为map[K]V，其中K和V分别对应key和value。map中所有的key都有相同的类型，所以的value也有着相同的类型，但是key和value之间可以是不同的数据类型。其中K对应的key必须是支持==比较运算符的数据类型，所以map可以通过测试key是否相等来判断是否已经存在。虽然浮点数类型也是支持相等运算符比较的，但是将浮点数用做key类型则是一个坏的想法，正如第三章提到的，最坏的情况是可能出现的NaN和任何浮点数都不相等。对于V对应的value数据类型则没有任何的限制。</p>
+<p class="calibre6">内置的make函数可以创建一个map：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">ages := <span class="hljs-number">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-typename">string</span>]<span class="hljs-typename">int</span>) <span class="hljs-comment">// mapping from strings to ints</span>
+</code></pre>
+<p class="calibre6">我们也可以用map字面值的语法创建map，同时还可以指定一些最初的key/value：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">ages := <span class="hljs-keyword">map</span>[<span class="hljs-typename">string</span>]<span class="hljs-typename">int</span>{
+    <span class="hljs-string">"alice"</span>:   <span class="hljs-number">31</span>,
+    <span class="hljs-string">"charlie"</span>: <span class="hljs-number">34</span>,
+}
+</code></pre>
+<p class="calibre6">这相当于</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">ages := <span class="hljs-number">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-typename">string</span>]<span class="hljs-typename">int</span>)
+ages[<span class="hljs-string">"alice"</span>] = <span class="hljs-number">31</span>
+ages[<span class="hljs-string">"charlie"</span>] = <span class="hljs-number">34</span>
+</code></pre>
+<p class="calibre6">因此，另一种创建空的map的表达式是<code class="calibre12 pcalibre5 pcalibre6">map[string]int{}</code>。</p>
+<p class="calibre6">Map中的元素通过key对应的下标语法访问：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">ages[<span class="hljs-string">"alice"</span>] = <span class="hljs-number">32</span>
+fmt.Println(ages[<span class="hljs-string">"alice"</span>]) <span class="hljs-comment">// "32"</span>
+</code></pre>
+<p class="calibre6">使用内置的delete函数可以删除元素：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-number">delete</span>(ages, <span class="hljs-string">"alice"</span>) <span class="hljs-comment">// remove element ages["alice"]</span>
+</code></pre>
+<p class="calibre6">所有这些操作是安全的，即使这些元素不在map中也没有关系；如果一个查找失败将返回value类型对应的零值，例如，即使map中不存在“bob”下面的代码也可以正常工作，因为ages["bob"]失败时将返回0。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">ages[<span class="hljs-string">"bob"</span>] = ages[<span class="hljs-string">"bob"</span>] + <span class="hljs-number">1</span> <span class="hljs-comment">// happy birthday!</span>
+</code></pre>
+<p class="calibre6">而且<code class="calibre12 pcalibre5 pcalibre6">x += y</code>和<code class="calibre12 pcalibre5 pcalibre6">x++</code>等简短赋值语法也可以用在map上，所以上面的代码可以改写成</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">ages[<span class="hljs-string">"bob"</span>] += <span class="hljs-number">1</span>
+</code></pre>
+<p class="calibre6">更简单的写法</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">ages[<span class="hljs-string">"bob"</span>]++
+</code></pre>
+<p class="calibre6">但是map中的元素并不是一个变量，因此我们不能对map的元素进行取址操作：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">_ = &amp;ages[<span class="hljs-string">"bob"</span>] <span class="hljs-comment">// compile error: cannot take address of map element</span>
+</code></pre>
+<p class="calibre6">禁止对map元素取址的原因是map可能随着元素数量的增长而重新分配更大的内存空间，从而可能导致之前的地址无效。</p>
+<p class="calibre6">要想遍历map中全部的key/value对的话，可以使用range风格的for循环实现，和之前的slice遍历语法类似。下面的迭代语句将在每次迭代时设置name和age变量，它们对应下一个键/值对：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">for</span> name, age := <span class="hljs-keyword">range</span> ages {
+    fmt.Printf(<span class="hljs-string">"%s\t%d\n"</span>, name, age)
+}
+</code></pre>
+<p class="calibre6">Map的迭代顺序是不确定的，并且不同的哈希函数实现可能导致不同的遍历顺序。在实践中，遍历的顺序是随机的，每一次遍历的顺序都不相同。这是故意的，每次都使用随机的遍历顺序可以强制要求程序不会依赖具体的哈希函数实现。如果要按顺序遍历key/value对，我们必须显式地对key进行排序，可以使用sort包的Strings函数对字符串slice进行排序。下面是常见的处理方式：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">import</span> <span class="hljs-string">"sort"</span>
+
+<span class="hljs-keyword">var</span> names []<span class="hljs-typename">string</span>
+<span class="hljs-keyword">for</span> name := <span class="hljs-keyword">range</span> ages {
+    names = <span class="hljs-number">append</span>(names, name)
+}
+sort.Strings(names)
+<span class="hljs-keyword">for</span> _, name := <span class="hljs-keyword">range</span> names {
+    fmt.Printf(<span class="hljs-string">"%s\t%d\n"</span>, name, ages[name])
+}
+</code></pre>
+<p class="calibre6">因为我们一开始就知道names的最终大小，因此给slice分配一个合适的大小将会更有效。下面的代码创建了一个空的slice，但是slice的容量刚好可以放下map中全部的key：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">names := <span class="hljs-number">make</span>([]<span class="hljs-typename">string</span>, <span class="hljs-number">0</span>, <span class="hljs-number">len</span>(ages))
+</code></pre>
+<p class="calibre6">在上面的第一个range循环中，我们只关心map中的key，所以我们忽略了第二个循环变量。在第二个循环中，我们只关心names中的名字，所以我们使用“_”空白标识符来忽略第一个循环变量，也就是迭代slice时的索引。</p>
+<p class="calibre6">map类型的零值是nil，也就是没有引用任何哈希表。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">var</span> ages <span class="hljs-keyword">map</span>[<span class="hljs-typename">string</span>]<span class="hljs-typename">int</span>
+fmt.Println(ages == <span class="hljs-number">nil</span>)    <span class="hljs-comment">// "true"</span>
+fmt.Println(<span class="hljs-number">len</span>(ages) == <span class="hljs-number">0</span>) <span class="hljs-comment">// "true"</span>
+</code></pre>
+<p class="calibre6">map上的大部分操作，包括查找、删除、len和range循环都可以安全工作在nil值的map上，它们的行为和一个空的map类似。但是向一个nil值的map存入元素将导致一个panic异常：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">ages[<span class="hljs-string">"carol"</span>] = <span class="hljs-number">21</span> <span class="hljs-comment">// panic: assignment to entry in nil map</span>
+</code></pre>
+<p class="calibre6">在向map存数据前必须先创建map。</p>
+<p class="calibre6">通过key作为索引下标来访问map将产生一个value。如果key在map中是存在的，那么将得到与key对应的value；如果key不存在，那么将得到value对应类型的零值，正如我们前面看到的ages["bob"]那样。这个规则很实用，但是有时候可能需要知道对应的元素是否真的是在map之中。例如，如果元素类型是一个数字，你可以需要区分一个已经存在的0，和不存在而返回零值的0，可以像下面这样测试：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">age, ok := ages[<span class="hljs-string">"bob"</span>]
+<span class="hljs-keyword">if</span> !ok { <span class="hljs-comment">/* "bob" is not a key in this map; age == 0. */</span> }
+</code></pre>
+<p class="calibre6">你会经常看到将这两个结合起来使用，像这样：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">if</span> age, ok := ages[<span class="hljs-string">"bob"</span>]; !ok { <span class="hljs-comment">/* ... */</span> }
+</code></pre>
+<p class="calibre6">在这种场景下，map的下标语法将产生两个值；第二个是一个布尔值，用于报告元素是否真的存在。布尔变量一般命名为ok，特别适合马上用于if条件判断部分。</p>
+<p class="calibre6">和slice一样，map之间也不能进行相等比较；唯一的例外是和nil进行比较。要判断两个map是否包含相同的key和value，我们必须通过一个循环实现：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">func</span> equal(x, y <span class="hljs-keyword">map</span>[<span class="hljs-typename">string</span>]<span class="hljs-typename">int</span>) <span class="hljs-typename">bool</span> {
+    <span class="hljs-keyword">if</span> <span class="hljs-number">len</span>(x) != <span class="hljs-number">len</span>(y) {
+        <span class="hljs-keyword">return</span> <span class="hljs-number">false</span>
+    }
+    <span class="hljs-keyword">for</span> k, xv := <span class="hljs-keyword">range</span> x {
+        <span class="hljs-keyword">if</span> yv, ok := y[k]; !ok || yv != xv {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">false</span>
+        }
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-number">true</span>
+}
+</code></pre>
+<p class="calibre6">要注意我们是如何用!ok来区分元素缺失和元素不同的。我们不能简单地用xv != y[k]判断，那样会导致在判断下面两个map时产生错误的结果：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-comment">// True if equal is written incorrectly.</span>
+equal(<span class="hljs-keyword">map</span>[<span class="hljs-typename">string</span>]<span class="hljs-typename">int</span>{<span class="hljs-string">"A"</span>: <span class="hljs-number">0</span>}, <span class="hljs-keyword">map</span>[<span class="hljs-typename">string</span>]<span class="hljs-typename">int</span>{<span class="hljs-string">"B"</span>: <span class="hljs-number">42</span>})
+</code></pre>
+<p class="calibre6">Go语言中并没有提供一个set类型，但是map中的key也是不相同的，可以用map实现类似set的功能。为了说明这一点，下面的dedup程序读取多行输入，但是只打印第一次出现的行。（它是1.3节中出现的dup程序的变体。）dedup程序通过map来表示所有的输入行所对应的set集合，以确保已经在集合存在的行不会被重复打印。</p>
+<p class="calibre6"><span class="calibre18"><i class="calibre13">gopl.io/ch4/dedup</i></span></p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">func</span> main() {
+    seen := <span class="hljs-number">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-typename">string</span>]<span class="hljs-typename">bool</span>) <span class="hljs-comment">// a set of strings</span>
+    input := bufio.NewScanner(os.Stdin)
+    <span class="hljs-keyword">for</span> input.Scan() {
+        line := input.Text()
+        <span class="hljs-keyword">if</span> !seen[line] {
+            seen[line] = <span class="hljs-number">true</span>
+            fmt.Println(line)
+        }
+    }
+
+    <span class="hljs-keyword">if</span> err := input.Err(); err != <span class="hljs-number">nil</span> {
+        fmt.Fprintf(os.Stderr, <span class="hljs-string">"dedup: %v\n"</span>, err)
+        os.Exit(<span class="hljs-number">1</span>)
+    }
+}
+</code></pre>
+<p class="calibre6">Go程序员将这种忽略value的map当作一个字符串集合，并非所有<code class="calibre12 pcalibre5 pcalibre6">map[string]bool</code>类型value都是无关紧要的；有一些则可能会同时包含tue和false的值。</p>
+<p class="calibre6">有时候我们需要一个map或set的key是slice类型，但是map的key必须是可比较的类型，但是slice并不满足这个条件。不过，我们可以通过两个步骤绕过这个限制。第一步，定义一个辅助函数k，将slice转为map对应的string类型的key，确保只有x和y相等时k(x) == k(y)才成立。然后创建一个key为string类型的map，在每次对map操作时先用k辅助函数将slice转化为string类型。</p>
+<p class="calibre6">下面的例子演示了如何使用map来记录提交相同的字符串列表的次数。它使用了fmt.Sprintf函数将字符串列表转换为一个字符串以用于map的key，通过%q参数忠实地记录每个字符串元素的信息：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">var</span> m = <span class="hljs-number">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-typename">string</span>]<span class="hljs-typename">int</span>)
+
+<span class="hljs-keyword">func</span> k(list []<span class="hljs-typename">string</span>) <span class="hljs-typename">string</span> { <span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">"%q"</span>, list) }
+
+<span class="hljs-keyword">func</span> Add(list []<span class="hljs-typename">string</span>)       { m[k(list)]++ }
+<span class="hljs-keyword">func</span> Count(list []<span class="hljs-typename">string</span>) <span class="hljs-typename">int</span> { <span class="hljs-keyword">return</span> m[k(list)] }
+</code></pre>
+<p class="calibre6">使用同样的技术可以处理任何不可比较的key类型，而不仅仅是slice类型。这种技术对于想使用自定义key比较函数的时候也很有用，例如在比较字符串的时候忽略大小写。同时，辅助函数k(x)也不一定是字符串类型，它可以返回任何可比较的类型，例如整数、数组或结构体等。</p>
+<p class="calibre6">这是map的另一个例子，下面的程序用于统计输入中每个Unicode码点出现的次数。虽然Unicode全部码点的数量巨大，但是出现在特定文档中的字符种类并没有多少，使用map可以用比较自然的方式来跟踪那些出现过字符的次数。</p>
+<p class="calibre6"><span class="calibre18"><i class="calibre13">gopl.io/ch4/charcount</i></span></p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-comment">// Charcount computes counts of Unicode characters.</span>
+<span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">"bufio"</span>
+    <span class="hljs-string">"fmt"</span>
+    <span class="hljs-string">"io"</span>
+    <span class="hljs-string">"os"</span>
+    <span class="hljs-string">"unicode"</span>
+    <span class="hljs-string">"unicode/utf8"</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    counts := <span class="hljs-number">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-typename">rune</span>]<span class="hljs-typename">int</span>)    <span class="hljs-comment">// counts of Unicode characters</span>
+    <span class="hljs-keyword">var</span> utflen [utf8.UTFMax + <span class="hljs-number">1</span>]<span class="hljs-typename">int</span> <span class="hljs-comment">// count of lengths of UTF-8 encodings</span>
+    invalid := <span class="hljs-number">0</span>                    <span class="hljs-comment">// count of invalid UTF-8 characters</span>
+
+    in := bufio.NewReader(os.Stdin)
+    <span class="hljs-keyword">for</span> {
+        r, n, err := in.ReadRune() <span class="hljs-comment">// returns rune, nbytes, error</span>
+        <span class="hljs-keyword">if</span> err == io.EOF {
+            <span class="hljs-keyword">break</span>
+        }
+        <span class="hljs-keyword">if</span> err != <span class="hljs-number">nil</span> {
+            fmt.Fprintf(os.Stderr, <span class="hljs-string">"charcount: %v\n"</span>, err)
+            os.Exit(<span class="hljs-number">1</span>)
+        }
+        <span class="hljs-keyword">if</span> r == unicode.ReplacementChar &amp;&amp; n == <span class="hljs-number">1</span> {
+            invalid++
+            <span class="hljs-keyword">continue</span>
+        }
+        counts[r]++
+        utflen[n]++
+    }
+    fmt.Printf(<span class="hljs-string">"rune\tcount\n"</span>)
+    <span class="hljs-keyword">for</span> c, n := <span class="hljs-keyword">range</span> counts {
+        fmt.Printf(<span class="hljs-string">"%q\t%d\n"</span>, c, n)
+    }
+    fmt.Print(<span class="hljs-string">"\nlen\tcount\n"</span>)
+    <span class="hljs-keyword">for</span> i, n := <span class="hljs-keyword">range</span> utflen {
+        <span class="hljs-keyword">if</span> i &gt; <span class="hljs-number">0</span> {
+            fmt.Printf(<span class="hljs-string">"%d\t%d\n"</span>, i, n)
+        }
+    }
+    <span class="hljs-keyword">if</span> invalid &gt; <span class="hljs-number">0</span> {
+        fmt.Printf(<span class="hljs-string">"\n%d invalid UTF-8 characters\n"</span>, invalid)
+    }
+}
+</code></pre>
+<p class="calibre6">ReadRune方法执行UTF-8解码并返回三个值：解码的rune字符的值，字符UTF-8编码后的长度，和一个错误值。我们可预期的错误值只有对应文件结尾的io.EOF。如果输入的是无效的UTF-8编码的字符，返回的将是unicode.ReplacementChar表示无效字符，并且编码长度是1。</p>
+<p class="calibre6">charcount程序同时打印不同UTF-8编码长度的字符数目。对此，map并不是一个合适的数据结构；因为UTF-8编码的长度总是从1到utf8.UTFMax（最大是4个字节），使用数组将更有效。</p>
+<p class="calibre6">作为一个实验，我们用charcount程序对英文版原稿的字符进行了统计。虽然大部分是英语，但是也有一些非ASCII字符。下面是排名前10的非ASCII字符：</p>
+<p class="calibre6"><img alt="" src="ch4-xx-01.png" class="calibre8"/></p>
+<p class="calibre6">下面是不同UTF-8编码长度的字符的数目：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">len count
+1   765391
+2   60
+3   70
+4   0
+</code></pre><p class="calibre6">Map的value类型也可以是一个聚合类型，比如是一个map或slice。在下面的代码中，图graph的key类型是一个字符串，value类型map[string]bool代表一个字符串集合。从概念上将，graph将一个字符串类型的key映射到一组相关的字符串集合，它们指向新的graph的key。</p>
+<p class="calibre6"><span class="calibre18"><i class="calibre13">gopl.io/ch4/graph</i></span></p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">var</span> graph = <span class="hljs-number">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-typename">string</span>]<span class="hljs-keyword">map</span>[<span class="hljs-typename">string</span>]<span class="hljs-typename">bool</span>)
+
+<span class="hljs-keyword">func</span> addEdge(from, to <span class="hljs-typename">string</span>) {
+    edges := graph[from]
+    <span class="hljs-keyword">if</span> edges == <span class="hljs-number">nil</span> {
+        edges = <span class="hljs-number">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-typename">string</span>]<span class="hljs-typename">bool</span>)
+        graph[from] = edges
+    }
+    edges[to] = <span class="hljs-number">true</span>
+}
+
+<span class="hljs-keyword">func</span> hasEdge(from, to <span class="hljs-typename">string</span>) <span class="hljs-typename">bool</span> {
+    <span class="hljs-keyword">return</span> graph[from][to]
+}
+</code></pre>
+<p class="calibre6">其中addEdge函数惰性初始化map是一个惯用方式，也就是说在每个值首次作为key时才初始化。addEdge函数显示了如何让map的零值也能正常工作；即使from到to的边不存在，graph[from][to]依然可以返回一个有意义的结果。</p>
+<p class="calibre6"><strong class="calibre19">练习 4.8：</strong> 修改charcount程序，使用unicode.IsLetter等相关的函数，统计字母、数字等Unicode中不同的字符类别。</p>
+<p class="calibre6"><strong class="calibre19">练习 4.9：</strong> 编写一个程序wordfreq程序，报告输入文本中每个单词出现的频率。在第一次调用Scan前先调用input.Split(bufio.ScanWords)函数，这样可以按单词而不是按行输入。</p>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

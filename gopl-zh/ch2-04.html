@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>赋值 | Go语言圣经</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_20">赋值</h1>
+        
+            <div class="section" id="section-">
+            
+                <h2 id="24-赋值" class="calibre14">2.4. 赋值</h2>
+<p class="calibre6">使用赋值语句可以更新一个变量的值，最简单的赋值语句是将要被赋值的变量放在=的左边，新值的表达式放在=的右边。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">x = <span class="hljs-number">1</span>                       <span class="hljs-comment">// 命名变量的赋值</span>
+*p = <span class="hljs-number">true</span>                   <span class="hljs-comment">// 通过指针间接赋值</span>
+person.name = <span class="hljs-string">"bob"</span>         <span class="hljs-comment">// 结构体字段赋值</span>
+count[x] = count[x] * scale <span class="hljs-comment">// 数组、slice或map的元素赋值</span>
+</code></pre>
+<p class="calibre6">特定的二元算术运算符和赋值语句的复合操作有一个简洁形式，例如上面最后的语句可以重写为：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">count[x] *= scale
+</code></pre>
+<p class="calibre6">这样可以省去对变量表达式的重复计算。</p>
+<p class="calibre6">数值变量也可以支持<code class="calibre12 pcalibre5 pcalibre6">++</code>递增和<code class="calibre12 pcalibre5 pcalibre6">--</code>递减语句（译注：自增和自减是语句，而不是表达式，因此<code class="calibre12 pcalibre5 pcalibre6">x = i++</code>之类的表达式是错误的）：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">v := <span class="hljs-number">1</span>
+v++    <span class="hljs-comment">// 等价方式 v = v + 1；v 变成 2</span>
+v--    <span class="hljs-comment">// 等价方式 v = v - 1；v 变成 1</span>
+</code></pre>
+<h3 id="241-元组赋值" class="calibre22">2.4.1. 元组赋值</h3>
+<p class="calibre6">元组赋值是另一种形式的赋值语句，它允许同时更新多个变量的值。在赋值之前，赋值语句右边的所有表达式将会先进行求值，然后再统一更新左边对应变量的值。这对于处理有些同时出现在元组赋值语句左右两边的变量很有帮助，例如我们可以这样交换两个变量的值：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">x, y = y, x
+
+a[i], a[j] = a[j], a[i]
+</code></pre>
+<p class="calibre6">或者是计算两个整数值的的最大公约数（GCD）（译注：GCD不是那个敏感字，而是greatest common divisor的缩写，欧几里德的GCD是最早的非平凡算法）：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">func</span> gcd(x, y <span class="hljs-typename">int</span>) <span class="hljs-typename">int</span> {
+    <span class="hljs-keyword">for</span> y != <span class="hljs-number">0</span> {
+        x, y = y, x%y
+    }
+    <span class="hljs-keyword">return</span> x
+}
+</code></pre>
+<p class="calibre6">或者是计算斐波纳契数列（Fibonacci）的第N个数：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">func</span> fib(n <span class="hljs-typename">int</span>) <span class="hljs-typename">int</span> {
+    x, y := <span class="hljs-number">0</span>, <span class="hljs-number">1</span>
+    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; i++ {
+        x, y = y, x+y
+    }
+    <span class="hljs-keyword">return</span> x
+}
+</code></pre>
+<p class="calibre6">元组赋值也可以使一系列琐碎赋值更加紧凑（译注: 特别是在for循环的初始化部分），</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">i, j, k = <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>
+</code></pre>
+<p class="calibre6">但如果表达式太复杂的话，应该尽量避免过度使用元组赋值；因为每个变量单独赋值语句的写法可读性会更好。</p>
+<p class="calibre6">有些表达式会产生多个值，比如调用一个有多个返回值的函数。当这样一个函数调用出现在元组赋值右边的表达式中时（译注：右边不能再有其它表达式），左边变量的数目必须和右边一致。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">f, err = os.Open(<span class="hljs-string">"foo.txt"</span>) <span class="hljs-comment">// function call returns two values</span>
+</code></pre>
+<p class="calibre6">通常，这类函数会用额外的返回值来表达某种错误类型，例如os.Open是用额外的返回值返回一个error类型的错误，还有一些是用来返回布尔值，通常被称为ok。在稍后我们将看到的三个操作都是类似的用法。如果map查找（§4.3）、类型断言（§7.10）或通道接收（§8.4.2）出现在赋值语句的右边，它们都可能会产生两个结果，有一个额外的布尔结果表示操作是否成功：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">v, ok = m[key]             <span class="hljs-comment">// map lookup</span>
+v, ok = x.(T)              <span class="hljs-comment">// type assertion</span>
+v, ok = &lt;-ch               <span class="hljs-comment">// channel receive</span>
+</code></pre>
+<p class="calibre6">译注：map查找（§4.3）、类型断言（§7.10）或通道接收（§8.4.2）出现在赋值语句的右边时，并不一定是产生两个结果，也可能只产生一个结果。对于值产生一个结果的情形，map查找失败时会返回零值，类型断言失败时会发送运行时panic异常，通道接收失败时会返回零值（阻塞不算是失败）。例如下面的例子：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">v = m[key]                <span class="hljs-comment">// map查找，失败时返回零值</span>
+v = x.(T)                 <span class="hljs-comment">// type断言，失败时panic异常</span>
+v = &lt;-ch                  <span class="hljs-comment">// 管道接收，失败时返回零值（阻塞不算是失败）</span>
+
+_, ok = m[key]            <span class="hljs-comment">// map返回2个值</span>
+_, ok = mm[<span class="hljs-string">""</span>], <span class="hljs-number">false</span>     <span class="hljs-comment">// map返回1个值</span>
+_ = mm[<span class="hljs-string">""</span>]                <span class="hljs-comment">// map返回1个值</span>
+</code></pre>
+<p class="calibre6">和变量声明一样，我们可以用下划线空白标识符<code class="calibre12 pcalibre5 pcalibre6">_</code>来丢弃不需要的值。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">_, err = io.Copy(dst, src) <span class="hljs-comment">// 丢弃字节数</span>
+_, ok = x.(T)              <span class="hljs-comment">// 只检测类型，忽略具体值</span>
+</code></pre>
+<h3 id="242-可赋值性" class="calibre22">2.4.2. 可赋值性</h3>
+<p class="calibre6">赋值语句是显式的赋值形式，但是程序中还有很多地方会发生隐式的赋值行为：函数调用会隐式地将调用参数的值赋值给函数的参数变量，一个返回语句将隐式地将返回操作的值赋值给结果变量，一个复合类型的字面量（§4.2）也会产生赋值行为。例如下面的语句：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">medals := []<span class="hljs-typename">string</span>{<span class="hljs-string">"gold"</span>, <span class="hljs-string">"silver"</span>, <span class="hljs-string">"bronze"</span>}
+</code></pre>
+<p class="calibre6">隐式地对slice的每个元素进行赋值操作，类似这样写的行为：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">medals[<span class="hljs-number">0</span>] = <span class="hljs-string">"gold"</span> 
+medals[<span class="hljs-number">1</span>] = <span class="hljs-string">"silver"</span> 
+medals[<span class="hljs-number">2</span>] = <span class="hljs-string">"bronze"</span>
+</code></pre>
+<p class="calibre6">map和chan的元素，虽然不是普通的变量，但是也有类似的隐式赋值行为。</p>
+<p class="calibre6">不管是隐式还是显式地赋值，在赋值语句左边的变量和右边最终的求到的值必须有相同的数据类型。更直白地说，只有右边的值对于左边的变量是可赋值的，赋值语句才是允许的。</p>
+<p class="calibre6">可赋值性的规则对于不同类型有着不同要求，对每个新类型特殊的地方我们会专门解释。对于目前我们已经讨论过的类型，它的规则是简单的：类型必须完全匹配，nil可以赋值给任何指针或引用类型的变量。常量（§3.6）则有更灵活的赋值规则，因为这样可以避免不必要的显式的类型转换。</p>
+<p class="calibre6">对于两个值是否可以用<code class="calibre12 pcalibre5 pcalibre6">==</code>或<code class="calibre12 pcalibre5 pcalibre6">!=</code>进行相等比较的能力也和可赋值能力有关系：对于任何类型的值的相等比较，第二个值必须是对第一个值类型对应的变量是可赋值的，反之依然。和前面一样，我们会对每个新类型比较特殊的地方做专门的解释。</p>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

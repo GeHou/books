@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>基于类型断言识别错误类型 | Go语言圣经</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_67">基于类型断言识别错误类型</h1>
+        
+            <div class="section" id="section-">
+            
+                <h2 id="711-基于类型断言区别错误类型" class="calibre14">7.11. 基于类型断言区别错误类型</h2>
+<p class="calibre6">思考在os包中文件操作返回的错误集合。I/O可以因为任何数量的原因失败，但是有三种经常的错误必须进行不同的处理：文件已经存在（对于创建操作），找不到文件（对于读取操作），和权限拒绝。os包中提供了这三个帮助函数来对给定的错误值表示的失败进行分类：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">package</span> os
+
+<span class="hljs-keyword">func</span> IsExist(err error) <span class="hljs-typename">bool</span>
+<span class="hljs-keyword">func</span> IsNotExist(err error) <span class="hljs-typename">bool</span>
+<span class="hljs-keyword">func</span> IsPermission(err error) <span class="hljs-typename">bool</span>
+</code></pre>
+<p class="calibre6">对这些判断的一个缺乏经验的实现可能会去检查错误消息是否包含了特定的子字符串，</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">func</span> IsNotExist(err error) <span class="hljs-typename">bool</span> {
+    <span class="hljs-comment">// <span class="hljs-typename">NOTE:</span> not robust!</span>
+    <span class="hljs-keyword">return</span> strings.Contains(err.Error(), <span class="hljs-string">"file does not exist"</span>)
+}
+</code></pre>
+<p class="calibre6">但是处理I/O错误的逻辑可能一个和另一个平台非常的不同，所以这种方案并不健壮并且对相同的失败可能会报出各种不同的错误消息。在测试的过程中，通过检查错误消息的子字符串来保证特定的函数以期望的方式失败是非常有用的，但对于线上的代码是不够的。</p>
+<p class="calibre6">一个更可靠的方式是使用一个专门的类型来描述结构化的错误。os包中定义了一个PathError类型来描述在文件路径操作中涉及到的失败，像Open或者Delete操作,并且定义了一个叫LinkError的变体来描述涉及到两个文件路径的操作，像Symlink和Rename。这下面是os.PathError：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">package</span> os
+
+<span class="hljs-comment">// PathError records an error and the operation and file path that caused it.</span>
+<span class="hljs-keyword">type</span> PathError <span class="hljs-keyword">struct</span> {
+    Op   <span class="hljs-typename">string</span>
+    Path <span class="hljs-typename">string</span>
+    Err  error
+}
+
+<span class="hljs-keyword">func</span> (e *PathError) Error() <span class="hljs-typename">string</span> {
+    <span class="hljs-keyword">return</span> e.Op + <span class="hljs-string">" "</span> + e.Path + <span class="hljs-string">": "</span> + e.Err.Error()
+}
+</code></pre>
+<p class="calibre6">大多数调用方都不知道PathError并且通过调用错误本身的Error方法来统一处理所有的错误。尽管PathError的Error方法简单地把这些字段连接起来生成错误消息，PathError的结构保护了内部的错误组件。调用方需要使用类型断言来检测错误的具体类型以便将一种失败和另一种区分开；具体的类型比字符串可以提供更多的细节。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">_, err := os.Open(<span class="hljs-string">"/no/such/file"</span>)
+fmt.Println(err) <span class="hljs-comment">// "open /no/such/file: No such file or directory"</span>
+fmt.Printf(<span class="hljs-string">"%#v\n"</span>, err)
+<span class="hljs-comment">// Output:</span>
+<span class="hljs-comment">// &amp;os.PathError{Op:"open", Path:"/no/such/file", Err:0x2}</span>
+</code></pre>
+<p class="calibre6">这就是三个帮助函数是怎么工作的。例如下面展示的IsNotExist，它会报出是否一个错误和syscall.ENOENT(§7.8)或者和有名的错误os.ErrNotExist相等(可以在§5.4.2中找到io.EOF）；或者是一个*PathError，它内部的错误是syscall.ENOENT和os.ErrNotExist其中之一。</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7"><span class="hljs-keyword">import</span> (
+    <span class="hljs-string">"errors"</span>
+    <span class="hljs-string">"syscall"</span>
+)
+
+<span class="hljs-keyword">var</span> ErrNotExist = errors.New(<span class="hljs-string">"file does not exist"</span>)
+
+<span class="hljs-comment">// IsNotExist returns a boolean indicating whether the error is known to</span>
+<span class="hljs-comment">// report that a file or directory does not exist. It is satisfied by</span>
+<span class="hljs-comment">// ErrNotExist as well as some syscall errors.</span>
+<span class="hljs-keyword">func</span> IsNotExist(err error) <span class="hljs-typename">bool</span> {
+    <span class="hljs-keyword">if</span> pe, ok := err.(*PathError); ok {
+        err = pe.Err
+    }
+    <span class="hljs-keyword">return</span> err == syscall.ENOENT || err == ErrNotExist
+}
+</code></pre>
+<p class="calibre6">下面这里是它的实际使用：</p>
+<pre class="calibre15"><code class="pcalibre8 calibre16 pcalibre7">_, err := os.Open(<span class="hljs-string">"/no/such/file"</span>)
+fmt.Println(os.IsNotExist(err)) <span class="hljs-comment">// "true"</span>
+</code></pre>
+<p class="calibre6">如果错误消息结合成一个更大的字符串，当然PathError的结构就不再为人所知，例如通过一个对fmt.Errorf函数的调用。区别错误通常必须在失败操作后，错误传回调用者前进行。</p>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>
