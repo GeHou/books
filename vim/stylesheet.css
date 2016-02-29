@@ -1,10 +1,11 @@
 .bold {
-    font-weight: bold
+    font-weight: bold;
+    line-height: 1.6
     }
 .calibre {
     display: block;
     font-size: 1em;
-    line-height: 1.2;
+    line-height: 1.6;
     padding-left: 0;
     padding-right: 0;
     text-align: justify;
@@ -12,96 +13,114 @@
     }
 .calibre_ {
     display: block;
+    line-height: 1.6;
     text-align: center;
     text-indent: 0;
     margin: 0
     }
 .calibre_1 {
     display: block;
+    line-height: 1.6;
     text-align: justify;
     text-indent: 0;
     margin: 1em 0 0
     }
 .calibre_2 {
-    color: #00f
+    color: #00f;
+    line-height: 1.6
     }
 .calibre_3 {
     display: block;
+    line-height: 1.6;
     margin: 0 0 0 2em
     }
 .calibre_4 {
     display: block;
+    line-height: 1.6;
     text-align: justify;
     text-indent: 0;
     margin: 0 0 0 2em
     }
 .calibre_5 {
     display: block;
+    line-height: 1.6;
     text-align: justify;
     text-indent: 0;
     margin: 0
     }
 .calibre_6 {
     display: block;
+    line-height: 1.6;
     text-align: justify;
     text-indent: 2em;
     margin: 1em 0 0
     }
 .calibre_7 {
     display: block;
+    line-height: 1.6;
     text-align: justify;
     text-indent: 2em;
     margin: 0
     }
 .calibre_8 {
     display: block;
+    line-height: 1.6;
     text-align: justify;
     text-indent: 0;
     margin: 2em 0 0
     }
 .calibre_9 {
     display: block;
+    line-height: 1.6;
     text-align: justify;
     text-indent: 2em;
     margin: 2em 0 0
     }
 .calibre_10 {
     height: 20px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 20px
     }
 .calibre_11 {
     height: 141px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 825px
     }
 .calibre_12 {
     height: 416px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 308px
     }
 .calibre_13 {
     height: 133px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 305px
     }
 .calibre_14 {
     height: 129px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 307px
     }
 .calibre_15 {
     height: 512px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 304px
     }
 .calibre_16 {
     height: 122px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 825px
     }
 .calibre_17 {
     height: 399px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 357px
     }
@@ -109,6 +128,7 @@
     border-collapse: separate;
     border-spacing: 2px;
     display: table;
+    line-height: 1.6;
     margin-bottom: 0;
     margin-top: 0;
     text-align: center;
@@ -116,1484 +136,1788 @@
     }
 .calibre_19 {
     display: table-row;
+    line-height: 1.6;
     text-align: justify;
     vertical-align: middle
     }
 .calibre_20 {
     display: table-cell;
+    line-height: 1.6;
     text-align: justify;
     vertical-align: inherit;
     padding: 1px
     }
 .calibre_21 {
-    color: #00c
+    color: #00c;
+    line-height: 1.6
     }
 .calibre_22 {
     height: 81px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 835px
     }
 .calibre_23 {
     height: 53px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 829px
     }
 .calibre_24 {
     height: 92px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 700px
     }
 .calibre_25 {
     height: 147px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 698px
     }
 .calibre_26 {
     display: block;
+    line-height: 1.6;
     text-align: center;
     text-indent: 0;
     margin: 10pt 0 0 2em
     }
 .calibre_27 {
     height: 272px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 667px
     }
 .calibre_28 {
     display: block;
+    line-height: 1.6;
     text-align: justify;
     text-indent: 0;
     margin: 10pt 0 0
     }
 .calibre_29 {
     height: 122px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 832px
     }
 .calibre_30 {
     height: 394px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 751px
     }
 .calibre_31 {
     height: 83px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 846px
     }
 .calibre_32 {
     height: 120px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 352px
     }
 .calibre_33 {
     height: 119px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 344px
     }
 .calibre_34 {
     height: 93px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 344px
     }
 .calibre_35 {
     height: 88px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 818px
     }
 .calibre_36 {
     height: 301px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 721px
     }
 .calibre_37 {
     height: 33px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 721px
     }
 .calibre_38 {
     height: 95px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 511px
     }
 .calibre_39 {
     height: 379px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 470px
     }
 .calibre_40 {
     height: 146px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 371px
     }
 .calibre_41 {
     height: 143px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 333px
     }
 .calibre_42 {
     height: 103px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 832px
     }
 .calibre_43 {
     height: 234px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 482px
     }
 .calibre_44 {
     height: 74px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 831px
     }
 .calibre_45 {
     height: 113px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 601px
     }
 .calibre_46 {
     height: 180px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 603px
     }
 .calibre_47 {
     height: 97px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 829px
     }
 .calibre_48 {
     height: 186px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 739px
     }
 .calibre_49 {
     height: 177px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 354px
     }
 .calibre_50 {
     height: 273px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 553px
     }
 .calibre_51 {
     height: 159px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 420px
     }
 .calibre_52 {
     height: 197px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 837px
     }
 .calibre_53 {
     height: 460px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 383px
     }
 .calibre_54 {
     height: 130px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 832px
     }
 .calibre_55 {
     height: 256px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 373px
     }
 .calibre_56 {
     height: 99px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 830px
     }
 .calibre_57 {
     height: 325px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 434px
     }
 .calibre_58 {
     height: 150px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 830px
     }
 .calibre_59 {
     height: 512px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 475px
     }
 .calibre_60 {
     height: 238px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 474px
     }
 .calibre_61 {
     height: 124px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 830px
     }
 .calibre_62 {
     height: 398px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 791px
     }
 .calibre_63 {
     height: 128px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 829px
     }
 .calibre_64 {
     height: 323px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 447px
     }
 .calibre_65 {
     height: 373px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 770px
     }
 .calibre_66 {
     height: 174px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 830px
     }
 .calibre_67 {
     height: 36px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 818px
     }
 .calibre_68 {
     height: 140px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 836px
     }
 .calibre_69 {
     height: 49px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 827px
     }
 .calibre_70 {
     height: 193px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 830px
     }
 .calibre_71 {
     height: 350px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 491px
     }
 .calibre_72 {
     height: 43px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 826px
     }
 .calibre_73 {
     height: 212px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 570px
     }
 .calibre_74 {
     height: 47px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 830px
     }
 .calibre_75 {
     display: block;
+    line-height: 1.6;
     text-align: justify;
     text-indent: 2em;
     margin: 10pt 0 0
     }
 .calibre_76 {
     height: 550px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 518px
     }
 .calibre_77 {
     height: 164px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 828px
     }
 .calibre_78 {
     height: 277px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 520px
     }
 .calibre_79 {
     height: 275px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 540px
     }
 .calibre_80 {
     height: 50px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 832px
     }
 .calibre_81 {
     height: 72px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 832px
     }
 .calibre_82 {
     height: 147px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 824px
     }
 .calibre_83 {
     height: 324px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 639px
     }
 .calibre_84 {
     height: 50px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 830px
     }
 .calibre_85 {
     height: 96px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 823px
     }
 .calibre_86 {
     height: 190px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 400px
     }
 .calibre_87 {
     height: 144px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 418px
     }
 .calibre_88 {
     height: 149px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 827px
     }
 .calibre_89 {
     height: 105px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 818px
     }
 .calibre_90 {
     height: 113px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 781px
     }
 .calibre_91 {
     height: 59px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 781px
     }
 .calibre_92 {
     height: 49px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 833px
     }
 .calibre_93 {
     display: block;
+    line-height: 1.6;
     text-align: left;
     text-indent: 0;
     margin: 0
     }
 .calibre_94 {
     height: 154px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 843px
     }
 .calibre_95 {
     height: 206px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 336px
     }
 .calibre_96 {
     height: 180px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 595px
     }
 .calibre_97 {
     height: 204px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 616px
     }
 .calibre_98 {
     height: 102px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 614px
     }
 .calibre_99 {
     height: 206px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 616px
     }
 .calibre_100 {
     height: 88px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 453px
     }
 .calibre_101 {
     height: 177px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 595px
     }
 .calibre_102 {
     height: 143px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 668px
     }
 .calibre_103 {
     height: 394px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 832px
     }
 .calibre_104 {
     height: 110px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 830px
     }
 .calibre_105 {
     height: 247px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 503px
     }
 .calibre_106 {
     height: 151px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 702px
     }
 .calibre_107 {
     height: 180px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 240px
     }
 .calibre_108 {
     height: 146px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 780px
     }
 .calibre_109 {
     height: 278px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 763px
     }
 .calibre_110 {
     height: 397px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 572px
     }
 .calibre_111 {
     height: 146px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 818px
     }
 .calibre_112 {
     height: 180px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 480px
     }
 .calibre_113 {
     height: 261px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 482px
     }
 .calibre_114 {
     height: 109px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 441px
     }
 .calibre_115 {
     height: 51px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 827px
     }
 .calibre_116 {
     height: 135px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 447px
     }
 .calibre_117 {
     height: 145px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 445px
     }
 .calibre_118 {
     height: 112px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 447px
     }
 .calibre_119 {
     height: 110px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 445px
     }
 .calibre_120 {
     height: 140px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 701px
     }
 .calibre_121 {
     height: 190px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 705px
     }
 .calibre_122 {
     height: 160px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 718px
     }
 .calibre_123 {
     height: 72px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 821px
     }
 .calibre_124 {
     height: 71px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 824px
     }
 .calibre_125 {
     height: 177px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 568px
     }
 .calibre_126 {
     height: 75px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 568px
     }
 .calibre_127 {
     height: 138px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 582px
     }
 .calibre_128 {
     height: 55px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 827px
     }
 .calibre_129 {
     height: 127px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 830px
     }
 .calibre_130 {
     height: 114px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 457px
     }
 .calibre_131 {
     height: 145px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 456px
     }
 .calibre_132 {
     height: 92px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 572px
     }
 .calibre_133 {
     height: 131px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 571px
     }
 .calibre_134 {
     height: 118px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 561px
     }
 .calibre_135 {
     height: 132px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 831px
     }
 .calibre_136 {
     height: 537px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 582px
     }
 .calibre_137 {
     height: 577px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 491px
     }
 .calibre_138 {
     height: 132px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 595px
     }
 .calibre_139 {
     display: block;
+    line-height: 1.6;
     text-align: center;
     text-indent: 0;
     margin: 1em 0 0
     }
 .calibre_140 {
     height: 250px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 688px
     }
 .calibre_141 {
     height: 361px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 344px
     }
 .calibre_142 {
     height: 112px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 772px
     }
 .calibre_143 {
     height: 112px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 770px
     }
 .calibre_144 {
     height: 278px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 461px
     }
 .calibre_145 {
     height: 191px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 551px
     }
 .calibre_146 {
     height: 89px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 834px
     }
 .calibre_147 {
     height: 207px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 599px
     }
 .calibre_148 {
     height: 96px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 827px
     }
 .calibre_149 {
     height: 126px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 647px
     }
 .calibre_150 {
     height: 344px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 689px
     }
 .calibre_151 {
     height: 161px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 829px
     }
 .calibre_152 {
     height: 109px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 837px
     }
 .calibre_153 {
     height: 178px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 333px
     }
 .calibre_154 {
     height: 234px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 329px
     }
 .calibre_155 {
     height: 161px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 333px
     }
 .calibre_156 {
     height: 104px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 826px
     }
 .calibre_157 {
     height: 222px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 631px
     }
 .calibre_158 {
     height: 235px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 564px
     }
 .calibre_159 {
     height: 235px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 528px
     }
 .calibre_160 {
     height: 236px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 553px
     }
 .calibre_161 {
     height: 93px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 545px
     }
 .calibre_162 {
     height: 157px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 545px
     }
 .calibre_163 {
     height: 141px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 424px
     }
 .calibre_164 {
     height: 201px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 424px
     }
 .calibre_165 {
     height: 73px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 832px
     }
 .calibre_166 {
     height: 139px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 578px
     }
 .calibre_167 {
     height: 56px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 577px
     }
 .calibre_168 {
     height: 527px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 570px
     }
 .calibre_169 {
     height: 219px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 831px
     }
 .calibre_170 {
     height: 190px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 827px
     }
 .calibre_171 {
     height: 327px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 381px
     }
 .calibre_172 {
     height: 327px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 464px
     }
 .calibre_173 {
     height: 152px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 489px
     }
 .calibre_174 {
     height: 88px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 832px
     }
 .calibre_175 {
     height: 51px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 832px
     }
 .calibre_176 {
     height: 51px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 836px
     }
 .calibre_177 {
     height: 167px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 730px
     }
 .calibre_178 {
     height: 146px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 824px
     }
 .calibre_179 {
     height: 124px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 838px
     }
 .calibre_180 {
     height: 333px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 313px
     }
 .calibre_181 {
     height: 152px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 832px
     }
 .calibre_182 {
     height: 231px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 319px
     }
 .calibre_183 {
     height: 175px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 835px
     }
 .calibre_184 {
     height: 275px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 451px
     }
 .calibre_185 {
     height: 122px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 518px
     }
 .calibre_186 {
     height: 237px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 511px
     }
 .calibre_187 {
     height: 186px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 308px
     }
 .calibre_188 {
     height: 185px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 289px
     }
 .calibre_189 {
     height: 146px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 827px
     }
 .calibre_190 {
     height: 169px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 829px
     }
 .calibre_191 {
     height: 191px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 825px
     }
 .calibre_192 {
     height: 604px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 669px
     }
 .calibre_193 {
     height: 145px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 668px
     }
 .calibre_194 {
     height: 395px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 461px
     }
 .calibre_195 {
     height: 167px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 827px
     }
 .calibre_196 {
     height: 69px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 828px
     }
 .calibre_197 {
     height: 90px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 834px
     }
 .calibre_198 {
     height: 191px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 521px
     }
 .calibre_199 {
     height: 393px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 549px
     }
 .calibre_200 {
     height: 143px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 832px
     }
 .calibre_201 {
     height: 118px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 319px
     }
 .calibre_202 {
     height: 222px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 510px
     }
 .calibre_203 {
     height: 130px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 826px
     }
 .calibre_204 {
     height: 100px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 829px
     }
 .calibre_205 {
     height: 100px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 761px
     }
 .calibre_206 {
     height: 156px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 761px
     }
 .calibre_207 {
     height: 108px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 834px
     }
 .calibre_208 {
     height: 73px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 828px
     }
 .calibre_209 {
     height: 127px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 703px
     }
 .calibre_210 {
     height: 132px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 824px
     }
 .calibre_211 {
     height: 101px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 829px
     }
 .calibre_212 {
     height: 100px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 826px
     }
 .calibre_213 {
     height: 101px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 831px
     }
 .calibre_214 {
     height: 99px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 838px
     }
 .calibre_215 {
     height: 101px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 834px
     }
 .calibre_216 {
     height: 73px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 419px
     }
 .calibre_217 {
     height: 95px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 419px
     }
 .calibre_218 {
     height: 144px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 477px
     }
 .calibre_219 {
     height: 129px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 840px
     }
 .calibre_220 {
     display: block;
+    line-height: 1.6;
     text-align: center;
     text-indent: 0;
     margin: 10pt 0 0
     }
 .calibre_221 {
     height: 257px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 670px
     }
 .calibre_222 {
     height: 220px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 670px
     }
 .calibre_223 {
     height: 105px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 829px
     }
 .calibre_224 {
     height: 75px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 828px
     }
 .calibre_225 {
     height: 329px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 617px
     }
 .calibre_226 {
     height: 132px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 829px
     }
 .calibre_227 {
     height: 94px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 828px
     }
 .calibre_228 {
     height: 102px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 831px
     }
 .calibre_229 {
     height: 98px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 830px
     }
 .calibre_230 {
     height: 94px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 366px
     }
 .calibre_231 {
     height: 54px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 366px
     }
 .calibre_232 {
     height: 96px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 830px
     }
 .calibre_233 {
     height: 101px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 835px
     }
 .calibre_234 {
     height: 83px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 529px
     }
 .calibre_235 {
     height: 116px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 837px
     }
 .calibre_236 {
     height: 61px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 832px
     }
 .calibre_237 {
     height: 271px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 834px
     }
 .calibre_238 {
     height: 54px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 831px
     }
 .calibre_239 {
     height: 104px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 836px
     }
 .calibre_240 {
     height: 89px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 704px
     }
 .calibre_241 {
     height: 93px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 748px
     }
 .calibre_242 {
     height: 89px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 758px
     }
 .calibre_243 {
     height: 126px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 830px
     }
 .calibre_244 {
     height: 239px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 403px
     }
 .calibre_245 {
     height: 171px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 830px
     }
 .calibre_246 {
     height: 196px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 818px
     }
 .calibre_247 {
     height: 277px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 735px
     }
 .calibre_248 {
     height: 378px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 735px
     }
 .calibre_249 {
     height: 222px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 659px
     }
 .calibre_250 {
     height: 379px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 659px
     }
 .calibre_251 {
     height: 66px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 786px
     }
 .calibre_252 {
     height: 132px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 843px
     }
 .calibre_253 {
     height: 98px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 832px
     }
 .calibre_254 {
     height: 148px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 837px
     }
 .calibre_255 {
     height: 100px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 832px
     }
 .calibre_256 {
     height: 85px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 838px
     }
 .calibre_257 {
     height: 78px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 840px
     }
 .calibre_258 {
     height: 333px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 821px
     }
 .calibre_259 {
     height: 264px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 829px
     }
 .calibre_260 {
     height: 48px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 827px
     }
 .calibre_261 {
     height: 446px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 826px
     }
 .calibre_262 {
     height: 103px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 829px
     }
 .calibre_263 {
     height: 96px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 828px
     }
 .calibre_264 {
     height: 408px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 835px
     }
 .calibre_265 {
     height: 356px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 891px
     }
 .calibre_266 {
     height: 598px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 789px
     }
 .calibre_267 {
     height: 337px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 832px
     }
 .calibre_268 {
     height: 47px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 827px
     }
 .calibre_269 {
     height: 47px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 824px
     }
 .calibre_270 {
     height: 55px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 828px
     }
 .calibre_271 {
     height: 358px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 829px
     }
 .calibre_272 {
     height: 382px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 495px
     }
 .calibre_273 {
     height: 392px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 472px
     }
 .calibre_274 {
     height: 54px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 830px
     }
 .calibre_275 {
     height: 276px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 828px
     }
 .calibre_276 {
     height: 400px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 704px
     }
 .calibre_277 {
     height: 303px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 832px
     }
 .calibre_278 {
     height: 57px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 835px
     }
 .calibre_279 {
     height: 60px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 845px
     }
 .calibre_280 {
     height: 342px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 838px
     }
 .calibre_281 {
     height: 227px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 819px
     }
 .calibre_282 {
     height: 73px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 824px
     }
 .calibre_283 {
     height: 94px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 839px
     }
 .calibre_284 {
     height: 226px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 493px
     }
 .calibre_285 {
     height: 290px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 301px
     }
 .calibre_286 {
     height: 294px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 640px
     }
 .calibre_287 {
     height: 174px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 582px
     }
 .calibre_288 {
     height: 126px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 831px
     }
 .calibre_289 {
     height: 299px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 496px
     }
 .calibre_290 {
     height: 166px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 829px
     }
 .calibre_291 {
     height: 245px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 831px
     }
 .calibre_292 {
     height: 139px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 401px
     }
 .calibre_293 {
     height: 254px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 484px
     }
 .calibre_294 {
     height: 107px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 824px
     }
 .calibre_295 {
     height: 68px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 818px
     }
 .calibre_296 {
     height: 108px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 674px
     }
 .calibre_297 {
     height: 197px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 357px
     }
 .calibre_298 {
     height: 271px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 419px
     }
 .calibre_299 {
     height: 178px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 835px
     }
 .calibre_300 {
     height: 177px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 828px
     }
 .calibre_301 {
     height: 53px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 830px
     }
 .calibre_302 {
     height: 111px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 833px
     }
 .calibre_303 {
     height: 54px;
+    line-height: 1.6;
     vertical-align: baseline;
     width: 832px
     }
 .calibre_304 {
     display: block;
+    line-height: 1.6;
     text-indent: -14pt;
     margin: 1em 0 0 14pt
     }
 .calibre_305 {
     display: block;
+    line-height: 1.6;
     text-indent: 0;
     margin: 0 0 0 2em
     }
 .calibre_306 {
     display: block;
+    line-height: 1.6;
     text-indent: -14pt;
     margin: 0 0 0 14pt
     }
 .calibre1 {
-    font-size: 1.5em;
-    line-height: 1.2
+    font-size: 1.83333em;
+    line-height: 1.6
     }
 .calibre2 {
-    font-size: 1.25em;
-    line-height: 1.2
+    line-height: 1.6
     }
 .calibre3 {
-    display: block
+    font-size: 1.29167em;
+    line-height: 1.6
     }
 .calibre4 {
-    font-size: 0.75em;
-    line-height: 1.2;
-    vertical-align: super
+    display: block;
+    line-height: 1.6
     }
 .calibre5 {
-    font-size: 1em;
-    line-height: 1.2
-    }
-.calibre6 {
-    font-size: 0.75em
-    }
-.calibre7 {
-    font-size: 0.6em;
-    line-height: 1.2;
+    font-size: 0.75em;
+    line-height: 1.6;
     vertical-align: super
     }
+.calibre6 {
+    font-size: 0.83333em;
+    line-height: 1.6
+    }
+.calibre7 {
+    font-size: 1.2em;
+    line-height: 1.6
+    }
+.calibre8 {
+    font-size: 0.75em;
+    line-height: 1.6
+    }
+.calibre9 {
+    font-size: 0.58065em;
+    line-height: 1.6;
+    vertical-align: super
+    }
+.calibre10 {
+    font-size: 2.06667em;
+    line-height: 1.6
+    }
 .italic {
-    font-style: italic
+    font-style: italic;
+    line-height: 1.6
     }
 .mbp_pagebreak {
     display: block;
+    line-height: 1.6;
     margin: 0
     }
 .underline {
+    line-height: 1.6;
     text-decoration: underline
     }
