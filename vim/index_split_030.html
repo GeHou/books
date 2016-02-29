@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Vim实用技巧</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<p id="filepos129128" class="calibre_8"><span class="calibre1"><span class="bold">技巧26在长短不一的高亮块后添加文本</span></span></p><p class="calibre_9"> 列块可视模式在操作由行列组成的方形代码块时表现得很好，然而，它并不仅限于操作方形的文本区域。 </p><p class="calibre_7">我们已经见过以下的JavaScript代码片段：</p><p class="calibre_"><img src="images/00089.jpg" class="calibre_63"/></p><p class="calibre_7">这段代码有连续3行，每行的长度各不相同，而我们想在每行结尾添加一个分号。在技巧2中，我们使用<span class="bold">.</span>命令解决了此问题，不过，用列块可视模式也可以完成该任务，具体操作参见表4-5。</p><p class="calibre_7">在进入列块可视模式后，我们按<span class="bold">$</span>键把选区扩大到每行的行尾。乍一看，人们也许觉得这会很难，因为每一行的长度都是不一样的。然而在这个场景中，Vim知道我们是想把选区扩大到所选中的这些行的结尾，它会让我们打破方形的限制，创建出一个右边界长短不一的文本选区。</p><p class="calibre_7">确定好选区后，用<span class="bold">A</span>命令就可以在每行的结尾添加内容（参见Vim对“i”及“a”键的约定）。此命令让我们进入插入模式，且使光标停留在顶行。处于插入模式期间，任何输入的内容只出现在顶行，然而一旦返回到普通模式，这些修改就会被扩散到其余选中的行上。</p><blockquote class="calibre_26">
+<span class="bold">表4-5在列块可视模式中为多行添加分号</span>
+</blockquote><p class="calibre_6"><img src="images/00209.jpg" class="calibre_64"/></p><p class="calibre_1">
+<a></a>
+</p><p class="calibre_6">Vim 对“i”及“a”键的约定</p><p class="calibre_6"> Vim对于从普通模式切换到插入模式的命令有几个约定，i命令和a命令都完成此切换，并分别把光标置于当前字符之前或之后，I命令和A命令的表现类似，只是它们分别把光标置于当前行的开头和结尾。 </p><p class="calibre_7"> Vim 对于从列块可视模式切换到插入模式的命令也遵从类似的约定。I 命令和A命令都完成此切换，并分别把光标置于选区的开头和结尾。那i 和a命令呢，它们在可视模式里干什么？ </p><p class="calibre_7"> 在可视模式及操作符待决模式中，i和a键沿用一个不同的约定。它们会被当作一个文本对象的组成部分，我们将在技巧51中深入探讨文本对象。如果你在列块可视模式里选中了一块区域，并且很奇怪为什么按i键没进入插入模式，那么换用I键试一下。 </p><p class="calibre_5">
+<a id="filepos132187"></a><a href="index_split_026.html#filepos117005"><span class="calibre_2"><span class="underline">(1)</span></span></a> http://vimcasts.org/e/2 </p><div class="mbp_pagebreak" id="calibre_pb_34"></div>
+</body></html>

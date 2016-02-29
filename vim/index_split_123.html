@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Vim实用技巧</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<p id="filepos618453" class="calibre_8"><span class="calibre1"><span class="bold">技巧106回溯以前的Quickfix列表</span></span></p><p class="calibre_9"> 当我们更新quickfix列表时，Vim并不会覆盖之前的内容，而是将使用过的quickfix列表结果保存起来，方便我们回溯。 </p><p class="calibre_7">通过运行<span class="bold">:colder</span>命令（遗憾的是，并没有 <span class="bold">:warmer</span>命令），我们可以回溯quickfix列表之前的某个版本（Vim会保存最近的10个列表）。为了从旧的quickfix列表回到比较新的列表，我们可以运行<span class="bold">:cnewer</span>。请注意，<span class="bold">:colder</span> 与<span class="bold">:cnewer</span>命令都支持次数，这意味着可以分别让这两个命令运行指定的次数。</p><p class="calibre_7">如果我们在运行<span class="bold">:colder</span>或者<span class="bold">:cnewer</span>之后打开quickfix窗口，状态栏将会显示刚刚用于创建此列表的命令。</p><p class="calibre_7">你可以将<span class="bold">:colder</span>与<span class="bold">:cnewer</span>命令想象成针对quickfix列表的撤销（undo）与重做（redo）命令。就是说，我们可以试着执行其他重新生成quickfix列表的命令，而不必担心后果，因为我们总是可以凭借<span class="bold">:colder</span>回退到上一个列表。除此之外，我们也不必重复执行<span class="bold">:make</span>或者<span class="bold">:grep</span>命令了，因为可以取回它们上次的执行结果（除非我们已经修改了某些文件）。这的确是个节省时间的好办法，特别是在命令要用很久时间才能执行完的情况下，尤为明显。</p><div class="mbp_pagebreak" id="calibre_pb_140"></div>
+</body></html>

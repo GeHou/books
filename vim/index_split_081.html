@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Vim实用技巧</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<p id="filepos412515" class="calibre_8"><span class="calibre1"><span class="bold">技巧70用迭代求值的方式给列表编号</span></span></p><p class="calibre_9"> 如果宏在每次执行时都能插入一个可变的数值，这将会很有用处。在本节中，我们将学习一种技术，它会在录制宏的时候使某个数字递增，这样一来，就可以在连续的文本上插入数字1到5。 </p><p class="calibre_7">假设我们要为一些连续的项目进行编号，以下列文本作为演示：</p><p class="calibre_"><img src="images/00198.jpg" class="calibre_195"/></p><p class="calibre_7">最终，将把它们转换成这个样子：</p><p class="calibre_"><img src="images/00026.jpg" class="calibre_196"/></p><p class="calibre_5">
+<a></a>
+</p><p class="calibre_"><img src="images/00232.jpg" class="calibre_197"/></p><p class="calibre_7">我们已经学会了几种方法，使得Vim能够执行简单的运算，既可以采用带次数的方式调用<span class="bold">&lt;C-a&gt;</span>和<span class="bold">&lt;C-x&gt;</span>命令（参见技巧10），也可以利用表达式寄存器（参见技巧16）。为了完成这次任务，我们将使用表达式寄存器并结合一点Vim脚本。</p><p class="calibre_8"><span class="calibre2"><span class="bold">基本的Vim脚本</span></span></p><p class="calibre_9">我们先把即将用到的几个命令行脚本过一遍。通过使用let关键字，我们可以创建一个名为i的变量，并将其值赋为0，也可以用<span class="bold">:echo</span>命令查看变量的当前值：</p><p class="calibre_8"><span class="bold">➾:let i=0 </span></p><p class="calibre_8"><span class="bold">➾:echo i</span></p><p class="calibre_8"><span class="calibre6"> 《 0 </span></p><p class="calibre_7">以下语句可用于累加i的值：</p><p class="calibre_8"><span class="bold">➾:let i += 1 </span></p><p class="calibre_8"><span class="bold">➾:echo i</span></p><p class="calibre_8"><span class="calibre6"> 《1 </span></p><p class="calibre_7">如果只是想显示一个变量的值，<span class="bold">:echo</span>命令完全可以胜任，但实际上，我们是想在文档中插入这个值，因此要使用表达式寄存器。在技巧16中，我们已经看到可以用表达式寄存器进行简单的求和运算，并将结果插入至文档。在这里，我们只需在插入模式下运行<span class="bold">&lt;C-r&gt;=i&lt;CR&gt;</span>，即可插入变量i的值。</p><p class="calibre_8"><span class="calibre2"><span class="bold">录制宏</span></span></p><p class="calibre_9">现在我们归纳一下操作的步骤：</p><p class="calibre_6"><img src="images/00271.jpg" class="calibre_198"/></p><p class="calibre_6">在开始录制宏之前，先将变量i的初值赋为1。在宏的录制过程中，利用表<a></a>达式寄存器插入i的值，而在停止宏的录制之前，再触发该变量进行累加，现在应该是2了。</p><p class="calibre_8"><span class="calibre2"><span class="bold">执行宏</span></span></p><p class="calibre_9">正如表11-4所展示的那样，我们可以在余下的文本行上回放这个宏。</p><p class="calibre_7"><span class="bold">:normal @a</span>命令将指示Vim在高亮选中的每一行上执行这个宏（参见以并行方式执行宏）。i的初始值是2，但它在每次宏执行完后都会递增。最终，每行都以连续的数字开头了。</p><blockquote class="calibre_26">
+<span class="bold">表11-4 —— 在其余的文本行上执行宏</span>
+</blockquote><p class="calibre_6"><img src="images/00084.jpg" class="calibre_199"/></p><p class="calibre_6">我们也可以通过复制、粘贴以及<span class="bold">&lt;C-a&gt;</span>命令完成同样的工作。作为练习，你不妨自己试一试。</p><div class="mbp_pagebreak" id="calibre_pb_92"></div>
+</body></html>

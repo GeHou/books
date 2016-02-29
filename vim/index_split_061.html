@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Vim实用技巧</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<p id="filepos305932" class="calibre_8"><span class="calibre1"><span class="bold">技巧53设置位置标记，以便快速跳回</span></span></p><p class="calibre_9"> Vim 的位置标记允许我们快速跳转到文档中感兴趣的地方。我们可以手动设置位置标记，不过 Vim 也会自动帮我们记录某些感兴趣的位置点。 </p><p class="calibre_7"><span class="bold">m{a-zA-Z}</span>命令会用选定的字母标记当前光标所在位置（参见<span class="bold">:h m</span><img src="images/00243.jpg" class="calibre_10"/>）。小写位置标记只在每个缓冲区里局部可见，而大写位置标记则全局可见。我们将在技巧58中学到更多关于位置标记的内容。设置一个位置标记时，Vim 不会用可见的标识表明它已被设置。不过如果你已经正确地设置好了，那么只用两个键你就能从文件的任何地方直接跳到该位置标记所在之处。</p><p class="calibre_7">Vim 提供了两条普通模式命令，可以用它们跳转到一个位置标记上（注意，这两条命令看起来很像）。<span class="bold">`{mark}</span>命令跳到位置标记所在行，并把光标置于该行第一个非空白字符上；而<span class="bold">`{mark}</span>命令则把光标移动到设置此位置标记时光标所在之处，也就是说，它同时恢复行、列的位置（参见<span class="bold">:h mark-motions</span><img src="images/00243.jpg" class="calibre_10"/>）。</p><p class="calibre_7">如果你只想记一条命令，那就记住<span class="bold">`{mark}</span>好了。不论你是想恢复到准确的光标位置，还是只想回到正确的行，这条命令都能做到。只有在 Ex 命令的上下文中，你才需要用<span class="bold">‘{mark}</span>这种形式（参见技巧28）。</p><p class="calibre_7"><span class="bold">mm</span>和<span class="bold">`m</span>命令是一对便于使用的命令，它们分别设置位置标记 m，以及跳转到该标记。在交换两个词一例中展示了一则小技巧，它用这两条命令先标定一个位置,而后再快速跳回来。</p><p class="calibre_8"><span class="calibre2"><span class="bold">自动位置标记</span></span></p><p class="calibre_9">我们可以为每个缓冲区设置最多26个小写位置标记。字母表中的每个字母都对应着一个位置标记，这可能远比你实际需要的数目要多。之所以会这样，是因为在 Vim的前身 vi 里，并没有诸如现在的可视模式这样的功能。在那个时候，位置标记是一个比现在重要得多的功能。但现在，很多在 vi 里需要用位置标记完成的工作，都可以在Vim 里用可视模式来做，因此对位置标记的需求也就相应减少了。</p><p class="calibre_7">但是位置标记在 Vim 里并没有过时，它们仍然有用处。特别是，Vim 会自动帮我们设置一些位置标记，这些标记用起来非常方便。表8-3列出了这些自动位置标记：</p><p class="calibre_5">
+<a></a>
+</p><blockquote class="calibre_26">
+<span class="bold">表8-3 Vim的自动位置标记</span>
+</blockquote><p class="calibre_6"><img src="images/00267.jpg" class="calibre_144"/></p><p class="calibre_6"><span class="bold">``</span>标记是对跳转列表的一个补充（参见技巧55），我们将在下节中见到它的一个应用实例。<span class="bold">`.</span>标记是对改变列表的补充，技巧56中将会讲到改变列表。</p><p class="calibre_7">高亮选区的起始和结束位置都会被自动记录成位置标记，因此我们甚至可以把可视模式当成位置标记功能的一个图形化界面。</p><div class="mbp_pagebreak" id="calibre_pb_69"></div>
+</body></html>

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Vim实用技巧</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<p id="filepos684360" class="calibre_8"><span class="calibre1"><span class="bold">技巧120将单词添加到拼写文件中</span></span></p><p class="calibre_9">Vim的拼写字典并非十全十美，但我们可以通过把单词添加到拼写文件的方式来进一步完善它。</p><p class="calibre_7">有的时候，由于某个单词并没有出现在拼写字典中，Vim会误把它标记为拼写错误。我们可以用<span class="bold">zg</span>命令（参见<span class="bold">:h zg</span><img src="images/00243.jpg" class="calibre_10"/>）把光标下的单词加到拼写文件中，使Vim 可以识别它。</p><p class="calibre_7">另外，Vim还提供了一条相辅相成的<span class="bold">zw</span>命令，用于把光标所在处的单词标记为拼写错误。在实现上，该命令允许我们把该单词从拼写文件中删除。如果我们在无意中<a></a>触发了<span class="bold">zg</span>或者<span class="bold">zw</span>命令，最终将会意外地向拼写文件中添加单词，或从其中删除单词。为此，Vim专门提供了一条撤销命令<span class="bold">zug</span>，用于撤销对光标下单词所执行的<span class="bold">zg</span> 或<span class="bold">zw</span>命令。</p><p class="calibre_7">Vim会把添加到字典中的单词保存至某个拼写文件中，这样一来，就可以一直使用它们。而拼写文件的名字由所使用的语言以及文件编码类型决定。</p><p class="calibre_7">例如，假设我们编辑的是一个UTF-8编码的文件，并且拼写检查器采用的是英语字典。任何通过<span class="bold">zg</span>命令添加的单词都将被保存到一个名为<span class="bold">~/.vim/spell/en.utf-8.add</span>的文件中。</p><p class="calibre_8"><span class="calibre2"><span class="bold">为专业术语创建拼写文件</span></span></p><p class="calibre_9">通过配置<span class="bold">‘spellfile’</span>选项，我们可以指定一个文件路径，用于保存由<span class="bold">zg</span> 和<span class="bold">zw</span> 命令所添加、删除的单词（参见<span class="bold">h 'spellfile'</span><img src="images/00243.jpg" class="calibre_10"/>）。</p><p class="calibre_7">Vim允许我们同时指定多个拼写文件，这意味着可以维护多份单词列表。</p><p class="calibre_7">本书涉及到的很多文本串压根儿谈不上是英语单词，包括Vim的命令（例如<span class="bold">ciw</span>）及选项（例如<span class="bold">‘spelllang’</span>）。我既不想让Vim将它们标记为拼写错误，也不想让Vim视其为合法的英语单词。作为折中方案，我会单独维护一个单词列表，专门用于保存Vim的术语。这样一来，在我撰写Vim相关的文章时，可以随时把它作为拼写文件加载进来。</p><p class="calibre_7">例如，当我准备为本书的某个章节进行拼写检查时，就可以将包含以下配置行的文件加载进来：</p><p class="calibre_"><img src="images/00174.jpg" class="calibre_129"/></p><p class="calibre_7"><span class="bold">~/.vim/spell/en.utf-8.add</span>是缺省路径，它保存着所有由<span class="bold">zg</span>命令添加的单词。而路径<span class="bold">~/books/practical_vim/jargon.utf-8.add</span>则指向本书代码库中的一个文件，它保存着由我维护的Vim术语列表。</p><p class="calibre_7">对于每一个被拼写检查器误判的单词，目前都有两种处理方式，既可以通过<span class="bold">2zg</span>将其添加到Vim的术语列表中，也可以通过<span class="bold">1zg</span>将其添加到缺省的单词列表中。</p><p class="calibre_5">
+<a></a>
+</p><div class="mbp_pagebreak" id="calibre_pb_160"></div>
+</body></html>

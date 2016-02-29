@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Vim实用技巧</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<p id="filepos600827" class="calibre_1"><span class="calibre1"><span class="bold">第17章 编译代码，并通过Quickfix列表浏览错误信息</span></span></p><p class="calibre_6">Quickfix列表作为Vim的核心功能，旨在将外部工具融入我们的工作过程当中。简单地来说，Quickfix列表会维护一组由文件名、行号、列号（可选）与消息组成的注释定位信息。从传统意义上讲，这些定位信息是由某个编译器所产生的一组错误信息，但也可能是由语法检查器、静态分析器或者其他工具所输出的类似的警告信息。</p><p class="calibre_7">我们先以如下工作过程为例：在外部shell中运行<span class="bold">make</span>并手动浏览其输出的错误信息。然后，我们将为大家介绍<span class="bold">:make</span>命令，看看它如何通过对编译器的错误信息进行解析，并生成quickfix列表供我们浏览，从而帮助我们简化工作过程。</p><p class="calibre_7">凭借技巧105所提供的一组最有用的命令，我们可以方便地浏览源自<span class="bold">:make</span>的运行结果。而在之后的技巧106中，我们将掌握quickfix功能所特有的撤销命令。在技巧107中，我们将按部就班地配置Vim，使其在运行<span class="bold">:make</span>时调用JSLint来验证JavaScript文件的内容，并将结果转换成quickfix列表供我们浏览。</p><div class="mbp_pagebreak" id="calibre_pb_137"></div>
+</body></html>

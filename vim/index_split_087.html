@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Vim实用技巧</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<p id="filepos442772" class="calibre_8"><span class="calibre1"><span class="bold">技巧75使用圆括号捕获子匹配</span></span></p><p class="calibre_9"> 当我们指定一个模式时，可以捕获其子匹配，并在其他地方引用它们。此功能与substitute命令组合起来尤为好用，但它也可用于定义某一类模式，这类模式的特点是 <a></a>重复包含某个单词。 </p><p class="calibre_7">来看一下这段文本：</p><p class="calibre_"><img src="images/00171.jpg" class="calibre_207"/></p><p class="calibre_7">你能指出其中的语法错误吗？由于我们的大脑耍了一个小把戏，我们会惊讶地发现很难指出问题所在。但是如果这样把句子写出来，出错的地方一下子就出来了：“Paris in the the springtime.”。当换行符把两个重复的单词分隔开后，我们的大脑往往会忽略重复的那个词。这就是所谓的“词法幻觉”。<sup class="calibre4"><small id="filepos443818" class="calibre5"><a href="index_split_090.html#filepos464825"><span class="calibre5"><span class="calibre_2"><span class="underline">(1)</span></span></span></a></small></sup></p><p class="calibre_7">这有一个专门用来匹配重复单词的正则表达式：</p><p class="calibre_8"><span class="bold">➾/\v&lt;(\w+)\_s+\1&gt;</span></p><p class="calibre_9">现在请试着在上面的文本中查找这个模式，你会发现“the the”作为一处查找匹配被高亮起来。现在再试着将两行文本连接起来（使用<span class="bold">vipJ</span>命令），你会发现此模式仍然会匹配。更棒的是，这个模式不仅仅只匹配“the the”，而且对所有成对出现的重复单词都有效。让我们把这个正则表达式拆开来，看看它是怎样工作的。我们之所以能两次匹配相同的单词，诀窍就在于<span class="bold">()</span>与<span class="bold">\1</span>的组合使用。任何圆括号内部的匹配文本都会被自动保存到一个临时的仓库。我们可以用<span class="bold">\1</span>引用这段被捕获的文本。如果模式中包含不止一组圆括号，则可以用<span class="bold">\1</span>、<span class="bold">\2</span>，直到<span class="bold">\9</span>，引用被每对<span class="bold">()</span>捕获的子匹配。另外，不论模式中是否使用了圆括号，元字符 \0永远会引用整个匹配。</p><p class="calibre_7">这个用于匹配词法幻觉的正则表达式还包含许多其他诀窍。首先，我们在技巧73中已经看到，<span class="bold">\v</span>模式开关会激活<span class="bold">very magic</span>搜索模式。另外，&lt;与 &gt; 两符号将用于匹配单词的边界，这一点将在技巧76中加以讨论。最后，元字符<span class="bold">\_s</span>会匹配空白符或换行符（分别参见<span class="bold">:h /\_</span><img src="images/00243.jpg" class="calibre_10"/>与<span class="bold">:h 27.8</span><img src="images/00243.jpg" class="calibre_10"/>）</p><p class="calibre_7">在查找模式中使用子匹配的场景并不太多。我又想起来另外一个例子，即配XML或者HTML中标签的开闭对。另外，正如我们将在技巧93中所看到的那样，还可以在<span class="bold">:substitute</span>命令的替换域<span class="bold">{string}</span>中使用子匹配。</p><p class="calibre_5">
+<a></a>
+</p><div class="mbp_pagebreak" id="calibre_pb_99"></div>
+</body></html>

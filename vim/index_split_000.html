@@ -1,0 +1,308 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Vim实用技巧</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre"><p class="calibre_"><span class="calibre1"><span class="bold"> 目录 </span></span></p><p class="calibre_1">
+<a href="index_split_001.html#filepos28456"><span class="calibre_2"><span class="underline">第1章Vim解决问题的方式</span></span></a>
+</p><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_002.html#filepos29774"><span class="calibre_2"><span class="underline">技巧1结识 . 命令</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_003.html#filepos33589"><span class="calibre_2"><span class="underline">技巧2不要自我重复</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_004.html#filepos39277"><span class="calibre_2"><span class="underline">技巧3以退为进</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_005.html#filepos42757"><span class="calibre_2"><span class="underline">技巧4执行、重复、回退</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_006.html#filepos45620"><span class="calibre_2"><span class="underline">技巧5查找并手动替换</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_007.html#filepos51078"><span class="calibre_2"><span class="underline">技巧6结识.范式</span></span></a>
+</blockquote></blockquote><p class="calibre_5"> 第一部分模式 </p><p class="calibre_5">
+<a href="index_split_008.html#filepos54078"><span class="calibre_2"><span class="underline">第2章普通模式</span></span></a>
+</p><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_009.html#filepos55605"><span class="calibre_2"><span class="underline">技巧7停顿时请移开画笔</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_010.html#filepos57313"><span class="calibre_2"><span class="underline">技巧8把撤销单元切成块</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_011.html#filepos60927"><span class="calibre_2"><span class="underline">技巧9构造可重复的修改</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_012.html#filepos66746"><span class="calibre_2"><span class="underline">技巧10用次数做简单的算术运算</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_013.html#filepos70874"><span class="calibre_2"><span class="underline">技巧11能够重复，就别用次数</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_014.html#filepos76191"><span class="calibre_2"><span class="underline">技巧12双剑合璧，天下无敌</span></span></a>
+</blockquote></blockquote><p class="calibre_5">
+<a href="index_split_015.html#filepos84938"><span class="calibre_2"><span class="underline">第3章插入模式</span></span></a>
+</p><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_016.html#filepos86100"><span class="calibre_2"><span class="underline">技巧13在插入模式中可即时更正错误</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_017.html#filepos88446"><span class="calibre_2"><span class="underline">技巧14返回普通模式</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_018.html#filepos90957"><span class="calibre_2"><span class="underline">技巧15不离开插入模式，粘贴寄存器中的文本</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_019.html#filepos95714"><span class="calibre_2"><span class="underline">技巧16随时随地做运算</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_020.html#filepos97911"><span class="calibre_2"><span class="underline">技巧17用字符编码插入非常用字符</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_021.html#filepos100614"><span class="calibre_2"><span class="underline">技巧18用二合字母插入非常用字符</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_022.html#filepos102204"><span class="calibre_2"><span class="underline">技巧19用替换模式替换已有文本</span></span></a>
+</blockquote></blockquote><p class="calibre_5">
+<a href="index_split_023.html#filepos105457"><span class="calibre_2"><span class="underline">第4章可视模式</span></span></a>
+</p><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_024.html#filepos106816"><span class="calibre_2"><span class="underline">技巧20深入理解可视模式</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_025.html#filepos111854"><span class="calibre_2"><span class="underline">技巧21选择高亮选区</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_026.html#filepos115523"><span class="calibre_2"><span class="underline">技巧22重复执行面向行的可视命令</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_027.html#filepos119324"><span class="calibre_2"><span class="underline">技巧23只要可能，最好用操作符命令，而不是可视命令</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_028.html#filepos124275"><span class="calibre_2"><span class="underline">技巧24用面向列块的可视模式编辑表格数据</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_029.html#filepos126781"><span class="calibre_2"><span class="underline">技巧25修改列文本</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_030.html#filepos129128"><span class="calibre_2"><span class="underline">技巧26在长短不一的高亮块后添加文本</span></span></a>
+</blockquote></blockquote><p class="calibre_5">
+<a href="index_split_031.html#filepos132392"><span class="calibre_2"><span class="underline">第5章命令行模式</span></span></a>
+</p><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_032.html#filepos133194"><span class="calibre_2"><span class="underline">技巧27结识Vim的命令行模式</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_033.html#filepos140190"><span class="calibre_2"><span class="underline">技巧28在一行或多个连续行上执行命令</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_034.html#filepos153851"><span class="calibre_2"><span class="underline">技巧29使用‘:t’和‘:m’命令复制和移动行</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_035.html#filepos159012"><span class="calibre_2"><span class="underline">技巧30在指定范围上执行普通模式命令</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_036.html#filepos162893"><span class="calibre_2"><span class="underline">技巧31重复上次的 Ex 命令</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_037.html#filepos166115"><span class="calibre_2"><span class="underline">技巧32自动补全 Ex 命令</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_038.html#filepos170360"><span class="calibre_2"><span class="underline">技巧33把当前单词插入到命令行</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_039.html#filepos173458"><span class="calibre_2"><span class="underline">技巧34回溯历史命令</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_040.html#filepos180820"><span class="calibre_2"><span class="underline">技巧35运行Shell命令</span></span></a>
+</blockquote></blockquote><p class="calibre_5"> 第二部分文件 </p><p class="calibre_5">
+<a href="index_split_041.html#filepos193557"><span class="calibre_2"><span class="underline">第6章 管理多个文件</span></span></a>
+</p><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_042.html#filepos194504"><span class="calibre_2"><span class="underline">技巧36用缓冲区列表管理打开的文件</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_043.html#filepos202252"><span class="calibre_2"><span class="underline">技巧37用参数列表将缓冲区分组</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_044.html#filepos211524"><span class="calibre_2"><span class="underline">技巧38管理隐藏缓冲区</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_045.html#filepos219841"><span class="calibre_2"><span class="underline">技巧39将工作区切分成窗口</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_046.html#filepos225795"><span class="calibre_2"><span class="underline">技巧40用标签页将窗口分组</span></span></a>
+</blockquote></blockquote><p class="calibre_5">
+<a href="index_split_047.html#filepos232674"><span class="calibre_2"><span class="underline">第7章打开及保存文件··</span></span></a>
+</p><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_048.html#filepos234013"><span class="calibre_2"><span class="underline">技巧41用:edit命令打开文件</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_049.html#filepos239692"><span class="calibre_2"><span class="underline">技巧42使用:find打开文件</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_050.html#filepos245151"><span class="calibre_2"><span class="underline">技巧43使用netrw 管理文件系统</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_051.html#filepos255039"><span class="calibre_2"><span class="underline">技巧44把文件保存到不存在的目录中</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_052.html#filepos257388"><span class="calibre_2"><span class="underline">技巧45以超级用户权限保存文件</span></span></a>
+</blockquote></blockquote><p class="calibre_5"> 第三部分更快地移动及跳转 </p><p class="calibre_5">
+<a href="index_split_053.html#filepos264087"><span class="calibre_2"><span class="underline">第8章用动作命令在文档中移动</span></span></a>
+</p><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_054.html#filepos265791"><span class="calibre_2"><span class="underline">技巧46让手指保持在本位行上</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_055.html#filepos271312"><span class="calibre_2"><span class="underline">技巧47区分实际行与屏幕行</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_056.html#filepos275110"><span class="calibre_2"><span class="underline">技巧48基于单词移动</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_057.html#filepos280902"><span class="calibre_2"><span class="underline">技巧49对字符进行查找</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_058.html#filepos290111"><span class="calibre_2"><span class="underline">技巧50通过查找进行移动</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_059.html#filepos295630"><span class="calibre_2"><span class="underline">技巧51用精确的文本对象选择选区</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_060.html#filepos302216"><span class="calibre_2"><span class="underline">技巧52删除周边，修改内部</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_061.html#filepos305932"><span class="calibre_2"><span class="underline">技巧53设置位置标记，以便快速跳回</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_062.html#filepos309740"><span class="calibre_2"><span class="underline">技巧54在匹配括号间跳转</span></span></a>
+</blockquote></blockquote><p class="calibre_5">
+<a href="index_split_063.html#filepos315815"><span class="calibre_2"><span class="underline">第9章在文件间跳转</span></span></a>
+</p><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_064.html#filepos316571"><span class="calibre_2"><span class="underline">技巧55遍历跳转列表</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_065.html#filepos321079"><span class="calibre_2"><span class="underline">技巧56遍历改变列表</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_066.html#filepos324963"><span class="calibre_2"><span class="underline">技巧57跳转到光标下的文件</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_067.html#filepos332426"><span class="calibre_2"><span class="underline">技巧58用全局位置标记在文件间快速跳转</span></span></a>
+</blockquote></blockquote><p class="calibre_5"> 第四部分寄存器 </p><p class="calibre_5">
+<a href="index_split_068.html#filepos338099"><span class="calibre_2"><span class="underline">第10章复制与粘贴</span></span></a>
+</p><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_069.html#filepos339244"><span class="calibre_2"><span class="underline">技巧59用无名寄存器实现删除、复制与粘贴操作</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_070.html#filepos345606"><span class="calibre_2"><span class="underline">技巧60深入理解Vim寄存器</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_071.html#filepos360653"><span class="calibre_2"><span class="underline">技巧61用寄存器中的内容替换高亮选区的文本</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_072.html#filepos364660"><span class="calibre_2"><span class="underline">技巧62把寄存器的内容粘贴出来</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_073.html#filepos370453"><span class="calibre_2"><span class="underline">技巧63与系统剪贴板进行交互</span></span></a>
+</blockquote></blockquote><p class="calibre_5">
+<a href="index_split_074.html#filepos376864"><span class="calibre_2"><span class="underline">第11章宏</span></span></a>
+</p><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_075.html#filepos378544"><span class="calibre_2"><span class="underline">技巧64宏的读取与执行</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_076.html#filepos384858"><span class="calibre_2"><span class="underline">技巧65规范光标位置、直达目标以及中止宏</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_077.html#filepos390069"><span class="calibre_2"><span class="underline">技巧66加次数回放宏</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_078.html#filepos393869"><span class="calibre_2"><span class="underline">技巧67在连续的文本行上重复修改</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_079.html#filepos400783"><span class="calibre_2"><span class="underline">技巧68给宏追加命令</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_080.html#filepos403261"><span class="calibre_2"><span class="underline">技巧69在一组文件中执行宏</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_081.html#filepos412515"><span class="calibre_2"><span class="underline">技巧70用迭代求值的方式给列表编号</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_082.html#filepos416770"><span class="calibre_2"><span class="underline">技巧71编辑宏的内容</span></span></a>
+</blockquote></blockquote><p class="calibre_5"> 第五部分模式 </p><p class="calibre_5">
+<a href="index_split_083.html#filepos424847"><span class="calibre_2"><span class="underline">第12章按模式匹配及按原义匹配</span></span></a>
+</p><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_084.html#filepos426150"><span class="calibre_2"><span class="underline">技巧72调整查找模式的大小写敏感性</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_085.html#filepos431747"><span class="calibre_2"><span class="underline">技巧73按正则表达式查找时，使用 \v模式开关</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_086.html#filepos439383"><span class="calibre_2"><span class="underline">技巧74按原义查找文本时，使用 \V原义开关</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_087.html#filepos442772"><span class="calibre_2"><span class="underline">技巧75使用圆括号捕获子匹配</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_088.html#filepos446070"><span class="calibre_2"><span class="underline">技巧76界定单词的边界</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_089.html#filepos450868"><span class="calibre_2"><span class="underline">技巧77界定匹配的边界</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_090.html#filepos455602"><span class="calibre_2"><span class="underline">技巧78转义问题字符</span></span></a>
+</blockquote></blockquote><p class="calibre_5">
+<a href="index_split_091.html#filepos465456"><span class="calibre_2"><span class="underline">第13章查找</span></span></a>
+</p><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_092.html#filepos467059"><span class="calibre_2"><span class="underline">技巧79结识查找命令</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_093.html#filepos471838"><span class="calibre_2"><span class="underline">技巧80高亮查找匹配</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_094.html#filepos474485"><span class="calibre_2"><span class="underline">技巧81在执行查找前预览第一处匹配</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_095.html#filepos479048"><span class="calibre_2"><span class="underline">技巧82统计当前模式的匹配个数</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_096.html#filepos480457"><span class="calibre_2"><span class="underline">技巧83将光标偏移到查找匹配的结尾</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_097.html#filepos484780"><span class="calibre_2"><span class="underline">技巧84对完整的查找匹配进行操作</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_098.html#filepos491713"><span class="calibre_2"><span class="underline">技巧85利用查找历史，迭代完成复杂的模式</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_099.html#filepos499535"><span class="calibre_2"><span class="underline">技巧86查找当前高亮选区中的文本</span></span></a>
+</blockquote></blockquote><p class="calibre_5">
+<a href="index_split_100.html#filepos503974"><span class="calibre_2"><span class="underline">第14章替换</span></span></a>
+</p><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_101.html#filepos505480"><span class="calibre_2"><span class="underline">技巧87结识substitute命令</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_102.html#filepos511502"><span class="calibre_2"><span class="underline">技巧88在文件范围内查找并替换每一处匹配</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_103.html#filepos515520"><span class="calibre_2"><span class="underline">技巧89手动控制每一次替换操作</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_104.html#filepos518604"><span class="calibre_2"><span class="underline">技巧90重用上次的查找模式</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_105.html#filepos523475"><span class="calibre_2"><span class="underline">技巧91用寄存器的内容替换</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_106.html#filepos529419"><span class="calibre_2"><span class="underline">技巧92重复上一次substitute命令</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_107.html#filepos535427"><span class="calibre_2"><span class="underline">技巧93使用子匹配重排CSV文件的字段</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_108.html#filepos537543"><span class="calibre_2"><span class="underline">技巧94在替换过程中执行算术运算</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_109.html#filepos541566"><span class="calibre_2"><span class="underline">技巧95交换两个或更多的单词</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_110.html#filepos548373"><span class="calibre_2"><span class="underline">技巧96在多个文件中执行查找与替换</span></span></a>
+</blockquote></blockquote><p class="calibre_5">
+<a href="index_split_111.html#filepos559585"><span class="calibre_2"><span class="underline">第15章global 命令</span></span></a>
+</p><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_112.html#filepos560056"><span class="calibre_2"><span class="underline">技巧97结识global命令</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_113.html#filepos562314"><span class="calibre_2"><span class="underline">技巧98删除所有包含模式的文本行</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_114.html#filepos566641"><span class="calibre_2"><span class="underline">技巧99将TODO项收集至寄存器</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_115.html#filepos571361"><span class="calibre_2"><span class="underline">技巧100将CSS文件中所有规则的属性按照字母排序</span></span></a>
+</blockquote></blockquote><p class="calibre_5"> 第六部分工具 </p><p class="calibre_5">
+<a href="index_split_116.html#filepos579406"><span class="calibre_2"><span class="underline">第16章通过ctags建立索引，并用其浏览源代码</span></span></a>
+</p><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_117.html#filepos580659"><span class="calibre_2"><span class="underline">技巧101结识ctags</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_118.html#filepos587326"><span class="calibre_2"><span class="underline">技巧102配置Vim使用ctags</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_119.html#filepos593687"><span class="calibre_2"><span class="underline">技巧103使用Vim的标签跳转命令，浏览关键字的定义</span></span></a>
+</blockquote></blockquote><p class="calibre_5">
+<a href="index_split_120.html#filepos600827"><span class="calibre_2"><span class="underline">第17章编译代码，并通过Quickfix列表浏览错误信息</span></span></a>
+</p><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_121.html#filepos602272"><span class="calibre_2"><span class="underline">技巧104不用离开Vim也能编译代码</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_122.html#filepos609371"><span class="calibre_2"><span class="underline">技巧105浏览Quickfix列表</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_123.html#filepos618453"><span class="calibre_2"><span class="underline">技巧106回溯以前的Quickfix列表</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_124.html#filepos620090"><span class="calibre_2"><span class="underline">技巧107定制外部编译器</span></span></a>
+</blockquote></blockquote><p class="calibre_5">
+<a href="index_split_125.html#filepos629781"><span class="calibre_2"><span class="underline">第18章通过grep、vimgrep以及其他工具对整个工程进行查找</span></span></a>
+</p><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_126.html#filepos631071"><span class="calibre_2"><span class="underline">技巧108不必离开Vim也能调用grep</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_127.html#filepos634965"><span class="calibre_2"><span class="underline">技巧109定制grep程序</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_128.html#filepos643730"><span class="calibre_2"><span class="underline">技巧110使用Vim内部的Grep</span></span></a>
+</blockquote></blockquote><p class="calibre_5">
+<a href="index_split_129.html#filepos647807"><span class="calibre_2"><span class="underline">第19章自动补全</span></span></a>
+</p><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_130.html#filepos649321"><span class="calibre_2"><span class="underline">技巧111结识Vim的关键字自动补全</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_131.html#filepos653498"><span class="calibre_2"><span class="underline">技巧112与自动补全的弹出式菜单进行交互</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_132.html#filepos659087"><span class="calibre_2"><span class="underline">技巧113掌握关键字的来龙去脉</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_133.html#filepos665206"><span class="calibre_2"><span class="underline">技巧114使用字典中的单词进行自动补全</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_134.html#filepos667262"><span class="calibre_2"><span class="underline">技巧115自动补全整行文本</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_135.html#filepos669341"><span class="calibre_2"><span class="underline">技巧116自动补全文件名</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_136.html#filepos672691"><span class="calibre_2"><span class="underline">技巧117根据上下文自动补全</span></span></a>
+</blockquote></blockquote><p class="calibre_5">
+<a href="index_split_137.html#filepos675960"><span class="calibre_2"><span class="underline">第20章利用Vim的拼写检查器，查找并更正拼写错误</span></span></a>
+</p><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_138.html#filepos676908"><span class="calibre_2"><span class="underline">技巧118对你的工作进行拼写检查</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_139.html#filepos680418"><span class="calibre_2"><span class="underline">技巧119使用其他拼写字典</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_140.html#filepos684360"><span class="calibre_2"><span class="underline">技巧120将单词添加到拼写文件中</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_141.html#filepos688033"><span class="calibre_2"><span class="underline">技巧121在插入模式下更正拼写错误</span></span></a>
+</blockquote></blockquote><p class="calibre_5">
+<a href="index_split_142.html#filepos691394"><span class="calibre_2"><span class="underline">第21章接下来干什么</span></span></a>
+</p><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_143.html#filepos691646"><span class="calibre_2"><span class="underline">21.1继续练习</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_144.html#filepos692376"><span class="calibre_2"><span class="underline">21.2定制你自己的Vim</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_145.html#filepos693331"><span class="calibre_2"><span class="underline">21.3欲善其事，先利其器</span></span></a>
+</blockquote></blockquote><p class="calibre_5">
+<a href="index_split_146.html#filepos696719"><span class="calibre_2"><span class="underline">附录A根据个人喜好定制Vim</span></span></a>
+</p><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_147.html#filepos697097"><span class="calibre_2"><span class="underline">A.1动态改变Vim的设置项</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_148.html#filepos701687"><span class="calibre_2"><span class="underline">A.2将配置信息存至vimrc文件</span></span></a>
+</blockquote></blockquote><blockquote class="calibre_3"><blockquote class="calibre_4">
+<a href="index_split_149.html#filepos704716"><span class="calibre_2"><span class="underline">A.3为特定类型的文件应用个性化设置</span></span></a>
+</blockquote></blockquote><div class="mbp_pagebreak" id="calibre_pb_0"></div>
+</body></html>

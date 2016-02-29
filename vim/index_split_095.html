@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Vim实用技巧</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<p id="filepos479048" class="calibre_8"><span class="calibre1"><span class="bold">技巧82统计当前模式的匹配个数</span></span></p><p class="calibre_9"> 这则小技巧展示了如何统计某个模式的匹配个数。 </p><p class="calibre_7">虽然没有任何方法可以让查找命令统计当前文档中的匹配个数，但是用下面这条命令就可以做到这一点：</p><p class="calibre_8"><span class="bold">➾:%s///gn</span></p><p class="calibre_8"><span class="calibre6"> 《 117 matches on 65 lines </span></p><p class="calibre_7">实际上，我们调用的是<span class="bold">:substitute</span>命令，但标志位<span class="bold">n</span>会抑制正常的替换动作。该命令不会对每处匹配进行替换，而是简单地统计匹配的次数，并将结果显示到命令行上。此处我们将查找域留空，旨在让Vim使用当前的查找模式。替换域（由于标志位<span class="bold">n</span>的缘故）不管怎样都将会被忽略，因此也可以将其留空。</p><p class="calibre_7">不管怎样，你都不要省略任何<span class="bold">/</span>字符。如果少加了一个<span class="bold">/</span>，即 <span class="bold">:%s//gn</span>，将致使“gn”替换每一处匹配。如果这看上去仍然比较费事，你没准儿就想为这条命令创建映射项了。我将把这个作为练习留给你。</p><div class="mbp_pagebreak" id="calibre_pb_108"></div>
+</body></html>

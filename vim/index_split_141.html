@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Vim实用技巧</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<p id="filepos688033" class="calibre_8"><span class="calibre1"><span class="bold">技巧121在插入模式下更正拼写错误</span></span></p><p class="calibre_9">Vim的拼写自动补全功能甚至允许我们在不离开插入模式的情况下，更正拼写错误。</p><p class="calibre_7">想象一下这样的情景：我们刚刚输入完一行文本，却突然发现位于几个单词之前的地方出现了一处拼写错误。该怎么办呢？</p><p class="calibre_8"><span class="calibre2"><span class="bold">准备工作</span></span></p><p class="calibre_9">以下技巧要求我们必须启用拼写检查器：</p><p class="calibre_8"><span class="bold">➾ :set spell</span></p><p class="calibre_8"><span class="calibre2"><span class="bold">通常做法：切换到普通模式</span></span></p><p class="calibre_9">为了更正这一处拼写错误，我们可以先切换到普通模式，再通过<span class="bold">[s</span>命令跳回到发生拼写错误的地方，最后用<span class="bold">1z=</span>将其更正过来。在完成改正工作之后，我们可以通过<span class="bold">A</span>命令切回到插入模式，并跳到刚才的位置继续编辑。</p><p class="calibre_8"><span class="calibre2"><span class="bold">快捷方式：利用拼写自动补全功能</span></span></p><p class="calibre_9">还有另外一种方式，即在插入模式下通过<span class="bold">&lt;C-x&gt;s</span>命令更正拼写错误，该命令会触发一个特殊的自动补全功能（参见<span class="bold">:h compl-spelling</span><img src="images/00243.jpg" class="calibre_10"/>）。我们还可以通过<span class="bold">&lt;C-x&gt;&lt;C-s&gt;</span>实现同样的功能，该命令更易于输入。在下图中，两组屏幕截图分别展示了触发<span class="bold">&lt;C-x&gt;s</span>命令前后的情况。</p><p class="calibre_7"> 注意：我们自始至终处于插入模式下： </p><p class="calibre_"><img src="images/00207.jpg" class="calibre_298"/></p><p class="calibre_7">自动补全单词列表所提供的补全建议与我们在技巧118中通过<span class="bold">z=</span> 命令所获得的结果完全一致。</p><p class="calibre_7">当我们触发某个自动补全命令时，Vim通常会在当前光标所在的位置提供如何完成单词的补全建议。但对于<span class="bold">&lt;C-x&gt;s</span>则有所不同。首先，Vim会从光标位置开始进行反向扫描，直到发现一处拼写错误为止；然后，它再根据更正建议创建单词列表，并将它们显示在弹出式菜单中。我们可以通过技巧112中所介绍的任何一种方法来选择最终的结果。</p><p class="calibre_7">当某行文本出现的拼写错误不止一处时，<span class="bold">&lt;C-x&gt;s</span>命令才能充分地发挥出其优势。同样以上图所示的内容为例，假设我们运行了<span class="bold">:set spelllang=en_us</span>，则单词“moustache”也将被标记为拼写错误。而如果一开始我们就处于插入模式下，且光标位于行末，则只需输入两次<span class="bold">&lt;C-x&gt;s</span>，就可以一举将这两处拼写错误更正过来了。你也试一试吧。简直太酷了！</p><div class="mbp_pagebreak" id="calibre_pb_161"></div>
+</body></html>

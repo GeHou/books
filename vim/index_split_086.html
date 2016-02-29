@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Vim实用技巧</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<p id="filepos439383" class="calibre_8"><span class="calibre1"><span class="bold">技巧74按原义查找文本时，使用 \V原义开关</span></span></p><p class="calibre_9"> 在正则表达式中使用的特殊字符，在按模式查找时用起来很顺手，但如果我们想按原义查找文本时，它们就变成了阻碍。使用very nomagic原义开关，可以消除附加在 .、*以及?等大多数字符上的特殊含义。 </p><p class="calibre_7">来看一下这段文本：</p><p class="calibre_"><img src="images/00098.jpg" class="calibre_204"/></p><p class="calibre_7">现在假设我们想通过查找“a.k.a.”（此缩写表示also known as）的方式将光标移到该处。针对这种情况，第一反应就是执行以下这条查找命令：</p><p class="calibre_8"><span class="bold">➾/a.k.a.</span></p><p class="calibre_9">但当我们按下回车键时，会发现此模式所匹配的内容比我们预想得要多。这是因为，符号“<span class="bold">.</span>”具有特殊含义。它匹配任意字符，而单词“backward”的部分内容又恰好可以匹配该模式。下表展示了查找的结果。</p><p class="calibre_6"><img src="images/00233.jpg" class="calibre_205"/></p><p class="calibre_6"></p><p class="calibre_6"><img src="images/00055.jpg" class="calibre_206"/></p><p class="calibre_6">我们在本例中遇到的麻烦还不算大，因为只需按一下<span class="bold">n</span>键，我们就可以跳到下一处匹配——真正的目标。但在有些情况下，如果某个匹配被误判为正确，可能会有潜在的风险。想象一下，如果我们还没意识到查找模式太宽泛了，就接着运行了<span class="bold">substitute</span>命令，例如，<span class="bold">:%s//also␣known␣as/g</span>（正如在技巧90中所讨论的那样，若将<span class="bold">:substitute</span>命令的查找域留空，Vim将使用上一次的查找模式），会导致某些意想不到的错误发生。</p><p class="calibre_7">我们可以用转义的方法消除 . 字符的特殊含义。以下模式不会匹配单词backward中的一部分，但仍然会匹配“a.k.a”：</p><p class="calibre_8"><span class="bold">➾/a\.k\.a\.</span></p><p class="calibre_9">或者，我们可以使用原义开关<span class="bold">\V</span>，激活<span class="bold">very nomagic</span>搜索模式：</p><p class="calibre_8"><span class="bold">➾/ \Va.k.a.</span></p><p class="calibre_9">正如Vim帮助文档所述，“使用 "<span class="bold">\V</span>"会使得其后的模式中只有反斜杠有特殊的意义”（参见<span class="bold">:h/\V</span><img src="images/00243.jpg" class="calibre_10"/>）。正如我们将在技巧78所看到的那样，这样做未免过于简化了，但却符合本例的目的。</p><p class="calibre_7">在<span class="bold">very nomagic</span>搜索模式下创建正则表达式也不是不可能，不过会很别扭，因为我们必须为每个符号转义。作为通用法则，如果你想按正则表达式查找，就用模式开关<span class="bold">\v</span>，而如果你想按原义查找文本，就用原义开关<span class="bold">\V</span>。</p><div class="mbp_pagebreak" id="calibre_pb_98"></div>
+</body></html>

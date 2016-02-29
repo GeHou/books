@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Vim实用技巧</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<p id="filepos51078" class="calibre_8"><span class="calibre1"><span class="bold">技巧6结识.范式</span></span></p><p class="calibre_9"> 到目前为止，我们介绍了3个简单的编辑任务。尽管每个问题都不一样，不过我们都找到了用 . 命令解决该问题的方法。在本节，我们将对这些方案进行比较，并找出它们所共有的模式——一个我称之为“ . 范式”的最佳编辑模式。 </p><p class="calibre_8"><span class="calibre2"><span class="bold">回顾前面3个.命令编辑任务</span></span></p><p class="calibre_9">在技巧2中，我们想在一系列行的结尾添加分号。我们先用 <span class="bold">A;</span>&lt;Esc&gt; 修改了第一行，做完这步准备后，就可以使用 <span class="bold">.</span> 命令对后续行重复此修改。我们使用了 <span class="bold">j</span> 命令在行间移动，要完成剩余的修改，只需简单地按足够多次<span class="bold">j.</span> 就可以了。</p><p class="calibre_7">在技巧3中，我们想为每个 + 号的前后各添加一个空格。我们先用 <span class="bold">f+</span> 命令跳到目标字符上，然后用 <span class="bold">s</span> 命令把一个字符替换成3个，做完这步准备后，我们就可以按若干次 <span class="bold">;.</span> 完成此任务。</p><p class="calibre_7">在技巧5中，我们想把每处出现单词“content”的地方都替换成“copy”。我们使用 <span class="bold">*</span> 命令来查找目标单词，然后用 <span class="bold">cw</span> 命令修改第一处地方。做完这步准备后，就可以用 <span class="bold">n</span> 键跳到下一匹配项，然后用 <span class="bold">.</span> 键做相同的修改。要完成这项任务，只需简单地按足够多次 <span class="bold">n.</span> 就行了。</p><p class="calibre_8"><span class="calibre2"><span class="bold">理想模式：用一键移动，另一键执行</span></span></p><p class="calibre_9">所有这些例子都利用 <span class="bold">.</span> 命令重复上次的修改，不过这不是它们唯一的共同点，另外的共同点是它们都只需要按一次键就能把光标移到下一个目标上。</p><p class="calibre_7">用一次按键移动，另一次按键执行，没有再比这更好的了，不是吗？这就是我们的理想解决方案。我们将会一次又一次地看到这一编辑模式，所以为了方便起见，我们把它叫做“<span class="bold">.</span> 范式”。</p><p class="calibre_5">
+<a></a>
+</p><p class="calibre_6">第一部分模式</p><p class="calibre_6">Vim提供一个区分模式的用户界面，就是说在Vim中按键盘上的任意键所产生的结果可能会不一样，而这取决于当前处于哪种模式（mode）。知道当前正处于哪种模式，以及如何在各模式间切换，是极其重要的。在本书的这一部分，我们将学习每种模式的工作方式及其用途。</p><div class="mbp_pagebreak" id="calibre_pb_8"></div>
+</body></html>

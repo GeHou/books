@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Vim实用技巧</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<p id="filepos111854" class="calibre_8"><span class="calibre1"><span class="bold">技巧21选择高亮选区</span></span></p><p class="calibre_9">可视模式的3个子模式用于处理不同类型的文本。我们将在本节看到如何激活每种子模式，以及如何在它们之间切换。</p><p class="calibre_6">Vim有3种可视模式。在面向字符的可视模式中，我们能够选择任意的字符范围，不论它是单个字符，还是位于一行内，或是跨若干行的指定字符范围，都没问题。该模式适用于操作单词或短语。如果我们想对整行进行操作，我们可以改用面向行的可视模式。而面向列块的可视模式则允许我们对文档中的列块进行操作。列块可视模式非常特别，所以我们会在技巧24、技巧25和技巧26中花大量篇幅对其进行介绍。</p><p class="calibre_8"><span class="calibre2"><span class="bold">激活可视模式</span></span></p><p class="calibre_9"><span class="bold">v</span>键是通往可视模式的大门。在普通模式下，按<span class="bold">v</span>可激活面向字符的可视模式，按<span class="bold">V</span>（v和Shift键一起按）可激活面向行的可视模式，而按<span class="bold">&lt;C-v&gt;</span>（v和Ctrl键一起按）则可激活面向列块的可视模式，请参见下表中的汇总：</p><p class="calibre_6"><img src="images/00227.jpg" class="calibre_49"/></p><p class="calibre_6"><span class="bold">gv</span>命令是个有用的快捷键，它用来重选上一次由可视模式所选择的文本范围。不管上个选区是面向字符的、面向行的，或是面向列块的，<span class="bold">gv</span>命令都能够正确地工作。不过如果上次的选区被删除了，它也许会工作得不太正常。</p><p class="calibre_8"><span class="calibre2"><span class="bold">在可视模式间切换</span></span></p><p class="calibre_9">我们可以在不同风格的可视模式间切换，方式跟在普通模式下激活可视模式的方式相同。如果当前处于面向字符的可视模式，我们可以按<span class="bold">V</span>来切换到面向行的可视模式，或是用<span class="bold">&lt;C-v&gt;</span>来切换到面向列块的可视模式。然而，如果在面向字符的可视模式中再次按<span class="bold">v</span>，就会回到普通模式。所以，你可以把<span class="bold">v</span>键当成在普通模式及面向字符的可视模式间转换的开关，<span class="bold">V</span>及<span class="bold">&lt;C-v&gt;</span>键也一样可以在普通模式及其对应的可视模式间切换。当然了，你总是可以按<span class="bold">&lt;Esc&gt;</span>或<span class="bold">&lt;C-[&gt;</span>回到普通模式（就像退出插入模式那样）。下表总结了在可视模式间进行切换的命令：</p><p class="calibre_6"><img src="images/00175.jpg" class="calibre_50"/></p><p class="calibre_8"><span class="calibre2"><span class="bold">切换选区的活动端</span></span></p><p class="calibre_9">高亮选区的范围由其两个端点界定。其中一端固定，而另一端可以随光标自由移动，我们可以用<span class="bold">o</span>键来切换其活动的端点。在定义选区时，如果定义到一半时，才发现选区开始的位置不对，此时用这个键会很方便，我们用不着退出可视模式再从头开始，只需按一下<span class="bold">o</span>，然后重新调整选区的边界即可。下面的操作对此功能进行了演示：</p><p class="calibre_6"><img src="images/00251.jpg" class="calibre_51"/></p><p class="calibre_1">
+<a></a>
+</p><div class="mbp_pagebreak" id="calibre_pb_29"></div>
+</body></html>

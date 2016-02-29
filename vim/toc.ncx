@@ -1,0 +1,909 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="zho">
+  <head>
+    <meta content="70bb9be6-9ff7-4393-963f-213ee55d03df" name="dtb:uid"/>
+    <meta content="3" name="dtb:depth"/>
+    <meta content="calibre (2.51.0)" name="dtb:generator"/>
+    <meta content="0" name="dtb:totalPageCount"/>
+    <meta content="0" name="dtb:maxPageNumber"/>
+  </head>
+  <docTitle>
+    <text>Vim实用技巧</text>
+  </docTitle>
+  <navMap>
+    <navPoint class="chapter" id="num_1" playOrder="1">
+      <navLabel>
+        <text>第1章VViimm解决问题的方式</text>
+      </navLabel>
+      <content src="index_split_001.html"/>
+      <navPoint class="chapter" id="num_2" playOrder="2">
+        <navLabel>
+          <text>技巧1结识 . 命令</text>
+        </navLabel>
+        <content src="index_split_002.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_3" playOrder="3">
+        <navLabel>
+          <text>技巧2不要自我重复</text>
+        </navLabel>
+        <content src="index_split_003.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_4" playOrder="4">
+        <navLabel>
+          <text>技巧3以退为进</text>
+        </navLabel>
+        <content src="index_split_004.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_5" playOrder="5">
+        <navLabel>
+          <text>技巧4执行、重复、回退</text>
+        </navLabel>
+        <content src="index_split_005.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_6" playOrder="6">
+        <navLabel>
+          <text>技巧5查找并手动替换</text>
+        </navLabel>
+        <content src="index_split_006.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_7" playOrder="7">
+        <navLabel>
+          <text>技巧6结识.范式</text>
+        </navLabel>
+        <content src="index_split_007.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_8" playOrder="8">
+      <navLabel>
+        <text>第2章普通模式</text>
+      </navLabel>
+      <content src="index_split_008.html"/>
+      <navPoint class="chapter" id="num_9" playOrder="9">
+        <navLabel>
+          <text>技巧7停顿时请移开画笔</text>
+        </navLabel>
+        <content src="index_split_009.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_10" playOrder="10">
+        <navLabel>
+          <text>技巧8把撤销单元切成块</text>
+        </navLabel>
+        <content src="index_split_010.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_11" playOrder="11">
+        <navLabel>
+          <text>技巧9构造可重复的修改</text>
+        </navLabel>
+        <content src="index_split_011.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_12" playOrder="12">
+        <navLabel>
+          <text>技巧10用次数做简单的算术运算</text>
+        </navLabel>
+        <content src="index_split_012.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_13" playOrder="13">
+        <navLabel>
+          <text>技巧11能够重复，就别用次数</text>
+        </navLabel>
+        <content src="index_split_013.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_14" playOrder="14">
+        <navLabel>
+          <text>技巧12双剑合璧，天下无敌</text>
+        </navLabel>
+        <content src="index_split_014.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_15" playOrder="15">
+      <navLabel>
+        <text>第3章插入模式</text>
+      </navLabel>
+      <content src="index_split_015.html"/>
+      <navPoint class="chapter" id="num_16" playOrder="16">
+        <navLabel>
+          <text>技巧13在插入模式中可即时更正错误</text>
+        </navLabel>
+        <content src="index_split_016.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_17" playOrder="17">
+        <navLabel>
+          <text>技巧14返回普通模式</text>
+        </navLabel>
+        <content src="index_split_017.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_18" playOrder="18">
+        <navLabel>
+          <text>技巧15不离开插入模式，粘贴寄存器中的文本</text>
+        </navLabel>
+        <content src="index_split_018.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_19" playOrder="19">
+        <navLabel>
+          <text>技巧16随时随地做运算</text>
+        </navLabel>
+        <content src="index_split_019.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_20" playOrder="20">
+        <navLabel>
+          <text>技巧17用字符编码插入非常用字符</text>
+        </navLabel>
+        <content src="index_split_020.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_21" playOrder="21">
+        <navLabel>
+          <text>技巧18用二合字母插入非常用字符</text>
+        </navLabel>
+        <content src="index_split_021.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_22" playOrder="22">
+        <navLabel>
+          <text>技巧19用替换模式替换已有文本</text>
+        </navLabel>
+        <content src="index_split_022.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_23" playOrder="23">
+      <navLabel>
+        <text>第4章可视模式</text>
+      </navLabel>
+      <content src="index_split_023.html"/>
+      <navPoint class="chapter" id="num_24" playOrder="24">
+        <navLabel>
+          <text>技巧20深入理解可视模式</text>
+        </navLabel>
+        <content src="index_split_024.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_25" playOrder="25">
+        <navLabel>
+          <text>技巧21选择高亮选区</text>
+        </navLabel>
+        <content src="index_split_025.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_26" playOrder="26">
+        <navLabel>
+          <text>技巧22重复执行面向行的可视命令</text>
+        </navLabel>
+        <content src="index_split_026.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_27" playOrder="27">
+        <navLabel>
+          <text>技巧23只要可能，最好用操作符命令，而不是可视命令</text>
+        </navLabel>
+        <content src="index_split_027.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_28" playOrder="28">
+        <navLabel>
+          <text>技巧24用面向列块的可视模式编辑表格数据</text>
+        </navLabel>
+        <content src="index_split_028.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_29" playOrder="29">
+        <navLabel>
+          <text>技巧25修改列文本</text>
+        </navLabel>
+        <content src="index_split_029.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_30" playOrder="30">
+        <navLabel>
+          <text>技巧26在长短不一的高亮块后添加文本</text>
+        </navLabel>
+        <content src="index_split_030.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_31" playOrder="31">
+      <navLabel>
+        <text>第5章命令行模式</text>
+      </navLabel>
+      <content src="index_split_031.html"/>
+      <navPoint class="chapter" id="num_32" playOrder="32">
+        <navLabel>
+          <text>技巧27结识Vim的命令行模式</text>
+        </navLabel>
+        <content src="index_split_032.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_33" playOrder="33">
+        <navLabel>
+          <text>技巧28在一行或多个连续行上执行命令</text>
+        </navLabel>
+        <content src="index_split_033.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_34" playOrder="34">
+        <navLabel>
+          <text>技巧29使用‘:t’和‘:m’命令复制和移动行</text>
+        </navLabel>
+        <content src="index_split_034.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_35" playOrder="35">
+        <navLabel>
+          <text>技巧30在指定范围上执行普通模式命令</text>
+        </navLabel>
+        <content src="index_split_035.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_36" playOrder="36">
+        <navLabel>
+          <text>技巧31重复上次的 Ex 命令</text>
+        </navLabel>
+        <content src="index_split_036.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_37" playOrder="37">
+        <navLabel>
+          <text>技巧32自动补全 Ex 命令</text>
+        </navLabel>
+        <content src="index_split_037.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_38" playOrder="38">
+        <navLabel>
+          <text>技巧33把当前单词插入到命令行</text>
+        </navLabel>
+        <content src="index_split_038.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_39" playOrder="39">
+        <navLabel>
+          <text>技巧34回溯历史命令</text>
+        </navLabel>
+        <content src="index_split_039.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_40" playOrder="40">
+        <navLabel>
+          <text>技巧35运行Shell命令</text>
+        </navLabel>
+        <content src="index_split_040.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_41" playOrder="41">
+      <navLabel>
+        <text>第6章 管理多个文件</text>
+      </navLabel>
+      <content src="index_split_041.html"/>
+      <navPoint class="chapter" id="num_42" playOrder="42">
+        <navLabel>
+          <text>技巧36用缓冲区列表管理打开的文件</text>
+        </navLabel>
+        <content src="index_split_042.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_43" playOrder="43">
+        <navLabel>
+          <text>技巧37用参数列表将缓冲区分组</text>
+        </navLabel>
+        <content src="index_split_043.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_44" playOrder="44">
+        <navLabel>
+          <text>技巧38管理隐藏缓冲区</text>
+        </navLabel>
+        <content src="index_split_044.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_45" playOrder="45">
+        <navLabel>
+          <text>技巧39将工作区切分成窗口</text>
+        </navLabel>
+        <content src="index_split_045.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_46" playOrder="46">
+        <navLabel>
+          <text>技巧40用标签页将窗口分组</text>
+        </navLabel>
+        <content src="index_split_046.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_47" playOrder="47">
+      <navLabel>
+        <text>第7章打开及保存文件··</text>
+      </navLabel>
+      <content src="index_split_047.html"/>
+      <navPoint class="chapter" id="num_48" playOrder="48">
+        <navLabel>
+          <text>技巧41用:edit命令打开文件</text>
+        </navLabel>
+        <content src="index_split_048.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_49" playOrder="49">
+        <navLabel>
+          <text>技巧42使用:find打开文件</text>
+        </navLabel>
+        <content src="index_split_049.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_50" playOrder="50">
+        <navLabel>
+          <text>技巧43使用netrw 管理文件系统</text>
+        </navLabel>
+        <content src="index_split_050.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_51" playOrder="51">
+        <navLabel>
+          <text>技巧44把文件保存到不存在的目录中</text>
+        </navLabel>
+        <content src="index_split_051.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_52" playOrder="52">
+        <navLabel>
+          <text>技巧45以超级用户权限保存文件</text>
+        </navLabel>
+        <content src="index_split_052.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_53" playOrder="53">
+      <navLabel>
+        <text>第8章用动作命令在文档中移动</text>
+      </navLabel>
+      <content src="index_split_053.html"/>
+      <navPoint class="chapter" id="num_54" playOrder="54">
+        <navLabel>
+          <text>技巧46让手指保持在本位行上</text>
+        </navLabel>
+        <content src="index_split_054.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_55" playOrder="55">
+        <navLabel>
+          <text>技巧47区分实际行与屏幕行</text>
+        </navLabel>
+        <content src="index_split_055.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_56" playOrder="56">
+        <navLabel>
+          <text>技巧48基于单词移动</text>
+        </navLabel>
+        <content src="index_split_056.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_57" playOrder="57">
+        <navLabel>
+          <text>技巧49对字符进行查找</text>
+        </navLabel>
+        <content src="index_split_057.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_58" playOrder="58">
+        <navLabel>
+          <text>技巧50通过查找进行移动</text>
+        </navLabel>
+        <content src="index_split_058.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_59" playOrder="59">
+        <navLabel>
+          <text>技巧51用精确的文本对象选择选区</text>
+        </navLabel>
+        <content src="index_split_059.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_60" playOrder="60">
+        <navLabel>
+          <text>技巧52删除周边，修改内部</text>
+        </navLabel>
+        <content src="index_split_060.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_61" playOrder="61">
+        <navLabel>
+          <text>技巧53设置位置标记，以便快速跳回</text>
+        </navLabel>
+        <content src="index_split_061.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_62" playOrder="62">
+        <navLabel>
+          <text>技巧54在匹配括号间跳转</text>
+        </navLabel>
+        <content src="index_split_062.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_63" playOrder="63">
+      <navLabel>
+        <text>第9章在文件间跳转</text>
+      </navLabel>
+      <content src="index_split_063.html"/>
+      <navPoint class="chapter" id="num_64" playOrder="64">
+        <navLabel>
+          <text>技巧55遍历跳转列表</text>
+        </navLabel>
+        <content src="index_split_064.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_65" playOrder="65">
+        <navLabel>
+          <text>技巧56遍历改变列表</text>
+        </navLabel>
+        <content src="index_split_065.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_66" playOrder="66">
+        <navLabel>
+          <text>技巧57跳转到光标下的文件</text>
+        </navLabel>
+        <content src="index_split_066.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_67" playOrder="67">
+        <navLabel>
+          <text>技巧58用全局位置标记在文件间快速跳转</text>
+        </navLabel>
+        <content src="index_split_067.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_68" playOrder="68">
+      <navLabel>
+        <text>第10章复制与粘贴</text>
+      </navLabel>
+      <content src="index_split_068.html"/>
+      <navPoint class="chapter" id="num_69" playOrder="69">
+        <navLabel>
+          <text>技巧59用无名寄存器实现删除、复制与粘贴操作</text>
+        </navLabel>
+        <content src="index_split_069.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_70" playOrder="70">
+        <navLabel>
+          <text>技巧60深入理解Vim寄存器</text>
+        </navLabel>
+        <content src="index_split_070.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_71" playOrder="71">
+        <navLabel>
+          <text>技巧61用寄存器中的内容替换高亮选区的文本</text>
+        </navLabel>
+        <content src="index_split_071.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_72" playOrder="72">
+        <navLabel>
+          <text>技巧62把寄存器的内容粘贴出来</text>
+        </navLabel>
+        <content src="index_split_072.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_73" playOrder="73">
+        <navLabel>
+          <text>技巧63与系统剪贴板进行交互</text>
+        </navLabel>
+        <content src="index_split_073.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_74" playOrder="74">
+      <navLabel>
+        <text>第11章宏</text>
+      </navLabel>
+      <content src="index_split_074.html"/>
+      <navPoint class="chapter" id="num_75" playOrder="75">
+        <navLabel>
+          <text>技巧64宏的读取与执行</text>
+        </navLabel>
+        <content src="index_split_075.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_76" playOrder="76">
+        <navLabel>
+          <text>技巧65规范光标位置、直达目标以及中止宏</text>
+        </navLabel>
+        <content src="index_split_076.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_77" playOrder="77">
+        <navLabel>
+          <text>技巧66加次数回放宏</text>
+        </navLabel>
+        <content src="index_split_077.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_78" playOrder="78">
+        <navLabel>
+          <text>技巧67在连续的文本行上重复修改</text>
+        </navLabel>
+        <content src="index_split_078.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_79" playOrder="79">
+        <navLabel>
+          <text>技巧68给宏追加命令</text>
+        </navLabel>
+        <content src="index_split_079.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_80" playOrder="80">
+        <navLabel>
+          <text>技巧69在一组文件中执行宏</text>
+        </navLabel>
+        <content src="index_split_080.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_81" playOrder="81">
+        <navLabel>
+          <text>技巧70用迭代求值的方式给列表编号</text>
+        </navLabel>
+        <content src="index_split_081.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_82" playOrder="82">
+        <navLabel>
+          <text>技巧71编辑宏的内容</text>
+        </navLabel>
+        <content src="index_split_082.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_83" playOrder="83">
+      <navLabel>
+        <text>第12章按模式匹配及按原义匹配</text>
+      </navLabel>
+      <content src="index_split_083.html"/>
+      <navPoint class="chapter" id="num_84" playOrder="84">
+        <navLabel>
+          <text>技巧72调整查找模式的大小写敏感性</text>
+        </navLabel>
+        <content src="index_split_084.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_85" playOrder="85">
+        <navLabel>
+          <text>技巧73按正则表达式查找时，使用 \v模式开关</text>
+        </navLabel>
+        <content src="index_split_085.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_86" playOrder="86">
+        <navLabel>
+          <text>技巧74按原义查找文本时，使用 \V原义开关</text>
+        </navLabel>
+        <content src="index_split_086.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_87" playOrder="87">
+        <navLabel>
+          <text>技巧75使用圆括号捕获子匹配</text>
+        </navLabel>
+        <content src="index_split_087.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_88" playOrder="88">
+        <navLabel>
+          <text>技巧76界定单词的边界</text>
+        </navLabel>
+        <content src="index_split_088.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_89" playOrder="89">
+        <navLabel>
+          <text>技巧77界定匹配的边界</text>
+        </navLabel>
+        <content src="index_split_089.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_90" playOrder="90">
+        <navLabel>
+          <text>技巧78转义问题字符</text>
+        </navLabel>
+        <content src="index_split_090.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_91" playOrder="91">
+      <navLabel>
+        <text>第13章查找</text>
+      </navLabel>
+      <content src="index_split_091.html"/>
+      <navPoint class="chapter" id="num_92" playOrder="92">
+        <navLabel>
+          <text>技巧79结识查找命令</text>
+        </navLabel>
+        <content src="index_split_092.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_93" playOrder="93">
+        <navLabel>
+          <text>技巧80高亮查找匹配</text>
+        </navLabel>
+        <content src="index_split_093.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_94" playOrder="94">
+        <navLabel>
+          <text>技巧81在执行查找前预览第一处匹配</text>
+        </navLabel>
+        <content src="index_split_094.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_95" playOrder="95">
+        <navLabel>
+          <text>技巧82统计当前模式的匹配个数</text>
+        </navLabel>
+        <content src="index_split_095.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_96" playOrder="96">
+        <navLabel>
+          <text>技巧83将光标偏移到查找匹配的结尾</text>
+        </navLabel>
+        <content src="index_split_096.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_97" playOrder="97">
+        <navLabel>
+          <text>技巧84对完整的查找匹配进行操作</text>
+        </navLabel>
+        <content src="index_split_097.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_98" playOrder="98">
+        <navLabel>
+          <text>技巧85利用查找历史，迭代完成复杂的模式</text>
+        </navLabel>
+        <content src="index_split_098.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_99" playOrder="99">
+        <navLabel>
+          <text>技巧86查找当前高亮选区中的文本</text>
+        </navLabel>
+        <content src="index_split_099.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_100" playOrder="100">
+      <navLabel>
+        <text>第14章替换</text>
+      </navLabel>
+      <content src="index_split_100.html"/>
+      <navPoint class="chapter" id="num_101" playOrder="101">
+        <navLabel>
+          <text>技巧87结识substitute命令</text>
+        </navLabel>
+        <content src="index_split_101.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_102" playOrder="102">
+        <navLabel>
+          <text>技巧88在文件范围内查找并替换每一处匹配</text>
+        </navLabel>
+        <content src="index_split_102.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_103" playOrder="103">
+        <navLabel>
+          <text>技巧89手动控制每一次替换操作</text>
+        </navLabel>
+        <content src="index_split_103.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_104" playOrder="104">
+        <navLabel>
+          <text>技巧90重用上次的查找模式</text>
+        </navLabel>
+        <content src="index_split_104.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_105" playOrder="105">
+        <navLabel>
+          <text>技巧91用寄存器的内容替换</text>
+        </navLabel>
+        <content src="index_split_105.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_106" playOrder="106">
+        <navLabel>
+          <text>技巧92重复上一次substitute命令</text>
+        </navLabel>
+        <content src="index_split_106.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_107" playOrder="107">
+        <navLabel>
+          <text>技巧93使用子匹配重排CSV文件的字段</text>
+        </navLabel>
+        <content src="index_split_107.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_108" playOrder="108">
+        <navLabel>
+          <text>技巧94在替换过程中执行算术运算</text>
+        </navLabel>
+        <content src="index_split_108.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_109" playOrder="109">
+        <navLabel>
+          <text>技巧95交换两个或更多的单词</text>
+        </navLabel>
+        <content src="index_split_109.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_110" playOrder="110">
+        <navLabel>
+          <text>技巧96在多个文件中执行查找与替换</text>
+        </navLabel>
+        <content src="index_split_110.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_111" playOrder="111">
+      <navLabel>
+        <text>第15章global 命令</text>
+      </navLabel>
+      <content src="index_split_111.html"/>
+      <navPoint class="chapter" id="num_112" playOrder="112">
+        <navLabel>
+          <text>技巧97结识global命令</text>
+        </navLabel>
+        <content src="index_split_112.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_113" playOrder="113">
+        <navLabel>
+          <text>技巧98删除所有包含模式的文本行</text>
+        </navLabel>
+        <content src="index_split_113.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_114" playOrder="114">
+        <navLabel>
+          <text>技巧99将TODO项收集至寄存器</text>
+        </navLabel>
+        <content src="index_split_114.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_115" playOrder="115">
+        <navLabel>
+          <text>技巧100将CSS文件中所有规则的属性按照字母排序</text>
+        </navLabel>
+        <content src="index_split_115.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_116" playOrder="116">
+      <navLabel>
+        <text>第16章通过ctags建立索引，并用其浏览源代码</text>
+      </navLabel>
+      <content src="index_split_116.html"/>
+      <navPoint class="chapter" id="num_117" playOrder="117">
+        <navLabel>
+          <text>技巧101结识ctags</text>
+        </navLabel>
+        <content src="index_split_117.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_118" playOrder="118">
+        <navLabel>
+          <text>技巧102配置Vim使用ctags</text>
+        </navLabel>
+        <content src="index_split_118.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_119" playOrder="119">
+        <navLabel>
+          <text>技巧103使用Vim的标签跳转命令，浏览关键字的定义</text>
+        </navLabel>
+        <content src="index_split_119.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_120" playOrder="120">
+      <navLabel>
+        <text>第17章编译代码，并通过Quickfix列表浏览错误信息</text>
+      </navLabel>
+      <content src="index_split_120.html"/>
+      <navPoint class="chapter" id="num_121" playOrder="121">
+        <navLabel>
+          <text>技巧104不用离开Vim也能编译代码</text>
+        </navLabel>
+        <content src="index_split_121.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_122" playOrder="122">
+        <navLabel>
+          <text>技巧105浏览Quickfix列表</text>
+        </navLabel>
+        <content src="index_split_122.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_123" playOrder="123">
+        <navLabel>
+          <text>技巧106回溯以前的Quickfix列表</text>
+        </navLabel>
+        <content src="index_split_123.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_124" playOrder="124">
+        <navLabel>
+          <text>技巧107定制外部编译器</text>
+        </navLabel>
+        <content src="index_split_124.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_125" playOrder="125">
+      <navLabel>
+        <text>第18章通过grep、vimgrep以及其他工具对整个工程进行查找</text>
+      </navLabel>
+      <content src="index_split_125.html"/>
+      <navPoint class="chapter" id="num_126" playOrder="126">
+        <navLabel>
+          <text>技巧108不必离开Vim也能调用grep</text>
+        </navLabel>
+        <content src="index_split_126.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_127" playOrder="127">
+        <navLabel>
+          <text>技巧109定制grep程序</text>
+        </navLabel>
+        <content src="index_split_127.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_128" playOrder="128">
+        <navLabel>
+          <text>技巧110使用Vim内部的Grep</text>
+        </navLabel>
+        <content src="index_split_128.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_129" playOrder="129">
+      <navLabel>
+        <text>第19章自动补全</text>
+      </navLabel>
+      <content src="index_split_129.html"/>
+      <navPoint class="chapter" id="num_130" playOrder="130">
+        <navLabel>
+          <text>技巧111结识Vim的关键字自动补全</text>
+        </navLabel>
+        <content src="index_split_130.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_131" playOrder="131">
+        <navLabel>
+          <text>技巧112与自动补全的弹出式菜单进行交互</text>
+        </navLabel>
+        <content src="index_split_131.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_132" playOrder="132">
+        <navLabel>
+          <text>技巧113掌握关键字的来龙去脉</text>
+        </navLabel>
+        <content src="index_split_132.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_133" playOrder="133">
+        <navLabel>
+          <text>技巧114使用字典中的单词进行自动补全</text>
+        </navLabel>
+        <content src="index_split_133.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_134" playOrder="134">
+        <navLabel>
+          <text>技巧115自动补全整行文本</text>
+        </navLabel>
+        <content src="index_split_134.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_135" playOrder="135">
+        <navLabel>
+          <text>技巧116自动补全文件名</text>
+        </navLabel>
+        <content src="index_split_135.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_136" playOrder="136">
+        <navLabel>
+          <text>技巧117根据上下文自动补全</text>
+        </navLabel>
+        <content src="index_split_136.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_137" playOrder="137">
+      <navLabel>
+        <text>第20章利用Vim的拼写检查器，查找并更正拼写错误</text>
+      </navLabel>
+      <content src="index_split_137.html"/>
+      <navPoint class="chapter" id="num_138" playOrder="138">
+        <navLabel>
+          <text>技巧118对你的工作进行拼写检查</text>
+        </navLabel>
+        <content src="index_split_138.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_139" playOrder="139">
+        <navLabel>
+          <text>技巧119使用其他拼写字典</text>
+        </navLabel>
+        <content src="index_split_139.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_140" playOrder="140">
+        <navLabel>
+          <text>技巧120将单词添加到拼写文件中</text>
+        </navLabel>
+        <content src="index_split_140.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_141" playOrder="141">
+        <navLabel>
+          <text>技巧121在插入模式下更正拼写错误</text>
+        </navLabel>
+        <content src="index_split_141.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_142" playOrder="142">
+      <navLabel>
+        <text>第21章接下来干什么</text>
+      </navLabel>
+      <content src="index_split_142.html"/>
+      <navPoint class="chapter" id="num_143" playOrder="143">
+        <navLabel>
+          <text>21.1继续练习</text>
+        </navLabel>
+        <content src="index_split_143.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_144" playOrder="144">
+        <navLabel>
+          <text>21.2定制你自己的Vim</text>
+        </navLabel>
+        <content src="index_split_144.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_145" playOrder="145">
+        <navLabel>
+          <text>21.3欲善其事，先利其器</text>
+        </navLabel>
+        <content src="index_split_145.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_146" playOrder="146">
+      <navLabel>
+        <text>附录A根据个人喜好定制Vim</text>
+      </navLabel>
+      <content src="index_split_146.html"/>
+      <navPoint class="chapter" id="num_147" playOrder="147">
+        <navLabel>
+          <text>A.1动态改变Vim的设置项</text>
+        </navLabel>
+        <content src="index_split_147.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_148" playOrder="148">
+        <navLabel>
+          <text>A.2将配置信息存至vimrc文件</text>
+        </navLabel>
+        <content src="index_split_148.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_149" playOrder="149">
+        <navLabel>
+          <text>A.3为特定类型的文件应用个性化设置</text>
+        </navLabel>
+        <content src="index_split_149.html"/>
+      </navPoint>
+    </navPoint>
+  </navMap>
+</ncx>

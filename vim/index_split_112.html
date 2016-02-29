@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Vim实用技巧</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<p id="filepos560056" class="calibre_8"><span class="calibre1"><span class="bold">技巧97结识global命令</span></span></p><p class="calibre_9"> :global命令允许我们在某个指定模式的所有匹配行上运行Ex命令。让我们首先研究一下它的语法。 </p><p class="calibre_7"><span class="bold">:global</span>命令通常采用以下形式（参见<span class="bold">:h :g</span><img src="images/00243.jpg" class="calibre_10"/>）：</p><p class="calibre_"><img src="images/00128.jpg" class="calibre_260"/></p><p class="calibre_7">首先，在缺省情况下，<span class="bold">:global</span>命令的作用范围是整个文件（%），这一点与其他大多数Ex命令（包括 <span class="bold">:delete</span>、<span class="bold">:substitute</span>以及<span class="bold">:normal</span>）有所不同，这些命令的缺省范围仅为当前行（.）。</p><p class="calibre_7">其次，<span class="bold">{pattern}</span>域与查找历史相互关联。这意味着如果将该域留空的话，Vim会自动使用当前的查找模式。</p><p class="calibre_7">另外，<span class="bold">[cmd]</span> 可以是除<span class="bold">:global</span>命令之外的任何Ex命令。在实际应用中，如表15-1中所列的那些Ex命令，无一不在处理文本过程中起到了极大的作用。顺便提一下，如果我们不指定任何<span class="bold">[cmd]</span>，Vim将缺省使用<span class="bold">:print</span>。</p><p class="calibre_7">还有，我们可以用<span class="bold">:global</span>!或者<span class="bold">:vglobal</span>（v表示invert）反转<span class="bold">:global</span>命令的行为。这两条命令将指示Vim在没有匹配到指定模式的行上执行<span class="bold">[cmd]</span>。在下一节中，我们将会分别看到<span class="bold">:global</span>与<span class="bold">:vglobal</span>的应用实例。</p><p class="calibre_7">最后需要指出的是<span class="bold">:global</span>命令在指定<span class="bold">[range]</span>内的文本行上执行时通常分为两轮。第一轮，Vim会在所有 <span class="bold">[pattern]</span> 的匹配行上做上标记。第二轮，再在所有已标记的文本行上执行<span class="bold">[cmd]</span> 。另外，由于<span class="bold">[cmd]</span>的范围可单独设定，因此可在多行文本段内进行操作，我们将在技巧100中讲解这项强大的技术。</p><div class="mbp_pagebreak" id="calibre_pb_127"></div>
+</body></html>

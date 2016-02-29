@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Vim实用技巧</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<p id="filepos170360" class="calibre_8"><span class="calibre1"><span class="bold">技巧33把当前单词插入到命令行</span></span></p><p class="calibre_9"> 即使是在命令行模式下，Vim 也始终知道光标位于何处以及哪个分割窗口处于活动状态。为节省时间，我们可以把活动窗口中的当前单词（或字串）插入到命令行中。 </p><p class="calibre_7">在 Vim 的命令行下，<span class="bold">&lt;C-r&gt;&lt;C-w&gt;</span>映射项会复制光标下的单词并把它插入到命令行中。我们可以利用这一功能减少击键的次数。</p><p class="calibre_7">假设我们想把下面这段代码中的变量<span class="bold">tally</span>重命名为<span class="bold">counter</span>：</p><p class="calibre_"><img src="images/00277.jpg" class="calibre_82"/></p><p class="calibre_7">把光标移到单词<span class="bold">tally</span>上后，用 <span class="bold">*</span>命令就可以查找它出现的每处地方（<span class="bold">*</span>命令等效于输入<span class="bold">/\&lt;&lt;C-r&gt;&lt;C-w&gt;\&gt;&lt;CR&gt;</span>序列，关于<span class="bold">\&lt;</span>和<span class="bold">\&gt;</span>在模式中的作用，请参见技巧76的讨论）。</p><p class="calibre_6"><img src="images/00187.jpg" class="calibre_83"/></p><p class="calibre_6">当按下<span class="bold">*</span>键时，光标会正向跳到下一处匹配项，不过光标始终停留在相同的单词上。接下来，我们就可以输入<span class="bold">cwcounter&lt;Esc&gt;</span>对其进行修改。</p><p class="calibre_7">然后，我们将用<span class="bold">:substitute</span>命令完成其余的修改。由于光标已经在单词“counter”上了，因此我们无需再次输入它，而是直接用<span class="bold">&lt;C-r&gt;&lt;C-w&gt;</span>映射项把它插入到替换域：</p><p class="calibre_5">
+<a></a>
+</p><p class="calibre_8"><span class="bold">➾:%s//&lt;C-r&gt;&lt;C-w&gt;/g</span></p><p class="calibre_9">这条命令看起来没省多少事，但是用两次按键就能插入一个单词不算太糟。此处也用不着输入查找模式，而这要感谢<span class="bold">*</span>命令。要知道为什么可以像上面这样将查找域留空，请参考技巧90。</p><p class="calibre_7"><span class="bold">&lt;C-r&gt;&lt;C-w&gt;</span>用于插入光标下的单词，而如果想插入光标下的字串的话（参见技巧48的说明），我们可以用<span class="bold">&lt;C-r&gt;&lt;C-a&gt;</span>，更多细节请参见<span class="bold">:h c_CTRL-R_CTRL-W</span><img src="images/00243.jpg" class="calibre_10"/>。虽然本例是以<span class="bold">:substitute</span>命令作为示例的，但实际上这些映射项可用于任意 Ex 命令。</p><p class="calibre_7">这里介绍另一种应用场景。试着打开你的<span class="bold">vimrc</span>文件，把光标移到其中的一项设置上，然后输入<span class="bold">:help &lt;C-r&gt;&lt;C-w&gt;</span><img src="images/00243.jpg" class="calibre_10"/>，你就可以查阅该设置的文档了。</p><div class="mbp_pagebreak" id="calibre_pb_43"></div>
+</body></html>

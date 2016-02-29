@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Vim实用技巧</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<p id="filepos629781" class="calibre_1"><span class="calibre1"><span class="bold">第18章 通过grep、vimgrep以及其他工具对整个工程进行查找</span></span></p><p class="calibre_6">Vim的查找命令很适合搜索位于文件内的所有匹配。但如果我们想在整个工程范围内查找这些匹配呢？我们不得不扫描许多文件。传统上，这是一个专用的Unix工具——<span class="bold">grep</span>所负责的领域。</p><p class="calibre_7">在本章中，我们将发掘Vim的<span class="bold">:grep</span>命令，它允许我们在不离开编辑器的情况下调用外部程序。尽管该命令会缺省调用<span class="bold">grep</span>（前提是已安装<span class="bold">grep</span>程序），但我们也将看到它可以被方便地进行定制，从而将查找任务外包给其他的专用程序，例如<span class="bold">ack</span>。</p><p class="calibre_7">使用外部程序的缺点之一，是它们的正则表达式语法可能与我们在Vim查找过程中所主要使用的语法不兼容。我们将看到<span class="bold">:vimgrep</span>命令允许我们通过Vim自带的查找引擎，在多个文件中查找指定的模式。俗话说得好，有得必有失，<span class="bold">vimgrep</span>的查找速度几乎不可能达到专用程序的水平。</p><div class="mbp_pagebreak" id="calibre_pb_143"></div>
+</body></html>
