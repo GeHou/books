@@ -1,19 +1,19 @@
 <?xml version='1.0' encoding='utf-8'?>
 <package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uuid_id" version="2.0">
-  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opf="http://www.idpf.org/2007/opf" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:calibre="http://calibre.kovidgoyal.net/2009/metadata">
-    <dc:language>zh</dc:language>
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opf="http://www.idpf.org/2007/opf" xmlns:calibre="http://calibre.kovidgoyal.net/2009/metadata">
+    <dc:contributor opf:role="bkp">calibre (2.51.0) [http://calibre-ebook.com]</dc:contributor>
+    <dc:description>Vim是一款功能丰富而强大的文本编辑器，其代码补全、编译及错误跳转等方便 编程的功能特别丰富，在程序员中得到非常广泛的使用。Vim能够大大提高程序员的 工作效率。对于Vim高手来说，Vim能以与思考同步的速度编辑文本。同时，学习和 熟练使用Vim又有一定的难度。 本书为那些想要提升自己的程序员编写，阅读本书是熟练地掌握高超的Vim技巧 的必由之路。全书共21章，包括121个技巧。每一章都是关于某一相关主题的技巧集 合。每一个技巧都有针对性地解决一个或一类问题，帮助读者提升Vim的使用技能。 本书示例丰富，讲解清晰，采用一种简单的标记方法，表示交互式的编辑效果，可以 帮助读者快速掌握和精通Vim。 本书适合想要学习和掌握Vim工具的读者阅读，有一定Vim使用经验的程序员， 也可以参考查阅以解决特定的问题。</dc:description>
+    <meta name="cover" content="cover"/>
+    <dc:rights>Simplified Chinese-language edition Copyright © 2014 by Posts &amp; Telecom Press. All rights reserved. Copyright © 2012 The Pragmatic Programmers, LLC. Original English language edition，entitled Practical Vim. 本书中文简体字版由The Pragmatic Programmers, LLC授权人民邮电出版社独家出版。未经出版者书面许可， 不得以任何方式复制或抄袭本书内容。 版权所有，侵权必究。</dc:rights>
+    <meta name="calibre:title_sort" content="Vim实用技巧"/>
     <dc:identifier opf:scheme="MOBI-ASIN">b291cd23-941a-483c-b966-853596a50290</dc:identifier>
     <dc:identifier id="uuid_id" opf:scheme="uuid">70bb9be6-9ff7-4393-963f-213ee55d03df</dc:identifier>
     <dc:identifier opf:scheme="calibre">70bb9be6-9ff7-4393-963f-213ee55d03df</dc:identifier>
+    <dc:language>zh</dc:language>
     <dc:title>Vim实用技巧</dc:title>
-    <dc:contributor opf:role="bkp">calibre (2.51.0) [http://calibre-ebook.com]</dc:contributor>
-    <dc:creator opf:file-as="Neil, Drew" opf:role="aut">[英]Drew Neil</dc:creator>
-    <meta name="calibre:timestamp" content="2016-02-29T02:21:21.734000+00:00"/>
-    <meta name="calibre:title_sort" content="Vim实用技巧"/>
-    <dc:rights>Simplified Chinese-language edition Copyright © 2014 by Posts &amp; Telecom Press. All rights reserved. Copyright © 2012 The Pragmatic Programmers, LLC. Original English language edition，entitled Practical Vim. 本书中文简体字版由The Pragmatic Programmers, LLC授权人民邮电出版社独家出版。未经出版者书面许可， 不得以任何方式复制或抄袭本书内容。 版权所有，侵权必究。</dc:rights>
     <dc:date>2014-04-30T16:00:00+00:00</dc:date>
-    <meta name="cover" content="cover"/>
-    <dc:description>Vim是一款功能丰富而强大的文本编辑器，其代码补全、编译及错误跳转等方便 编程的功能特别丰富，在程序员中得到非常广泛的使用。Vim能够大大提高程序员的 工作效率。对于Vim高手来说，Vim能以与思考同步的速度编辑文本。同时，学习和 熟练使用Vim又有一定的难度。 本书为那些想要提升自己的程序员编写，阅读本书是熟练地掌握高超的Vim技巧 的必由之路。全书共21章，包括121个技巧。每一章都是关于某一相关主题的技巧集 合。每一个技巧都有针对性地解决一个或一类问题，帮助读者提升Vim的使用技能。 本书示例丰富，讲解清晰，采用一种简单的标记方法，表示交互式的编辑效果，可以 帮助读者快速掌握和精通Vim。 本书适合想要学习和掌握Vim工具的读者阅读，有一定Vim使用经验的程序员， 也可以参考查阅以解决特定的问题。</dc:description>
+    <dc:creator opf:file-as="Neil, Drew" opf:role="aut">[英]Drew Neil</dc:creator>
+    <meta name="calibre:timestamp" content="2016-02-29T02:21:21+00:00"/>
     <dc:publisher>人民邮电出版社</dc:publisher>
   </metadata>
   <manifest>
@@ -617,7 +617,7 @@
   </spine>
   <guide>
     <reference href="index_split_001.html#filepos28456" title="start" type="text"/>
-    <reference href="titlepage.xhtml" title="Cover" type="cover"/>
     <reference href="index_split_150.html#filepos707901" title="Table of Contents" type="toc"/>
+    <reference href="titlepage.xhtml" title="Cover" type="cover"/>
   </guide>
 </package>
