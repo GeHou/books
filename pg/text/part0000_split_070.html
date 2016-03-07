@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_185" class="calibre6"><strong class="calibre2">8.3　使用PL/pgSQL语言编写函数</strong></h2>
+<p class="calibre1">如果 SQL 语言已经不能满足你编写函数的需求，一般来说常见的解决方案是转为使用 PL/pgSQL。PL/pgSQL 优于 SQL 之处在于它支持通过 <code class="calibre11">DECLARE</code> 语法定义本地变量以及支持流程控制语法。</p>
+<h3 id="nav_point_186" class="calibre16"><strong class="calibre2">8.3.1　编写基础的PL/pgSQL函数</strong></h3>
+<p class="calibre1">为了向你展示 PL/pgSQL 与 SQL 之间的语法区别，我们在示例 8-10 中用 PL/pgSQL 重写了示例 8-4 中的函数例子。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 8-10</strong>：使用 PL/pgSQL 编写返回值为表类型的函数</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE FUNCTION select_logs_rt(param_user_name varchar)
+RETURNS TABLE (log_id int, user_name varchar(50), description text, log_ts time stamptz) AS
+$$
+BEGIN RETURN QUERY
+    SELECT log_id, user_name, description, log_ts FROM logs
+     WHERE user_name = param_user_name;
+END;
+$$
+LANGUAGE 'plpgsql' STABLE;
+
+</code></pre>
+<h3 id="nav_point_187" class="calibre16"><strong class="calibre2">8.3.2　使用PL/pgSQL编写触发器函数</strong></h3>
+<p class="calibre1">由于 PostgreSQL 不支持使用 SQL 编写触发器函数，因此 PL/pgSQL 就成了编写触发器函数的首选。本节中，我们将向你介绍如何使用 PL/pgSQL 编写基本的触发器函数。</p>
+<p class="calibre1">总共需要两个步骤：第一步是写一个触发器函数，第二步是将此触发器函数显式附加到合适的触发器上。这第二步将处理触发器的函数与触发器本身分离开，这是 PostgreSQL 的一个强大功能。你可以将同一个触发器函数附加到多个触发器上，从而实现触发器函数逻辑的重用。该模式是 PostgreSQL 的独创功能，没有任何别的数据库能支持该特性。由于触发器函数之间是完全独立的，因此你可以为每个触发器函数选择不同的编程语言，这些不同语言编写的触发器完全可以协同工作。PostgreSQL 支持通过一个触发事件（<code class="calibre11">INSERT</code>、<code class="calibre11">UPDATE</code>、<code class="calibre11">DELETE</code>）激活多个触发器，而且每个触发器可以基于不同语言编写。例如，假设 数据库中发生某一事件时你需要将其记录下来，另外还需要发邮件通知你。那么你可以使用 PL/PythonU 或者 PL/PerlU 语言编写一个具备发送邮件功能的触发器；同时可以使用 PL/pgSQL 语言编写一个记录日志的触发器。发生指定事件时，这两个触发器会同时被触发，各自执行各自的任务。</p>
+<p class="calibre1">示例 8-11 中演示了如何创建一个基本的触发器函数及配套的触发器。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 8-11</strong>：通过触发器对新插入的记录或者修改的记录打时间戳</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE OR REPLACE FUNCTION trig_time_stamper() RETURNS trigger AS ➊
+$$
+BEGIN
+    NEW.upd_ts := CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE TRIGGER trig_1
+BEFORE INSERT OR UPDATE OF session_state, session_id ➋
+ON web_sessions
+FOR EACH ROW EXECUTE PROCEDURE trig_time_stamper();
+
+</code></pre>
+<p class="calibre1">➊　定义触发器函数。该函数适用于任何带有 <code class="calibre11">upd_ts</code> 字段的表，该函数会先将 <code class="calibre11">upd_ts</code> 字段的值更新为当前时间戳，然后再返回修改后的记录。这种修改记录新值的动作应该放在 <code class="calibre11">BEFORE</code> 触发器中，<code class="calibre11">AFTER</code> 触发器被触发时记录新值已经写入表中，因此时机已经错过，此时所有对记录新值的修改动作都会被忽略。</p>
+<p class="calibre1">➋　“字段级触发”是 9.0 版开始支持的一个特性，通过该特性可以将触发器的触发时机精确到字段级别。在 9.0 版之前，只要发生了 <code class="calibre11">UPDATE</code> 或者 <code class="calibre11">INSERT</code> 动作，上面示例中的触发器都会被触发；因此如果要实现字段级触发控制就必须拿 <code class="calibre11">OLD.some_column</code> 和 <code class="calibre11">NEW.some_column</code> 进行对比，找到发生变化的字段，然后才能判定是否要进行“字段级触发”。（请注意：<code class="calibre11">INSTEAD OF</code> 触发器不支持该特性。）</p>
+</body></html>

@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_9" class="calibre6"><strong class="calibre2">代码与输出格式</strong></h2>
+<p class="calibre1">对于括号中的内容，我们一般会将左括号与之前的内容放置于同一行，右括号单独放置一行，以便于纵栏印刷。格式如下：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">function ( Welcome to PostgreSQL
+);
+
+</code></pre>
+<p class="calibre1">为节省版面，我们还移除了命令行执行输出结果中无意义的空格，因此如果发现实际输出结果的格式与书中提供的不一致，请不用担心，这是正常的。</p>
+<p class="calibre1">请注意，虽然我们建议在编码时逗号后要加一个空格，但本书中的确有些地方因版面宽度的关系而去掉了这种空格。</p>
+<p class="calibre1">PostgreSQL 的 SQL 解释器会将语句中的制表符、换行符和回车符当作空格处理。在我们提供的示例代码中，一般会使用空格而不是制表符作为缩进符。请确保使用的代码编辑器不会自动将制表符、换行符和回车符删除，或者把它们转换为空格以外的什么字符，否则会导致问题。</p>
+<p class="calibre1">如果在执行示例代码时遇到了问题，请检查确认你复制过来的代码与我们提供的原始代码 是否一致。</p>
+<p class="calibre1">注意有些示例适用于 Linux，而有些适用于 Windows。例如某些关于外部数据封装器的例子中要求使用带完整路径的文件名，你会看到示例代码中有类似于 <code class="calibre11">/postgresql_book/somefile.csv</code> 这样的路径，这指的是 Linux 服务器根目录下的路径。如果使用的是 Windows 环境，那么需要加上驱动器符，因此路径要改为：<code class="calibre11">C:/postgresql_book/somefile.csv</code>。请注意：即使是在 Windows 上，路径中也应该使用 Linux 的路径分隔符 <code class="calibre11">/</code>，而不是 Windows 传统的 <code class="calibre11">\</code>。</p>
+</body></html>

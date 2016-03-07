@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_188" class="calibre6"><strong class="calibre2">8.4　使用PL/Python语言编写函数</strong></h2>
+<p class="calibre1">Python 是一种非常灵活的语言，它支持非常丰富的功能扩展库。据我们所知，PostgreSQL 是唯一一种允许用户使用 Python 语言来编写函数的数据库。从 9.0 版开始，PostgreSQL 还同时支持了 Python 2 和 Python 3 两种语言。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00002.gif" alt="" width="9%" class="calibre13"/>　你可以在同一个 database 中同时安装 PL/Python2U 和 PL/Python3U 这两个语言包，但在同一个用户会话上不能同时使用这两种语言。这就意味着你不能在同一个语句中同时调用分别由 PL/Python2U 和 PL/Python3U 编写的函数。你在系统中会见到一种叫作 PL/PythonU 的语言，它实际上是系统为了保持前向兼容而为 PL/Python2U 语言建的一个别名。</p>
+</blockquote>
+<p class="calibre1">在使用 PL/Python 语言之前，要先在服务器上搭建好 Python 运行环境。Windows 和 Mac 平台的 Python 安装包可以从 <a href="http://www.python.org/download/" class="calibre5">http://www.python.org/download/</a> 站点下载到。Linux/Unix 平台的各种发行版上一般都已经附带了 Python 环境，因此无需额外安装。请参考 PostgreSQL 官方手册中对 PL/Python 的相关介绍（<a href="http://www.postgresql.org/docs/current/interactive/plpython.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/plpython.html</a>）来了解详情。搭建好 Python 运行环境之后，需要为 PostgreSQL 安装 Python 语言扩展包。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE EXTENSION plpython2u;
+CREATE EXTENSION plpython3u;
+
+</code></pre>
+<p class="calibre1">在 PostgreSQL 上安装 Python 语言扩展包之前，请务必确保服务器操作系统上的 Python 运行环境已经正常，否则你可能会遇到各种奇奇怪怪的问题。</p>
+<p class="calibre1">由于 PostgreSQL 的 PL/PythonU 语言扩展包是基于某个具体版本的 Python 语言包编译出来的，因此你需要保证服务器上的 Python 版本与 <code class="calibre11">plpythonu</code> 扩展包的版本是匹配的。例如，假设你的 <code class="calibre11">plpython2u</code> 扩展包是基于 Python 2.7 版编译的，那么服务器上就需要安装好 Python 2.7 运行环境。</p>
+<h3 id="nav_point_189" class="calibre16"><strong class="calibre2">编写基本的Python函数</strong></h3>
+<p class="calibre1">PostgreSQL 会自动在 PostgreSQL 数据类型与 Python 数据类型间进行双向转换。PL/Python 语言编写的函数支持返回数组和复合数据类型。你可以使用 PL/Python 来编写触发器函数和聚合函数。我们在 Postgres Online 站点上提供了一系列介绍 PL/Python 的文章（<a href="http://www.postgresonline.com/journal/index.php?/plugin/tag/plpython" class="calibre5">http://www.postgresonline.com/journal/index.php?/plugin/tag/plpython</a>），其中有相关的语法示例。</p>
+<p class="calibre1">Python 语言可以实现一些通过 PL/pgSQL 语言无法实现的功能。在示例 8-12 中，我们演示了如何使用 PL/Python 语言来编写一个文本搜索函数，该函数可以实现对 PostgreSQL 在线官方手册的内容进行检索。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 8-12</strong>：使用 PL/Python 语言编写的函数来搜索 PostgreSQL 官方手册的内容</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE OR REPLACE FUNCTION postgresql_help_search(param_search text)
+RETURNS text AS
+$$
+import urllib, re ➊
+response = urllib.urlopen(
+  'http://www.postgresql.org/search/?u=%2Fdocs%2Fcurrent%2F&amp;q=' + param_search
+) ➋
+raw_html = response.read() ➌
+result = raw_html[raw_html.find("&lt;!-- docbot goes here --&gt;") : raw_html.find("&lt;!--
+pgContentWrap --&gt;") - 1] ➍
+result = re.sub('&lt;[^&lt;]+?&gt;', '', result).strip() ➎
+return result ➏
+$$
+LANGUAGE plpython2u SECURITY DEFINER STABLE;
+
+</code></pre>
+<p class="calibre1">❶　导入我们接下来需要使用的功能库。</p>
+<p class="calibre1">❷　在连接搜索词之后执行搜索。</p>
+<p class="calibre1">❸　读取返回的搜索结果并将其保存到一个名为 <code class="calibre11">raw_html</code> 的变量中。</p>
+<p class="calibre1">❹　从 <code class="calibre11">raw_html</code> 中将 <code class="calibre11">&lt;!-- docbot goes here --&gt;</code> 和 <code class="calibre11">&lt;!-- pgContentWrap --&gt;</code> 之间包含的内容截取出来并存放到一个名为 <code class="calibre11">result</code> 的新变量中。</p>
+<p class="calibre1">❺　将 <code class="calibre11">result</code> 开头部分和结尾部分的 HTML 标记和空格删除掉。</p>
+<p class="calibre1">❻　返回 <code class="calibre11">result</code> 变量的内容。</p>
+<p class="calibre1">调用 Python 函数与调用别的语言编写的函数没什么两样。在示例 8-13 中，我们使用在示例 8-12 中创建的函数来搜索三个字符串。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 8-13</strong>：在查询语句中使用 Python 函数</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT search_term, left(postgresql_help_search(search_term), 125) As result
+FROM (VALUES ('regexp_match'),('pg_trgm'),('tsvector')) As x(search_term);
+
+</code></pre>
+<p class="calibre1">前面提到过 PL/Python 是一种非受信语言，而且没有相应的受信版本。这意味着只有超级用户才能使用 PL/Python 编写函数，并且使用该语言编写出来的函数可以直接操作文件系统。示例 8-14 就利用了 PL/Python 的这种能力来获得一个目录中的文件列表。请注意，从操作系统的角度来看，PL/Python 函数是以 PostgreSQL 安装时创建的 <code class="calibre11">postgres</code> 操作系统账户身份来执行的，因此你在执行该示例之前需要确保 <code class="calibre11">postgres</code> 账户对该示例中使用的目录拥有访问权限。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 8-14</strong>：列出一个目录中的所有文件</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE OR REPLACE FUNCTION list_incoming_files()
+RETURNS SETOF text AS
+$$
+import os
+return os.listdir('/incoming')
+$$
+LANGUAGE 'plpython2u' VOLATILE SECURITY DEFINER;
+
+</code></pre>
+<p class="calibre1">可以通过以下语句执行上面创建的函数。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT filename
+FROM list_incoming_files() As filename
+WHERE filename ILIKE '%.csv'
+
+</code></pre>
+</body></html>

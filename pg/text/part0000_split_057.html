@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_134" class="calibre6"><strong class="calibre2">6.1　表</strong></h2>
+<p class="calibre1">除了普通的表以外，PostgreSQL 还提供了许多不常见的表，具体包括：临时表、无日志表、继承表、基于复合类型的表以及外部表（我们将在第 10 章中介绍外部表）。</p>
+<h3 id="nav_point_135" class="calibre16"><strong class="calibre2">6.1.1　基本的建表操作</strong></h3>
+<p class="calibre1">示例 6-1 演示了建表语法，在所有支持 SQL 的数据库中建表语法都是类似的。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 6-1</strong>：基本的建表操作</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE TABLE logs ( log_id serial PRIMARY KEY, ➊ user_name varchar(50), ➋ description text, ➌ log_ts timestamp with time zone NOT NULL DEFAULT current_timestamp);
+➍
+CREATE INDEX idx_logs_log_ts ON logs USING btree (log_ts);
+
+</code></pre>
+<p class="calibre1">➊　<code class="calibre11">serial</code> 数据类型是一种自增长的数字类型。建表时如果有一个 <code class="calibre11">serial</code> 类型的字段，那么系统会自动在 schema 中同时创建一个对应的序列号生成器。<code class="calibre11">serial</code> 类型字段的值是一个整型数字，它会自动被赋值为序列号生成器的下一个值。每张表一般来说只会有一个 <code class="calibre11">serial</code> 字段，且一般是用作主键。</p>
+<p class="calibre1">➋　<code class="calibre11">varchar</code> 是 <code class="calibre11">character varying</code>（可变长字符串）的简写，其定义与其他数据库产品中的定义是类似的。你可以不为 <code class="calibre11">varchar</code> 字段设定最大长度值，此时它与 <code class="calibre11">text</code> 类型几乎是一样的。</p>
+<p class="calibre1">➌　<code class="calibre11">text</code> 是一种不定长度的字符串，无最大长度限制。</p>
+<p class="calibre1">➍　<code class="calibre11">timestamp with time zone</code>（可简写为 <code class="calibre11">timestamptz</code>）是一种表示日期和时间的类型，总是以国际标准时间（UTC）格式存储。该类型在显示时总是以服务器当前所在时区为基准进行显示，当然你也可以要求使用指定的时区进行显示。更多关于此类型的讨论，请参考 5.3.1 节。</p>
+<h3 id="nav_point_136" class="calibre16"><strong class="calibre2">6.1.2　继承表</strong></h3>
+<p class="calibre1">PostgreSQL 是唯一提供表继承功能的数据库。如果创建一张表（子表）时指定为继承自另一张表（父表），则建好的子表除了含有自己的字段外还会含有父表的所有字段。PostgreSQL 会记录下这个继承关系，这样一旦父表的结构发生了变化，子表的结构也会自动跟着变化。这种父子继承结构的表可以完美地适用于需要数据分区的场景。当查询父表时，PostgreSQL 会自动把子表的记录也取出来。值得注意的是，并不是所有父表的特征都会被子表继承下来，比如主表的主键约束、唯一性约束以及索引就不会被继承。Check 约束会被继承，但子表还可以另建自己的 check 约束（详见示例 6-2）。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 6-2</strong>：创建继承表</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE TABLE logs_2011 (PRIMARY KEY(log_id)) INHERITS(logs);
+CREATE INDEX idx_logs_2011_log_ts ON logs USING btree(log_ts);
+ALTER TABLE logs_2011 ADD CONSTRAINT chk_y2011
+ CHECK (log_ts &gt;= '2011-1-1'::timestamptz
+   AND log_ts &lt; '2012-1-1'::timestamptz ); ➊
+
+</code></pre>
+<p class="calibre1">➊ 我们定义了一个 check 约束来限制只能录入 2011 年的数据。该 check 约束告诉查询规划器在查询父表时跳过条件不满足的子表。</p>
+<h3 id="nav_point_137" class="calibre16"><strong class="calibre2">6.1.3　无日志表</strong></h3>
+<p class="calibre1">对于发生磁盘故障或者系统崩溃后可以被重建的临时数据来说，其操作速度比可靠性更重要。PostgreSQL 从 9.1 版开始支持 <code class="calibre11">UNLOGGED</code> 修饰符，使用该修饰符可以创建无日志的表，如示例 6-3 所示。系统不会为这种表记录任何事务日志（业界一般也称为 WAL 日志，即 write-ahead log）。如果你的服务器经历了一次掉电重启，那么无日志表中的数据会在事务回滚过程中被全部清除掉。你可以从 Depesz 站点的“等待 9.1 版的无日志表”这篇博文（<a href="http://www.depesz.com/2011/01/03/waiting-for-9-1-unlogged-tables/" class="calibre5">http://www.depesz.com/2011/01/03/waiting-for-9-1-unlogged-tables/</a>）中看到更多示例和使用注意事项。</p>
+<p class="calibre1">另外在 <code class="calibre11">pg_dump</code> 中还有一个选项可以设置在备份时跳过无日志表。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 6-3</strong>：创建无日志表</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE UNLOGGED TABLE web_sessions ( session_id text PRIMARY KEY, add_ts time stamptz, upd_ts timestamptz, session_state xml);
+
+</code></pre>
+<p class="calibre1">无日志表的一大优势就是对其写入数据要远远快于往普通表中写数据。按照我们的经验，一般要快大约 15 倍。请牢记使用无日志表的缺点。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1">如果数据库服务器崩溃，PostgreSQL 将截断所有无日志表（截断的意思是擦除所有行）。</p>
+</li>
+<li class="calibre10"><p class="calibre1">无日志表不支持 GiST 索引（6.3.1 节会讨论此索引类型），因此它就不适用于依赖 GiST 索引的数据类型。</p>
+</li>
+</ul>
+<p class="calibre1">但无日志表上可以建常用的 B- 树索引和 GIN 索引。</p>
+<h3 id="nav_point_138" class="calibre16"><strong class="calibre2">6.1.4　TYPE OF</strong></h3>
+<p class="calibre1">PostgreSQL 在创建一张表时，会自动在后台创建一个结构完全相同的复合数据类型，反之则不是这样。在 9.0 版中，你可以使用一个复合数据类型来作为建表的模板。以下我们将演示该功能，首先创建一个复合数据类型。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE TYPE basic_user AS (user_name varchar(50), pwd varchar(10));
+
+</code></pre>
+<p class="calibre1">然后我们可以使用 <code class="calibre11">OF</code> 语法来创建一张表，表结构就是该复合类型，如示例 6-4 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 6-4</strong>：以复合数据类型为模板来创建一张表</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE TABLE super_users OF basic_user (CONSTRAINT pk_su PRIMARY KEY (user_name));
+
+</code></pre>
+<p class="calibre1">当基于数据类型来创建表时，你不能指定表字段的定义，一切以数据类型本身的定义为准。然而，为复合数据类型新增或者移除字段时，PostgreSQL 会自动修改相应的表结构。这种机制的优点是，如果你的系统中有很多结构相同的表，而你可能会需要同时对所有表结构进行相同的修改，那么此时只需要修改此基础数据类型即可，这一点与表继承机制很相似。</p>
+<p class="calibre1">例如我们需要为示例 6-4 中定义的 <code class="calibre11">super_users</code> 表增加一个电话号码字段，那么只需要修改建表时所使用的数据类型即可。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">ALTER TYPE basic_user ADD ATTRIBUTE phone varchar(10) CASCADE;
+
+</code></pre>
+<p class="calibre1">通常，如果表依赖于某个类型，那么你就不能更改该类型的定义。<code class="calibre11">CASCADE</code> 修饰符凌驾于此限制之上，对所有相关表应用相同的更改。</p>
+</body></html>

@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_30" class="calibre6"><strong class="calibre2">1.7　PostgreSQL的主要衍生版本</strong></h2>
+<p class="calibre1">PostgreSQL 使用了 MIT/BSD 风格的许可证，任何人都可以合法地对其修改并二次传播，因此对于那些想创建自己数据库分支的人来说，PostgreSQL 是绝佳的选择。在过去的很多年间，有很多团队创建了自己的 PostgreSQL 衍生版本，其中的部分修改也已经回馈到 PostgreSQL 的主干代码中。</p>
+<p class="calibre1">目前数据仓库领域使用很广泛的 Netezza（<a href="http://www.netezza.com" class="calibre5">http://www.netezza.com</a>）就是源自 PostgreSQL。亚马逊公司的 Redshift 数据仓库（<a href="http://aws.amazon.com/redshift/" class="calibre5">http://aws.amazon.com/redshift/</a>）事实上是 PostgreSQL 的一个分支的分支。支持 PB 级数据分析的著名数据仓库 GreenPlum 最初的源头是 Bizgres，而 Bizgres 是一款基于 PostgreSQL 的面向大数据的数据仓库和智能分析软件。EnterpriseDB 公司（<a href="http://enterprisedb.com" class="calibre5">http://enterprisedb.com</a>）推出的 PostgreSQL Advanced Plus 也是以 PostgreSQL 为基础，另外增加了对于 Oracle 语法和特性的兼容支持，以吸引原 Oracle 用户。EnterpriseDB 公司向 PostgreSQL 社区提供了资金和开发力量的支持，对此我们表示感谢。他们的 Postgres Plus Advanced Server 产品在版本更新节奏上也一直是密切跟进最新的 PostgreSQL 稳定版的。</p>
+<p class="calibre1">前述衍生产品都是商业化的闭源软件。tPostgres（<a href="http://www.tpostgres.org" class="calibre5">http://www.tpostgres.org</a>）、Postgres-XC（<a href="http://postgres-xc.sourceforge.net" class="calibre5">http://postgres-xc.sourceforge.net</a>）和 Big SQL（<a href="http://www.bigsql.org" class="calibre5">http://www.bigsql.org</a>）是三款还处于发展初期但已经崭露头角的开源衍生产品，它们都得到了 OpenSCG 公司（<a href="http://www.openscg.com/" class="calibre5">http://www.openscg.com/</a>）的资金支持。tPostgreSQL 的最新版本基于 PostgreSQL 9.3，其目标是取代 Microsoft SQL Server。tPostgreSQL 中内嵌了 pgtsql 语言扩展包，可以用 T-SQL 语法来编写函数。pgtsql 语言包是标准的 PostgreSQL 扩展包，因此它其实可以安装到任何一台 PostgreSQL 9.3 数据库上。Postgres-XC 是一套集群服务器系统，它能够提供可扩展的写能力并支持同步多主复制，其分布式处理和多主复制能力使它在所有类似系统中脱颖而出。目前 Postgres-XC 还只是 1.0 版本。最后介绍一下 BigSQL，它实现了 PostgreSQL 和 Hadoop with Hive 这两款重量级产品的融合。BigSQL 自带了 <code class="calibre11">hadoop_fdw</code> 这款扩展包，可以查询和更新外部 Hadoop 数据源的数据。</p>
+<p class="calibre1">此外，最近还发布了一款 PostgreSQL 开源分支产品 Postgres-XL（XL 代表 eXtensible Lattice，即可扩展的晶格。<a href="http://www.postgres-xl.org/" class="calibre5">http://www.postgres-xl.org/</a>），该产品面向大规模并行处理（MPP）领域，支持节点间数据的分片存储能力。</p>
+
+<p class="calibre4" style="margin:0pt; border:0pt; height:1em" id="calibre_pb_33"> </p>
+</body></html>

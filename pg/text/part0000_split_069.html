@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_182" class="calibre6"><strong class="calibre2">8.2　使用SQL语言来编写函数</strong></h2>
+<p class="calibre1">大多数情况下我们仅仅使用 SQL 语言来编写单个语句，但事实上它也可以用于编写函数。在 PostgreSQL 中，用 SQL 编写函数是一件很简单的事情：只需在现成的 SQL 基础上加上函数头和函数尾就可以了。但编写简单同时也意味着功能有限。SQL 不是一种过程式语言，因此你就无法用上比如条件分支判断这种过程控制语句。此外还有一个更严重的限制，那就是无法运行根据传入到函数中的实参即时组合成的动态 SQL 语句。</p>
+<p class="calibre1">当然，SQL 函数也有其优点。查询规划器可以深入到 SQL 函数内部并对其中每一条 SQL 语句进行分析和优化，该过程被称为 inlining，即<strong class="calibre2">内联处理</strong>。规划器对于别的语言编写的函数只能当成黑盒处理。内联处理机制使得 SQL 函数能够充分利用索引从而提高执行效率。</p>
+<h3 id="nav_point_183" class="calibre16"><strong class="calibre2">8.2.1　编写基本的SQL函数</strong></h3>
+<p class="calibre1">示例 8-2 演示了一个最基本的 SQL 函数，该函数向表中插入一条记录，并返回一个标量值。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 8-2</strong>：创建一个 SQL 函数，其返回值为新插入的记录的唯一 ID</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE OR REPLACE FUNCTION write_to_log(param_user_name varchar, param_description text)
+RETURNS integer AS
+$$
+INSERT INTO logs(user_name, description) VALUES($1, $2)
+RETURNING log_id;
+$$
+LANGUAGE 'sql' VOLATILE;
+
+</code></pre>
+<p class="calibre1">函数的调用语法如下所示。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT write_to_log('alejandro', 'Woke up at noon.') As new_id;
+
+</code></pre>
+<p class="calibre1">类似地，也可以在 SQL 函数中更新数据并返回一个标量或者不返回，如示例 8-3 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 8-3</strong>：创建一个进行更新操作的 SQL 函数</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE OR REPLACE FUNCTION
+update_logs(log_id int, param_user_name varchar, param_description text)
+RETURNS void AS
+$$
+UPDATE logs SET user_name = $2, description = $3
+ , log_ts = CURRENT_TIMESTAMP WHERE log_id = $1;
+$$
+LANGUAGE 'sql' VOLATILE;
+
+</code></pre>
+<p class="calibre1">通过以下语句来调用此函数。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT update_logs(12, 'alejandro', 'Fell back asleep.');
+
+</code></pre>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00001.gif" alt="" width="7%" class="calibre12"/>　在 9.2 版之前，SQL 函数仅可以在函数主体中使用输入实参的序号位置。从 9.2 版开始支持使用命名实参的选项。比如，你可以使用 <code class="calibre11">param_1</code> 和 <code class="calibre11">param_2</code> 来代替之前 <code class="calibre11">$1</code> 和 <code class="calibre11">$2</code> 这种写法。除了 SQL 以外的其他语言在 9.2 版之前无此限制，也就是说它们一直都可以使用实参名来引用实参。</p>
+</blockquote>
+<p class="calibre1">基本上所有编程语言编写的函数都支持返回结果集，SQL 函数也不例外，它有三种返回结果集的方法：第一种是 ANSI SQL 标准中规定的 <code class="calibre11">RETURNS TABLE</code> 语法，第二种是使用 <code class="calibre11">OUT</code> 形参，第三种是使用复合数据类型。第一种的 <code class="calibre11">RETURNS TABLE</code> 语法是从 PostgreSQL 8.3 版才开始支持的，其他数据库一般也都是基于该语法来实现结果集的返回。在示例 8-4 中，我们演示了如何使用这三种方法来实现返回结果集。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 8-4</strong>：在函数中返回结果集</p>
+</blockquote>
+<p class="calibre1">使用 <code class="calibre11">RETURNS TABLE</code> 语法的方式如下所示。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE OR REPLACE FUNCTION select_logs_rt(param_user_name varchar)
+RETURNS TABLE (log_id int, user_name varchar(50), description text, log_ts time stamptz) AS
+$$
+SELECT log_id, user_name, description, log_ts FROM logs WHERE user_name = $1;
+$$
+LANGUAGE 'sql' STABLE;
+
+</code></pre>
+<p class="calibre1">使用 <code class="calibre11">OUT</code> 形参的方式如下所示。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE OR REPLACE FUNCTION select_logs_out(param_user_name varchar, OUT log_id int, OUT user_name varchar, OUT description text, OUT log_ts timestamptz)
+RETURNS SETOF record AS
+$$
+SELECT * FROM logs WHERE user_name = $1;
+$$
+LANGUAGE 'sql' STABLE;
+
+</code></pre>
+<p class="calibre1">使用复合数据类型的方式如下所示。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE OR REPLACE FUNCTION select_logs_so(param_user_name varchar)
+RETURNS SETOF logs AS
+$$
+SELECT * FROM logs WHERE user_name = $1;
+$$
+LANGUAGE 'sql' STABLE;
+
+</code></pre>
+<p class="calibre1">以上三种方式实现的函数的调用方法都是一样的。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT * FROM select_logs_xxx('alejandro');
+
+</code></pre>
+<h3 id="nav_point_184" class="calibre16"><strong class="calibre2">8.2.2　使用SQL语言编写聚合函数</strong></h3>
+<p class="calibre1">本节将演示如何使用 SQL 语言来创建一个用于计算几何平均值的聚合函数。几何平均值（<a href="http://www.buzzardsbay.org/geomean.htm" class="calibre5">http://www.buzzardsbay.org/geomean.htm</a>）是指 <em class="calibre8">n</em> 个正数的连乘积的 <em class="calibre8">n</em> 次方根（<code class="calibre11">(x1<em class="calibre8">x2</em>x3...xn)<sup class="calibre21">(1/n)</sup></code>），它在金融、经济以及统计学领域有着广泛的应用。当样本数字的值域范围变化很大时，可以使用几何平均值来替代更常见的算术平均数。几何平均值可以使用更高效的公式来计算：<code class="calibre11">EXP(SUM(LN(x))/n)</code>，该公式使用了对数来将连续的乘法运算转换为连续的加法运算，因此计算机执行的效率更高。在下面的例子中，我们将使用该公式计算几何平均值。</p>
+<p class="calibre1">为了实现几何平均值运算，我们使用了两个子函数：一个状态转换函数，用于把对数运算结果相加（参见示例 8-5）；一个最终处理函数，用于对对数之和进行取幂运算。此外我们还需要指定状态初始值为 0。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 8-5</strong>：创建几何平均值聚合函数的状态切换函数</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE OR REPLACE FUNCTION geom_mean_state(prev numeric[2], next numeric)
+RETURNS numeric[2] AS
+$$
+SELECT
+  CASE
+    WHEN $2 IS NULL OR $2 = 0 THEN $1
+    ELSE ARRAY[COALESCE($1[1],0) + ln($2), $1[2] + 1]
+  END;
+$$
+LANGUAGE sql IMMUTABLE;
+
+</code></pre>
+<p class="calibre1">此处定义的状态切换函数有两个输入项：第一个是前次调用本状态切换函数计算后得到的结果，其类型为含两个元素的数字型数组；第二个是本轮计算要处理的样本值。如果第二个实参的值为 NULL 或者为 0，则本轮无需计算，直接返回实参 1 的值；否则将本次处理的样本数字的 ln 对数值累加到实参数组的第一个元素上，并对实参数组的第二个元素值加 1。这样最终得到结果就是含所有样本数字的 ln 对数值的总和以及总运算次数。</p>
+<p class="calibre1">此外我们还需要一个如示例 8-6 所示的最终处理函数，该函数中需要将状态转换函数计算得到的两个值相除。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 8-6</strong>：创建几何平均值聚合函数的最终处理函数</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE OR REPLACE FUNCTION geom_mean_final(numeric[2])
+RETURNS numeric AS
+$$
+SELECT CASE WHEN $1[2] &gt; 0 THEN exp($1[1]/$1[2]) ELSE 0 END;
+$$
+LANGUAGE sql IMMUTABLE;
+
+</code></pre>
+<p class="calibre1">最后，我们需要将前面定义的这些子函数整合到一起组成一个完整的聚合函数，语法如示例 8-7 所示。（请注意，本例中的聚合运算需要一个初始值 <code class="calibre11">(0,0)</code>，该初始值的类型与 <code class="calibre11">SFUNC</code> 的实参类型一定是一致的。）</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 8-7</strong>：基于定义好的子函数来创建几何平均值聚合函数</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE AGGREGATE geom_mean(numeric) (
+SFUNC=geom_mean_state,
+STYPE=numeric[],
+FINALFUNC=geom_mean_final,
+INITCOND='{0,0}'
+);
+
+</code></pre>
+<p class="calibre1">接下来我们测试一下刚刚创建好的 <code class="calibre11">geom_mean</code> 聚合函数。在示例 8-8 中，我们计算出了马萨诸塞州各县的种族多样性排名，并列出种族多样性最好的 5 个县的数据。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 8-8</strong>：基于几何平均值来统计出种族多样性最好的 5 个县</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT left(tract_id,5) As county, geom_mean(val) As div_county
+FROM census.vw_facts
+WHERE category = 'Population' AND short_name != 'white_alone'
+GROUP BY county
+ORDER BY div_county DESC LIMIT 5;
+
+county |     div_county
+-------+---------------------
+25025  | 85.1549046212833364
+25013  | 79.5972921427888918
+25017  | 74.7697097102419689
+25021  | 73.8824162064128504
+25027  | 73.5955049035237656
+
+</code></pre>
+<p class="calibre1">接下来我们大胆一点，直接将上面定义的聚合函数当作窗口函数来试一下，看效果如何，如示例 8-9 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 8-9</strong>：列出 5 个种族多样性最好的人口普查区</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">WITH X AS (SELECT
+  tract_id,
+  left(tract_id,5) As county,
+  geom_mean(val) OVER (PARTITION BY tract_id) As div_tract,
+  ROW_NUMBER() OVER (PARTITION BY tract_id) As rn,
+  geom_mean(val) OVER(PARTITION BY left(tract_id,5)) As div_county
+FROM census.vw_facts WHERE category = 'Population' AND short_name != 'white_alone'
+)
+SELECT tract_id, county, div_tract, div_county
+FROM X
+WHERE rn = 1
+ORDER BY div_tract DESC, div_county DESC LIMIT 5;
+
+tract_id    | county |      div_tract       |     div_county
+------------+--------+----------------------+------------------
+25025160101 | 25025  | 302.6815688785928786 | 85.1549046212833364
+25027731900 | 25027  | 265.6136902148147729 | 73.5955049035237656
+25021416200 | 25021  | 261.9351057509603296 | 73.8824162064128504
+25025130406 | 25025  | 260.3241378371627137 | 85.1549046212833364
+25017342500 | 25017  | 257.4671462282508267 | 74.7697097102419689
+
+</code></pre>
+</body></html>

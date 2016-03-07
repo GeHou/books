@@ -1,0 +1,195 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_219" class="calibre6"><strong class="calibre2">10.3　外部数据封装器</strong></h2>
+<p class="calibre1">外部数据封装器（Foreign Data Wrapper，FDW）是 PostgreSQL 提供的一种用于访问外部数据源的手段，它是可扩展的，也兼容业界标准。该机制所支持的外部数据源包括 PostgreSQL 以及其他非 PostgreSQL 数据源。FDW 是在 9.1 版中引入的，其核心概念是“外部表”，这种表看起来和当前 PostgreSQL 中其他表的用法完全相同，但事实上其数据本体是存在于外部数据源中的，该数据源甚至可能存在于另外一台物理服务器上。一旦定义好了外部表，那么其定义就会在当前数据库中持久化，你就可以放心地与使用普通表一样使用它，FDW 完全屏蔽了与外部数据源之间的复杂通讯过程。可以通过 PGXN FDW 页面（<a href="http://pgxn.org/tag/fdw/" class="calibre5">http://pgxn.org/tag/fdw/</a>）和 PGXN Foreign Data Wrapper 页面（<a href="http://pgxn.org/tag/foreign%20data%20wrapper/" class="calibre5">http://pgxn.org/tag/foreign%20data%20wrapper/</a>）查到 PostgreSQL 的 FDW 的一个 catalog。也可以通过 PostgreSQL Wiki FDW（<a href="http://wiki.postgresql.org/wiki/Foreign_data_wrappers" class="calibre5">http://wiki.postgresql.org/wiki/Foreign_data_wrappers</a>）页面来找到 FDW 的用法示例。</p>
+<p class="calibre1">当前最新版本的 PostgreSQL 安装时会默认安装两个 FDW：<code class="calibre11">file_fdw</code> 和 <code class="calibre11">postgres_fdw</code>。如果你需要自行封装某个外部数据源，那么请先到前面提供的两个站点查询一下别人是否已实现，如果没有，再自己做。如果封装成功，请记得发布出来与社区分享。</p>
+<p class="calibre1">在 PostgreSQL 9.1 版和 9.2 版中，仅支持对外部表进行查询，9.3 版中引入了一组新的 API 实现了对外部表的修改，但 PostgreSQL 自带的 FDW 中只有 <code class="calibre11">postgres_fdw</code> 支持此特性。</p>
+<p class="calibre1">本节中，我们将向你演示如何注册外部服务器、外部用户以及外部表，最后介绍如何查询外部表。我们使用的例子中都使用 SQL 命令行来创建和删除对象，你也可以通过 pgAdminIII 的图形化界面工具来实现相同的操作。</p>
+<h3 id="nav_point_220" class="calibre16"><strong class="calibre2">10.3.1　查询平面文件</strong></h3>
+<p class="calibre1">可以使用 <code class="calibre11">file_fdw</code> 这个 FDW 来查询平面文件，它是以扩展包的形式存在的，因此可以通过以下 SQL 安装：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE EXTENSION file_fdw;
+
+</code></pre>
+<p class="calibre1">尽管通过 <code class="calibre11">file_fdw</code> 可以直接读取数据库实例所在的本地服务器上的文件，但为了和别的 FDW 在语义上保持一致，还是得定义一个逻辑上的外部服务器。请执行以下命令来定义一个“伪”外部服务器：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE SERVER my_server FOREIGN DATA WRAPPER file_fdw;
+
+</code></pre>
+<p class="calibre1">接下来要注册外部表。你可以将外部表置于任何一个 schema 中，但我们一般是创建一个单独的 schema 来容纳所有的外部表。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 10-1</strong>：定义基于分隔符格式文件的外部表</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE FOREIGN TABLE staging.devs (developer VARCHAR(150), company VARCHAR(150))
+SERVER my_server
+OPTIONS (format 'csv', header 'true', filename '/postgresql_book/ch10/devs.psv', delimiter '|', null ''
+);
+
+</code></pre>
+<p class="calibre1">上面的示例中，尽管外部表映射到一个用竖杠作为分隔符的平面文件，但我们依然将其标识为“csv”格式。有人可能会根据 CSV（Comma Seperated Vlues）的名称认为只有用逗号作为分隔符的文件才能称为 CSV，但在 FDW 的术语体系中，CSV 文件就是以某种分隔符来区分列值的平面文件，不管这个分隔符具体是什么字符，都可以称之为 CSV。</p>
+<p class="calibre1">上述定义步骤完成后，你就可以直接通过 SQL 访问外部表了：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT * FROM staging.devs WHERE developer LIKE 'T%';
+
+</code></pre>
+<p class="calibre1">如果不再需要此外部表，可以删掉：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">DROP FOREIGN TABLE staging.devs;
+
+</code></pre>
+<h3 id="nav_point_221" class="calibre16"><strong class="calibre2">10.3.2　以不规则数组的形式查询不规范的平面文件</strong></h3>
+<p class="calibre1">通常，平面文件数据源在每一行中会有许多不同的列，并且包含多个标题行和页脚行。如果平面文件起源于电子表格，那么这些种类的文件往往是普遍存在的。我们最喜欢的处理这种非结构化平面文件的平面文件 FDW 是 <code class="calibre11">file_textarray_fdw</code>。该包装器能处理任何种类的带分隔符的平面文件，即时每一行中的元素数量不一致也可以。该包装器将每一行作为一个文本数组（<code class="calibre11">text[]</code>）带进来。</p>
+<p class="calibre1">问题是 <code class="calibre11">file_textarray_fdw</code> 不是 PostgreSQL 原生支持的扩展包，因此你必须手动编译安装它。大致过程如下：首先，你在安装 PostgreSQL 时需要附带安装系统头文件以便于后续的编译，然后从 Adunstan GitHub 这个站点（<a href="https://github.com/adunstan/file_text_array_fdw" class="calibre5">https://github.com/adunstan/file_text_array_fdw</a>）下载 <code class="calibre11">file_textarray_fdw</code> 的源码。请注意：该站点上为每个 PostgreSQL 版本都准备了相应的源码，请确保选择的是正确的版本。在编译完成后，请将它以扩展包的形式安装好，该过程与我们前面介绍过的安装其他 FDW 的过程完全相同。</p>
+<p class="calibre1">如果你的环境是 Linux/Unix，只要安装了 <code class="calibre11">postgresql-dev</code> 这个包，那么编译过程是很简单的，但在 Windows 上就比较麻烦，所以我们已经为你编译好了安装包，你可以从以下几个链接中选择合适的版本下载。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1">Windows-32 9.1 FDW（<a href="http://www.postgresonline.com/downloads/fdw_win32_91_bin.zip" class="calibre5">http://www.postgresonline.com/downloads/fdw_win32_91_bin.zip</a>）</p>
+</li>
+<li class="calibre10"><p class="calibre1">Windows-32 9.2 FDW（<a href="http://www.postgresonline.com/downloads/fdw_win32_92_bin.zip" class="calibre5">http://www.postgresonline.com/downloads/fdw_win32_92_bin.zip</a>）</p>
+</li>
+<li class="calibre10"><p class="calibre1">Windows-64 9.2 FDW（<a href="http://www.postgresonline.com/downloads/fdw_win64_92_bin.zip" class="calibre5">http://www.postgresonline.com/downloads/fdw_win64_92_bin.zip</a>）</p>
+</li>
+<li class="calibre10"><p class="calibre1">Windows-32 9.3 FDW（<a href="http://www.postgresonline.com/downloads/fdw_win32_93_bin.zip" class="calibre5">http://www.postgresonline.com/downloads/fdw_win32_93_bin.zip</a>）</p>
+</li>
+<li class="calibre10"><p class="calibre1">Windows-64 9.3 FDW（<a href="http://www.postgresonline.com/downloads/fdw_win64_93_bin.zip" class="calibre5">http://www.postgresonline.com/downloads/fdw_win64_93_bin.zip</a>）</p>
+</li>
+</ul>
+<p class="calibre1">FDW 安装好以后，首先创建扩展包。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE  EXTENSION file_textarray_fdw;
+
+</code></pre>
+<p class="calibre1">然后就跟安装其他 FDW 时一样，创建好外部服务器。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE SERVER file_taserver FOREIGN DATA WRAPPER file_textarray_fdw;
+
+</code></pre>
+<p class="calibre1">然后设置外部表，可以将外部表放入任何一个你认为合适的 schema 中。在示例 10-2 中，我们将再次使用前面用过的 staging schema。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 10-2</strong>：创建一个基于文本数组的外部表</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE FOREIGN TABLE staging.factfinder_array (x text[])
+SERVER file_taserver
+OPTIONS (format 'csv', filename '/postgresql_book/ch10/
+DEC_10_SF1_QTH1_with_ann.csv',
+header 'false', delimiter ',', quote '"', encoding 'latin1', null ''
+);
+
+</code></pre>
+<p class="calibre1">假设我们要处理这样一个 CSV 文件：文件中含有 8 个标题行，而列数多得我们不想数。当前述设置步骤都完成后，就可以直接查询这个文件的内容了。通过以下查询可以得到标题行的名称，这些标题行的第一个列标头为 <code class="calibre11">GEO.id</code>。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT unnest(x) FROM staging.factfinder_array WHERE x[1] = 'GEO.id'
+
+</code></pre>
+<p class="calibre1">以下查询能查出数据的前两列。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT x[1] As geo_id, x[2] As tract_id FROM staging.factfinder_array WHERE x[1] ~ '[0-9]+';
+
+</code></pre>
+<p class="calibre1">当不再需要此外部表时，可以删除它。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">DROP FOREIGN TABLE staging.factfinder_array;
+
+</code></pre>
+<h3 id="nav_point_222" class="calibre16"><strong class="calibre2">10.3.3　查询其他PostgreSQL服务实例上的数据</strong></h3>
+<p class="calibre1"><code class="calibre11">postgres_fdw</code> 可以实现从当前 PostgreSQL 实例连接到其他 PostgreSQL 实例并进行数据交互。从 9.3 版开始，大多数的 PostgreSQL 发行包都包含了该 FDW。通过它还可以对其他 PostgreSQL 服务器上的数据进行修改操作，哪怕两边的 PostgreSQL 版本不一致也没关系。</p>
+<p class="calibre1">首先也是要进行 FDW 扩展包的安装。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE EXTENSION postgres_fdw;
+
+</code></pre>
+<p class="calibre1">然后创建外部服务器。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE SERVER book_server
+FOREIGN DATA WRAPPER postgres_fdw
+OPTIONS (host 'localhost', port '5432', dbname 'postgresql_book');
+
+</code></pre>
+<p class="calibre1">如果创建好外部服务器后需要更改连接选项或将其添加到外部服务器，则可以使用 <code class="calibre11">ALTER SERVER</code> 命令。比如，如果需要更改你所指向的服务器，可以执行以下代码行。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">ALTER SERVER book_server OPTIONS (SET host 'prod');
+
+</code></pre>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00002.gif" alt="" width="9%" class="calibre13"/>　对于主机、端口和 database 这几项的连接设置的更改只对新建立的会话生效，不会影响到已有的会话。原因是会话在开始时建立，此后就一直复用，而不会断开重连。</p>
+</blockquote>
+<p class="calibre1">然后创建一个用户映射关系，所谓“用户映射”是指在远端服务器的某个角色和本地服务器的某个角色之间建立对应关系，这样本地角色可以用远端角色的权限来操作远端服务器上的数据。下面的示例中是将远端的某个角色映射到本地的 <code class="calibre11">public</code> 角色。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE USER MAPPING FOR public SERVER book_server
+OPTIONS (user 'role_on_foreign', password 'your_password');
+
+</code></pre>
+<p class="calibre1">这样任何能连到本地数据库的用户都可以连到远端数据库。注意：上述映射关系中的远端角色必须是一个已存在的角色，并且得有登录权限。</p>
+<p class="calibre1">现在可以创建外部表了。该表可以映射远端表的全部或部分列。在示例 10-3 中，我们创建了一个外部表，映射到远端数据库上的 <code class="calibre11">censu.facts</code> 表。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 10-3</strong>：定义一个映射到远端 PostgreSQL 数据库的外部表</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE FOREIGN TABLE ft_facts (
+    fact_type_id int NOT NULL, tract_id varchar(11),
+    yr int, val numeric(12,3), perc numeric(6,2))
+SERVER book_server OPTIONS (schema_name 'census', table_name 'facts');
+
+</code></pre>
+<p class="calibre1">上面的示例仅包含外部表的最基本的选项。默认情况下，映射到远端 PostgreSQL 数据库的外部表都是可更新的，当然前提是映射关系中所使用的远端数据库角色对映射的远端表要有修改权限。该 <code class="calibre11">updatable</code> 设置是一个布尔设置，可以在定义外部表或者外部服务器时进行更改。例如，如果想把外部表设定为只读，可以执行以下代码行。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">ALTER FOREIGN TABLE ft_facts OPTIONS (ADD updatable 'false');
+
+</code></pre>
+<p class="calibre1">要将表设置回 <code class="calibre11">updatable</code> 状态，请执行以下代码行。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">ALTER FOREIGN TABLE ft_facts OPTIONS (SET updatable 'true');
+
+</code></pre>
+<p class="calibre1">表级别上的 <code class="calibre11">updatable</code> 属性会替代外部服务器设置。</p>
+<p class="calibre1"><code class="calibre11">ALTER FOREIGN TABLE</code> 语句除了可以更改 <code class="calibre11">OPTIONS</code> 之外，还可以添加或者删除列。有关该语句的详细介绍，请参见 PostgreSQL 官方手册中的 ALTER FOREIGN TABLE 这一节（<a href="http://www.postgresql.org/docs/current/static/sql-alterforeigntable.html" class="calibre5">http://www.postgresql.org/docs/current/static/sql-alterforeigntable.html</a>）。</p>
+<h3 id="nav_point_223" class="calibre16"><strong class="calibre2">10.3.4　查询非传统数据源</strong></h3>
+<p class="calibre1">长久以来，数据库界多元化的趋势有增无减，各种架构大相径庭的数据库如雨后春笋般层出不穷，要想紧密跟上业界潮流十分困难。这些异彩纷呈的数据库中，有的只是昙花一现，喧闹一阵子就消失无踪；有的是立志要将传统的关系型数据库挑落马下；更有另类者甚至看起来根本就不像是数据库。FDW 功能的引入就是 PostgreSQL 对这一百花齐放局面的应对策略之一。不管外界如何风云变幻，PostgreSQL 无需改变自身的核心功能，而是通过 FDW 搭建与这些异构数据库之间沟通的桥梁。</p>
+<p class="calibre1">在下面的例子中，我们将展示如何使用 <code class="calibre11">www_fdw</code> 来查询来自 Web 服务的数据。该示例是从 www_fdw Examples 站点（<a href="https://github.com/cyga/www_fdw/wiki/Examples" class="calibre5">https://github.com/cyga/www_fdw/wiki/Examples</a>）借鉴而来。</p>
+<p class="calibre1">PostgreSQL 发行包是不附带 <code class="calibre11">www_fdw</code> 的，因此需要自行编译安装。如果你使用的是 Linux/Unix 环境并且已安装了 <code class="calibre11">postsql-dev</code> 这个包，那么编译是很容易的。请从 <a href="https://github.com/cyga/www_fdw" class="calibre5">https://github.com/cyga/www_fdw</a> 这个链接下载最新版本的 <code class="calibre11">www_fdw</code> 源码。对于 Windows 平台来说，我们已经替你编译好了，下载链接如下：</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1">Windows-32 9.1（<a href="http://www.postgresonline.com/downloads/fdw_win32_91_bin.zip" class="calibre5">http://www.postgresonline.com/downloads/fdw_win32_91_bin.zip</a>）</p>
+</li>
+<li class="calibre10"><p class="calibre1">Windows-64 9.3（<a href="http://www.postgresonline.com/downloads/fdw_win64_93_bin.zip" class="calibre5">http://www.postgresonline.com/downloads/fdw_win64_93_bin.zip</a>）</p>
+</li>
+</ul>
+<p class="calibre1">首先安装 FDW 扩展包。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE EXTENSION www_fdw;
+
+</code></pre>
+<p class="calibre1">然后创建针对 Google Web 服务的外部服务器。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE SERVER www_fdw_server_google_search
+FOREIGN DATA WRAPPER www_fdw
+OPTIONS (uri 'http://ajax.googleapis.com/ajax/services/search/web?v=1.0');
+
+</code></pre>
+<p class="calibre1"><code class="calibre11">www_fdw</code> 默认支持 JSON 格式数据源，因此我们不需要在上述语句的 <code class="calibre11">OPTIONS</code> 修饰符中特地声明数据源格式。此外 <code class="calibre11">www_fdw</code> 还支持 XML 格式数据源。如果想了解更多 <code class="calibre11">www_fdw</code> 所支持的形参的详细信息，请参阅其官方文档 <code class="calibre11">www_fdw</code>（<a href="https://github.com/cyga/www_fdw/wiki/Documentation" class="calibre5">https://github.com/cyga/www_fdw/wiki/Documentation</a>）。请注意：每一个 FDW 都有其独特的设置，互不相同。</p>
+<p class="calibre1">接下来选定至少一个本地角色来创建 FDW 用户映射关系。每个能连到本地库上的用户都应该有权限访问 Google 搜索服务器，因此我们将远端数据源的访问权限映射给本地的 <code class="calibre11">public</code> 角色。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE USER MAPPING FOR public SERVER www_fdw_server_google_search;
+
+</code></pre>
+<p class="calibre1">然后创建外部表，如下面的示例所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 10-4</strong>：基于 Google Web 服务数据源创建一个外部表</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE FOREIGN TABLE www_fdw_google_search (
+    q text,
+    GsearchResultClass text,
+    unescapedUrl text,
+    url text,
+    visibleUrl text,
+    cacheUrl text,
+    title text,
+    content text
+) SERVER www_fdw_server_google_search;
+
+</code></pre>
+<p class="calibre1">前面设置用户映射关系时未指定任何权限，因此需要进行一次授权动作，然后才可以访问外部表。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">GRANT SELECT ON TABLE www_fdw_google_search TO public;
+
+</code></pre>
+<p class="calibre1">请注意，现在最精彩的部分来了：我们以 <code class="calibre11">New in PostgreSQL 9.4</code> 作为关键词进行搜索，并用正则表达式筛选掉返回结果中的 HTML 标签，语句如下所示。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT regexp_replace(title, E'(?x)(&lt; [^&gt;]*? &gt;)', '', 'g') As title
+FROM www_fdw_google_search where q='New in PostgreSQL 9.4'
+LIMIT 2;
+
+</code></pre>
+<p class="calibre1">瞧吧！我们真的得到了想要的搜索结果。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">title
+----------------------------------------------------
+What's new in PostgreSQL 9.4 - PostgreSQL wiki
+PostgreSQL: PostgreSQL 9.4 Beta 1 Released
+(2 rows)</code></pre>
+
+<p class="calibre4" style="margin:0pt; border:0pt; height:1em" id="calibre_pb_110"> </p>
+</body></html>

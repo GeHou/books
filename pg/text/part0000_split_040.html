@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_81" class="calibre6"><strong class="calibre2">3.6　使用psql制作简单的报表</strong></h2>
+<p class="calibre1">你也许会觉得难以置信，但 psql 的确能够制作简单的 HTML 报表。请执行以下命令并查看输出的 HTML 报表，应该是类似图 3-1 所展示的样子。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">psql -d postgresql_book -H -c
+"SELECT category, count(*) As num_per_cat
+FROM pg_settings
+WHERE category LIKE '%Query%'
+GROUP BY category
+ORDER BY category;" -o test.html
+
+</code></pre>
+<p class="tu"><img src="../images/00007.gif" alt="{%}" class="calibre17"/></p>
+<p class="calibre1"><strong class="calibre2">图 3-1：简单 HTML 报表</strong></p>
+<p class="calibre1">上面的报表看起来还算凑合，但这仅仅是输出了一个 HTML 表格，还称不上是一个完全符合格式要求的 HTML 文档。为了让本报表的内容更丰富一些，我们需要写一个脚本来作为辅助，内容见示例 3-11。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 3-11</strong>：编写 settings_report.psql 文件来设置报表内容</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">\o settings_report.html ➊
+\T 'cellspacing=0 cellpadding=0' ➋
+\qecho '&lt;html&gt;&lt;head&gt;&lt;style&gt;H2{color:maroon}&lt;/style&gt;' ➌
+\qecho '&lt;title&gt;PostgreSQL Settings&lt;/title&gt;&lt;/head&gt;&lt;body&gt;'
+\qecho '&lt;table&gt;&lt;tr valign=''top''&gt;&lt;td&gt;&lt;h2&gt;Planner Settings&lt;/h2&gt;'
+\x on ➍
+\t on ➎
+\pset format html ➏
+SELECT category, string_agg(name || '=' || setting, E'\n' ORDER BY name) As settings ➐
+FROM pg_settings
+WHERE category LIKE '%Planner%'
+GROUP BY category
+ORDER BY category;
+\H
+\qecho '&lt;/td&gt;&lt;td&gt;&lt;h2&gt;File Locations&lt;/h2&gt;'
+\x off ➑
+\t on
+\pset format html
+SELECT name, setting FROM pg_settings WHERE category = 'File Locations' ORDER BY name;
+\qecho '&lt;h2&gt;Memory Settings&lt;/h2&gt;'
+SELECT name, setting, unit FROM pg_settings WHERE category ILIKE '%memory%' ORDER BY name;
+\qecho '&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;'
+\qecho '&lt;/body&gt;&lt;/html&gt;'
+\o
+
+</code></pre>
+<p class="calibre1">➊　指定查询结果输出到一个文件中。</p>
+<p class="calibre1">➋　HTML 表格的输出格式设置。</p>
+<p class="calibre1">➌　添加一些附加的 HTML 代码。</p>
+<p class="calibre1">➍　打开记录输出的展开模式。即重复每一个记录的列标题，并将每一个记录的每一列作为一个单独的记录输出。</p>
+<p class="calibre1">➎　设置“是否仅输出记录”开关。如果此开关是打开的，则会忽略列标题和行计数。</p>
+<p class="calibre1">➏　指定按 HTML 表格格式输出结果。</p>
+<p class="calibre1">➐　<code class="calibre11">string_agg()</code> 是 PostgreSQL 9.0 版引入的一个函数，可以将聚合运算中被划为同组的字符串值合并为单个字符串。</p>
+<p class="calibre1">➑　关闭记录输出的展开模式，这样第二个和第三个查询结果在报表上的输出格式应该是每条记录仅占一行。</p>
+<p class="calibre1">示例 3-11 演示了通过灵活使用 SQL 和 psql 命令可以创建出一个内容丰富的综合性分层报表。要运行上面示例中的脚本有两个方法：可以使用 psql 以交互方式连接并执行 <code class="calibre11">\i settings_report.psql</code>，也可以在操作系统的命令行界面上运行 <code class="calibre11">psql -f settings_report.psql</code>。settings_report.html 生成的输出结果如图 3-2 所示。</p>
+<p class="tu"><img src="../images/00008.gif" alt="{%}" class="calibre17"/></p>
+<p class="calibre1"><strong class="calibre2">图 3-2：复杂 HTML 报表</strong></p>
+<p class="calibre1">通过以上脚本，可以实现将多个查询的输出结果整合到一个报表中，如果要定时生成此报表，请使用 <code class="calibre11">pgAgent</code> 或者 <code class="calibre11">crontab</code>。</p>
+
+<p class="calibre4" style="margin:0pt; border:0pt; height:1em" id="calibre_pb_54"> </p>
+</body></html>

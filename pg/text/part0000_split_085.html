@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_227" class="calibre6"><strong class="calibre2">A.3　Debian和Ubuntu</strong></h2>
+<p class="calibre1">Ubuntu 一直都会在其发行版中提供最新版本的 PostgreSQL。Debian 的跟进会稍微慢一些。可以使用以下命令安装最新版本的 PostgreSQL。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">sudo apt-get install postgresql-9.3
+
+</code></pre>
+<p class="calibre1">如果你需要编译 PostgreSQL 版本中未附带的扩展包，比如 PostGIS 或者 R，那么需要先安装开发库，命令如下所示。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">sudo apt-get install postgresql-server-dev-9.3
+
+</code></pre>
+<p class="calibre1">如果你的操作系统存储库中未包含最新版本的 PostgreSQL，那么请访问 Apt PostgreSQL packages（<a href="https://wiki.postgresql.org/wiki/Apt" class="calibre5">https://wiki.postgresql.org/wiki/Apt</a>）资源页面以获取最新的稳定版或者测试版， 此页面上还同时提供一些其他的安装包，比如 PL/V8 和 PostGIS 等。截至本书截稿时为止，该页面中提供支持的操作系统包含 Debian 6-7 和 Ubuntu 10-14。</p>
+</body></html>

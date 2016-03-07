@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_171" class="calibre6"><strong class="calibre2">7.5　CTE表达式</strong></h2>
+<p class="calibre1">公用表表达式（CTE）本质上来说就是在一个非常庞大的 SQL 语句中允许用户通过一个子查询语句先定义出一个临时表，然后在这个庞大的 SQL 语句的不同地方都可以直接使用这个临时表。PostgreSQL 从 8.4 版开始支持此特性，从 9.1 版开始又扩展支持了可写 CTE，从而使得 CTE 功能得到进一步的完善。CTE 本质上就是当前语句执行期间内有效的临时表，一旦当前语句执行完毕，其内部的 CTE 表也随之失效。</p>
+<p class="calibre1">有以下三种类型的 CTE。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">基本CTE</strong></p>
+<p class="calibre1">这是最普通的 CTE，它可以使得 SQL 语句的可读性更高，同时规划器在解析到这种 CTE 时会判定其查询代价是否很高，如果是的话，会考虑将其查询结果临时物化存储下来（此处概念跟物化视图非常类似），这样整个 SQL 语句的其他部分再访问此 CTE 时就会更快。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">可写CTE</strong></p>
+<p class="calibre1">这是对基本 CTE 的一个功能扩展，其内部可以执行 <code class="calibre11">UPDATE</code>、<code class="calibre11">INSERT</code> 或者 <code class="calibre11">DELETE</code> 操作。该类 CTE 最后一般会返回修改后的记录集。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">递归CTE</strong></p>
+<p class="calibre1">该类 CTE 在普通 CTE 的基础上增加了一个循环操作。在执行过程中，递归 CTE 返回的结果集会有所变化。</p>
+</li>
+</ul>
+<p class="calibre1">PostgreSQL 支持可写的递归 CTE 这种复合类型。</p>
+<h3 id="nav_point_172" class="calibre16"><strong class="calibre2">7.5.1　基本CTE用法介绍</strong></h3>
+<p class="calibre1">基本 CTE 的用法如示例 7-28 所示。<code class="calibre11">WITH</code> 关键字后跟着的就是 CTE 表达式。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-28</strong>：基本 CTE</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">WITH cte AS (
+    SELECT
+        tract_id, substring(tract_id,1, 5) As county_code,
+        COUNT(*) OVER(PARTITION BY substring(tract_id,1, 5)) As cnt_tracts
+    FROM census.lu_tracts
+)
+SELECT MAX(tract_id) As last_tract, county_code, cnt_tracts
+FROM cte
+WHERE cnt_tracts &gt; 100
+GROUP BY county_code, cnt_tracts;
+
+</code></pre>
+<p class="calibre1">示例 7-28 中 CTE 表达式的名称是 <code class="calibre11">cte</code>，其本体是由一个 <code class="calibre11">SELECT</code> 语句定义出来的，查询字段列表中包含 <code class="calibre11">tract_id</code>、<code class="calibre11">country_code</code>、<code class="calibre11">cnt_tracts</code> 三个列。外围的 SQL 语句会将该 CTE 作为一个临时表来使用。</p>
+<p class="calibre1">单个 SQL 语句中可以创建多个 CTE，CTE 之间使用逗号分隔，所有的 CTE 表达式都要落在 <code class="calibre11">WITH</code> 子句范围内，具体语法如示例 7-29 所示。多个 CTE 表达式之间的顺序不是随便排的，排在后面的 CTE 可以引用排在前面的 CTE，但反过来不行。除了这一点以外，多个 CTE 之间的排列顺序没有别的讲究。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-29</strong>：多个 CTE 的用法</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">WITH
+    cte1 AS(
+        SELECT
+            tract_id,
+            substring(tract_id,1, 5) As county_code,
+            COUNT(*) OVER (PARTITION BY substring(tract_id,1,5)) As cnt_tracts
+        FROM census.lu_tracts
+    ),
+    cte2 AS (
+        SELECT
+            MAX(tract_id) As last_tract,
+            county_code,
+            cnt_tracts
+        FROM cte1
+        WHERE cnt_tracts &lt; 8 GROUP BY county_code, cnt_tracts
+    )
+SELECT c.last_tract, f.fact_type_id, f.val
+FROM census.facts As f INNER JOIN cte2 c ON f.tract_id = c.last_tract;
+
+</code></pre>
+<h3 id="nav_point_173" class="calibre16"><strong class="calibre2">7.5.2　可写CTE用法介绍</strong></h3>
+<p class="calibre1">可写 CTE 是从 9.1 版开始支持的一个特性，它扩展了 CTE 的功能范畴，从只读扩展为可写。我们下面使用示例 6-2 中创建的日志表来演示此功能。首先创建一个子表：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE TABLE logs_2011_01_02 (
+    PRIMARY KEY (log_id),
+    CONSTRAINT chk
+        CHECK (log_ts &gt;= '2011-01-01' AND log_ts &lt; '2011-03-01')
+)
+INHERITS (logs_2011);
+
+</code></pre>
+<p class="calibre1">在示例 7-30 中，我们将父表的部分数据迁移到子表中。父表包含了 2011 年全年的数据，子表包含了 2011 年 1 月和 2 月的数据。下面的语句中使用的 <code class="calibre11">ONLY</code> 关键字在 7.2.7 节中有相关介绍，而 <code class="calibre11">RETURNING</code> 关键字在 7.2.9 节中有相关介绍。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-30</strong>：使用可写 CTE 将数据从一个分支移动到另一个分支</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">WITH t AS (
+    DELETE FROM ONLY logs_2011 WHERE log_ts &lt; '2011-03-01' RETURNING *
+)
+INSERT INTO logs_2011_01_02 SELECT* FROM t;
+
+</code></pre>
+<h3 id="nav_point_174" class="calibre16"><strong class="calibre2">7.5.3　递归CTE用法介绍</strong></h3>
+<p class="calibre1">PostgreSQL 官方手册中对递归 CTE 做了最好的说明：“通过新增一个可选的 <code class="calibre11">RECURSIVE</code> 修饰符，使 CTE 从仅仅能提供一些语法便利升华为能够实现标准 SQL 语法无法实现的功能。”递归 CTE 能够使用递归语法构造出一个表达式，这一点很有意思。递归 CTE 使用 <code class="calibre11">UNION ALL</code> 语法来实现每次运算过程中的运算结果的递归累积。</p>
+<p class="calibre1">如果要将一个基本 CTE 转换为递归 CTE，需要在 <code class="calibre11">WITH</code> 后加上 <code class="calibre11">RECURSIVE</code> 修饰符。<code class="calibre11">WITH RECURSIVE</code> 后面可以附带由递归表达式和非递归表达式结合而成的语句。在大多数其他数据库中，如果要表达递归关系，并不需要显式指定 <code class="calibre11">RECURSIVE</code> 关键字。</p>
+<p class="calibre1">递归 CTE 常用于表达树状结构。我们在“使用递归 CTE 来显示树状结构”这篇博文（<a href="http://www.postgresonline.com/journal/archives/131-Using-Recursive-Common-table-expressions-to-represent-Tree-structures.html" class="calibre5">http://www.postgresonline.com/journal/archives/131-Using-Recursive-Common-table-expressions-to-represent-Tree-structures.html</a>）中提供了一个这方面的例子。</p>
+<p class="calibre1">在示例 7-31 中，我们通过查询系统 catalog 来展示数据库中的级联表关系。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-31</strong>：递归 CTE</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">WITH RECURSIVE tbls AS (
+    SELECT
+        c.oid As tableoid,
+        n.nspname AS schemaname,
+        c.relname AS tablename ➊
+    FROM
+        pg_class c LEFT JOIN
+        pg_namespace n ON n.oid = c.relnamespace LEFT JOIN
+        pg_tablespace t ON t.oid = c.reltablespace LEFT JOIN
+        pg_inherits As th ON th.inhrelid = c.oid
+    WHERE
+        th.inhrelid IS NULL AND
+        c.relkind = 'r'::"char" AND c.relhassubclass
+    UNION ALL
+    SELECT
+        c.oid As tableoid,
+        n.nspname AS schemaname,
+        tbls.tablename || '-&gt;' || c.relname AS tablename  ➋ ➌
+    FROM
+        tbls INNER JOIN
+        pg_inherits As th ON th.inhparent = tbls.tableoid INNER JOIN
+        pg_class c ON th.inhrelid = c.oid LEFT JOIN
+        pg_namespace n ON n.oid = c.relnamespace LEFT JOIN
+    pg_tablespace t ON t.oid = c.reltablespace
+)
+SELECT * FROM tbls ORDER BY tablename; ➍
+
+tableoid | schemaname | tablename
+--------+------------+----------------------------------
+3152249 | public     | logs
+3152260 | public     | logs-&gt;logs_2011
+3152272 | public     | logs-&gt;logs_2011-&gt;logs_2011_01_02
+
+</code></pre>
+<p class="calibre1">❶　查询出所有有子表而无父表的表。</p>
+<p class="calibre1">❷　这是递归查询部分，查询出了所有位于 tbls 临时表中的表的子表。</p>
+<p class="calibre1">❸　输出时在父表名之后附加子表的名称。</p>
+<p class="calibre1">❹　输出父表和所有子表。因为语句中要求输出结果按照表名排序，而每一层级的表名是将父表的名称排在子表之前，因此排序后的效果就是子表记录紧跟在其父表记录之后输出。</p>
+</body></html>

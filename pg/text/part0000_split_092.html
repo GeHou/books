@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_234" class="calibre6"><strong class="calibre2">B.4　交互模式下的psql命令</strong></h2>
+<p class="calibre1">示例 B-4 中列出了 psql 交互模式下支持的命令行。请参考 3.1 节和 3.2 节的例子，了解其使用方法。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 B-4</strong>：psql 交互模式下支持的命令</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">\?
+
+通用命令
+  \copyright            显示PostgreSQL使用和分发条款
+  \g [文件] or ;        执行查询（并将结果发送给文件或|管道）
+  \gset [PREFIX]        执行查询并将结果存储到psql变量中 ➊
+  \h [名称]             关于SQL命令语法的帮助，*代表所有命令
+  \q                    退出psql
+  \watch [SEC]          每隔SEC秒执行一次查询 ➋
+                        查询缓冲区相关命令
+  \e [FILE] [LINE]      使用外部编辑器编辑查询缓冲区（或文件）
+  \ef [FUNCNAME [LINE]] 使用外部编辑器编辑函数定义
+  \p                    显示查询缓冲区的内容
+  \r                    重置（清除）查询缓冲区
+  \w 文件               将查询缓冲区写入到文件
+输入/输出相关命令
+  \copy ...             执行SQL COPY，将数据流发送到客户端主机
+  \echo [字符串]        将字符串写到标准输出
+  \i 文件               从文件执行命令
+  \ir FILE              与 \i类似，但是在脚本中执行时，认为目标文件的位置是当前脚本所
+                        在的目录 ➌
+  \o [文件]             将所有查询结果发送到文件或|管道
+  \qecho [字符串]       将字符串写入到查询输出流，该命令等效于\echo，区别是所有输出将
+                        写入由 \o设置的输出通道
+信息查询命令
+  （选项：S = 显示系统对象，+ = 附加的详细信息）
+  \d[S+]               输出表、视图和序列列表
+  \d[S+]  名称         描述表、视图、序列或索引
+  \da[S]  [模式]       输出聚合函数列表
+  \db[+]  [模式]       输出表空间列表
+  \dc[S]  [模式]       输出编码转换（conversion）列表
+  \dC     [模式]       输出类型强制转换（cast）列表
+  \dd[S]  [模式]       显示对象上的注释
+  \ddp    [模式]       输出默认权限列表
+  \dD[S]  [模式]       输出域列表
+  \det[+] [模式]       输出外部表列表
+  \des[+] [模式]       输出外部服务器列表
+  \deu[+] [模式]       输出用户映射列表
+  \dew[+] [模式]       输出外部数据封装器列表
+  \df[antw][S+] [模式] 输出特定类型函数（仅a-聚合函数/n-常规函数/t-触发器函数/w-窗口
+                       函数）列表
+  \dF[+]  [模式]       输出文本搜索配置列表
+  \dFd[+] [模式]       输出文本搜索字典列表
+  \dFp[+] [模式]       输出文本搜索解析器列表
+  \dFt[+] [模式]       输出文本搜索模版列表
+  \dg[+]  [模式]       输出角色列表
+  \di[S+] [模式]       输出索引列表
+  \dl                  输出大对象列表，与\lo_list相同
+  \dL[S+] [模式]       输出过程语言列表
+  \dm[S+] [模式]       输出物化视图列表 ➍
+  \dn[S+] [模式]       输出schema列表
+  \do[S]  [模式]       输出运算符列表
+  \dO[S+] [模式]       输出排序规则列表
+  \dp     [模式]       输出表、视图和序列访问权限列表
+  \drds [模式1 [模式2]] 输出每个database的角色设置列表
+  \ds[S+] [模式]       输出序列列表
+  \dt[S+] [模式]       输出表列表
+  \dT[S+] [模式]       输出数据类型列表
+  \du[+]  [模式]       输出角色列表
+  \dv[S+] [模式]       输出视图列表
+  \dE[S+] [模式]       输出外部表列表
+  \dx[+]  [模式]       输出扩展列表
+  \dy     [模式]       输出事件触发器列表 ➎
+  \l[+]                输出数据库列表
+  \sf[+] FUNCNAME      显示函数定义
+  \z      [模式]       和\dp的功能相同
+格式化相关命令
+  \a                   在非对齐输出模式和对齐输出模式之间切换
+  \C [字符串]          设置表标题；或者如果没有，则不设置
+  \f [字符串]          显示或设置非对齐查询输出的字段分隔符
+  \H                   切换HTML输出模式（当前关闭）
+  \pset NAME [VALUE]   设置表输出选项（NAME的可选项有format、border、expanded、
+                       fieldsep、fieldsep_zero、footer、null、numericlocale、recordsep、
+                       tuples_only、title、tableattr、pager）                ➏ ➐
+  \t [on|off]          仅显示行（当前关闭）
+  \T [字符串]          设置HTML
+  \x [on|off]          切换扩展输出（当前关闭）
+
+连接相关命令
+  \c[onnect] [DBNAME|- USER|- HOST|- PORT|-] 连接到新的database（当前是“postgres”）
+  \encoding [编码名称]   显示或设置客户端编码
+  \password [USERNAME]   安全地为用户更改密码
+  \conninfo              显示当前连接的相关信息
+操作系统相关命令
+  \cd [目录]             更改当前工作目录
+  \setenv NAME [VALUE]   设置或取消设置环境变量 ➑
+  \timing [on|off]       切换命令计时开关（当前关闭）
+  ! [命令]               在shell中执行命令或启动交互式shell
+
+</code></pre>
+<p class="calibre1">➊ ➋　PostgreSQL 9.3 版中引入的新特性。</p>
+<p class="calibre1">➍ ➎</p>
+<p class="calibre1">➌ ➏　PostgreSQL 9.2 版中引入的新特性。</p>
+<p class="calibre1">➑</p>
+<p class="calibre1">➐ 　PostgreSQL 9.4 版中引入的新特性。你可以使用不带任何实参的<code class="calibre11">\pset</code> 命令来输出所有的可选项及其当前值。</p>
+</body></html>

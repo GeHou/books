@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_40" class="calibre6"><strong class="calibre2">2.4　创建database</strong></h2>
+<p class="calibre1">最基本的创建数据库的 SQL 语句是：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE DATABASE mydb;
+
+</code></pre>
+<p class="calibre1">该命令会以 <code class="calibre11">template1</code> 库为模板生成一份副本并将此副本作为新 database，每个 database 都会有一个属主，这个新库的属主就是执行此 SQL 命令的角色。任何一个拥有 <code class="calibre11">CREATEDB</code> 权限的角色都能够创建新的 database。</p>
+<h3 id="nav_point_41" class="calibre16"><strong class="calibre2">2.4.1　模板数据库</strong></h3>
+<p class="calibre1">顾名思义，模板数据库就是创建新 database 时所依赖的模板。创建新 database 时，PostgreSQL 会基于模板数据库制作一份副本，其中会包含所有的数据库设置和数据文件。</p>
+<p class="calibre1">PostgreSQL 安装好以后默认附带两个模板数据库：<code class="calibre11">template0</code> 和 <code class="calibre11">template1</code>。如果创建新库时未指定使用哪个模板，那么系统默认会使用 <code class="calibre11">template1</code> 库作为新库的模板。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00002.gif" alt="" width="9%" class="calibre13"/>　切记，任何时候都不要对 <code class="calibre11">template0</code> 模板数据库做任何修改，因为这是原始的干净模板，如果其他模板数据库被搞坏了，基于这个数据库做一个副本就可以了。如果你希望定制自己的模板数据库，那么请基于 <code class="calibre11">template1</code> 进行修改，或者自己另外创建一个模板数据库再修改。对基于 <code class="calibre11">template1</code> 或你自建的模板数据库创建出来的数据库来说，你不能修改其字符集编码和排序规则。如果你希望这么干，那么请基于 <code class="calibre11">template0</code> 模板来创建新数据库。</p>
+</blockquote>
+<p class="calibre1">基于某个模板来创建新数据库的基本语法如下。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE DATABASE my_db TEMPLATE my_template_db;
+
+</code></pre>
+<p class="calibre1">你可以使用任何一个现存的 database 作为创建新数据库时的模板。此外，你还可以将某个现存的数据库标记为模板数据库，对于这种被标记为模板的数据库，PostgreSQL 会禁止对其进行编辑或者删除。任何一个具备 <code class="calibre11">CREATEDB</code> 权限的角色都可以使用这种模板数据库。以超级用户身份运行以下 SQL 可使任何数据库成为模板数据库。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">UPDATE pg_database SET datistemplate = TRUE WHERE datname = 'mydb';
+
+</code></pre>
+<p class="calibre1">如果你希望修改或者删除被标记为模板的数据库，请先将上述语句中的 <code class="calibre11">datistemplate</code> 字段值改为 <code class="calibre11">FALSE</code>，这样就可以放开编辑限制。如果你还希望此数据库作为模板的话，修改完后记得将此字段值改回来。</p>
+<h3 id="nav_point_42" class="calibre16"><strong class="calibre2">2.4.2　schema的使用</strong></h3>
+<p class="calibre1">schema 可以对 database 中的对象进行逻辑分组管理。如果你的服务器上有一堆的 database，那么管理起来会很麻烦，可以考虑通过 schema 来对数据进行分类并全部存放到一个 database 中。schema 中的对象名不允许重复，但同一个 database 的不同 schema 中的对象是可以重名的。如果你将数据库中所有表都塞到 <code class="calibre11">public</code> schema 中（建数据库时默认创建的 schema），迟早会遇到对象重名的问题。你可以自行决定如何管理和组织 schema。例如：假设要为一家航空公司设计 IT 系统，那么可以将飞机信息表及其日常维护信息表放到一个叫作 plane 的 schema 中，把所有机组人员及其人事信息放到人事 schema 中，再创建一个单独 schema 用于记录乘客相关的信息，这样就把所有信息分门别类隔离开了。</p>
+<p class="calibre1">另外一种常见的管理 schema 的方法是基于角色的管理。当系统拥有多个客户端并且每个客户端的数据必须完全隔离时，这种方法特别合适。</p>
+<p class="calibre1">假设你的工作是开发一套“宠物狗信息管理系统”并将该在线系统租赁给宠物狗 SPA 店使用。通过广告，现在你有了一些客户，但该系统的数据库中目前仅用了一张 <code class="calibre11">dogs</code> 表来存储所有宠物狗的信息。你的系统前期已经满足了政府要求的一堆稀奇古怪的规定，但还有一个要求没达到，那就是客户间数据必须完全隔离，即必须得保证一家 SPA 店看不到另一家 SPA 店的宠物狗信息。为了达到这个要求，你可以为每家客户都建立一个单独的 schema，每个 schema 中建立相同的一张 <code class="calibre11">dogs</code> 表。然后就可以把这些宠物狗的数据从单一的 <code class="calibre11">dogs</code> 表分散到不同 schema 的 <code class="calibre11">dogs</code> 表中。最后为每个 schema 创建一个与之同名的可登录角色，这样就可以实现各自独立管理：<code class="calibre11">doggy_day_care schema</code> 归 <code class="calibre11">doggy_day_care</code> 角色管理，而 <code class="calibre11">hot_dogs schema</code> 归 <code class="calibre11">hot_dogs</code> 角色管理，以此类推。所有的宠物狗信息现在完全被分散到它们对应的 SPA 店的 schema 下。当店家的客户端登录到你的数据库并进行数据编辑时，每家店就只能访问他们各自 schema 中的数据。</p>
+<p class="calibre1">别急，到这儿还没完，后面还有更妙的用法。我们之前让角色和 schema 同名，这样就可以用上另外一种很有用的技巧，在介绍这个技巧之前需要先介绍一下 <code class="calibre11">search_path</code> 这个系 统变量。</p>
+<p class="calibre1">我们之前已经说过，schema 中的对象是不允许重名的，但不同 schema 中的对象就可以。例如，在所有 12 个 schema 中都有一张同名的 <code class="calibre11">dogs</code> 表。那么问题来了，当执行类似 <code class="calibre11">SELECT * FROM dogs</code> 这种语句时，PostgreSQL 是怎么知道要查的是哪个 schema 中的表呢？这个问题最简单的解决办法是在表名前加上所属 schema 的名称，比如 <code class="calibre11">SELECT * FROM doggy_day_care.dogs</code>；另一种方法是通过设置 <code class="calibre11">search_path</code> 变量来解决，比如可以设定为：<code class="calibre11">public,doggy_day_care,hot_dogs</code>。当执行查询语句时，规划器会按照从 <code class="calibre11">public</code> schema 到 <code class="calibre11">doggy_day_care</code> schema 再到 <code class="calibre11">hot_dogs</code> schema 的顺序来寻找 dogs 表。</p>
+<p class="calibre1">PostgreSQL 有一个少为人知的系统变量叫作 <code class="calibre11">user</code>，它代表了当前登录用户的名称。执行 <code class="calibre11">SELECT user</code> 就能看到其名称。</p>
+<p class="calibre1">我们前面将 schema 的名称取得和登录用户名一致，现在可以充分利用这一点了，接下来在 postgresql.conf 中将 <code class="calibre11">search_path</code> 变量设成下面这样。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">search_path = "$user", public;
+
+</code></pre>
+<p class="calibre1">好了，如果当前登录的角色是 <code class="calibre11">doggy_day_care</code>，那么所有的查询都会优先去 <code class="calibre11">doggy_day_care</code> schema 中寻找目标表，如果找不到才会去 <code class="calibre11">public</code> schema 下找。最重要的一点是，这样我们系统中的 SQL 语句就只需要一种写法，而不用在每个客户的 SQL 中加上对应的 schema 名。这样就算你的客户数增长到几千个甚至是几十万个也没关系，系统中所有的 SQL 语句都不需要修改。为了让整个业务体系进一步简化，你可以建立一个空模板数据库，这样新增客户的时候只需要为此客户执行简短几个步骤即可：创建好 schema、database、角色以及空的业务表就行了。</p>
+<p class="calibre1">我们强烈推荐为每一个扩展包创建一个单独 schema 来容纳其对象。安装一个新的扩展包时，会在数据库服务器上创建大量的表、函数、数据类型以及其他对象。默认情况下它们都会被安装到 <code class="calibre11">public</code> schema 中，这样日积月累之后 <code class="calibre11">public</code> schema 里面会被搞得一团糟。例如，完整的 PostGIS 扩展包安装后会创建超过 1000 个函数，如果你此前已经在 <code class="calibre11">public</code> schema 中创建了一些自己的表和函数，可以想象一下，在加进来这上千个表和函数后，要从中找到属于你自己的那些是多么痛苦的一件事情！</p>
+<p class="calibre1">在安装扩展包之前，先为其创建一个 <code class="calibre11">schema</code>。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE SCHEMA my_extensions;
+
+</code></pre>
+<p class="calibre1">然后把这个新的 schema 加入 <code class="calibre11">search_path</code>：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">ALTER DATABASE mydb SET search_path='"$user", public, my_extensions';
+
+</code></pre>
+<p class="calibre1">安装扩展包时，记得在 <code class="calibre11">CREATE EXTENSION</code> 语句中将你为其创建的新 schema 声明为其归属 schema。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00002.gif" alt="" width="9%" class="calibre13"/>　对于现有连接来说，<code class="calibre11">SET search_path</code> 命令执行后是不能直接生效的，你需要断开此连接并重连才可以。</p>
+</blockquote>
+</body></html>

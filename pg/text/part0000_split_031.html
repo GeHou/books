@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_52" class="calibre6"><strong class="calibre2">2.7　备份与恢复</strong></h2>
+<p class="calibre1">PostgreSQL 自身附带了两个备份工具：<code class="calibre11">pg_dump</code> 和 <code class="calibre11">pg_dumpall</code>，二者均位于 bin 文件夹下。<code class="calibre11">pg_dump</code> 可备份一个指定的 database，而 <code class="calibre11">pg_dumpall</code> 可一次性备份所有 database 的数据以及系统全局数据。由于 <code class="calibre11">pg_dumpall</code> 需要能够访问系统中的所有 database，因此必须由具备 superuser 权限的角色来执行。这两个工具的大多数命令行选项都可以有两种写法：一种是 GNU 风格（两个横杠连字符后跟一个单词）；另一种是传统的单字母风格（一个横杠连字符后跟一个字母）。这两种写法是完全等价的，甚至在同一个命令行中也可以混用。本节中我们仅讨论一些基本的用法，如果要了解更多深入的内容，请参考 PostgreSQL 官方手册中的“备份与恢复”（<a href="http://www.postgresql.org/docs/current/interactive/backup.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/backup.html</a>）。</p>
+<p class="calibre1">在学习本节内容时，你会发现我们一般会在示例命令行中指明目标数据库所在的主机地址和监听端口，这是因为我们一般是在另外一台机器上通过执行定时任务（通过 <code class="calibre11">pg_agent</code> 实现）的方式来执行备份，这种情况下必须在命令行写明目标数据库的地址和侦听端口；或者另外一种情况是在同一台机器上运行多个 PostgreSQL 服务实例，实例间的侦听端口互不相同，所以命令行中必须明确指定 IP 和端口。有一个情况请注意：如果你的服务被设置为仅监听 <code class="calibre11">local</code>，那么在备份命令行中加上 <code class="calibre11">-h</code>（或者是 <code class="calibre11">--host</code>）选项并带上主机 IP 反而会引发问题，因为默认情况下只有来自 localhost 的连接才会被允许接入，指定 IP 反而会导致连接失败。如果备份任务是直接在数据库服务器所在的机器上执行的，那么命令行中可以根本不用指定主机地址，这样可以避免出问题。</p>
+<p class="calibre1"><code class="calibre11">pg_dump</code> 和 <code class="calibre11">pg_dumpall</code> 工具不支持在命令行选项中设定登录密码，因此为了便于执行自动任务，你需要在 postgres 操作系统账号的 home 文件夹下创建一个密码文件 .pgpass 来存储密码；或者也可以用 <code class="calibre11">PGPASSWORD</code> 环境变量来设定密码。</p>
+<h3 id="nav_point_53" class="calibre16"><strong class="calibre2">2.7.1　使用<code class="calibre11">pg_dump</code>进行有选择性的备份</strong></h3>
+<p class="calibre1">如果你希望每天都进行备份，那么使用 <code class="calibre11">pg_dump</code> 比 <code class="calibre11">pg_dumpall</code> 更合适，因为前者支持精确指定要备份的表、schema 和 database，而后者不支持。<code class="calibre11">pg_dump</code> 可以将数据备份为 SQL 文本文件格式，也支持备份为用户自定义压缩格式或者是 TAR 包格式。在数据恢复时，对压缩格式和 TAR 包格式的备份文件可以实现并行恢复，该特性是从 8.4 版开始支持的。我们认为 <code class="calibre11">pg_dump</code> 是你进行日常备份时不可或缺的工具，因此我们在本书附录 B 的 B.1 节中提供了一张完整的 <code class="calibre11">pg_dump</code> 帮助信息清单，这样你就可以对其数量众多的选项开关用法一目了然。</p>
+<p class="calibre1">下面的例子展示了一些常见的备份场景以及相应的 <code class="calibre11">pg_dump</code> 选项。这些例子对于任何版本的 PostgreSQL 应该都是适用的。</p>
+<p class="calibre1">备份某个 database，备份结果以自定义压缩格式输出：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">pg_dump -h localhost -p 5432 -U someuser -F c -b -v -f mydb.backup mydb
+
+</code></pre>
+<p class="calibre1">备份某个 database，备份结果以 SQL 文本方式输出，输出结果中需包括 <code class="calibre11">CREATE DATABASE</code> 语句：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">pg_dump -h localhost -p 5432 -U someuser -C -F p -b -v -f mydb.backup mydb
+
+</code></pre>
+<p class="calibre1">备份某个 database 中所有名称以“pay”开头的表，备份结果以自定义压缩格式输出：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">pg_dump -h localhost -p 5432 -U someuser -F c -b -v -t *.pay* -f pay.backup mydb
+
+</code></pre>
+<p class="calibre1">备份某个 database 中 <code class="calibre11">hr</code> 和 <code class="calibre11">payroll</code> 这两个 schema 中的所有数据，备份结果以自定义压缩格式输出：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">pg_dump -h localhost -p 5432 -U someuser -F c -b -v -n hr -n payroll -f hr.backup mydb
+
+</code></pre>
+<p class="calibre1">备份某个 database 中除了 <code class="calibre11">public</code> schema 中的数据以外的所有数据，备份结果以自定义压缩格式输出：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">pg_dump -h localhost -p 5432 -U someuser -F c -b -v -N public -f all_sch_except_pub.backup mydb
+
+</code></pre>
+<p class="calibre1">将数据备份为 SQL 文本文件，且生成的 <code class="calibre11">INSERT</code> 语句是带有字段名列表的标准格式，该文件可用于将数据导入到低于当前版本的 PostgreSQL 或者其他支持 SQL 的非 PostgreSQL 数据库中（之所以能够实现这种数据移植过程，是因为标准的 SQL 文本可在任何支持 SQL 标准的数据库中执行）：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">pg_dump -h localhost -p 5432 -U someuser -F p --column-inserts -f select_tables.backup mydb
+
+</code></pre>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00001.gif" alt="" width="7%" class="calibre12"/>　如果输出文件路径中含空格或者其他可能影响命令行正常处理的字符，请在路径两侧加上双引号，比如：<code class="calibre11">"/path with spaces/mydb.backup"</code>。请注意这在 PostgreSQL 中是一个通用的原则，即当你不确定某段文本是否能正常处理时，都可以加双引号。</p>
+</blockquote>
+<p class="calibre1">从 9.1 版开始支持目录格式选项。该选项会将每个表备份为某个文件夹下的一个单独的文件，这样就解决了以其他备份格式备份时可能存在的单个文件大小超出操作系统限制的问题。该选项是生成多个文件的唯一 <code class="calibre11">pg_dump</code> 备份格式选项，具体语法参见示例 2-8。备份时会先创建一个新目录，然后逐个表将一个 gzip 格式的压缩文件和一个列出所有包含结构的文件填充到该目录中。如果备份开始时发现指定的目录已存在，那么该命令会报错并退出。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 2-8</strong>：目录格式备份</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">pg_dump -h localhost -p 5432 -U someuser -F d -f /somepath/a_directory mydb
+
+</code></pre>
+<p class="calibre1">从 9.3 版开始支持并行备份选项 <code class="calibre11">--jobs</code>（<code class="calibre11">-j</code>）。如果将其设定为 <code class="calibre11">--jobs=3</code>，则后台会有三个线程并行执行当前备份任务。此选项只有在按目录格式进行备份时才会生效，每个写线程只负责写一个单独的文件，因此一定是输出结果为多个独立的文件时才可以并行。示例 2-9 演示了其用法。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 2-9</strong>：目录格式并行备份</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">pg_dump -h localhost -p 5432 -U someuser -j 3 -Fd -f /somepath/a_directory mydb
+
+</code></pre>
+<h3 id="nav_point_54" class="calibre16"><strong class="calibre2">2.7.2　使用<code class="calibre11">pg_dumpall</code>进行全库备份</strong></h3>
+<p class="calibre1"><code class="calibre11">pg_dumpall</code> 工具可以将当前 PostgreSQL 服务实例中所有 database 的数据都导出为 SQL 文本（请注意：<code class="calibre11">pg_dumpall</code> 不支持导出 SQL 文本以外的其他格式），也可以同时导出表空间定义和角色等全局对象。要了解该命令支持的所有选项，请参考本书附录 B 的 B.2 节的内容。</p>
+<p class="calibre1">我们建议你每天都对角色和表空间定义等全局对象进行备份，但不建议每天都使用 <code class="calibre11">pg_dumpall</code> 来备份全库数据，因为 <code class="calibre11">pg_dumpall</code> 仅支持导出为 SQL 文本格式，而使用这种庞大的 SQL 文本备份来进行全库级别的数据恢复是极其耗时的，所以一般只建议用 <code class="calibre11">pg_dumpall</code> 来备份全局对象而非全库数据，如果你一定要用 <code class="calibre11">pg_dumpall</code> 来备份全库数据的话，一般一个月执行一次就够了。</p>
+<p class="calibre1">以下命令可实现仅备份角色和表空间定义：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">pg_dumpall -h localhost -U postgres --port=5432 -f myglobals.sql --globals-only
+
+</code></pre>
+<p class="calibre1">如果仅需备份角色定义而无需备份表空间，那么可以加上 <code class="calibre11">--roles-only</code> 选项：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">pg_dumpall -h localhost -U postgres --port=5432 -f myroles.sql --roles-only
+
+</code></pre>
+<h3 id="nav_point_55" class="calibre16"><strong class="calibre2">2.7.3　数据恢复</strong></h3>
+<p class="calibre1">PostgreSQL 支持以下两种数据恢复方法：</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1">使用 <code class="calibre11">psql</code> 来恢复 <code class="calibre11">pg_dump</code> 或者 <code class="calibre11">pg_dumpall</code> 工具生成的 SQL 文本格式的数据备份；</p>
+</li>
+<li class="calibre10"><p class="calibre1">使用 <code class="calibre11">pg_restore</code> 工具来恢复由 <code class="calibre11">pg_dump</code> 工具生成的自定义压缩格式、TAR 包格式或者目录格式备份。</p>
+</li>
+</ul>
+<p class="calibre1"><strong class="calibre2">1. 使用<code class="calibre11">psql</code>恢复SQL文本格式的数据备份</strong></p>
+<p class="calibre1">所谓的 SQL 文本格式的数据备份其实就是一个包含 SQL 脚本的文本文件。这种备份格式使用起来最不方便，但却是最通用的一种格式。恢复时需要将此 SQL 脚本全部执行一遍。你无法选择性地仅恢复部分数据，除非你手工编辑此文件。以下示例都是在操作系统命令行界面执行，过程中可能需要在 psql 界面上输入密码。</p>
+<p class="calibre1">恢复一个 SQL 备份文件并忽略过程中可能发生的所有错误：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">psql -U postgres -f myglobals.sql
+
+</code></pre>
+<p class="calibre1">恢复一个 SQL 备份文件，如遇任何错误则立即停止恢复：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">psql -U postgres --set ON_ERROR_STOP=on -f myglobals.sql
+
+</code></pre>
+<p class="calibre1">将 SQL 文本中的数据恢复到某个指定的 database：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">psql -U postgres -d mydb -f select_objects.sql
+
+</code></pre>
+<p class="calibre1"><strong class="calibre2">2. 使用<code class="calibre11">pg_restore</code>进行恢复</strong></p>
+<p class="calibre1">如果你是使用 <code class="calibre11">pg_dump</code> 进行的备份，并且选择的输出格式为 <code class="calibre11">tar</code>（TAR 包格式）或者 <code class="calibre11">custom</code>（自定义压缩格式）或者 <code class="calibre11">directory</code>（目录格式，为每张表生成一个文件，输出到指定路径中），那么你可以使用功能强大的 <code class="calibre11">pg_restore</code> 工具来进行恢复。<code class="calibre11">pg_restore</code> 支持的选项之多令人眼花缭乱，远远超过我们所使用过的其他任何数据库中提供的恢复工具。以下介绍一些该工具的特别功能。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1">支持并行恢复，使用 <code class="calibre11">-j</code> 选项可以控制并行恢复的线程数。多个恢复线程可以并行处理，每个线程处理一张表。该模式可以显著提高恢复速度。</p>
+</li>
+<li class="calibre10"><p class="calibre1">你可以使用 <code class="calibre11">pg_restore</code> 扫描备份文件来生成一张备份内容列表，通过该列表可以确认备份中包含了哪些内容。你还可以通过编辑该内容列表来控制恢复哪些内容。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">pg_dump</code> 支持选择性地仅备份部分对象以节省备份时间，类似地，<code class="calibre11">pg_restore</code> 也支持选择性地仅恢复部分对象，不管备份文件本身是全库备份还是部分对象的备份都没有问题。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">pg_restore</code> 的大部分功能是后向兼容的，即支持将老版本 PostgreSQL 生成的备份数据恢复到新版本的 PostgreSQL 中。</p>
+</li>
+</ul>
+<p class="calibre1">如想了解 <code class="calibre11">pg_restore</code> 命令所支持的全部选项，请参考附录 B 中 B.3 节的内容。</p>
+<p class="calibre1">在使用 <code class="calibre11">pg_restore</code> 执行恢复动作之前，请先创建目标数据库：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE DATABASE mydb;
+
+</code></pre>
+<p class="calibre1">然后执行恢复：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">pg_restore --dbname=mydb --jobs=4 --verbose mydb.backup
+
+</code></pre>
+<p class="calibre1">如果备份和恢复时使用的 database 同名，则可以通过加 <code class="calibre11">--create</code> 选项省去单独建库的过程，命令如下：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">pg_restore --dbname=postgres --create --jobs=4 --verbose mydb.backup
+
+</code></pre>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00001.gif" alt="" width="7%" class="calibre12"/>　如果指定了 <code class="calibre11">--create</code> 选项，那么恢复出来的数据库名就会默认采用备份时的数据库名，不允许改名。如果还同时指定了 <code class="calibre11">--dbname</code> 选项，那么此时连接的数据库名一定不能是待恢复的数据库名，因为要恢复数据库之前必然要建数据库，而要建数据库之前必然要先连到某个已存在的数据库，<code class="calibre11">--dbname</code> 选项指定的就是建立被恢复的数据库之前先连到哪个数据库，所以必然不能与待恢复的数据库重名，我们一般指定为先连到 <code class="calibre11">postgres</code> 数据库。</p>
+</blockquote>
+<p class="calibre1">9.2 版或更新版本的 <code class="calibre11">pg_restore</code> 支持 <code class="calibre11">--section</code> 选项，加上该选项后可以实现仅恢复表结构而不恢复表数据。当我们希望创建模板数据库时可以用这个方法，因为模板数据库一般不需要带数据。具体做法是先创建恢复目标数据库：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE DATABASE mydb2;
+
+</code></pre>
+<p class="calibre1">然后使用 <code class="calibre11">pg_restore</code>：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">pg_restore --dbname=mydb2 --section=pre-data --jobs=4 mydb.backup
+
+</code></pre>
+</body></html>

@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_211" class="calibre6"><strong class="calibre2">10.1　复制功能概览</strong></h2>
+<p class="calibre1">很多情况下我们都需要使用数据库复制功能，但不管具体场景如何，其根本原因都可以归结为两个：提升数据的可用性和可扩展性。从可用性的角度看，如果主服务器宕机了，备用服务器应立即接管并继续提供服务。对于规模较小的数据库来说，要达到此目标只需要保证你有另一台备用的物理服务器，并将数据库恢复到该服务器上即可。但对于规模很大的数据库（数据量为 TB 级别）来说，恢复过程本身可能需要好几个小时，而且此过程中系统无法对外提供服务。为尽量减少服务中断时间，你就需要使用复制功能。我们再从可扩展性的角度来考虑这个问题，假设你开设了一个网站，做着饲养并出售象鼩的买卖。做了几年之后，你已经拥有了几千只象鼩。全世界的客户都涌到你的网站来查看并购买，由于流量过大导致网站过载并无法正常处理请求，那么这时候就需要复制功能出马了。只需设定一个只读的从属服务器作为主服务器的镜像，然后就可以把海量的读请求分流到从属服务器上，只有当买家真正下单时才需要到主服务器上执行操作。</p>
+<h3 id="nav_point_212" class="calibre16"><strong class="calibre2">10.1.1　复制功能涉及的术语</strong></h3>
+<p class="calibre1">在我们深入探讨复制功能之前，先介绍一下相关术语。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">主服务器</strong>（Master）</p>
+<p class="calibre1">主服务器是作为要复制数据的源头的数据库服务器，所有更新都在其上发生。使用 PostgreSQL 的内置复制功能时，仅允许使用一个主服务器。已有计划要支持多主服务器复制方案，请关注未来版本。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">从属服务器</strong>（Slave）</p>
+<p class="calibre1">从属服务器使用复制的数据并提供主服务器的副本。尽管也有人谈到一些听起来更悦耳的术语，比如：订阅者（subscriber）、代理（agent）等，但从属服务器（slave）这个名称仍是最贴切的。PostgreSQL 内置复制目前仅支持只读从属服务器。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">预写日志</strong>（Write Ahead Log，WAL）</p>
+<p class="calibre1">WAL 就是记录所有已完成事务信息的日志文件，在其他数据库产品中一般称为事务日志。为了支持复制功能，PostgreSQL 将主服务器的 WAL 日志向从属服务器开放，然后从属服务器持续地将这些日志取到本地，然后将其中记载的事务重演一遍，这样就实现了数据同步。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">同步复制</strong>（Synchronous）</p>
+<p class="calibre1">在事务提交阶段，PostgreSQL 需保证已经将此事务中所做的修改成功同步到至少一个从属服务器，然后才能向用户反馈事务提交成功。这种工作模式保证了主服务器和从属服务器的数据在同一个事务内被同步修改，因此称为同步复制。如果配置了多个从属服务器，只要写入一个成功就算提交成功。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">异步复制</strong>（Asynchronous）</p>
+<p class="calibre1">在事务提交阶段，主服务器上提交成功就算成功，不需要等待从属服务器的数据更新成功。当从属服务器位于远端时该模式就比较有用了，因为可以避免网络延迟的影响。但有利必有弊，该模式下从属服务器的数据更新不够及时，与主服务器之间会有一些延迟。当发生传输失败时，从属服务器可能会丢失一些事务数据。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">流式复制</strong>（Streaming）</p>
+<p class="calibre1">从 PostgreSQL 9.0 版开始支持流式复制。在此前的版本中，WAL 日志是通过直接复制文件的方式从主服务器传递到从属服务器，但在流式复制模式下是通过消息来传递的。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">级联复制</strong>（Cascading replication）</p>
+<p class="calibre1">从 9.2 版开始，一个从属服务器可以把 WAL 日志传递给另一个从属服务器，而不需要所有的从属服务器都从主服务器取 WAL 日志，这进一步减轻了主服务器的负担。这种模式下，有的从属服务器可以作为同步的数据源从而继续向别的从属服务器传播 WAL 数据，从这个角度看，其作用类似于主服务器。注意，这种扮演着“WAL 日志二传手”角色的从属服务器是只读的，它们也被称为级联从属服务器。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">重新选主</strong>（Remastering）</p>
+<p class="calibre1">重新选主是指从所有的从属服务器中选择一个并将其身份提升为主服务器的过程。在 9.2 版及之前的版本中，如果要支持重新选主，要求复制机制必须使用基于文件的 WAL 日志传播模式，而不能使用基于流式消息的传播方式。9.3 版中解除了这个限制，引入了基于流消息复制的选主机制，该模式下选主时仅依靠流消息，而不再需要访问 WAL 日志文件，同时从属服务器也不需要经历一次重新复制过程。直到 9.4 版为止，重新选主还会要求整个数据库服务重启一次，将来的版本中可能会改进这一点。</p>
+</li>
+</ul>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00002.gif" alt="" width="9%" class="calibre13"/>　未记录 WAL 日志的表不能被复制。</p>
+</blockquote>
+<h3 id="nav_point_213" class="calibre16"><strong class="calibre2">10.1.2　复制机制的演进</strong></h3>
+<p class="calibre1">PostgreSQL 的复制机制依赖于 WAL 日志的传播。在 9.3 版之前，流式复制要求发送端和接收端的硬件架构必须相同，这样可以保证传送的日志流内容能够在接收端正确地解析和执行。在 9.3 版及之后的版本中，流式复制机制已经做到了与硬件架构无关，但仍然要求两端运行的 PostgreSQL 服务器软件版本相同。</p>
+<p class="calibre1">PostgreSQL 内置的复制机制在以下大版本中的演进历史。</p>
+<p class="calibre1">(1) 9.0 版之前，PostgreSQL 仅提供异步温从属服务器。温从属服务器是指将 WAL 日志取过来之后保持本端数据与主服务器同步，但不提供对外查询能力，仅作为一个备用服务器存在。</p>
+<p class="calibre1">(2) 9.0 版引入了异步热从属服务器以及流式复制机制。异步热从属服务器允许用户针对热从属服务器执行只读查询；流式复制机制使得日志传递不再依赖文件访问而是通过数据库之间的连接来传递日志消息。</p>
+<p class="calibre1">(3) 9.1 版开始支持同步复制。</p>
+<p class="calibre1">(4) 9.2 版引入了对级联复制的支持，该机制主要的优点是可以降低延迟。对于从属服务器来说，从临近的另一个从属服务器取得事务日志要比从遥远的主服务器获取快得多。</p>
+<h3 id="nav_point_214" class="calibre16"><strong class="calibre2">10.1.3　第三方复制解决方案</strong></h3>
+<p class="calibre1">除了 PostgreSQL 自带的复制机制外，还有很多第三方提供的复制工具，Slony 和 Bucardo 是其中应用最广泛的两个，而且都是开源的。尽管 PostgreSQL 原生复制机制在每个版本中都会得到功能强化，但 Slony、Bucardo 以及其他第三方工具仍然在灵活性方面有着原生复制机制难以比拟的优势：它们支持仅复制单个 database 或者单张表；它们也不要求复制的源端和目的端的 PostgreSQL 版本和操作系统相同；它们还支持多主复制。但它们也有缺点：两个工具均依赖于新建额外的触发器来触发复制动作，因此它们对系统架构有一定的“侵入性”；并且它们一般不支持建表、安装扩展包等 DDL 操作的同步。</p>
+<p class="calibre1">目前仍处于 BETA 版阶段的 PG-XC 项目已经开始吸引了一些用户的注意。PG-XC 这个项目的设计目标是实现一套分布式数据库，而不是另一套数据复制机制。其设计思想更重视的是保证系统的可扩张性而非高可用性。PG-XC 不是基于 PostgreSQL 的一套插件，而是一个完全独立的分支，致力于提供一套写能力可扩展的多主服务器对称集群，其目标非常类似于 Oracle RAC。</p>
+<p class="calibre1">我们强烈建议你在决定使用哪一种具体产品之前参考一下“流行的第三方复制解决方案的对比”这篇文章（<a href="http://wiki.postgresql.org/wiki/Replication,_Clustering,_and_Connection_Pooling" class="calibre5">http://wiki.postgresql.org/wiki/Replication,_Clustering,_and_Connection_Pooling</a>）。</p>
+</body></html>

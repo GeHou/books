@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_204" class="calibre6"><strong class="calibre2">9.4　数据缓存机制</strong></h2>
+<p class="calibre1">如果你之前执行过一个复杂且耗时较长的查询，那么后续再次执行此查询时会发现快了很多，这是因为系统的数据缓存机制发挥了作用。如果同一个查询语句按顺序多次执行，而且这些查询涉及的底层数据并没有发生变化，那么不管这些语句是被同一个用户还是多个用户执行，最终得到的结果都应该是一样的。只要内存中还有空间可用于缓存数据，那么规划器就可能会跳过生成执行计划和从磁盘读取表数据的步骤，直接从缓存中获取数据。如果语句中使用了 CTE 表达式和结果不变式函数（这类函数的运算结果不依赖外部数据，仅依赖输入的数据，也就是说固定的输入一定能得到固定的输出），那么系统会更加倾向于进行结果集缓存。</p>
+<p class="calibre1">那么如何查看系统中缓存了那些数据呢？如果你的 PostgreSQL 服务器是 9.1 版或者更新的版本，可以通过安装 <code class="calibre11">pg_buffercache</code> 扩展包来查看。先安装该扩展包。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE EXTENSION pg_buffercache;
+
+</code></pre>
+<p class="calibre1">安装完毕后，你可以查询 <code class="calibre11">pg_buffercache</code> 视图，如示例 9-11 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 9-11</strong>：查看表数据是否已被缓存</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT
+    C.relname,
+    COUNT(CASE WHEN B.isdirty THEN 1 ELSE NULL END) As dirty_buffers,
+    COUNT(*) As num_buffers
+FROM
+    pg_class AS C INNER JOIN
+    pg_buffercache B ON C.relfilenode = B.relfilenode INNER JOIN
+    pg_database D ON B.reldatabase = D.oid AND D.datname = current_database()
+WHERE C.relname IN ('facts','lu_fact_types')
+GROUP BY C.relname;
+
+</code></pre>
+<p class="calibre1">示例 9-11 中的语句查出了 <code class="calibre11">facts</code> 和 <code class="calibre11">lu_fact_types</code> 这两张表中被缓存的页数。需要先实际执行一个 SQL 查询语句，才会有数据被真正缓存下来，此后示例 9-11 中的语句才能有结果。我们先执行一下下面这个语句。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT T.fact_subcats[2], COUNT(*) As num_fact
+FROM census.facts As F INNER JOIN census.lu_fact_types AS T ON F.fact_type_id = T.fact_type_id
+GROUP BY T.fact_subcats[2];
+
+</code></pre>
+<p class="calibre1">当再次执行上述语句时，你应该可以看到至少 10% 的性能提升，并且示例 9-11 的查询可以看到类似以下的结果。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">   relname    | dirty_buffers | num_buffers
+--------------+---------------+-------------
+facts         |             0 |         736
+lu_fact_types |             0 |           4
+
+</code></pre>
+<p class="calibre1">用于缓存数据的内存大小是可指定的，该值越大，能缓存的数据就越多。postgresql.conf 中的 <code class="calibre11">shared_buffers</code> 就是用于设置此值的，但不应设得过大，否则会耗费过多时间去扫描缓存，反而降低了性能。</p>
+<p class="calibre1">由于如今的物理内存已经极其廉价，因此一般不会再出现内存不够的情况。基于这一点，我们很容易就想到了可以将一些常用的表预先缓存到内存中，这样就可以提高后续访问效率。有一个名为 <code class="calibre11">pg_prewarm</code> 的扩展包可以用于实现此功能，该扩展包从 PostgreSQL 9.4 版开始成为系统自带的扩展包。<code class="calibre11">pg_prewarm</code> 会将指定的常用表预加载到缓存中，此后不管该表是首次被用户访问还是非首次访问，响应速度总是很快。关于此特性有一篇很好的文章可供你参考：“关系型数据的预热机制”（<a href="http://www.depesz.com/2014/01/10/waiting-for-9-4-pg_prewarm-a-contrib-module-for-prewarming-relationd-data/" class="calibre5">http://www.depesz.com/2014/01/10/waiting-for-9-4-pg_prewarm-a-contrib-module-for-prewarming-relationd-data/</a>）。</p>
+</body></html>

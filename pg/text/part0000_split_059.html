@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_144" class="calibre6"><strong class="calibre2">6.3　索引</strong></h2>
+<p class="calibre1">PostgreSQL 的索引机制功能强大、特性丰富，仅仅索引部分的内容已足够写一本大部头的书。本书写作之时，PostgreSQL 已支持至少四种类型的索引。如果你觉得还不够，PostgreSQL 还允许你为这几种索引类型自定义新的索引运算符和修饰符以作为其功能补充。如果这样还不能满足你的要求，你可以创建自己的索引类型。</p>
+<p class="calibre1">PostgreSQL 还支持在同一张表中混合搭配不同的索引类型，且预计规划器将综合考虑所有的索引。例如，在一个字段上建立 B- 树索引，在旁边的字段上建立 GiST 索引，查询时两个索引都可以被用上。要更深入了解规划器对索引的选用机制，请参考 PostgreSQL 官方手册中“位图索引扫描策略”这一节（<a href="http://www.postgresql.org/docs/current/interactive/indexes-bitmap-scans.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/indexes-bitmap-scans.html</a>）的内容。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00002.gif" alt="" width="9%" class="calibre13"/>　同一张表上的索引名不允许重复。</p>
+</blockquote>
+<h3 id="nav_point_145" class="calibre16"><strong class="calibre2">6.3.1　PostgreSQL原生支持的索引类型</strong></h3>
+<p class="calibre1">要想利用好 PostgreSQL 的索引能力，我们需要先了解其支持的不同的索引类型以及它们各自适用于什么场景。索引方法包括以下几种。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">B-树索引</strong></p>
+<p class="calibre1">B- 树是一种关系型数据库中常见的通用索引类型。如果你对别的索引类型不感兴趣，那么一般使用 B- 树索引就可以了。有的场景下 PostgreSQL 会自动创建索引（比如创建主键约束或者唯一性约束时），那么创建出来的索引就是 B- 树类型的；如果你自己创建索引时未指定索引类型，那么默认也会创建 B- 树类型的索引。主键约束和唯一性约束唯一支持的后台索引就是 B- 树索引。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">GiST索引</strong></p>
+<p class="calibre1">GiST 的全称是 Generalized Search Tree，意即通用搜索树。它主要的适用场景包括全文搜索以及空间数据、科学数据、非结构化数据和层次化数据的搜索。该类索引不能用于保障字段的唯一性，也就是说建立了该类型索引的字段上可插入重复值，但如果把该类索引用于排他性约束就可以实现唯一性保障。GiST 是一种有损索引，也就是说它不存储被索引字段的值，而仅仅存储字段值的一个取样，这种取样是失真的，就像把一个盒子变成了一个多边形。这就意味着需要一个额外的查找步骤以获得真正记录的值。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">GIN索引</strong></p>
+<p class="calibre1">GIN 的全称是 Generalized Inverted Index（GIN），即通用逆序索引。它主要适用于 PostgreSQL 内置的全文搜索引擎以及 <code class="calibre11">jsonb</code> 数据类型。其他有一些扩展包比如 hstore 和 pg_trgm 也会使用这种索引。GIN 其实是从 GiST 派生出来的一种索引类型，但它是无损的，也就是说索引中会包含有被索引字段的值。如果你需要查询的字段都已被索引，那么只读取索引即可获取查询结果，这种情况下 GIN 的查询速度是快于 GiST 的。然而，由于 GIN 比 GiST 在更新操作时要多出一个字段值复制动作，因此此时是 GiST 索引更快一些。另外，GIN 的索引树内部每一个索引行的长度是有限制的，所以它不能用于对 hstore 文档或者 text 等大对象类型进行索引。如果你需要把一个 600 页的手册内容存入一张表的某个字段，那么绝对不要在该字段上建 GIN 类型的索引。在“等待更快的 LIKE/ILIKE 运算符”（<a href="http://www.depesz.com/2011/02/19/waiting-for-9-1-faster-likeilike/" class="calibre5">http://www.depesz.com/2011/02/19/waiting-for-9-1-faster-likeilike/</a>）这篇博文中有一个关于 GIN 用法的非常好的例子可供你参考。在 9.3 版中，用于实现字符串模糊匹配和相似度查询的 <code class="calibre11">pg_trgm</code> 扩展包中做了一个功能强化：支持正则表达式条件查询时用上 GIN 索引，这大大增加了 <code class="calibre11">pg_trgm</code> 的适用场景。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">SP-GiST索引</strong></p>
+<p class="calibre1">SP-GiST 是指基于空间分区树（Space-Partitioning Trees）算法的 GiST 索引。该类型的索引从 9.2 版开始引入，与 GiST 索引适用领域相同，但对于某些特定领域的数据算法，其效率会更高一些。PostgreSQL 的 <code class="calibre11">point</code> 和 <code class="calibre11">box</code> 等原生几何类型以及 <code class="calibre11">text</code> 类型是最先支持该类索引的数据类型。从 9.3 版开始，区间类型也开始支持此类型的索引。PostGIS 扩展包也有计划要在近期开始用上此类索引以提升性能。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">哈希索引</strong></p>
+<p class="calibre1">哈希索引在 GiST 和 GIN 索引出现前就已经得到了广泛使用。业界普遍认为 GiST 和 GIN 索引在性能和事务安全性方面要胜过哈希索引。请注意：事务日志中不会记录哈希索引的变化，那么在流式复制环境中就不能使用哈希索引，否则会导致修改无法被同步。PostgreSQL 已将哈希索引列为不推荐使用状态。在别的数据库中你可能仍会见到该索引类型，但在 PostgreSQL 中最好避免使用它。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">基于B-树算法的GiST和GIN索引</strong></p>
+<p class="calibre1">如果你想了解 PostgreSQL 除了默认特性以外还有哪些功能，不管是出于业务需要或者是仅仅出于好奇心，都可以从了解基于 B- 树算法的 GiST 和 GIN 索引开始。这两种复合索引非常具有代表性，而且二者都是以扩展包形式存在的，因此也比较便于学习和研究。这两类混合算法索引的优势在于，它们一方面能够支持 GiST 和 GIN 索引特有的运算符，同时又具有 B- 树索引对于“等于”运算符的良好支持。有时我们会需要建立这样的多列复合索引：索引字段中既有像 <code class="calibre11">character varying</code> 或 <code class="calibre11">number</code> 这样的数据类型，又有层次化的 <code class="calibre11">ltree</code> 类型或者用于全文搜索的 <code class="calibre11">vector</code> 类型。前两种数据类型一般会使用“等 于”运算符来进行操作，后两种一般使用 GIN/GiST 索引提供的运算符进行操作。此时你会发现要建立这种索引必须使用基于 B- 树算法的 GiST 或者基于 B- 树算法的 GIN。</p>
+</li>
+</ul>
+<h3 id="nav_point_146" class="calibre16"><strong class="calibre2">6.3.2　运算符类</strong></h3>
+<p class="calibre1">其实我们非常希望能够跳过这部分关于“运算符类”的内容，因为很多幸运的人即使不知道“运算符类”是什么以及它与索引有什么关系也能毫无障碍地使用索引。但如果你运气没这么好，也就是说你的应用场景需要你了解这些内容，那么就得对运算符类好好研究了，否则就会一直被这个问题困扰：“为什么规划器没用上我的索引？”</p>
+<p class="calibre1">各种数据类型均有其自身特点，因此适用的索引类型不同，会用到的比较运算符也不同。例如，对于基于区间类型（range）的索引来说，最常用的运算符是重叠运算符（<code class="calibre11">&amp;&amp;</code>），然而该运算符对于快速本文搜索领域来说却毫无意义。对于中文这类表意文字来说，建立的索引基本上不会用到“不等于”运算符；而对英文这类表音文字建立索引时，字母 A 到 Z 的排序操作是不可或缺的。</p>
+<p class="calibre1">基于以上特点，PostgreSQL 把一类应用领域相近的运算符以及这些运算符适用的数据类型组合在一起称为一个运算符类（简称 opclass）。例如，<code class="calibre11">int4_ops</code> 运算符类包含适用于 <code class="calibre11">int4</code> 类型的 <code class="calibre11">= &lt; &gt; &gt; &lt;</code> 运算符。PostgreSQL 提供了一张叫作 <code class="calibre11">pg_class</code> 的系统表，从中可以查到完整的运算符类列表，其中既包含了系统原生支持的类，也包含了通过扩展包机制添加的类。一种类型的索引会使用特定的若干种运算符类。完整的运算符列表可以从 pgAdmin 界面上的运算符类目下看到，也可以根据 <code class="calibre11">system</code> catalog 在示例 6-7 中执行查询得到。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 6-7</strong>：查询 B- 树索引支持的数据类型以及运算符类</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT am.amname AS index_method, opc.opcname AS opclass_name,
+opc.opcintype::regtype AS indexed_type, opc.opcdefault AS is_default
+FROM pg_am am INNER JOIN pg_opclass opc ON opc.opcmethod = am.oid
+WHERE am.amname = 'btree'
+ORDER BY index_method, indexed_type, opclass_name;
+
+index_method |    opclass_name     |        indexed_type         | is_default
+-------------+---------------------+-----------------------------+------------
+btree        | bool_ops            | boolean                     | t
+:            |                     |
+btree | text_ops                   | text                        | t
+btree | text_pattern_ops           | text                        | f
+btree | varchar_ops                | text                        | f
+btree | varchar_pattern_ops        | text                        | f
+ :
+
+</code></pre>
+<p class="calibre1">在示例 6-7 中，仅查询了 B- 树的相关数据。请注意，每类索引都会有多个运算符类，而其中仅有一个会被标记为默认运算符类。如果建立索引时未指定使用哪个运算符类，那么 PostgreSQL 默认会使用默认运算符类。绝大多数情况下这么做是没什么问题的，但并非绝对如此。</p>
+<p class="calibre1">例如，B- 树索引默认的 <code class="calibre11">text_ops</code> 运算符类（又名 <code class="calibre11">varchar_ops</code>）中并不支持 <code class="calibre11">~~</code> 运算符（即 <code class="calibre11">LIKE</code> 运算符），所以如果建 B- 树索引时选择了该运算符类，那么所有使用 <code class="calibre11">LIKE</code> 的查询都无法在 <code class="calibre11">text_ops</code> 运算符类中使用索引。因此，如果你的业务场景需要对 <code class="calibre11">varchar</code> 或者 <code class="calibre11">text</code> 类型进行大量 <code class="calibre11">LIKE</code> 模糊查询，那么建索引时最好是显式指定使用 <code class="calibre11">text_pattern_ops</code> 或者 <code class="calibre11">varchar_pattern_ops</code> 这两个运算符类。指定运算符类的语法很简单，只需要在建索引时加在被索引字段名的后面即可，参考示例如下：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE INDEX idx1 ON census.lu_tracts USING btree (tract_name text_pattern_ops);
+
+</code></pre>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00031.gif" alt="" width="7%" class="calibre12"/>　在上述示例 6-7 的查询结果中，你可能已经注意到了 B- 树索引的 <code class="calibre11">varchar_ops</code> 和 <code class="calibre11">text_ops</code> 两种运算符类适用的数据类型都是 <code class="calibre11">text</code>，这样来看的话， <code class="calibre11">varchar_ops</code> 貌似有点名不副实。这是因为 <code class="calibre11">varchar</code> 类型本质上就是加了长度限制的 <code class="calibre11">text</code> 类型，二者可以共用一套运算符。<code class="calibre11">varchar_ops</code> 和 <code class="calibre11">varchar_pattern_ops</code> 实质上就是 <code class="calibre11">text_ops</code> 和 <code class="calibre11">text_pattern_ops</code> 的别名，之所以把前面两种单列出来是因为 <code class="calibre11">varchar</code> 毕竟是单独的一种数据类型，存在一种以其类型命名的专属运算符类看起来会比较合理。</p>
+</blockquote>
+<p class="calibre1">最后请牢记这一条：你创建的每一个索引都只会使用一个运算符类。如果希望一个字段上的索引使用多个运算符类，那么请创建多个索引。要将默认索引 <code class="calibre11">text_ops</code> 添加到表中，请运行以下代码：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE INDEX idx2 ON census.lu_tracts USING btree (tract_name);
+
+</code></pre>
+<p class="calibre1">现在，在同一个字段上就有了多个索引（单个字段上可建立索引的个数是没有限制的）。规划器处理等值查询时会使用 <code class="calibre11">idx2</code>，处理 <code class="calibre11">like</code> 模糊查询时会使用 <code class="calibre11">idx1</code>。</p>
+<p class="calibre1">你可以在 PostgreSQL 官方手册中找到关于运算符类的更详细的描述（<a href="http://www.postgresql.org/docs/current/interactive/indexes-opclass.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/indexes-opclass.html</a>）。另外我们也强烈建议你阅读一下我们的博客文章“为什么我的索引没发挥作用？”（<a href="http://www.postgresonline.com/journal/archives/78-Why-is-my-index-not-being-used.html" class="calibre5">http://www.postgresonline.com/journal/archives/78-Why-is-my-index-not-being-used.html</a>）。</p>
+<h3 id="nav_point_147" class="calibre16"><strong class="calibre2">6.3.3　函数索引</strong></h3>
+<p class="calibre1">PostgreSQL 的函数索引功能可以基于字段值的函数运算结果建立索引。函数索引的用途也是很广泛的，例如可用于对大小写混杂的文本数据建立索引。PostgreSQL 是一个区分大小写的数据库，如果要实现不区分大小写的查询，那么可以借助如下的函数索引：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE INDEX fidx ON featnames_short
+ USING btree (upper(fullname) varchar_pattern_ops);
+
+</code></pre>
+<p class="calibre1">建立了该索引之后，类似 <code class="calibre11">SELECT fullname FROM featnames_short WHERE upper(fullname) LIKE 'S%'</code> 这种查询就可以用上索引了。不过要注意，查询语句中使用的函数要与建函数索引时使用的函数完全一致，这样才能保证用上索引。PostgreSQL 和 Oracle 都支持函数索引。MySQL 和 SQL Server 不直接支持函数索引，但提供了自动计算字段并且可以对该类字段建立索引，总的来说其效果和函数索引是类似的。从 9.3 版开始，PostgreSQL 开始支持对物化视图建立索引。</p>
+<h3 id="nav_point_148" class="calibre16"><strong class="calibre2">6.3.4　基于部分记录的索引</strong></h3>
+<p class="calibre1">基于部分记录的索引（有时也称为已筛选索引）是一种仅针对表中部分记录的索引，而且这部分记录需要满足 <code class="calibre11">WHERE</code> 语句设置的筛选条件。例如，假设某表中有 1 000 000 条记录，但你只会查询其中的一个记录数为 10 000 的子集，那么该场景就非常适合使用基于部分记录的索引。这种索引比全量索引要快，因为其体积小，所以可以把更多索引数据缓存到内存中，另外该类索引占用的磁盘空间也会更小。</p>
+<p class="calibre1">基于部分记录的索引能够实现仅针对部分记录的唯一性约束。举个例子，假设你手上有一家报纸在过去 10 年间的订阅用户数据，现在需要确保还在订阅的用户们不会每天多拿一份报纸。由于人们对纸媒的兴趣下降，因此这 10 年间的全量订阅用户中仅有 5% 的人还在坚持订阅。所以，很显然你不需要关注那些已经退订的用户，因为他们的姓名早已从报纸递送员手上的递送名单中剔除。表结构如下：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE TABLE subscribers (
+ id serial PRIMARY KEY,
+ name varchar(50) NOT NULL, type varchar(50),
+ is_active boolean);
+
+</code></pre>
+<p class="calibre1">我们建立一个基于当前活跃用户的部分记录索引即可：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE UNIQUE INDEX uq ON subscribers USING btree(lower(name)) WHERE is_active;
+
+</code></pre>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00002.gif" alt="" width="9%" class="calibre13"/>　索引的 <code class="calibre11">WHERE</code> 条件中使用的函数必须是确定性函数，即固定的输入一定能够得到固定输出的函数。这意味着有几类函数是不能用作筛选条件的：一类是 <code class="calibre11">CURRENT_DATE</code> 这种输出结果不停在变的函数；一类是依赖于其他表数据进行运算的函数，其输出结果受其他表的数据的影响，因此输出也是不固定的；还有一类是依赖当前表中的其他记录行进行运算的函数，其输出也不会受控。</p>
+</blockquote>
+<p class="calibre1">我们需要特别强调的一点是，当使用 <code class="calibre11">SELECT</code> 语句查询数据时，创建索引时所使用的条件必须是你的 <code class="calibre11">WHERE</code> 条件的子集。这看起来比较麻烦也容易出错，那么有一个办法可以让事情变得简单一些，那就是建一个视图，视图条件就是建索引的条件，那么针对此视图进行查询就永远不会漏掉条件了。还是以前述报纸订阅用户数据为例，建立如下视图：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE OR REPLACE VIEW vw_subscribers_current AS
+SELECT id, lower(name) As name FROM subscribers WHERE is_active = true;
+
+</code></pre>
+<p class="calibre1">然后将针对原表的查询都改为针对此视图的查询（有一种比较激进的观点认为此种情况下永远都不应该直接查询原表）：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT * FROM vw_active_subscribers WHERE user_name = 'sandy';
+
+</code></pre>
+<p class="calibre1">你可以查看规划器输出的执行计划来检查你的索引是否被用上了。</p>
+<h3 id="nav_point_149" class="calibre16"><strong class="calibre2">6.3.5　多列索引</strong></h3>
+<p class="calibre1">多列索引也称为复合索引 <span class="zhu_shi_bian_hao">1</span>。在本章前面的内容中，你应该已经见到了大量复合索引的例子。另外我们还想介绍的一点是：你可以使用多个基础列创建功能索引。以下是一个多列索引的示例。</p>
+<p class="zhu_shi_nei_rong"><span class="zhu_shi_bian_hao_xia">1</span>复合索引的多个字段中也可以包含函数，此时建立的索引既是复合索引也是函数索引。——译者注</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE INDEX idx ON subscribers USING btree (type, upper(name) varchar_pattern_ops);
+
+</code></pre>
+<p class="calibre1">PostgreSQL 的规划器在语句执行过程中会自动使用一种被称为“位图索引扫描”的策略来同时使用多个索引。该策略可以使得多个单列索引同时发挥作用，达到的效果与使用单个复合索引相同。如果你不能确定业务的应用模式是以单列作为查询条件的场景多一些还是同时以多列作为查询条件的场景多一些，那么最好针对可能作为查询条件的每个列单独建立索引，这样是最灵活的做法，规划器会决定如何组合使用这些索引。</p>
+<p class="calibre1">假设你建了一个复合 B- 树索引，其中包含 <code class="calibre11">type</code>、<code class="calibre11">upper(name)</code> 等多个字段，那么完全没必要针对 <code class="calibre11">type</code> 字段再单独建一个索引，因为规划器即使在遇到只有 <code class="calibre11">type</code> 单字段的查询条件时也会自动使用该复合索引，这是规划器的一项基本能力。</p>
+<p class="calibre1">PostgreSQL 从 9.2 版开始支持仅依赖索引内数据的查询方法，也就是说如果查询的目标字段在索引内都有，那么直接扫描索引就可以得到查询结果，根本不需要访问表的本体了。这个功能的引入使得复合索引的作用更为凸显，因为复合索引可以提供更多数据，因此更适合使用此种查询方法。如果你的业务场景中查询的目标字段和条件字段是相同的那几个，那么就应该建立复合索引以提升查询速度。不过，索引中包含的字段越多也就意味着索引占用的空间会越大，能在内存中缓存的索引条目就越少，因此请不要滥用复合索引。</p>
+
+<p class="calibre4" style="margin:0pt; border:0pt; height:1em" id="calibre_pb_79"> </p>
+</body></html>

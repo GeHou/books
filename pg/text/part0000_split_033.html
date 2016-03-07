@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_59" class="calibre6"><strong class="calibre2">2.9　禁止的行为</strong></h2>
+<p class="calibre1">我们发现人们总是会犯各种各样、花式翻新的错误来将 PostgreSQL 系统搞崩溃，因此在本章的最后一节中，我们认为有必要逐条列出那些最常见的错误。对于初学者来说，如果你搞不清到底哪里出了问题，那么请首先查看系统日志，从中可以找到解决问题的线索。日志文件位于数据文件夹的根目录或者其中的 pg_log 子文件夹下。也有可能系统在记下日志之前即已崩溃，那么显然这种情况下查日志是没用的。如果你的 PostgreSQL 服务启动失败，请尝试执行以下操作系统命令。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">path/to/your/bin/pg_ctl -D your_postgresql_data_folder
+
+</code></pre>
+<h3 id="nav_point_60" class="calibre16"><strong class="calibre2">2.9.1　切记不要删除PostgreSQL系统文件</strong></h3>
+<p class="calibre1">你可能觉得这是废话，但当磁盘空间不够的时候有些人就会慌手慌脚地从 PostgreSQL 的数据文件夹下删除文件，因为它占用的空间实在是太大了。出现这种问题的部分原因是有些文件夹的名称的确很容易令人误解，比如：pg_log、pg_xlog 和 pg_clog。这些名称看起来就像是用于存放日志的文件夹，所以可以“安心地”删除。这种做法是危险的，因为有些文件删了没事，有些删了就会导致数据库被破坏。</p>
+<p class="calibre1">pg_log 文件夹一般会在 data 文件夹下，其体积可能增长得很快，尤其是当打开了日志开关的时候。这个文件夹下的文件任何时候都可以安全删除，事实上很多人会设置一个定时任务来定期清空这些日志文件。</p>
+<p class="calibre1">除了 pg_xlog 文件夹下的文件可以有条件地删除外，其他 PostgreSQL 系统文件夹中的文件都不能删，即使有的文件夹名称中带有 log 字样因而看起来像是某种日志，也绝对不能删，比如 pg_clog 文件夹中存储的是活跃事务提交日志，千万不要碰。</p>
+<p class="calibre1">pg_xlog 文件夹用于存储事务日志。我们见过有的系统中会在 pg_xlog 文件夹下建一个子文件夹 archive，专门用于存放归档的事务日志。一般来说你的系统总会需要建一个专门的文件夹（该文件夹不一定要放在 pg_xlog 下）用于日志归档，因为如果这是一个同步复制环境，那么需要持续地进行事务日志归档；需要归档文件夹的另一个理由是得把这些日志存下来以备不时之需，因为我们有可能需要将系统数据恢复到过去的某个时间点。将 pg_xlog 文件夹下的所有文件都删除会导致系统数据被严重破坏，比如引发数据不一致或丢失等。但仅删除归档文件夹下的日志却没这么严重，最多会导致无法恢复到过去的某个时点，或者是在同步环境下可能导致从属服务器无法进行数据同步，因为还未来得及同步的一些日志文件可能已被删掉了。如果以上场景在你的系统中都不涉及，那么可以放心地删除归档文件夹下的日志文件。</p>
+<p class="calibre1">要当心某些过于“尽责”的杀毒软件，特别是在 Windows 上。我们曾经遇到过杀毒软件把很重要的 PostgreSQL 可执行文件给删掉的案例。如果在 Windows 环境下发现 PostgreSQL 无法启动，记得首先查看一下<strong class="calibre2">事件查看器</strong>（event viewer）的记录，其中可能存在有用的线索。</p>
+<h3 id="nav_point_61" class="calibre16"><strong class="calibre2">2.9.2　不要把操作系统管理员权限授予PostgreSQL的系统账号（postgres）</strong></h3>
+<p class="calibre1">很多人可能会误认为 <code class="calibre11">postgres</code> 这个操作系统账号必须拥有操作系统的管理员权限。事实上，在有的 PostgreSQL 版本上，如果给予了 <code class="calibre11">postgres</code> 账号管理员权限，很有可能导致该机器操作系统启动失败。<code class="calibre11">postgres</code> 账号的身份应该就是一个普通用户账号，其权限只要能够访问 data 文件夹以及其他表空间文件夹即可。大多数 PostgreSQL 安装包会自动为 <code class="calibre11">postgres</code> 账号设定够用的权限，请不要再画蛇添足。在 SQL 注入攻击中，那些不必要的权限会为攻击者们提供可乘之机。</p>
+<p class="calibre1">有些情况下，的确是有必要把 data 文件夹以外的某些文件夹或者可执行程序的“改写 / 删除 / 读取”权限授予 <code class="calibre11">postgres</code> 账号。比如，当需要设置一个定时任务来执行批处理任务时就需要这么干。针对这种情况，我们也建议你仅仅授予 <code class="calibre11">postgres</code> 账号最小的必要权限，而不应该为了图省事而直接授予其最高权限。</p>
+<h3 id="nav_point_62" class="calibre16"><strong class="calibre2">2.9.3　不要把<code class="calibre11">shared_buffers</code>缓存区设置得过大</strong></h3>
+<p class="calibre1">禁止将 <code class="calibre11">shared_buffers</code> 设置得和系统当前内存总容量一样大，这么做很可能会导致操作系统崩溃或者是启动失败。在 32 位 Windows 系统上，该设置如果超过 512 MB 就可能导致系统出问题。在 64 位 Windows 上，该限制可以放宽到 1 GB 或者更多一些也没问题。在有些 Linux 系统上，不能将 <code class="calibre11">shared_buffers</code> 设置得大于编译过的 <code class="calibre11">SHMMAX</code> 变量，而一般来说 <code class="calibre11">SHMMAX</code> 的值是比较小的，所以这就给 <code class="calibre11">shared_buffers</code> 的设置带来了一些限制。PostgreSQL 9.3 版修改了内核对于内存的使用方法，因此之前版本中那些因内核限制而导致的问题从该版本开始不复存在。官方手册中“内核资源管理”（<a href="http://www.postgresql.org/docs/current/interactive/kernel-resources.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/kernel-resources.html</a>）这一节介绍了更多关于这方面的细节。</p>
+<h3 id="nav_point_63" class="calibre16"><strong class="calibre2">2.9.4　不要将PostgreSQL服务器的侦听端口设为一个已被其他程序占用的端口</strong></h3>
+<p class="calibre1">如果启动 PostgreSQL 时系统发现侦听端口已被占用，那么会在 pg_log 中记录类似这样的错误日志：<code class="calibre11">make sure PostgreSQL is not already running</code>。以下是可能导致该问题的常见原因。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1"><code class="calibre11">postgres</code> 服务实例已经启动好了，而你正试图再启动一遍。</p>
+</li>
+<li class="calibre10"><p class="calibre1">PostgreSQL 服务侦听端口已被其他程序占用。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">postgres</code> 服务之前发生过异常关闭或者崩溃，在 data 文件夹下遗留了一个 postgresql.pid 文件。请直接删除该文件并再次尝试启动。</p>
+</li>
+<li class="calibre10"><p class="calibre1">有一个孤立的 PostgreSQL 进程还在运行。如果前述方法都试过了但问题仍未解决，请终止所有还在运行的 PostgreSQL 进程然后再次尝试启动。</p>
+</li>
+</ul>
+
+<p class="calibre4" style="margin:0pt; border:0pt; height:1em" id="calibre_pb_45"> </p>
+</body></html>

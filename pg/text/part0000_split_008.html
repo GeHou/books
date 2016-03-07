@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_6" class="calibre6"><strong class="calibre2">不适用PostgreSQL的场景</strong></h2>
+<p class="calibre1">PostgreSQL 从一开始就被设计为一个通用的事务型数据库。很多人把它用在小型的桌面应用程序中，就类似一个 SQL Server Express 免费版或者是 Oracle Express 免费版。但这种用法存在的问题是：作为一个独立的数据库系统，PostgreSQL 自身会进行全面的安全管理（比如用户登录机制，这个机制在嵌入式场景下是不需要的），这些都是要耗费性能的，但 PostgreSQL 又无法取消安全机制并将其交由上层应用去管理，因此单用户应用场景下 PostgreSQL 可能不是最好的选择。此种场景下 SQLite 或者 Firebird 是更合适的选择，因为用户权限管理、安全检查和 DB 操作日志功能都是由上层应用自己完成的。</p>
+<p class="calibre1">令人遗憾的一个事实是，很多共享主机（多个租户共享同一个操作系统）供应商并不支持预安装 PostgreSQL，或者只支持安装一个很陈旧的版本。因此，如果在使用共享主机服务，你可能就不得不使用 MySQL。本书第 1 版出版以后，这个情况有了很大改善。目前虚拟专用主机和云服务器（每个租户独享一个操作系统，多租户之间互不干扰）的租用价格已经趋于合理，而且会越来越便宜。与共享主机相比，其价格不会高出很多，而且可以在上面安装任何你希望安装的软件。因此选择专用的云主机服务会是比较明智的做法，因为你可以安装 PostgreSQL 的最新稳定版，而无需受制于与其他租户共享主机时的种种限制。此外，主流的 PaaS 平台均已支持 PostgreSQL，而且一般都支持最新的发行版。这些主流平台包括：SalesForce Heroku PostgreSQL、Engine Yard、Red Hat OpenShift，以及 Amazon RDS for PostgreSQL。</p>
+<p class="calibre1">PostgreSQL 的功能极其强大，强大到“令人生畏”。它绝对不是一套仅仅能做些数据存储的小软件，它是如同一只聪慧的大象般智能又强大的大型系统。如果你所需要的仅仅是一个键 - 值存储，或者一个只要能装数据就行的小软件，那么 PostgreSQL 必定会远比你的期望强大百倍。</p>
+</body></html>

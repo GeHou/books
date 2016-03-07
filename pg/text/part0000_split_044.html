@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_93" class="calibre6"><strong class="calibre2">4.3　pgScript脚本机制</strong></h2>
+<p class="calibre1">pgScript 是 pgAdmin 内置的一种脚本机制，非常适合于重复执行 SQL 任务的场景。相比 PostgreSQL 的函数机制，pgScript 对内存的使用更合理因而执行效率更高。pgScript 机制之所以能达到这种效果，是因为 PostgreSQL 函数机制会将所有工作在最后一次性批量提交，此前未提交的工作成果都保存在内存中。相比之下，pgScript 在运行脚本时每执行一条 SQL 语句就提交一次，这样就使得 pgScript 特别适合执行会消耗大量内存而又不需要作为一个完整事务来提交的任务。一旦某个事务被提交，则该事务占用的内存会立即被释放，这部分内存即可用于下一个事务。在“使用 pgScript 实现地理编码”这篇博文（<a href="http://www.postgresonline.com/journal/archives/181-pgAdmin-pgScript.html" class="calibre5">http://www.postgresonline.com/journal/archives/181-pgAdmin-pgScript.html</a>）中你可以看到我们所做的示例。</p>
+<p class="calibre1">pgScript 脚本语言是一种弱类型语言（即定义变量时无需明确指定其类型），支持条件判断、循环、数据生成器、基本的打印函数以及记录型变量，其语法与微软 SQL Server 数据库所使用的 Transact-SQL 语法类似。前面加 <code class="calibre11">@</code> 的是变量，可以存放标量或数组，包括 SQL 命令的执行结果。<code class="calibre11">DECLARE</code>、<code class="calibre11">SET</code>、<code class="calibre11">IF-ELSE</code>、<code class="calibre11">WHILE</code> 等语法在 pgScript 中都支持。</p>
+<p class="calibre1">可以在 SQL 查询执行窗口中来执行 pgScript。在窗口中输入脚本后，点击 pgScript 图标来执行（<img src="../images/00025.gif" alt="{%}" class="calibre17"/>）。</p>
+<p class="calibre1">以下我们将演示一些 pgScript 脚本的例子。示例 4-1 演示了如何使用 pgScript 记录型变量和循环语法来构建一个交叉表，使用的基础表是 <code class="calibre11">lu_fact_types</code>，该表是我们在示例 7-18 中创建的。以下 pgScript 脚本中创建了一个名为 <code class="calibre11">census.hisp_pop</code> 的空表，该表有以下数字型列：<code class="calibre11">hispanic_or_latino</code>、<code class="calibre11">white_alone</code> 和 <code class="calibre11">black_or_african_american_alone</code>，以及其他一些列。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 4-1</strong>：在 pgScript 中使用记录型变量建表</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">DECLARE @I, @labels, @tdef;
+SET @I = 0;
+
+变量labels将用于存放记录。
+SET @labels =
+    SELECT
+        quote_ident(
+            replace(
+                replace(lower(COALESCE(fact_
+subcats[4], fact_subcats[3])), ' ', '_'),':',''
+            )
+        ) As col_name,
+    fact_type_id
+    FROM census.lu_fact_types
+    WHERE category = 'Population' AND fact_subcats[3] ILIKE 'Hispanic or Latino%'
+    ORDER BY short_name;
+
+SET @tdef = 'census.hisp_pop(tract_id varchar(11) PRIMARY KEY ';
+
+使用LINES函数来循环遍历每一条记录。
+WHILE @I &lt; LINES(@labels)
+BEGIN
+    SET @tdef = @tdef + ', ' + @labels[@I][0] + ' numeric(12,3) ';
+    SET @I = @I + 1;
+END
+
+SET  @tdef = @tdef + ')';
+
+打印表def。
+PRINT @tdef;
+
+创建表。
+CREATE TABLE @tdef;
+
+</code></pre>
+<p class="calibre1">尽管 pgScript 中没有专门用于执行动态 SQL 的命令，但我们可以通过示例 4-1 中所示的方法来实现执行动态 SQL，即将 SQL 字符串分配给某个变量。我们在下面的示例 4-2 中更加深入地挖掘了 pgScript 的功能，该示例中我们对上面刚刚创建好的 <code class="calibre11">census.hisp_pop</code> 表进行了填充操作。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 4-2</strong>：使用 pgScript 循环填充表</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">DECLARE @I, @labels, @tload, @tcols, @fact_types;
+SET @I = 0;
+SET @labels =
+    SELECT
+        quote_ident(
+            replace(
+                replace(
+                    lower(COALESCE(fact_subcats[4], fact_subcats[3])), ' ', '_'),':',''
+            )
+        ) As col_name,
+    fact_type_id
+    FROM census.lu_fact_types
+    WHERE category = 'Population' AND fact_subcats[3] ILIKE 'Hispanic or Latino%'
+    ORDER BY short_name;
+
+SET @tload = 'tract_id';
+SET @tcols = 'tract_id';
+SET @fact_types = '-1';
+
+WHILE @I &lt; LINES(@labels)
+BEGIN
+    SET @tcols = @tcols + ', ' + @labels[@I][0] ;
+    SET @tload = @tload +
+        ', MAX(CASE WHEN fact_type_id= ' +
+        CAST(@labels[@I][1] AS STRING) +
+        ' THEN val ELSE NULL END)';
+    SET @fact_types = @fact_types + ', ' + CAST(@labels[@I][1] As STRING);
+    SET @I = @I + 1;
+END
+
+INSERT INTO census.hisp_pop(@tcols)
+SELECT @tload FROM census.facts
+WHERE fact_type_id IN(@fact_types) AND yr=2010
+GROUP BY tract_id;
+
+</code></pre>
+<p class="calibre1">从上面的示例中可以学到的一点是：可以动态地往一个变量中一点点加入 SQL 语句的零碎部分，最终组成一个完整的 SQL 语句。</p>
+</body></html>

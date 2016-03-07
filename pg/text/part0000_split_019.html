@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_21" class="calibre6"><strong class="calibre2">1.3　PostgreSQL数据库对象</strong></h2>
+<p class="calibre1">假设你现在已经安装好了 PostgreSQL，请启动并连接好 pgAdmin，然后点开左侧的目录树，此时展现在你面前的是一堆令人眼花缭乱的数据库对象，有些你可能很熟悉，有些则可能闻所未闻。PostgreSQL 对象类型的数量超过了绝大多数关系型数据库（这还是在未安装任何扩展包的情况下）。这些对象中，有许多你可能永远都不会用到，但如果你发现业务上需要实现一种新的对象类型，那么一般来说你要实现的东西在那一堆眼花缭乱的对象中已经有前人实现过了，所以只需要正确选用即可。本书不会介绍 PostgreSQL 以标准方式安装完毕后所提供的所有对象类型，因为 PostgreSQL 引入新特性的速度惊人，任何一本书都不可能全面覆盖所有对象类型。因此我们仅讨论你有必要了解的那些对象类型。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">服务</strong></p>
+<p class="calibre1">在大多数操作系统上，PostgreSQL 是作为一种服务（或者叫守护进程）安装的。多个 PostgreSQL 服务可以运行于同一台物理服务器上，但它们的侦听端口不能重复，也不能共享同一个数据存储目录。本书中，server（服务器）和 service（服务）这两个术语可互换使用，因为大多数人在一台物理服务器上只会安装一个服务。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">database</strong><span class="zhu_shi_bian_hao">1</span></p>
+<p class="calibre1">每个 PostgreSQL 服务可以包含多个独立的 database。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">schema</strong><span class="zhu_shi_bian_hao">2</span></p>
+<p class="calibre1">ANSI SQL 标准中对 schema 有着明确的定义，database 的下一层逻辑结构就是 schema。如果把 database 比作一个国家，那么 schema 就是一些独立的州（或者是省、府、辖区等，具体取决于各国的实际情况）。大多数对象是隶属于某个 schema 的，然后 schema 又隶属于某个 database。在创建一个新的 database 时，PostgreSQL 会自动为其创建一个名为 <code class="calibre11">public</code> 的 schema。如果未设置 <code class="calibre11">search_path</code> 变量（后续会介绍该变量的含义），那么 PostgreSQL 会将你创建的所有对象默认放入 <code class="calibre11">public</code> schema 中。如果表的数量较少，这是没问题的，但如果你有几千张表，那么我们还是建议你将它们分门别类放入不同的 schema 中。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">catalog</strong><span class="zhu_shi_bian_hao">3</span></p>
+<p class="calibre1">catalog 是系统级的 schema，用于存储系统函数和系统元数据。每个 database 创建好以后默认都会含有两个 catalog：一个名为 <code class="calibre11">pg_catalog</code>，用于存储 PostgreSQL 系统自带的函数、表、系统视图、数据类型转换器以及数据类型定义等元数据；另一个是 <code class="calibre11">information_schema</code>，用于存储 ANSI 标准中所要求提供的元数据查询视图，这些视图遵从 ANSI SQL 标准的要求，以指定的格式向外界提供 PostgreSQL 元数据信息。</p>
+<p class="calibre1">一直以来，PostgreSQL 数据库的发展都严格地遵循着其“自由与开放”的核心理念。如果你足够了解这款数据库，会发现它几乎是一种可以“自我生长”的数据库。比如，它所有的核心设置都保存在系统表中，用户可以不受限地查看和修改这些数据，这为 PostgreSQL 提供了远超任何一种商业数据库的巨大灵活性（不过从另一个角度看，将这种灵活性称为“可破坏性”也未尝不可）。只要仔细地研究一下 <code class="calibre11">pg_catalog</code>，你就可以了解到 PostgreSQL 这样一个庞大的系统是如何基于各种部件构建起来的。如果你有超级用户权限，那么可以直接修改 <code class="calibre11">pg_catalog</code> 的内容（当然，如果改得不对，那你的行为就跟搞破坏没什么两样了）。</p>
+<p class="calibre1"><code class="calibre11">Information_schema catalog</code> 在 MySQL 和 SQL Server 中也有。PostgreSQL <code class="calibre11">Information_schema</code> 中最常用的视图一般有以下几个：<code class="calibre11">columns</code> 视图，列出了数据库中的所有表列；<code class="calibre11">tables</code> 视图，列出了数据库中的所有表（包括视图）；<code class="calibre11">views</code> 视图，列出了所有视图以及用于构建或重新构建该视图的关联 SQL。同样，在 MySQL 和 SQL Server 中也有这些视图，不过它们所含的列没有 PostgreSQL 那么多。PostgreSQL 另外添加了几个用于描述自定义数据类型列的列，比如 <code class="calibre11">columns.udt_name</code>。</p>
+<p class="calibre1">尽管 <code class="calibre11">columns</code>、<code class="calibre11">tables</code>、<code class="calibre11">views</code> 这三个元数据视图本身也是标准的 PostgreSQL 视图，但由于其身份的特殊性，pgAdmin 界面中还是把它们放在了 information_schema → Catalog Objects 分支下。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">变量</strong></p>
+<p class="calibre1">变量是 PostgreSQL 统一配置机制（GUC）的一部分，是可以在多个级别进行设置的各种选项，这些级别包括服务级、database 级以及其他级别。很多人容易在 <code class="calibre11">search_path</code> 这个选项上犯错，该选项的工作机制是：如果在 <code class="calibre11">search_path</code> 中指定了 schema 的名称，那么该 schema 资产在使用时就无需显式指定其 schema 名，系统会按照 <code class="calibre11">search_path</code> 中登记的 schema 名按顺序逐个搜索。2.4.2 节会对 <code class="calibre11">search_path</code> 进行详细讨论。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">扩展包</strong></p>
+<p class="calibre1">PostgreSQL 9.1 版中引入了对于扩展包机制的支持。开发人员可以通过该机制将一组相关的函数、数据类型、数据类型转换器、用户自定义索引、表以及 GUC 等对象打包成一个功能扩展包，该扩展包可以整体安装或者整体删除。扩展包在概念上与 Oracle 的 package 类似，一般推荐使用该机制来为数据库提供功能扩展。关于扩展包的具体安装步骤，请参考开发手册。一般来说需要先将扩展包的二进制安装包和脚本复制到服务器，然后再为需要该扩展包功能的 database 单独安装。</p>
+<p class="calibre1">假设你需要用到某个扩展包的功能，那么仅需将其安装到对应的 database 中即可，而不必为当前数据库系统中的每个 database 都安装一遍。比如需要对某个 database 中的数据进行高级文本搜索，那么单独为该 database 安装 <code class="calibre11">fuzzystrmatch</code> 扩展包即可。安装扩展包时可以指定装到哪个 schema，若不指定则默认会装到 <code class="calibre11">public</code> schema 中。我们不建议这么做，因为这会导致 <code class="calibre11">public</code> schema 变得庞大复杂且难以管理，尤其是如果你将自己的数据库对象也都存入 <code class="calibre11">public</code> schema 中，那么情况会变得更糟糕。我们建议你创建一个独立的 schema 用于存放所有扩展包的对象，甚至为规模较大的扩展包单独创建一个 schema。为避免出现找不到新增扩展包对象的问题，请将这些新增的 schema 名称加入 <code class="calibre11">search_path</code> 变量中，这样就可以直接使用扩展包的功能而无需关注它到底装到了哪个 schema 中。也有一些扩展包明确要求必须安装到某个 schema 下，这种情况下你就不能自行指定了。例如有很多语言扩展包，比如 plv8，就要求必须安装到 <code class="calibre11">pg_catalog</code> 中。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">表</strong></p>
+<p class="calibre1">任何一个数据库中，表都是最核心和最“忙碌”的对象类型。在 PostgreSQL 中，表首先属于某个 schema，而 schema 又属于某个 database，这样就构成了一种三级存储结构。</p>
+<p class="calibre1">PostgreSQL 的表支持两种很强大的功能。第一种是表继承，即一张表可以有父表和子表。这种层次化的结构可以极大地简化数据库设计，还可以为你省掉大量的重复查询代码。我们将在本书后面的示例 6-2 中介绍表继承机制。</p>
+<p class="calibre1">第二种是创建一张表的同时，系统会自动为此表创建一种对应的自定义数据类型。换句话说，你可以将某个完整的数据结构定义为一个表，然后将该表用作另一个表中的一个列。关于这种复合数据类型的更多细节，请参见 5.8 节。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">外部表和外部数据封装器</strong></p>
+<p class="calibre1"><strong class="calibre2">外部表</strong>的首次亮相是在 9.1 版中。它们是一些虚拟表，通过它们可以直接在本地数据库中访问来自外部数据源的数据。只要数据映射关系配置正确，那么外部表的用法就与普通表没有任何区别。外部表支持映射到以下类型的数据源：CSV 文件、另一个服务器上的 PostgreSQL 表、SQL Server 或 Oracle 这些异构数据库中的表、Redis 这样的 NoSQL 数据库或者甚至像 Twitter 或 Salesforce 这样的 Web 服务。外部表映射关系的建立是通过配置<strong class="calibre2">外部数据封装器</strong>（Foreign Data Wrapper，FDW）实现的。FDW 是 PostgreSQL 和外部数据源之间的一架“魔法桥”，可实现两边数据的互联互通。其内部实现机制遵循 SQL 标准中的 MED（Management of External Data）规范，更多细节请参考维基百科上关于 MED 的描述（<a href="http://en.wikipedia.org/wiki/SQL/MED" class="calibre5">http://en.wikipedia.org/wiki/SQL/MED</a>）。</p>
+<p class="calibre1">许多编程人员已经为当下绝大部分流行的数据源开发了 FDW 并已免费共享出来。你也可以通过创建自己的 FDW 来练习。（我们建议你一旦成功了也公布出来，这样整个社区都可以分享你的劳动成果。）FDW 是通过扩展包机制实现的，装好以后在 pgAdmin 界面上名为 Foreign Data Wrapper 的目录节点下能看到它。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">表空间</strong></p>
+<p class="calibre1">表空间是用于存储数据的物理空间。PostgreSQL 将用于物理存储的表空间和用于逻辑存储的 schema 分开管理，二者之间并无耦合关系。这样就很容易在不影响业务应用逻辑的情况下，将 database 甚至是单张表和索引在不同的物理驱动器之间进行移动。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">视图</strong></p>
+<p class="calibre1">大多数关系型数据库都支持视图，通过视图可以大大简化复杂的查询逻辑，另外也可以通过对视图执行更新操作来修改其基表数据。PostgreSQL 也不例外，从 9.3 版开始支持对基于单表的视图直接使用 SQL 进行更新操作，这样就不需要再写额外的规则或者触发器来实现对此类简单视图的更新。但对于包含更复杂逻辑的视图，或者是基于多张表的视图，对其进行数据更新操作时仍需编写规则或者触发器。9.3 版还引入了对物化视图的支持，该机制通过对视图数据进行缓存来实现对常用查询的加速。更多细节请参见 7.1.3 节。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">函数</strong></p>
+<p class="calibre1">PostgreSQL 中函数执行后的返回结果可以是一个标量值或几个记录集。可以在函数中对表数据进行修改，其他数据库对于这种会修改表记录的函数一般称为存储过程。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">内置编程语言</strong></p>
+<p class="calibre1">函数是以过程化语言（Procedural Language，PL）编写的。PostgreSQL 默认支持三种内置编程语言：SQL、PL/pgSQL 以及 C 语言。可以通过 <code class="calibre11">CREATE EXTENSION</code> 或者 <code class="calibre11">CREATE PRODCEDURAL LANGUAGE</code> 命令来安装其他语言包。目前较常用的语言有 Python、JavaScript、Perl 以及 R。第 8 章中有大量的相关示例。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">运算符</strong></p>
+<p class="calibre1">运算符本质上是符号化的已命名函数（例如 <code class="calibre11">=</code>、<code class="calibre11">&amp;&amp;</code> 等），它需要一个或者两个实参（argument），底层有一个相应的函数来实现其运算逻辑。PostgreSQL 支持自定义运算符。如果你定义了自己的数据类型，那么可定义一些运算符来与之配合工作。比如可以为自定义数据类型定义 <code class="calibre11">=</code> 运算符。你甚至可以为两个完全不同的数据类型定义一个运算符，来对其进行比较运算。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">数据类型（或者仅仅类型）</strong></p>
+<p class="calibre1">每种数据库产品都会支持一系列的数据类型，比如整型、字符型、数组，等等。除前述常见类型外，PostgreSQL 还支持<strong class="calibre2">复合数据类型</strong>，这种类型可以是多种数据类型的一个组合，比如虚数、极坐标、张量都是复合数据类型。如果你定义了自己的复合数据类型，那么可以创建一组函数和运算符来配合它工作，可以做得很专业，很复杂，很“高端”，比如自定义实现 <code class="calibre11">div</code>（散度运算）、<code class="calibre11">grad</code>（梯度运算）和 <code class="calibre11">curls</code>（旋度运算）等。哪位读者若有兴趣，可以试一下。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">数据类型转换器</strong></p>
+<p class="calibre1">cast 是数据类型转换器，就是将一种数据类型转换为另一种类型的工具。转换器在其底层其实是通过调用转换函数来实现真正的转换逻辑的。PostgreSQL 的独到之处在于支持用户自定义转换器，这样就可以改变系统默认的转换行为。例如，如果你需要把邮政编码（美国的邮政编码是一个 5 位的整数）从 <code class="calibre11">integer</code> 转换为 <code class="calibre11">character</code>，那么可以自定义一个支持“数字不足 5 位则前面自动补 0”规则的转换器。转换器可以被<strong class="calibre2">隐式</strong>调用也可以被<strong class="calibre2">显式</strong>调用。隐式转换是系统自动执行的，一般来说，将一种特定数据类型转为更通用的数据类型（比如数字转换为字符串）时就会发生隐式类型转换。如果进行隐式转换时系统找不到合适的转换器，你就必须显式执行转换动作。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">序列</strong></p>
+<p class="calibre1">序列控制 serial 数据类型的自动递增。在 PostgreSQL 中定义 serial 列时，PostgreSQL 会自动创建序列，但你很容易更改初始值、增量和下一个值。因为序列是独立对象，所以多个表可以使用同一个序列对象。这样你可以创建跨越多个表的独特键值。SQL Server 和 Oracle 也都有序列对象，但必须手动创建。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">行或记录</strong></p>
+<p class="calibre1">本书中，“行”和“记录”这两个术语可互换使用。在 PostgreSQL 中，“记录”这个概念可以脱离表而独立存在。当你在函数或者在 SQL 语句中使用记录构造函数语法（语法类似于：<code class="calibre11">SELECT ROW(1,2.5,'this is a test')</code>）时，会对这一点有深刻体会。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">触发器</strong></p>
+<p class="calibre1">绝大多数企业级数据库都支持触发器机制，该机制可以实现对数据修改事件的捕获，并在之后触发用户自定义的操作行为。触发器的触发时机是可设置的，可以是语句级触发或者记录级触发，可以是修改前触发也可以是修改后触发。</p>
+<p class="calibre1">PostgreSQL 的触发器技术正在快速的演进之中。9.0 版引入了对 <code class="calibre11">WITH</code> 子句的支持，通过它可以实现带条件的记录级触发，即只有当某条记录符合指定的 <code class="calibre11">WHEN</code> 条件时，触发器才会被调用。9.0 版还引入了 <code class="calibre11">UPDATE OF</code> 子句，通过它可以指定要监控哪些列的更改。当列更改时，就会触发触发器，详情请参见第 8 章中的示例 8-11。在 9.1 版中，视图中的数据更改可以触发触发器。在 9.3 版中，数据定义语言（DDL）事件可以触发触发器。目前支持触发器的 DDL 命令列表请参见官方手册中“触发器触发时机一览表”（<a href="http://www.postgresql.org/docs/9.4/interactive/event-trigger-matrix.html" class="calibre5">http://www.postgresql.org/docs/9.4/interactive/event-trigger-matrix.html</a>）。在 9.4 版中，针对外部表的触发器也获得了支持。请参考官方文档中“创建触发器”（<a href="http://www.postgresql.org/docs/current/interactive/sql-createtrigger.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/sql-createtrigger.html</a>）这一节的内容以获取更多信息。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">规则</strong></p>
+<p class="calibre1">规则是一种能够将一种动作替换为另一种动作的机制。PostgreSQL 内部就是使用此机制来实现视图的。比如我们定义了这样一个视图：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE VIEW vw_pupils AS SELECT * FROM pupils WHERE active;
+
+</code></pre>
+<p class="calibre1">实际上 PostgreSQL 在后台自动创建了一个 <code class="calibre11">INSTEAD OF SELECT</code> 类型的规则，其内容是：当查询名为 <code class="calibre11">vw_pupils</code> 的表时，自动重定向为查询 <code class="calibre11">pupils</code> 表中 <code class="calibre11">active</code> 字段值为 <code class="calibre11">true</code> 的记录。</p>
+<p class="calibre1">规则还可以用于替代一些特定的简单触发器。通常情况下，在对记录行进行更新 / 插入 / 删除操作时会调用触发器。规则却不一样，它的运作机理是修改用户原本的行为逻辑（也就是你执行的 SQL 语句本身），或者是在用户原有逻辑的基础上额外附加一些 SQL 逻辑。相比触发器而言，这种整体取而代之的方式避免了针对每条记录都调用一次触发器所造成的负担。一般来说，如果你希望在数据修改时加载自定义逻辑，我们还是推荐使用触发器而不是规则。很多 PostgreSQL 用户认为规则是过时的技术，因为出问题时很难诊断，而且规则只支持用 SQL 语法来编写，PostgreSQL 所支持的其他编程语言则无用武之地。</p>
+</li>
+</ul>
+<p class="zhu_shi_nei_rong"><span class="zhu_shi_bian_hao_xia">1</span>database 一词含义宽泛，既可表示广义的数据库系统，又可以表示某些特定数据库系统中的某一级数据存储单位，如表述不当极易给读者造成混淆。因此本书中会区别使用，表示广义的数据库系统时，用中文“数据库”；表示狭义的数据存储单位时，用英文“database”。——译者注</p>
+<p class="zhu_shi_nei_rong"><span class="zhu_shi_bian_hao_xia">2</span>数据库业界对于 schema 有多种译法：纲要、模式、方案，等等。但各种译法都不能准确直观地表达出其原本的含义，即位于一个独立命名空间内的一组相关数据库对象的集合，因此前述译法从来没有一种成为主流。一般业界人员都直接使用英文 schema。考虑到这个情况，为防止初级用户理解困难，我们也按照业界习惯直接使用英文原名。——译者注</p>
+<p class="zhu_shi_nei_rong"><span class="zhu_shi_bian_hao_xia">3</span>catalog 的译法与 schema 存在相同的问题，翻译为“目录”后并不能让读者准确地理解其原意，反而容易造成混淆，因此还是沿用英文原名。——译者注</p>
+</body></html>

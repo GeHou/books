@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_66" class="calibre6"><strong class="calibre2">3.2　psql的两种操作模式：交互模式与非交互模式</strong></h2>
+<p class="calibre1">直接在操作系统的命令行界面上键入 <code class="calibre11">psql</code> 并回车，从操作系统提示符切换到 psql 提示符后就表示已经进入了 psql 的交互模式界面。你现在就可以执行命令了，记得要输入分号作为命令结束标记，要是不输就直接回车的话，psql 会认为命令还未输入完成，会在换行后等待继续输入。</p>
+<p class="calibre1">在 psql 界面上键入 <code class="calibre11">\?</code> 会列出交互模式下支持的所有命令。为了方便读者，我们将这些命令列表放在本书附录 B 中，并对一些最新版本中添加的条目以高亮标记，具体请参见本书附录 B 中的 B.4 节。如果在 psql 界面上键入 <code class="calibre11">\h</code> 后跟命令关键字，则会打印出该命令在 PostgreSQL 官方手册中相应的语法帮助信息。</p>
+<p class="calibre1">要在非交互模式下使用 psql，请从 OS 命令提示符执行 <code class="calibre11">psql</code>，并给其传送一个脚本文件。psql 的“非交互模式”是指在调用 psql 时直接以选项的形式指定要执行的脚本，脚本中可以含有任意数量的 SQL 和 psql 语句，然后 psql 会自动执行此脚本的内容，期间无需与用户进行交互，这就是“非交互模式”的本意。除执行脚本外，非交互模式还支持直接执行一条或多条 SQL 语句，不过语句两侧需要加上双引号。可以看出该模式特别适用于需要执行自动化任务的场景。只需要将任务内容写入脚本文件，然后用某种定时任务工具来设置好定时执行即可。定时任务工具可以采用 pgAgent（其用法在 4.5 节中有详细介绍），或者在 Linux/Unix 下可以使用 <code class="calibre11">crontab</code>，在 Windows 下可以使用定时任务规划器。如果某个任务包含很多操作，并且操作必须按顺序执行或者反复执行，那么最好是写成脚本并用 psql 定时执行。由于非交互模式下绝大多数操作逻辑都由脚本实现，因此命令行需要提供的选项很有限。要在非交互模式下执行脚本文件，只需使用 <code class="calibre11">-f</code> 选项即可：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">psql -f some_script_file
+
+</code></pre>
+<p class="calibre1">要在非交互模式下执行 SQL 语句，只需使用 <code class="calibre11">-c</code> 选项即可，如果要一次执行多个语句，语句之间请用分号分隔：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">psql -d postgresql_book -c "DROP TABLE IF EXISTS dross; CREATE SCHEMA staging;"
+
+</code></pre>
+<p class="calibre1">如需了解非交互模式下所支持的全部选项，请参见本书附录 B 中 B.5 节的介绍。</p>
+<p class="calibre1">请注意：在脚本中可以使用交互命令。假设你创建了示例 3-1 中的脚本 build_stage.psql。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 3-1</strong>：带交互式命令的脚本</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">\a \t ➊
+SELECT 'CREATE TABLE
+ staging.count_to_50 (array_to_string(array_agg('x' || i::text ' varchar(10)));' As
+create_sql ➋
+FROM generate_series(1,9) As i;
+\g create_script.sql ➌
+\i create_script.sql ➍
+
+</code></pre>
+<p class="calibre1">➊　我们希望该脚本执行后输出的结果是能直接运行的 SQL 语句，因此需要用 <code class="calibre11">\t</code> 来忽略标题栏的输出，同时使用 <code class="calibre11">\a</code> 关闭对齐模式以防止 psql 为对齐输出结果而自动加上换行符。</p>
+<p class="calibre1">➋　生成带 9 个 varchar 列的表。</p>
+<p class="calibre1">➌　使用 <code class="calibre11">\g</code> 让所有查询内容都输出到指定文件。</p>
+<p class="calibre1">➍　使用 <code class="calibre11">\i</code> 来执行指定的脚本文件。<code class="calibre11">\i</code> 的效果等同于非交互模式下的 <code class="calibre11">-f</code> 选项。</p>
+<p class="calibre1">要执行上述的示例 3-1，在操作系统命令行界面下输入以下命令行即可。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">psql -f build_stage.psql -d postgresql_book
+
+</code></pre>
+<p class="calibre1">示例 3-1 中借鉴了“如何创建一个有 N 个列的表”这篇博文（<a href="http://www.postgresonline.com/journal/archives/230-How-to-create-an-n-column-table-really-fast.html" class="calibre5">http://www.postgresonline.com/journal/archives/230-How-to-create-an-n-column-table-really-fast.html</a>）中所介绍的方法来建表。这篇文章中介绍的方法无需借助中间文件，而是采用了从 PostgreSQL 9.0 版开始 支持的 <code class="calibre11">DO</code> 命令来执行自动化建表。</p>
+</body></html>

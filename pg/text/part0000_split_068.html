@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_177" class="calibre6"><strong class="calibre2">8.1　PostgreSQL函数功能剖析</strong></h2>
+<h3 id="nav_point_178" class="calibre16"><strong class="calibre2">8.1.1　函数功能基础知识介绍</strong></h3>
+<p class="calibre1">在 PostgreSQL 中，不管你选择使用何种编程语言，所编写出来的函数的结构都是类似的，如示例 8-1 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 8-1</strong>：函数的基本结构</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE OR REPLACE FUNCTION func_name(arg1 arg1_datatype DEFAULT arg1_default)
+RETURNS some type | set of some type | TABLE (..) AS
+$$
+BODY of function
+$$
+LANGUAGE language_of_function
+
+</code></pre>
+<p class="calibre1">函数的实参列表中可以只有实参类型而没有实参名，但如果不写实参名的话，你就不能使用类似 <code class="calibre11">arg1:=...</code> 这种语法来为实参赋值。实参是可选的，也就是说调用函数时可以不填实参值，如果不填的话系统就会自动为其赋一个默认值。设计函数时，在其实参列表中应将可选实参排在必选实参之后。</p>
+<p class="calibre1">定义函数时可以添加一些标记符来优化执行效率或者提升安全性，支持的标记符列表如下。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1"><code class="calibre11">LANGUAGE</code>（<strong class="calibre2">使用的编程语言</strong>）</p>
+<p class="calibre1">指明本函数使用的编程语言，当然该语言必须在当前函数所在的 database 中已安装。执行 <code class="calibre11">SELECT lanname FROM pg_language;</code> 即可查到已安装的语言列表。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">VOLATILITY</code>（<strong class="calibre2">结果的稳定性</strong>）</p>
+<p class="calibre1">该标记符可以告诉查询规划器当该函数执行完毕后得到的结果是否可以缓存下来以供下次使用。它有以下几个可选值。</p>
+<ul class="calibre20">
+<li class="calibre10"><p class="calibre1"><code class="calibre11">IMMUTABLE</code>（结果恒定不变）</p>
+<p class="calibre1">任何情况下，只要调用该函数时使用相同的输入就总会得到相同的输出。也就是说该函数的内部逻辑对外界完全无依赖。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">STABLE</code>（结果相对稳定）</p>
+<p class="calibre1">如果在同一个查询语句中多次调用该函数，则每次调用时只要使用相同的输入就总会得到相同的输出。也就是说该函数的内部逻辑在当前 SQL 的上下文环境内是有恒定输出的。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">VOLATILE</code>（结果不稳定）</p>
+<p class="calibre1">每次调用该函数得到的结果可能都不同，即便每次都使用相同的输入也是这样。那些更改数据的函数或者那些依赖于比如系统时间这类环境设置的函数应该被标记为 <code class="calibre11">VOLATILE</code>。该项也是默认值。</p>
+<p class="calibre1">请注意，VOLATILITY 标记符仅仅是给规划器提供了一个提示信息，规划器并不一定会按照此设置来进行处理。如果函数被标记为 <code class="calibre11">VOLATILE</code>，那么规划器每次遇到此函数都会重新解析并重新执行一遍；如果被标记为别的类型，那么规划器也有可能不会对其执行结果进行缓存，因为规划器可能认为重新计算一遍反而会更快。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">STRICT</code>（严格模式）</p>
+<p class="calibre1">对于一个严格模式的函数来说，如果有任何输入为 <code class="calibre11">NULL</code>，则规划器根本不会执行这个函数就直接返回 <code class="calibre11">NULL</code>。如果未显式指定为 <code class="calibre11">STRICT</code> 模式，则函数默认都是非严格模式的。写函数时对 <code class="calibre11">STRICT</code> 限定符请务必慎用，因为用了以后可能会导致规划器不使用索引。请参考我们的博文“SQL 函数的严格模式”（<a href="http://www.postgresonline.com/journal/archives/163-STRICT-on-SQL-Function-Breaks-In-lining-Gotcha.html" class="calibre5">http://www.postgresonline.com/journal/archives/163-STRICT-on-SQL-Function-Breaks-In-lining-Gotcha.html</a>）以获取更多细节。</p>
+</li>
+</ul>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">COST</code>（<strong class="calibre2">执行成本估计</strong>）</p>
+<p class="calibre1">这是标记函数中计算操作密集程度的一个相对度量值。如果使用的是 SQL 或 PL/pgSQL 语言，则该值为 <code class="calibre11">100</code>；如果使用 C 语言，则该值为 <code class="calibre11">1</code>。该值会影响到规划器执行 <code class="calibre11">WHERE</code> 子句中的函数时的优先级，也会影响到是否对此函数进行结果集缓存的可能性判定。此值越大，则规划器会认为执行该函数需要耗费的时间越多。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">ROWS</code>（<strong class="calibre2">返回结果集的行数估计</strong>）</p>
+<p class="calibre1">仅当函数返回的是一个结果集时此标记符才有用。该值是返回的结果集中记录数的一个估计值。规划器会利用此数值来为此函数分析得出最佳的执行策略。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">SECURITY DEFINER</code>（<strong class="calibre2">安全控制符</strong>）</p>
+<p class="calibre1">如果设置了安全控制符，则会以创建此函数的用户的权限执行此函数；如果未设置，则会以调用此函数的用户的权限执行此函数。如果某用户对某张表没有操作权限而又需要操作该表，那么就可以让创建该表的用户提供一个带 <code class="calibre11">SECURITY DEFINER</code> 标识的函数来对此表进行操作。可以看出，当需要进行表的访问权控制时，这个安全控制符还是很有用的。</p>
+</li>
+</ul>
+<h3 id="nav_point_179" class="calibre16"><strong class="calibre2">8.1.2　触发器和触发器函数</strong></h3>
+<p class="calibre1">任何一个功能健全的数据库都支持触发器功能。借助触发器机制可以实现自动捕捉数据变化事件并进行相应处理。PostgreSQL 既支持对表建触发器也支持对视图建触发器。</p>
+<p class="calibre1">可以指定触发器在语句级或者记录级被触发。对语句级触发器来说，每执行一条 SQL 语句只会被触发一次；对记录级触发器来说，SQL 语句执行过程中每修改一条记录就会被触发一次。例如，假设你对某表执行了一个 <code class="calibre11">UPDATE</code> 语句，更新了 1500 条记录。那么该表上的语句级触发器只会触发一次，而记录级触发器会触发 1500 次。</p>
+<p class="calibre1">你还可以更加精细化设置触发器的触发时机，系统支持 <code class="calibre11">BEFORE</code>、<code class="calibre11">AFTER</code> 以及 <code class="calibre11">INSTEAD OF</code> 这三种时机。<code class="calibre11">BEFORE</code> 类的触发器会在语句执行之前或者记录行被修改之前触发，你可以借此时机来取消此次修改或者对要修改的数据进行预先备份。<code class="calibre11">AFTER</code> 类的触发器会在语句执行之后或者记录行被修改之后触发，你可以借此时机来获得修改后的新值，该类触发器一般用于记录修改日志或者进行数据复制。<code class="calibre11">INSTEAD OF</code> 类的触发器会将原语句的操作内容替换掉。<code class="calibre11">BEFORE</code> 和 <code class="calibre11">AFTER</code> 类型的触发器只能用于表，而 <code class="calibre11">INSTEAD OF</code> 类触发器只能用于视图。</p>
+<p class="calibre1">你还可以在定义触发器时加上 <code class="calibre11">WHEN</code> 条件来限定只有那些满足了筛选条件的记录被修改时才激活该触发器；也可以通过加上“<code class="calibre11">UPDATE OF</code>+ 字段列表”子句来指定只有修改了特定的列时才激活该触发器。如果希望更加深入细致地了解触发器与主体语句之间的触发联动机制，请参考 PostgreSQL 官方手册中的“触发器行为概览”（<a href="http://www.postgresql.org/docs/current/interactive/trigger-definition.htmls" class="calibre5">http://www.postgresql.org/docs/current/interactive/trigger-definition.htmls</a>）一节的内容。我们还在示例 7-4 中演示了一个视图触发器的用法。</p>
+<p class="calibre1">PostgreSQL 提供了一种专门用于处理触发器逻辑的函数，这类函数被称为触发器函数，其 行为模式与其他函数完全类似，内部的代码结构也相同。触发器函数与普通函数的唯一区 别在于输入形参和输出类型。触发器函数从不需要实参，因为可以在函数内部访问数据并 对其进行修改。</p>
+<p class="calibre1">触发器函数的返回值永远是 <code class="calibre11">trigger</code> 类型。PostgreSQL 的触发器函数与别的普通函数机制完全类似，因此一个触发器函数可以被多个触发器公用。几乎没有哪家数据库能支持该特性，因为一般数据库中都是把触发器和触发器函数作为一个完整的对象绑定在一起的，这样的触发器处理逻辑无法被别的触发器重用。</p>
+<p class="calibre1">在 PostgreSQL 中，每个触发器有且仅有一个配套的触发器函数。如果由于业务需要必须将逻辑分散到多个触发器函数中，那么就得创建多个触发器来调用它们，这些触发器的触发事件可以相同也可以不同，如果触发事件相同的话，那么系统会将触发器名称按字典顺序进行排序，然后逐个触发。后面一个触发器可以看到前面一个触发器的修改结果。每一个触发器并不是一个独立的事务，因此如果在某个触发器中执行了回滚操作，那么在此触发器之前执行过的触发器修改都会被回滚掉。</p>
+<p class="calibre1">你可以使用 PostgreSQL 支持的任何一种编程语言来编写触发器函数，但请注意不能使用 SQL，因为它不是过程式语言。SQL 对应的过程式语言是 PL/pgSQL，它也是目前为止在 PostgreSQL 环境中使用最广泛的语言。8.3.2 节会介绍相关的用法。</p>
+<h3 id="nav_point_180" class="calibre16"><strong class="calibre2">8.1.3　聚合操作</strong></h3>
+<p class="calibre1">大多数其他数据库仅允许使用 ANSI SQL 标准中定义的那些聚合函数，比如 <code class="calibre11">MIN</code>、<code class="calibre11">MAX</code>、<code class="calibre11">AVG</code>、<code class="calibre11">SUM</code> 以及 <code class="calibre11">COUNT</code> 等。在 PostgreSQL 中则无此限制，你可以自行实现比以上函数功能更复杂的聚合函数。在 PostgreSQL 中，一个聚合函数同时也可以作为窗口函数（相关概念请 参见 7.4 节）来使用，因此你可以实现事半功倍的效果。</p>
+<p class="calibre1">你可以使用PostgreSQL所支持的包括SQL语言在内的几乎任何语言来编写聚合函数。一个聚合函数一般是基于一个或者多个子函数实现的。首先至少得有一个状态转换函数，该函数会反复执行多次以将输入的多行记录聚合为一个单独的结果。你还可以建立用于处理初始状态和终结状态的函数，不过这两个函数是可选的。前述这几类函数都是聚合函数的子函数，它们可以使用不同的编程语言来实现，我们在“PostgreSQL 的聚合函数”（<a href="http://www.postgresonline.com/journal/index.php?/plugin/tag/aggregates" class="calibre5">http://www.postgresonline.com/journal/index.php?/plugin/tag/aggregates</a>）这篇博文中演示了基于 PL/pgSQL、PL/Python 和 SQL 等多种语言的子函数构造而成的聚合函数实例。</p>
+<p class="calibre1">不管你使用何种编程语言来编写这些子函数，最终将它们整合为一个聚合函数的语法是一样的，如下所示。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE AGGREGATE my_agg (input data type) (
+SFUNC=state function name,
+STYPE=state type,
+FINALFUNC=final function name,
+INITCOND=initial state value, SORTOP=sort_operator
+);
+
+</code></pre>
+<p class="calibre1"><code class="calibre11">SFUNC</code> 状态切换函数（这个名称不够直观，此处所谓的“状态”是指在聚合运算过程中每处理完一条记录后得到的中间结果）是实现聚合运算的逻辑主体，它会将自身上一次被调用后生成的计算结果作为本次计算的输入，同时输入的还有当前新一条的待处理记录，这样将所有记录一条条累积处理完毕后，就得到了基于整个目标记录集的“状态”，也就是最终的聚合结果。有的情况下，<code class="calibre11">SFUNC</code> 处理得到的结果就是聚合函数需要的最终结果，但另外一些情况下 <code class="calibre11">SFUNC</code> 处理完毕的结果还需要再进行最终加工才是我们想要的聚合结果，<code class="calibre11">FINALFUNC</code> 就是负责这个最终加工步骤的函数。<code class="calibre11">FINALFUNC</code> 是可选的，由于它的作用是对 <code class="calibre11">SFUNC</code> 函数的输出结果做最后加工，因此该函数的输入一定是 <code class="calibre11">SFUNC</code> 函数的输出。<code class="calibre11">INITCOND</code> 也是可选的，如果设定了该条目，那么其值会被作为 <code class="calibre11">SFUNC</code> 函数的“状态”的初始值。</p>
+<p class="calibre1">最后的 <code class="calibre11">SORTOP</code> 也是可选的，其值是类似于 <code class="calibre11">&gt;</code> 或 <code class="calibre11">&lt;</code> 这样的运算符，它的作用是为类似 <code class="calibre11">MAX</code>、<code class="calibre11">MIN</code> 这样的排序操作指定排序运算符。指定了 <code class="calibre11">SORTOP</code> 运算符后，规划器会使用索引来进行 <code class="calibre11">MAX</code>、<code class="calibre11">MIN</code> 这样的聚合运算，由于索引是有序的，所以可以快速定位到索引的头部或者尾部寻找 <code class="calibre11">MAX</code>、<code class="calibre11">MIN</code> 值，这样就不需要对所有记录逐条进行大小值判断，整体运算速度就得以极大提升。不过 <code class="calibre11">SORTOP</code> 运算符的使用有一个先决条件，那就是在聚合运算的目标表上，以下两条语句的执行结果必须完全相同。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT agg(col) FROM sometable;
+
+SELECT col FROM sometable ORDER BY col USING sortop LIMIT 1;
+
+</code></pre>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00001.gif" alt="" width="7%" class="calibre12"/>　在 PostgreSQL 9.4 版中，<code class="calibre11">CREATE AGGREGATE</code> 语法得到了强化，新增了对移动窗口聚合函数的支持，该特性对于窗口可移动的窗口函数是很有意义的。更多详情请参考 9.4 版官方手册中的“创建聚合函数”这一节（<a href="http://www.postgresql.org/docs/9.4/interactive/sql-createaggregate.html" class="calibre5">http://www.postgresql.org/docs/9.4/interactive/sql-createaggregate.html</a>）的内容。</p>
+</blockquote>
+<p class="calibre1">一般来说聚合函数只针对一个列进行聚合运算，比如 <code class="calibre11">MAX</code>、<code class="calibre11">MIN</code>、<code class="calibre11">AVG</code> 等，但事实上完全可以建立针对多个列进行聚合运算的聚合函数。如果你需要这样的多列聚合函数，请参考“如何创建基于多个列的聚合函数”（<a href="http://www.postgresonline.com/journal/archives/105-How-to-create-multi-column-aggregates.html" class="calibre5">http://www.postgresonline.com/journal/archives/105-How-to-create-multi-column-aggregates.html</a>）这篇博文来了解具体的实现方法。</p>
+<p class="calibre1">前面已经介绍过聚合函数是可以使用 SQL 来编写的。SQL 是一种极其易用的语言，你不需要关心那些各式各样的流程控制语句（因为 SQL 中不支持），而且你也很有可能对 SQL 已经很熟悉，因此上手更加简单。当编写聚合函数时，仅仅使用 SQL 就可以实现很强大的功能。我们将在 8.2.2 节中介绍相关内容。</p>
+<h3 id="nav_point_181" class="calibre16"><strong class="calibre2">8.1.4　受信与非受信语言</strong></h3>
+<p class="calibre1">PostgreSQL 支持的函数语言可按照信任级别分为两类：受信语言与非受信语言。很多语言（但并不是所有）同时提供了受信与非受信版本。这里所说的“受信”是指该语言不可能对数据库服务器的底层操作系统造成任何破坏。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">受信语言</strong></p>
+<p class="calibre1">受信语言不具备直接访问数据库服务器底层文件系统的权限，因此在该类语言中不能直接执行操作系统级命令。任何权限级别的用户都可以使用受信语言创建函数。包括 SQL、PL/pgSQL、PL/Perl 在内的语言都是受信语言。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><strong class="calibre2">非受信语言</strong></p>
+<p class="calibre1">非受信语言可以直接与操作系统进行交互，通过该类语言可以直接调用操作系统提供的函数和 Web 服务接口。PostgreSQL 中只有超级用户才有权使用非受信语言编写函数，但超级用户有权将基于非受信语言的函数的执行权限授予普通用户。一般来说，非受信语言的命名会以 U 结尾，比如 PL/PerlU、PL/PythonU 等。</p>
+</li>
+</ul>
+</body></html>

@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_115" class="calibre6"><strong class="calibre2">5.5　区间类型</strong></h2>
+<p class="calibre1"><strong class="calibre2">区间数据类型</strong>（<a href="http://www.postgresql.org/docs/current/interactive/rangetypes.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/rangetypes.html</a>）是 9.2 版引入的一项新特性，该数据类型可以定义一个值区间。由于该类型的出现，原本需要两个字段才能定义的区间现在仅使用一个字段即可。PostgreSQL 为区间类型提供了很多配套的运算符和函数，例如判定区间是否重叠，判定某个值是否落在区间内，以及将相邻的若干区间合并为一个完整的区间等。在出现区间类型之前，类似操作只能通过写函数实现，这种操作很繁琐，不仅低效而且很容易出错，并且写出的函数不一定能达到预想的效果，在对于时间类型的操作中尤其如此。在我们自己的项目中，我们在所有需要表示时间范围的表中都用上了区间类型，事实证明效果很好。我们希望你也能分享我们这一成功经验。</p>
+<p class="calibre1">有了区间类型后，就不再需要用两个字段来定义一个区间。假设我们希望定义一个大于等于 -2 小于 2 的整数区间，该区间的写法是 <code class="calibre11">[-2,2)</code>，左边中括号表示左边是闭区间，即值域包含 -2；右边小括号表示右边是开区间，即值域不包含 2。那么 <code class="calibre11">[-2,2)</code> 这个整数区间包含的元素有：-2，-1，0，1。类似地，可以知道以下整数区间所包含的元素。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1">整数区间 <code class="calibre11">(-2,2]</code> 含四个元素：<code class="calibre11">-1</code>、<code class="calibre11">0</code>、<code class="calibre11">1</code>、<code class="calibre11">2</code>。</p>
+</li>
+<li class="calibre10"><p class="calibre1">整数区间 <code class="calibre11">(-2,2)</code> 含三个元素：<code class="calibre11">-1</code>、<code class="calibre11">0</code>、<code class="calibre11">1</code>。</p>
+</li>
+<li class="calibre10"><p class="calibre1">整数区间 <code class="calibre11">[-2,2]</code> 含五个元素：<code class="calibre11">-2</code>、<code class="calibre11">-1</code>、<code class="calibre11">0</code>、<code class="calibre11">1</code>、<code class="calibre11">2</code>。</p>
+</li>
+</ul>
+<h3 id="nav_point_116" class="calibre16"><strong class="calibre2">5.5.1　离散区间和连续区间</strong></h3>
+<p class="calibre1">PostgreSQL 对离散区间和连续区间是区别对待的。整数类型或者日期类型的区间是离散区间，因为区间内每一个值都是可以被枚举出来的。数字区间或者时间戳区间就是一个连续区间，因为区间内的值有无限多。</p>
+<p class="calibre1">一个离散区间有多种表示方法，比如我们前面提到的 <code class="calibre11">[-2,2)</code> 这个例子，它就可以换用多种写法而且每种方式的效果完全一样：<code class="calibre11">[-2,1]</code>、<code class="calibre11">(-3,1]</code>、<code class="calibre11">(-3,2)</code> 和 <code class="calibre11">[-2,2)</code>。这四种写法中，PostgreSQL 规定 <code class="calibre11">[-2,2)</code> 为规范写法，并不是因为这种写法有什么优势，仅仅是因为统一后有利于运算，不用每次计算时都要先考虑是开区间还是闭区间这件事。PostgreSQL 会自动对所有的离散区间进行规范化，不管是存储还是显示时都会这么做。因此，如果你输入了一个时间区间 <code class="calibre11">(2014-1-5,2014-2-1]</code>，那么 PostgreSQL 会自动把它改写为 <code class="calibre11">[2014-01-06,2014-02-02)</code>。</p>
+<h3 id="nav_point_117" class="calibre16"><strong class="calibre2">5.5.2　原生支持的区间类型</strong></h3>
+<p class="calibre1">PostgreSQL 原生支持六种区间类型，都是关于数字型和日期时间型。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1"><code class="calibre11">int4range</code>、<code class="calibre11">int8range</code></p>
+<p class="calibre1">这是整数型离散区间，其定义符合前闭后开的规范化要求。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">numrange</code></p>
+<p class="calibre1">这是连续区间，可以用于描述小数、浮点数、或者双精度数字的区间。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">daterange</code></p>
+<p class="calibre1">这是不带时区信息的日期离散区间。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">tsrange</code>、<code class="calibre11">tstzrange</code></p>
+<p class="calibre1">这是时间戳（日期加时间）类型的连续区间，秒值部分支持小数。<code class="calibre11">tsrange</code> 不带时区信息，<code class="calibre11">tstzrange</code> 带时区信息。</p>
+</li>
+</ul>
+<p class="calibre1">对于数字类型的区间来说，如果区间的起点值或者终点值未指定，那么 PostgreSQL 会自动为其填入 <code class="calibre11">null</code> 值。理论上讲，你可以将该 <code class="calibre11">null</code> 解释为代表左侧的 <code class="calibre11">-infinity</code>（负无穷）或右侧的 <code class="calibre11">infinity</code>（正无穷）。实际上，你会受限于特定数据类型的最小值和最大值。比如对于 <code class="calibre11">int4range</code> 数据类型来说，区间 <code class="calibre11">(,)</code> 实际上代表的是 <code class="calibre11">[-2147483648,2147483647)</code>。</p>
+<p class="calibre1">对于时间类型的区间来说，<code class="calibre11">-infinity</code> 和 <code class="calibre11">infinity</code> 就是有效的上限和下限。</p>
+<p class="calibre1">除了系统原生支持的区间类型外，你还可以自定义区间类型，可以设定为离散区间也可以设定为连续区间。</p>
+<h3 id="nav_point_118" class="calibre16"><strong class="calibre2">5.5.3　定义区间的方法</strong></h3>
+<p class="calibre1">任何类型的区间都是由相同数据类型的起点值和终点值外加表示区间开闭的符号 <code class="calibre11">[</code>、<code class="calibre11">]</code>、<code class="calibre11">(</code>、<code class="calibre11">)</code> 构成。如示例 5-19 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-19</strong>：使用类型转换的方法来定义区间</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT '[2013-01-05,2013-08-13]'::daterange; ➊
+SELECT '(2013-01-05,2013-08-13]'::daterange; ➋
+SELECT '(0,)'::int8range; ➌
+SELECT '(2013-01-05 10:00,2013-08-13 14:00]'::tsrange; ➍
+
+[2013-01-05,2013-08-14)
+[2013-01-06,2013-08-14)
+
+[1,)
+("2013-01-05 10:00:00","2013-08-13 14:00:00"]
+
+</code></pre>
+<p class="calibre1">➊　定义了一个从 2013-01-05 到 2013-08-13 的日期型闭区间。请注意此处区间终点的写法是不规范的。</p>
+<p class="calibre1">➋　定义了一个从 2013-01-05 到 2013-08-13 的日期型半开半闭区间。请注意此处的写法是不规范的。</p>
+<p class="calibre1">➌　定义了一个大于 0 小于等于正无穷大的整数区间。请注意此处的写法是不规范的。</p>
+<p class="calibre1">➍　定义了一个从 2013-01-05 10:00 到 2013-08-13 14:00:00 的半开半闭连续区间。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00001.gif" alt="" width="7%" class="calibre12"/>　PostgreSQL 中的日期时间类型可以接受 <code class="calibre11">-infinity</code>（负无穷）或者 <code class="calibre11">infinity</code>（正无穷）作为其值。为了与传统写法保持一致，我们建议你还是以前闭后开方式来书写 <code class="calibre11">tsrange</code> 和 <code class="calibre11">tstarange</code> 这类连续区间，即区间起点使用左中括号“<code class="calibre11">[</code>”，区间终点使用右小括号“<code class="calibre11">)</code>”。</p>
+</blockquote>
+<p class="calibre1">区间也可以使用 <code class="calibre11">constructor range</code> 函数来定义，该函数的名称与区间名称是一致的，可以输入两个或者三个实参。示例如下：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT daterange('2013-01-05','infinity','[]');
+
+</code></pre>
+<p class="calibre1">第三个实参是区间边界开闭标识符，如果不填则默认为 <code class="calibre11">[)</code>。为清晰起见，我们建议你总是显式指定该实参，因为其默认值不是那种非常显而易见的值，容易被记错。</p>
+<h3 id="nav_point_119" class="calibre16"><strong class="calibre2">5.5.4　定义含区间类型字段的表</strong></h3>
+<p class="calibre1">时间类型区间是很常用的，假设你有一张 <code class="calibre11">employment</code> 表，表中存储了公司聘请雇员的历史记录。你可以像示例 5-20 那样用时间区间来定义一个员工在公司的服务年限，而不需要用起始时间和结束时间两个字段来表示。在本例中，我们给 <code class="calibre11">period</code> 列添加了一个索引以使用我们的区间列加速查询。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-20</strong>：建立一个带有日期区间类型字段的表</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE TABLE employment (id serial PRIMARY KEY, employee varchar(20), period dater
+ange);
+CREATE INDEX idx_employment_period ON employment USING gist (period); ➊
+INSERT INTO employment (employee, period)
+VALUES ('Alex', '[2012-04-24, infinity)'::daterange), ('Sonia', '[2011-04-24,
+2012-06-01)'::daterange), ('Leo', '[2012-06-20, 2013-04-20)'::daterange), ('Regi
+na', '[2012-06-20, 2013-04-20)'::daterange);
+
+</code></pre>
+<p class="calibre1">➊　在区间字段上建立一个 GiST 索引。</p>
+<h3 id="nav_point_120" class="calibre16"><strong class="calibre2">5.5.5　适用于区间类型的运算符</strong></h3>
+<p class="calibre1">区间类型上用得最多的两个运算符是重叠运算符（<code class="calibre11">&amp;&amp;</code>）和包含运算符（<code class="calibre11">@&gt;</code>）。要了解区间运算符的完整列表，请参考 PostgreSQL 官方手册中的“区间类型运算符”一节（<a href="http://www.postgresql.org/docs/current/interactive/functions-range.html#RANGE-OPERATORS-TABLE" class="calibre5">http://www.postgresql.org/docs/current/interactive/functions-range.html#RANGE-OPERATORS-TABLE</a>）。</p>
+<p class="calibre1"><strong class="calibre2">1. 重叠运算符</strong></p>
+<p class="calibre1">顾名思义，重叠运算符 <code class="calibre11">&amp;&amp;</code> 的作用就是判定两个区间是否有重叠部分，如果有则返回 <code class="calibre11">true</code>，否则返回 <code class="calibre11">false</code>。示例 5-21 演示了该运算符的用法，其中还使用了 <code class="calibre11">string_agg</code> 函数将雇员名单列表合并成一个文本字段。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-21</strong>：查询谁与谁曾经同时在公司工作过</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT e1.employee, string_agg(DISTINCT e2.employee, ', ' ORDER BY e2.employee) As
+colleagues
+FROM employment As e1 INNER JOIN employment As e2
+ON e1.period &amp;&amp; e2.period
+WHERE e1.employee &lt;&gt; e2.employee
+GROUP BY e1.employee;
+
+employee | colleagues
+---------+-------
+Alex     | Leo, Regina, Sonia
+Leo      | Alex, Regina
+Regina   | Alex, Leo
+Sonia    | Alex
+
+</code></pre>
+<p class="calibre1"><strong class="calibre2">2. 包含与被包含关系运算符</strong></p>
+<p class="calibre1">对于包含关系运算符 <code class="calibre11">@&gt;</code> 来说，第一个实参是区间，第二个实参是待判定的值。如果第二个实参的值是落在第一个实参的区间内的话，运算符就返回 <code class="calibre11">true</code>，否则返回 <code class="calibre11">false</code>。示例 5-22 演示了其用法：</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-22</strong>：查询当前还在公司工作的雇员名单</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT employee FROM employment WHERE period @&gt; CURRENT_DATE GROUP BY employee;
+
+employee
+----
+Alex
+
+</code></pre>
+<p class="calibre1"><code class="calibre11">&lt;@</code> 是用于判定被包含关系是否成立的运算符，它的第一个实参是待判定的值，第二个实参是区间，其用法与包含关系运算符完全一致，不再赘述。</p>
+</body></html>

@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_121" class="calibre6"><strong class="calibre2">5.6　JSON数据类型</strong></h2>
+<p class="calibre1">JSON 数据类型及其相关操作函数是从 9.2 版开始支持的。JSON 是 Web 开发领域非常流行的一种数据类型，它是 JavaScript 语言中的通用数据交换格式。9.3 版针对 JSON 类型新增了一些功能函数，用以执行读取、编辑以及转换为其他数据类型等操作。有了这些函数以后，PostgreSQL 对于 JSON 的支持力度大大增强。9.4 版引入了 <code class="calibre11">jsonb</code> 数据类型，该类型是 JSON 类型的二进制版本，它与 JSON 类型最主要的差别是 JSONB 可以支持索引而 JSON 不能。以下我们将主要介绍 9.3 版中引入的 JSON 处理函数和相关运算符。此外也会介绍如何使用 <code class="calibre11">jsonb</code>，如何使用 <code class="calibre11">jsonb</code> 与其 <code class="calibre11">json</code> 同胞共享的函数，以及如何使用 <code class="calibre11">jsonb</code> 所支持的运算符。前述运算符和函数的完整列表可参考 PostgreSQL 官方手册中“JSON 类型 的处理函数和运算符”（<a href="http://www.postgresql.org/docs/current/interactive/functions-json.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/functions-json.html</a>）这一节。</p>
+<h3 id="nav_point_122" class="calibre16"><strong class="calibre2">5.6.1　插入JSON数据</strong></h3>
+<p class="calibre1">要想在表中存储 <code class="calibre11">json</code> 数据，只需建一个 <code class="calibre11">json</code> 类型的字段即可，语法如下：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE TABLE families_j (id serial PRIMARY KEY, profile json);
+
+</code></pre>
+<p class="calibre1">示例 5-23 的语句向表中插入了一条 JSON 记录。PostgreSQL 会自动对插入的 JSON 文本进行格式检查以确保其合法。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-23</strong>：插入一条 JSON 数据记录</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">INSERT INTO families_j (profile) VALUES (
+'{"name":"Gomez", "members":[
+{"member":{"relation":"padre", "name":"Alex"}},
+{"member":{"relation":"madre", "name":"Sonia"}},
+{"member":{"relation":"hijo", "name":"Brandon"}},
+{"member":{"relation":"hija", "name":"Azaleah"}}
+]}');
+
+</code></pre>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00002.gif" alt="" width="9%" class="calibre13"/>　无效的 JSON 字符串是无法转换为 <code class="calibre11">json</code> 类型的，同样也无法将无效的 JSON 字符串存储到某个 <code class="calibre11">json</code> 列中。PostgreSQL 会在后台进行检查以确保 JSON 字符串运行良好，然后才会让 JSON 字符串驻留到数据库中。</p>
+</blockquote>
+<h3 id="nav_point_123" class="calibre16"><strong class="calibre2">5.6.2　查询JSON数据</strong></h3>
+<p class="calibre1">9.3 版中引入了多种访问 JSON 数据的函数。示例 5-24 使用了 <code class="calibre11">json_extract_path</code>、<code class="calibre11">json_array_elements</code> 以及 <code class="calibre11">json_extract_path_text</code> 这三个函数来读取表中所有家庭成员的信息。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-24</strong>：查询 JSON 数据块中的元素</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT json_extract_path_text(profile, 'name') As family, ➊ json_ex
+tract_path_text( ➋  json_array_elements( ➌   json_extract_path(profile,'mem
+bers')  ➍  ), 'member','name' ) As member
+FROM families_j;
+
+family |member
+-------+------
+Gomez  |Alex
+Gomez  |Sonia
+Gomez  |Brandon
+Gomez  |Azaleah
+
+</code></pre>
+<p class="calibre1">➊　提取出家庭的名称，以文本格式输出。</p>
+<p class="calibre1">➋　提取出家庭成员的名称，以文本格式输出。</p>
+<p class="calibre1">➌　将家庭成员信息数组中的每个元素展开为独立的 JSON 对象。</p>
+<p class="calibre1">➍　获取所有家庭成员的信息列表，作为一个独立的 JSON 对象输出。</p>
+<p class="calibre1">运算符 <code class="calibre11">-&gt;&gt;</code> 和 <code class="calibre11">#&gt;&gt;</code> 是 <code class="calibre11">json_extract_path_text</code> 的简写。<code class="calibre11">#&gt;&gt;</code> 取用某个路径数组。示例 5-25 使用这些符号运算符对示例 5-24 进行了重写。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-25</strong>：使用运算符实现与按路径读取函数相同的功能</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT profile-&gt;&gt;'name' As family, json_array_elements((profile-&gt;'members')) #&gt;&gt; '{member,name}'::text[] As member
+FROM families_j;
+
+</code></pre>
+<p class="calibre1"><code class="calibre11">json_extract_path</code> 是 <code class="calibre11">json_extract_path_text</code> 的兄弟函数，它对应的运算符是 <code class="calibre11">-&gt;</code> 和 <code class="calibre11">#&gt;</code>。</p>
+<p class="calibre1">该函数输出的执行结果是当前 JSON 对象的子对象。如果要把一个复合 JSON 对象（即包含多条记录的 JSON 对象，比如本例中的 <code class="calibre11">members</code> 对象就是一个包含了多条家庭成员信息记录的复合 JSON 对象）剥离出来并传递给别的函数做进一步处理，就需要使用 <code class="calibre11">json_extract_path</code> 函数。</p>
+<p class="calibre1">如果你使用的是 9.2 版，情况会稍微有点麻烦，因为该版本中未原生提供能方便地访问 JSON 数据的函数，但可以通过自行编写 PL/V8 函数来实现类似 9.3 版中提供的 JSON 函数的功能。我们在“使用 PLV8 语言来编写 JSON 访问函数”这篇博文（<a href="http://www.postgresonline.com/journal/archives/272-Using-PLV8-to-build-JSON-selectors.html" class="calibre5">http://www.postgresonline.com/journal/archives/272-Using-PLV8-to-build-JSON-selectors.html</a>）中介绍了如何编写 jQuery 风格的 JSON 数据访问函数。</p>
+<p class="calibre1">有若干函数可用于处理 JSON 数组数据，前面我们已经在示例 5-25 中演示了 <code class="calibre11">json_array_elements</code> 这个函数的用法。此外还有一个可以查询数组元素个数的 <code class="calibre11">json_array_length</code> 函数以及可以根据下标引用 JSON 数组元素的运算符 <code class="calibre11">-&gt;</code>。你可以级联使用多个运算符来定位到 JSON 对象内部的某个子对象，如示例 5-26 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-26</strong>：查询 <code class="calibre11">members</code> 对象的子对象</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT id, json_array_length(profile-&gt;'members') As numero, profile-&gt;'members'-
+&gt;0#&gt;&gt;'{member,name}'::text[] As primero
+FROM families_j;
+
+id | numero | primero
+---+--------+-----------
+1  |    4   | Alex
+
+</code></pre>
+<p class="calibre1">示例 5-26 中使用了 <code class="calibre11">-&gt;</code> 运算符的两种形式。<code class="calibre11">-&gt;</code> 运算符的返回结果永远是一个 <code class="calibre11">json</code> 或者 <code class="calibre11">jsonb</code> 对象，但该运算符的第二个实参要么是一个 <code class="calibre11">text</code> 字段（<code class="calibre11">json_object_field</code> 的简写），要么是一个 <code class="calibre11">integer</code>（<code class="calibre11">json_array_element</code> 的简写）。因此 <code class="calibre11">profile-&gt;'members'</code> 会返回 JSON 对象的 <code class="calibre11">members</code> 字段，该字段本身是一个包含多条记录的 JSON 数组。<code class="calibre11">-&gt;0</code> 操作提取出了 JSON 对象数组的首个元素。在本例中，<code class="calibre11">-&gt;0</code> 得到的是首个家庭成员的信息。<code class="calibre11">#&gt;&gt;'{member,name}'::text[]</code> 就是 <code class="calibre11">json_extract_path_text</code> 操作，得到的结果是首个家庭成员 JSON 对象中按照“member/name”路径寻址到的节点的文本格式的值。通过这个例子你应该可以看出来，这些运算符是可以级联使用的。<code class="calibre11">jsonb</code> 类型也有相同的运算符，不过其对应的函数分别是 <code class="calibre11">jsonb_object_field</code> 和 <code class="calibre11">jsonb_array_element</code>，可以看到就是把函数名中的“json”换成了“jsonb”，其他函数以此类推。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00002.gif" alt="" width="9%" class="calibre13"/>　JSON 数组下标是从 0 开始，但 PostgreSQL 的数组下标是从 1 开始。</p>
+</blockquote>
+<h3 id="nav_point_124" class="calibre16"><strong class="calibre2">5.6.3　输出JSON数据</strong></h3>
+<p class="calibre1">PostgreSQL 除了可以查询库中已有的 JSON 数据外，还支持将别的数据类型转换为 JSON 类型。接下来的例子里面，我们将演示系统内置的 JSON 转换函数的用法，这类函数可以将其他数据类型转换为 JSON 类型。</p>
+<p class="calibre1">示例 5-27 中，我们将使用 <code class="calibre11">row_to_json</code> 函数将前面示例 5-23 中导入的数据的部分字段转换为 JSON 数据。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-27</strong>：将多条记录转换为单个 JSON 对象（PostgreSQL 9.3 及之后的版本才支持该语句）</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT row_to_json(f) As x
+FROM (SELECT id, profile-&gt;&gt;'name' As name FROM families_j) As f;
+
+           x
+-------------------------
+{"id":1,"name":"Gomez"}
+
+</code></pre>
+<p class="calibre1">如果要将 <code class="calibre11">families</code> 表中的所有记录行整体打包转换为一个 JSON 对象，可以使用以下语法（PostgreSQL 9.2 及之后的版本均支持该语法）：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT row_to_json(f) FROM families_j As f;
+
+</code></pre>
+<p class="calibre1">“查询时将一行记录作为单个字段输出”这种功能只有 PostgreSQL 才支持。该功能对于创建复合 JSON 对象特别有用。我们将在 7.2.10 节中深入讨论此特性，并且在示例 7-16 中演示如何使用 <code class="calibre11">array_agg</code> 和 <code class="calibre11">array_to_json</code> 函数将多条记录转换为一个 JSON 对象后输出。9.3 版新增了对 <code class="calibre11">json_agg</code> 函数的支持，我们将在示例 7-17 中演示此函数的用法。</p>
+<h3 id="nav_point_125" class="calibre16"><strong class="calibre2">5.6.4　JSON类型的二进制版本：<code class="calibre11">jsonb</code></strong></h3>
+<p class="calibre1">PostgreSQL 9.4 版中引入了新的 <code class="calibre11">jsonb</code> 数据类型。从运算符的角度看，<code class="calibre11">jsonb</code> 有若干 <code class="calibre11">json</code> 类型不支持的运算符，此外二者的运算符完全相同。从处理函数角度看，二者适用的处理函数一一对应，仅在命名上略有差别，一个以“json”开头，一个以“jsonb”开头。<code class="calibre11">jsonb</code> 数据类型和 <code class="calibre11">json</code> 数据类型的关键区别如下所示。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1"><code class="calibre11">json</code> 是以原始文本格式存储的，而 <code class="calibre11">jsonb</code> 存储的是原始文本解析以后生成的二进制数据结构，该二进制结构中不再保存原始文本中的空格，存储下来的数字的形式也发生一定的变化，并且对其内部记录属性值进行了排序。例如，文本中的 <code class="calibre11">e-5</code> 这种数字会被转换为对应的小数存储。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">jsonb</code> 不允许其内部记录的键值重复，如果出现重复则会从中自动选择一条，其余的重复记录会被丢弃，但 <code class="calibre11">json</code> 类型中记录键值重复是允许的。Michael Paquier 的“利用 <code class="calibre11">jsonb</code> 类型不允许键值重复的特性来管理 <code class="calibre11">jsonb</code> 数据”博文（<a href="http://michael.otacoo.com/postgresql-2/manipulating-jsonb-data-with-key-unique/" class="calibre5">http://michael.otacoo.com/postgresql-2/manipulating-jsonb-data-with-key-unique/</a>）中演示了若干例子。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">jsonb</code> 的性能远好于 <code class="calibre11">json</code>。因为 <code class="calibre11">jsonb</code> 类型在处理过程中不需要再进行文本解析。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">jsonb</code> 类型由于是解析过的二进制结构，因此 <code class="calibre11">jsonb</code> 类型的字段上可以直接建立 GIN 索引（该类索引在 6.3 节中有相关介绍），但 <code class="calibre11">json</code> 类型字段上却只能建立函数索引，因为只有通过函数才能从 JSON 的字符串中提取出具体字段值。</p>
+</li>
+</ul>
+<p class="calibre1">为了说明以上概念，我们另外新建一张与前面 <code class="calibre11">families_j</code> 结构类似的 <code class="calibre11">families_b</code> 表，只不过这次用的是 <code class="calibre11">jsonb</code> 类型：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE TABLE families_b (id serial PRIMARY KEY, profile jsonb);
+
+</code></pre>
+<p class="calibre1">重复执行示例 5-23 的步骤，往新表中插入记录。</p>
+<p class="calibre1">目前为止还没体现出 JSON 和 JSONB 的差别，但在对两张表分别执行查询时就能看出来了。为了让 JSONB 类型的二进制字段值能够显示，PostgreSQL 会自动将其转换为规范化的文本表示形式，如示例 5-28 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-28</strong>：JSONB 与 JSON 类型输出格式对比</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT profile As b FROM families_b WHERE id = 1; ➊
+SELECT profile As j FROM families_j WHERE id = 1;➋
+
+b
+--------------------------------------------------------------------------------
+ {"name": "Gomez", "members": [{"member": {"name": "Alex", "relation": "padre"}}
+, {"member": {"name": "Sonia", "relation": "madre"}}, {"member": {"name": "Brand
+on", "relation": "hijo"}}, {"member": {"name": "Azaleah", "relation": "hija"}}]}
+j
+
+---------------------------------------------------------------------------
+{"name":"Gomez","members":[{"member":{"relation":"padre", "name":"Alex"}},
+{"member":{"relation":"madre", "name":"Sonia"}},
+{"member":{"relation":"hijo", "name":"Brandon"}},
+{"member":{"relation":"hija", "name":"Azaleah"}}]}
+
+</code></pre>
+<p class="calibre1">➊　可以看出，<code class="calibre11">jsonb</code> 类型的输出是对输入的内容进行了重新格式化并删掉了输入时文本中的空格，此外 <code class="calibre11">relation</code> 和 <code class="calibre11">name</code> 这两个属性字段的显示顺序与输入时的顺序相比发生了翻转。</p>
+<p class="calibre1">➋　<code class="calibre11">json</code> 类型的输出保持了输入时的原样，包括原文本中的空格以及属性字段的顺序。</p>
+<p class="calibre1"><code class="calibre11">jsonb</code> 与 <code class="calibre11">json</code> 的处理函数一一对应，但函数名略有不同；<code class="calibre11">jsonb</code> 支持的运算符集合是 <code class="calibre11">json</code> 支持的运算符集合的超集。例如 <code class="calibre11">json</code> 适用的 <code class="calibre11">json_extract_path_text</code> 和 <code class="calibre11">json_each</code> 函数对应于 <code class="calibre11">jsonb</code> 适用的 <code class="calibre11">jsonb_extract_path_text</code> 和 <code class="calibre11">jsonb_each</code> 函数。除了 <code class="calibre11">jsonb</code> 特有的那几个运算符以外，二者的运算符完全相同，因此如果要想把示例 5-25 和示例 5-26 中的语句改造为适用 <code class="calibre11">jsonb</code> 类型，只需把表名替换一下（<code class="calibre11">families_j</code> 改为 <code class="calibre11">families_b</code>），然后把 <code class="calibre11">json_array_length</code> 替换为 <code class="calibre11">jsonb_array_length</code> 即可。</p>
+<p class="calibre1"><code class="calibre11">jsonb</code> 比 <code class="calibre11">json</code> 多支持的运算符有以下几个：等值运算符（<code class="calibre11">=</code>）、包含关系运算符（<code class="calibre11">@&gt;</code>）、被包含关系运算符（<code class="calibre11">&lt;@</code>）、键值已存在运算符（<code class="calibre11">?</code>）、一组键值中是否有任意一个已存在运算符（<code class="calibre11">?|</code>）、一组键值中的每一个是否均已存在运算符（<code class="calibre11">?&amp;</code>）。</p>
+<p class="calibre1">假设我们要列出所有包含姓名为“Alex”的家庭成员的家庭，就可以使用包含关系判定运算符，如示例 5-29 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-29</strong>：JSONB 包含关系运算符的使用</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT profile-&gt;&gt;'name' As family
+FROM families_b
+WHERE profile @&gt; '{"members":[{"member":{"name":"Alex"} }]}';
+
+family
+-----
+Gomez
+
+</code></pre>
+<p class="calibre1">如果在 <code class="calibre11">jsonb</code> 列上建了 GIN 索引，那么前述这几个运算符的操作速度是极快的：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE INDEX idx_familes_jb_profile_gin ON families_b USING gin (profile);
+
+</code></pre>
+<p class="calibre1">我们演示用的这些表都很小，因此规划器可能会选择走全表扫描而不是走索引查询，但如果有更多的记录，示例 5-29 中这种语句是一定会用上索引的。</p>
+</body></html>

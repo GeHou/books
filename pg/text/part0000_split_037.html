@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_67" class="calibre6"><strong class="calibre2">3.3　定制psql操作环境</strong></h2>
+<p class="calibre1">如果你的工作需要整天与 psql 打交道，那么可以对 psql 操作环境进行定制以使其更好地符合自己的使用习惯。psql 在启动阶段会搜索一个名为 psqlrc 的配置文件，如果找到则会顺序执行其中的配置动作，这些配置决定了 psql 的一些行为模式。</p>
+<p class="calibre1">在 Linux/Unix 环境中，该文件一般会被命名为 .psqlrc 并放置在 postgres 用户的 home 目录下。在 Windows 上，该文件叫作 psqlrc.conf 并被放置于 %APPDATA%\postgresql 文件夹下，一般来说就是 c:\Users\username\AppData\Roaming\postgresql 文件夹。PostgreSQL 安装完成后找不到此文件是正常的，因为该文件一般需手动创建。该文件中的设置项会覆盖 psql 的默认值。如需了解更多关于此配置文件的信息，请参见官方手册中“psql 参考手册”（<a href="http://www.postgresql.org/docs/current/interactive/app-psql.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/app-psql.html</a>）这一节的内容。</p>
+<p class="calibre1">示例 3-2 中展示了 psqlrc 文件的内容，你可以在其中添加任何 <code class="calibre11">psql</code> 命令以在启动时执行。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 3-2</strong>：sqlrc 文件内容</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">\pset null 'NULL'
+\encoding latin1
+\set PROMPT1 '%n@%M:%&gt;%x %/# '
+\pset pager always
+\timing on
+\set qstats92 'SELECT usename, datname, left(query,100) || ''...'' As query
+FROM pg_stat_activity WHERE state != ''idle'' ;'
+
+</code></pre>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00002.gif" alt="" width="9%" class="calibre13"/>　psqlrc 文件中 <code class="calibre11">set</code> 命令后跟的操作内容不允许分为多行书写。例如，上面的 <code class="calibre11">qstats92</code> 后跟着的 SQL 语句必须落在同一行中。上文显示为两行仅仅是因为该语句较长导致印刷时放不下，所以必须分成两行。</p>
+</blockquote>
+<p class="calibre1">启动 psql 时，你可以看到该文件中内容被执行后的输出结果。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">Null display is "NULL".
+Timing is on.
+Pager is always used.
+psql (9.3.2)
+Type "help" for help.
+postgres@localhost:5442 postgresql_book#
+
+</code></pre>
+<p class="calibre1">有的 psql 设置命令仅适用于 Linux/Unix 环境而不适用于 Windows 环境，反之亦然。但不管在什么操作系统环境下，在指定路径时都应使用 Linux/Unix 风格的正斜杠（/），其目的是为了区别于指定选项时所用的反斜杠（\）。如果希望 psql 启动时跳过加载 psqlrc 文件这一步骤，请加 <code class="calibre11">-X</code> 选项。</p>
+<p class="calibre1">如果要删除某个 psql 配置变量或者希望将其设置回默认值，可以使用 <code class="calibre11">\unset</code> 命令，后跟变量名称，比如：<code class="calibre11">\unset qstat92</code>。</p>
+<p class="calibre1">下文中我们将介绍一些最常用的 psql 配置项。请注意：这些配置项并不一定要放入 psqlrc 文件中进行管理，它们可以随时按需动态修改。以下两篇博文中介绍了更多关于 psqlrc 文件的用法，可供你参考：“DBA 的便捷工具——psqlrc 配置文件”（<a href="http://raghavt.blogspot.com.br/2011/11/psqlrc-file-for-dbas.html" class="calibre5">http://raghavt.blogspot.com.br/2011/11/psqlrc-file-for-dbas.html</a>）和“消除 .psqlrc 文件的执行反馈信息”（<a href="http://www.depesz.com/2008/05/18/silencing-commands-in-psqlrc/" class="calibre5">http://www.depesz.com/2008/05/18/silencing-commands-in-psqlrc/</a>）。</p>
+<h3 id="nav_point_68" class="calibre16"><strong class="calibre2">3.3.1　自定义psql界面提示符</strong></h3>
+<p class="calibre1">如果你工作时需要使用 psql 连到多台不同的数据库服务器或者多个不同的 database，那么一定会经常用到 <code class="calibre11">\connect</code> 命令。在默认情况下，连到不同数据库以后的命令提示符都是一样的，这很可能会导致误操作的发生。定制后的 psql 界面提示符可以告诉你当前连接的是哪台服务器上的哪个 database，从而避免误操作的发生。在前文提供的示例 psqlrc 文件中，我们把提示符设成了这样：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">\set PROMPT1 '%n@%M:%&gt;%x %/# '
+
+</code></pre>
+<p class="calibre1">其中包括了几个元素：登录角色（<code class="calibre11">%n</code>），主机名（<code class="calibre11">%M</code>），侦听端口（<code class="calibre11">%&gt;</code>），事务状态（<code class="calibre11">%x</code>）以及当前使用的 database 名（<code class="calibre11">%/</code>）。这种写法可能有点详细得过了头，你可以按需裁剪一下。提示符所支持的完整符号列表可从官方手册的“psql 参考手册”（<a href="http://www.postgresql.org/docs/current/interactive/app-psql.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/app-psql.html</a>）这一节中找到。</p>
+<p class="calibre1">连接到数据库后，提示符看起来会像下面这样。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">postgres@localhost:5442 postgresql_book#
+
+</code></pre>
+<p class="calibre1">执行 <code class="calibre11">\connect postgis_book</code> 切换目标数据库后，提示符会变成下面这样。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">postgres@localhost:5442 postgis_book#
+
+</code></pre>
+<h3 id="nav_point_69" class="calibre16"><strong class="calibre2">3.3.2　语句执行时间统计</strong></h3>
+<p class="calibre1">有时候我们可能会需要 psql 打印出执行每个语句所消耗的时间。通过 <code class="calibre11">\timing</code> 命令来打开或者关闭执行时间统计开关。</p>
+<p class="calibre1">打开执行时间统计开关时，每个查询执行完毕的输出结果中都会附带执行时长。例如：使用 <code class="calibre11">\timing on</code> 命令执行 <code class="calibre11">SELECT COUNT(*) FROM pg_tables</code> 后，输出如下：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">count
+--------
+73
+(1 row)
+Time: 18.650 ms
+
+</code></pre>
+<h3 id="nav_point_70" class="calibre16"><strong class="calibre2">3.3.3　事务自动提交</strong></h3>
+<p class="calibre1">默认情况下，<code class="calibre11">AUTOCOMMIT</code>（自动提交）是开着的，也就是说任何一个 SQL 语句执行完毕后，它所做的数据修改都会被立即提交，这种情况下每个语句都是一个独立的事务，一旦执行完毕后其结果就不可撤销。如果你需要运行大量的 DML 语句并且这些语句还未经充分测试，那么自动提交功能会带来大麻烦，此时有必要关闭事务自动提交机制来对数据进行保护。</p>
+<p class="calibre1">请先关闭自动提交功能：<code class="calibre11">\set AUTOCOMMIT off</code>；然后就可以按需对事务进行回滚了：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">UPDATE census.facts SET short_name = 'This is a mistake.';
+
+</code></pre>
+<p class="calibre1">要回滚事务，请执行：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">ROLLBACK;
+
+</code></pre>
+<p class="calibre1">要提交事务，请执行：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">COMMIT;
+
+</code></pre>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00002.gif" alt="" width="9%" class="calibre13"/>　在非自动提交模式下请一定要记得在最后提交事务；否则未提交的事务会在退出 psql 时自动回滚掉。</p>
+</blockquote>
+<h3 id="nav_point_71" class="calibre16"><strong class="calibre2">3.3.4　命令别名</strong></h3>
+<p class="calibre1">你可以使用 <code class="calibre11">\set</code> 来为某个命令创建别名，我们建议你将全局性的别名写到 psqlrc 文件中去。例如，如果你每十分钟就要执行一次 <code class="calibre11">EXPLAIN ANALYZE VERBOSE</code>，那么每次完全重输一遍会很烦人，可以为它起一个别名。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">\set eav 'EXPLAIN ANALYZE VERBOSE'
+
+</code></pre>
+<p class="calibre1">这样在任何需要用到 <code class="calibre11">EXPLAIN ANALYZE VERBOSE</code> 命令的地方，都可键入 <code class="calibre11">:eav</code> 替代（前面的冒号表示这是一个需要展开的命令变量）。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">:eav SELECT COUNT(*) FROM pg_tables;
+
+</code></pre>
+<p class="calibre1">你甚至可以把常用查询做成别名存入 psqlrc 文件中，就类似前面出现过的 <code class="calibre11">qstats91</code> 和 <code class="calibre11">qstat92</code> 一样。我们建议别名使用小写字母，以避免与 psql 环境变量冲突，环境变量都是大写的。</p>
+<h3 id="nav_point_72" class="calibre16"><strong class="calibre2">3.3.5　取出前面执行过的命令行</strong></h3>
+<p class="calibre1">跟许多命令行工具一样，你在 psql 中也可以用向上方向键快速找出之前执行过的历史命令。<code class="calibre11">HISTSIZE</code> 环境变量决定了系统存储的历史命令行的数量。例如：<code class="calibre11">\set HISTSIZE 10</code> 会将可追溯的历史命令数量设定为最多 10 条。</p>
+<p class="calibre1">如果你正在编写一个非常复杂的查询语句或者执行一系列很关键的更新操作，那么可能会需要将这些语句存入指定的文件中以备后查，可以使用 <code class="calibre11">HISTFILE</code> 环境变量来实现此功能。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">\set HISTFILE ~/.psql_history- :HOST - :DBNAME
+
+</code></pre>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00002.gif" alt="" width="9%" class="calibre13"/>　Windows 环境下不支持保存历史命令，除非是使用 Cygwin 来模拟 Unix 环境。</p>
+</blockquote>
+</body></html>

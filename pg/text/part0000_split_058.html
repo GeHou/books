@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_139" class="calibre6"><strong class="calibre2">6.2　约束机制</strong></h2>
+<p class="calibre1">PostgreSQL 的约束机制是我们所接触过的数据库中最先进的（同时也是最复杂的）。用户可以在创建约束时定制其各方面的属性，包括约束的名称、如何处理现有数据、级联生效条件选项、如何执行匹配算法、使用哪些索引以及在何种情况下约束可以不生效等。关于完整的约束规则，我们建议你查阅 PostgreSQL 官方手册（<a href="http://www.postgresql.org/docs/current/interactive/sql-set-constraints.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/sql-set-constraints.html</a>）中的相关内容。虽然约束机制中有大量的选项可供定制，但一般来说没那么复杂，采用默认选项就够了。我们将从几个关系型数据库领域耳熟能详的概念开始为你介绍，包括：外键约束、唯一性约束以及 check 约束。然后我们再介绍从 PostgreSQL 9.0 版开始引入的排他性约束。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00002.gif" alt="" width="9%" class="calibre13"/>　主键约束和字段唯一性约束在表级范围内不允许出现重名。一般的做法是把表名和字段名加入到约束的名称中，这样就不会重复。为简洁起见，我们下面的例子中可能不会遵循这种做法。</p>
+</blockquote>
+<h3 id="nav_point_140" class="calibre16"><strong class="calibre2">6.2.1　外键约束</strong></h3>
+<p class="calibre1">与大多数支持引用完整性的数据库一样，PostgreSQL 遵循与其相同的约定。你可以指定级联更新和删除规则以避免出现讨厌的孤立记录。下面我们将在示例 6-5 中展示如何添加外键约束。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 6-5</strong>：建立外键约束和相应的索引</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">set search_path=census, public;
+ALTER TABLE facts ADD CONSTRAINT fk_facts_1 FOREIGN KEY (fact_type_id)
+REFERENCES lu_fact_types (fact_type_id) ➊
+ON UPDATE CASCADE ON DELETE RESTRICT; ➋
+CREATE INDEX fki_facts_1 ON facts (fact_type_id); ➌
+
+</code></pre>
+<p class="calibre1">➊　我们在 <code class="calibre11">facts</code> 表和 <code class="calibre11">lu_fact_types</code> 表之间定义了一个外键约束关系。有了这个约束以后，如果主表 <code class="calibre11">lu_fact_types</code> 中不存在某 <code class="calibre11">fact_type_id</code> 的记录，那么从表 <code class="calibre11">fact</code> 中就不能插入该 <code class="calibre11">fact_type_id</code> 的记录。</p>
+<p class="calibre1">➋　我们定义了一个级联规则，实现了以下功能：（1）如果主表 <code class="calibre11">lu_fact_type</code> 的 <code class="calibre11">fact_type_id</code> 字段值发生了变化，那么从表 <code class="calibre11">fact</code> 中相应记录的 <code class="calibre11">fact_type_id</code> 字段值会自动进行相应修改，以维持外键引用关系不变；（2）如果从表 <code class="calibre11">fact</code> 中还存在某 <code class="calibre11">fact_type_id</code> 字段值的记录，那么主表 <code class="calibre11">lu_fact_type</code> 中相同 <code class="calibre11">fact_type_id</code> 字段值的记录就不允许被删除。<code class="calibre11">ON DELETE RESTRICT</code> 是默认行为模式，也就是说这个子句不加也可以，但我们建议为了清晰起见最好是加上。</p>
+<p class="calibre1">➌　PostgreSQL 在建立主键约束和唯一性约束时，会自动为相应字段建立索引，但在建立外键约束时却不会，这一点需要注意。你需要为外键字段手动建立索引以加快关联引用时的查询速度。</p>
+<h3 id="nav_point_141" class="calibre16"><strong class="calibre2">6.2.2　唯一性约束</strong></h3>
+<p class="calibre1">主键字段的值是唯一的，但每张表只能定义一个主键，因此如果你需要保证别的字段值唯一，那么必须在该字段上建立唯一性约束或者说唯一索引。建立唯一性约束时会自动在后台创建一个相应的唯一索引。与主键字段类似，建立了唯一性约束的字段不允许为空，并且可以作为外键字段被别的表引用。不过请注意：建了唯一索引但却没有唯一性约束的字段是可以输入空值的。下面的例子演示了如何建一个唯一索引。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">ALTER TABLE logs_2011 ADD CONSTRAINT uq UNIQUE (user_name,log_ts);
+
+</code></pre>
+<p class="calibre1">你可能经常会遇到仅需要保证表中部分记录行唯一的情况，PostgreSQL 不支持带筛选条件的唯一性约束，但你可以通过使用唯一性的部分索引来达到相同目的。详情请参见 6.3.4 节。</p>
+<h3 id="nav_point_142" class="calibre16"><strong class="calibre2">6.2.3　check约束</strong></h3>
+<p class="calibre1">check 约束能够对表的一个或者多个字段加上一个条件，表中每一行记录必须满足此条件。查询规划器也会利用 check 约束来优化执行速度，比如有些查询附带的条件与待查询表的 check 约束无交集，那么规划器会立即认定该查询未命中目标并返回。示例 6-2 中就有一个 check 约束，该约束可以告诉规划器不要试图查找不符合约束条件的记录。check 约束支持基于函数和布尔表达式的条件，因此你可以发挥创意编写出一个非常复杂的约束条件来。例如，以下 check 约束可以限制 <code class="calibre11">logs</code> 表中所有用户名必须都小写：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">ALTER TABLE logs ADD CONSTRAINT chk CHECK(user_name = lower(user_name));
+
+</code></pre>
+<p class="calibre1">特别值得注意的一点是，当表间存在继承关系时，子表会继承父表的 check 约束，但主键、外键、唯一性这三种约束却不会继承。</p>
+<h3 id="nav_point_143" class="calibre16"><strong class="calibre2">6.2.4　排他性约束</strong></h3>
+<p class="calibre1">传统的唯一性约束在比较算法中仅使用了“等于”运算符，即保证了指定字段的值在本表的任意两行记录中都不相等，而 9.0 版中引入的排他性约束机制拓展了唯一性比较算法机制，可以使用更多的运算符来进行比较运算，该类约束特别适用于解决有关时间安排的问题。</p>
+<p class="calibre1">PostgreSQL 9.2 版中引入了区间数据类型，该类型特别适合使用排他性约束。你可以在 depesz 站点的“等待9.2版支持区间数据类型”这篇博文（<a href="http://www.depesz.com/2011/11/07/waiting-for-9-2-range-data-types/" class="calibre5">http://www.depesz.com/2011/11/07/waiting-for-9-2-range-data-types/</a>）中找到在区间数据类型上使用排他性约束的非常好的例子。</p>
+<p class="calibre1">排他性约束一般是基于 GiST 类型的索引来实现，使用基于 B- 树算法的 GiST 多列复合索引也是可以的。不过需要先安装 <code class="calibre11">btree_gist</code> 扩展包才能建立这种索引。多列排他性约束的一个经典应用场景就是用于安排资源。</p>
+<p class="calibre1">以下是一个使用排他约束的例子。假设你的办公场所有固定数量的会议室，各项目组在使用会议室前必须预定。示例 6-6 演示了如何避免发生预定冲突。该示例中使用了（<code class="calibre11">&amp;&amp;</code>）运算符来判定时间区段是否重叠，还使用了（<code class="calibre11">=</code>）运算符来判定会议室房间号是否重复，请注意观察和思考此用法。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 6-6</strong>：防止会议室预定冲突</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE TABLE schedules(id serial primary key, room smallint, time_slot tstzrange);
+ALTER TABLE schedules ADD CONSTRAINT ex_schedules
+EXCLUDE USING gist (room WITH =, time_slot WITH &amp;&amp;);
+
+</code></pre>
+<p class="calibre1">同唯一性约束一样，PostgreSQL 会自动为排他性约束中涉及的字段建立索引。</p>
+</body></html>

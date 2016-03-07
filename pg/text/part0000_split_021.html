@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_28" class="calibre6"><strong class="calibre2">1.5　数据库驱动程序</strong></h2>
+<p class="calibre1">任何情况下，你都不可能脱离具体的业务系统而仅仅使用 PostgreSQL 数据库本身，那显然是无意义的。为了实现 PostgreSQL 与业务系统之间的交互，就需要借助数据库驱动程序。PostgreSQL 拥有大量免费驱动，支持各种编程语言和开发工具。此外，很多商业公司也以很低廉的价格提供了各有特色的驱动。目前比较流行的几种开源驱动如下。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1">PHP 驱动：PHP 语言广泛应用于 Web 开发领域，大多数 PHP 发行包都自带了较老的 pgsql 驱动或者是较新的 <code class="calibre11">pdo_pgsql</code> 驱动。一般来说这两种驱动默认都会安装，不过可能需要修改 php.ini 来决定启用哪一种。</p>
+</li>
+<li class="calibre10"><p class="calibre1">JDBC 驱动：JAVA 开发所使用的 JDBC 驱动一直是与最新版 PostgreSQL 同步更新的，可以从 PostgreSQL 官方站点下载（<a href="https://jdbc.postgresql.org" class="calibre5">https://jdbc.postgresql.org</a>）。</p>
+</li>
+<li class="calibre10"><p class="calibre1">.NET 驱动：.NET 框架（含微软的官方版和 Mono 社区的开源版）可使用 Npgsql 驱动（<a href="http://npgsql.projects.pgfoundry.org" class="calibre5">http://npgsql.projects.pgfoundry.org</a>）。目前该驱动支持微软 .NET 框架 V3.5 及之后的版本，包括微软 Entity Framework 开发框架以及 Mono 开源 .NET 框架。</p>
+</li>
+<li class="calibre10"><p class="calibre1">ODBC 驱动：如果需要从微软 Access、Office 系列工具或者其他支持 ODBC 的产品连接到 PostgreSQL，可从 PostgreSQL 官网下载 ODBC 驱动（<a href="http://www.postgresql.org/ftp/odbc/versions/msi" class="calibre5">http://www.postgresql.org/ftp/odbc/versions/msi</a>），支持 32 位和 64 位两个版本。</p>
+</li>
+<li class="calibre10"><p class="calibre1">LibreOffice/OpenOffice 驱动：LibreOffice 3.5 及之后的版本中自带了 PostgreSQL 驱动，但 3.5 之前的版本以及 OpenOffice 是不带的，可以使用 JDBC 或者 SDBC 驱动。更多细节请参见“OO Base 与 PostgreSQL”这篇博文（<a href="http://www.postgresonline.com/journal/categories/23-oobase" class="calibre5">http://www.postgresonline.com/journal/categories/23-oobase</a>）。</p>
+</li>
+<li class="calibre10"><p class="calibre1">Python 驱动：Python 可通过多种驱动（<a href="https://wiki.postgresql.org/wiki/Python" class="calibre5">https://wiki.postgresql.org/wiki/Python</a>）访问 Post greSQL，目前 psycopg（<a href="http://initd.org/psycopg/" class="calibre5">http://initd.org/psycopg/</a>）是最流行的一种。Python 的 Django 开发框架（<a href="https://docs.djangoproject.com/en/dev/ref/databases/#postgresql-notes" class="calibre5">https://docs.djangoproject.com/en/dev/ref/databases/#postgresql-notes</a>）对 PostgreSQL 也有着良好的支持。</p>
+</li>
+<li class="calibre10"><p class="calibre1">Ruby 驱动：对 Ruby 开发人员来说，请使用 rubygems pg 驱动（<a href="https://rubygems.org/gems/pg" class="calibre5">https://rubygems.org/gems/pg</a>）。</p>
+</li>
+<li class="calibre10"><p class="calibre1">Perl 驱动：Perl 可以使用 DBI 和 DBD::Pg 驱动。也可以使用由 CPAN 网站（<a href="http://search.cpan.org/modlist/Database_Interfaces" class="calibre5">http://search.cpan.org/modlist/Database_Interfaces</a>）提供的 DBD::PgPP 驱动。</p>
+</li>
+<li class="calibre10"><p class="calibre1">Node.js 驱动：Node.js 是一个基于 Google V8 JavaScript 引擎的运行平台，可用于构建高可扩展性的网络应用。该平台目前支持三种 PostgreSQL 驱动：Node Postgres（<a href="https://github.com/brianc/node-postgres" class="calibre5">https://github.com/brianc/node-postgres</a>）、Node Postgres Pure（与前者的区别在于不需要编译，<a href="https://github.com/brianc/node-postgres-pure" class="calibre5">https://github.com/brianc/node-postgres-pure</a>），以及 Node-DBI（<a href="https://github.com/DrBenton/Node-DBI" class="calibre5">https://github.com/DrBenton/Node-DBI</a>）。</p>
+</li>
+</ul>
+</body></html>

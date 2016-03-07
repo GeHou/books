@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h1 id="nav_point_99" class="not-in-toc"><strong class="calibre2">第 5 章　数据类型</strong></h1>
+<p class="calibre1">与其他所有数据库一样，PostgreSQL 也支持数字型、字符串型、日期和时间型以及布尔型等业界常用的数据类型。 但 PostgreSQL 的先进之处在于它还支持数组、带时区的日期时间、时间间隔、区间、JSON、XML 以及其他很多数据类型，此外还支持用户自定义数据类型。本章们不会一一介绍 PostgreSQL 支持的所有数据类型，如果你需要了解的话，请自行参考官方手册。我们将着重介绍 PostgreSQL 独有的若干数据类型以及在那些通用数据类型方面 PostgreSQL 与业界其他数据库有哪些细微差异。</p>
+<p class="calibre1">如果离开了相应的函数和运算符，数据类型将完全无用武之地。PostgreSQL 为各种数据类型提供了功能强大种类丰富的原生函数和运算符支持，而且很多扩展包还在源源不断地提供新的扩展。我们将在本章中介绍一些使用比较广泛的类型。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00001.gif" alt="" width="7%" class="calibre12"/>　我们所说的<strong class="calibre2">函数</strong>是指 <code class="calibre11">f(x)</code> 这种形式的函数；我们所说的“运算符”是指一些字符性的运算符号，比如 <code class="calibre11">+</code>、<code class="calibre11">-</code>、<code class="calibre11">*</code>、<code class="calibre11">/</code> 这类，具体可分为需要单个实参的一元运算符和需要两个实参的二元运算符。最简单的运算符是需要一个或多个实参的函数的一个符号别名，比如 <code class="calibre11">+</code> 这个运算符可以理解为 <code class="calibre11">add(x,y)</code> 这个函数的一个符号别名。当使用运算符时，请记住它在面对不同的数据类型时所代表的含义是不同的。比如加号对数字来说就是相加，对区间类型来说就是区间的并集。</p>
+</blockquote>
+</body></html>

@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_87" class="calibre6"><strong class="calibre2">4.2　pgAdmin功能特性介绍</strong></h2>
+<p class="calibre1">pgAdmin 工具的功能丰富而强大，本书的篇幅不足以完全描述，因此我们仅重点介绍一些比较常用的功能。</p>
+<h3 id="nav_point_88" class="calibre16"><strong class="calibre2">4.2.1　在pgAdmin中调用psql</strong></h3>
+<p class="calibre1">尽管 pgAdmin 拥有功能强大的图形界面，但有些时候还是离不开 psql。比如需要执行 pg_dump 或其他数据转储工具生成的体积庞大的 SQL 文件时，psql 就更合适。从 pgAdmin 界面上可以很容易地打开 psql 工具，只需点击“插件”菜单下的“PSQL Console”项即可，如图 4-3 所示。这样就会启动一个 psql 窗口并连接到当前 pgAdmin 环境中已连接的 database 上，然后你可以使用 <code class="calibre11">\cd</code> 以及 <code class="calibre11">\i</code> 命令来改变目录并执行 SQL 文件。</p>
+<p class="tu"><img src="../images/00011.gif" alt="{%}" class="calibre17"/></p>
+<p class="calibre1"><strong class="calibre2">图 4-3：psql 插件</strong></p>
+<p class="calibre1">请注意：该功能需要确保针对某 database 的连接已建立好，因此只有当 pgAdmin 已连上 PostgreSQL 服务器并选中某个 database 时，“插件”菜单下的“PSQL Console”项才会变成可用状态。</p>
+<h3 id="nav_point_89" class="calibre16"><strong class="calibre2">4.2.2　在pgAdmin中编辑postgresql.conf和pg_hba.conf 文件</strong></h3>
+<p class="calibre1">只要服务器上安装了 adminpack 扩展包，你就可以在 pgAdmin 界面上直接编辑配置文件。一般来说，PostgreSQL 的一键式安装包都会自动安装好 adminpack 扩展包，你可以看到 Server Configuration（服务器配置）菜单已启用，如图 4-4 所示。</p>
+<p class="tu"><img src="../images/00012.gif" alt="{%}" class="calibre17"/></p>
+<p class="calibre1"><strong class="calibre2">图 4-4：pgAdmin 配置文件编辑器</strong></p>
+<p class="calibre1">如果你的 pgAdmin 已连接到 PostgreSQL 服务器但 Server Configuration（服务器配置）菜单却是灰的，那么要么是没安装 adminpack，要么是你不是以超级用户身份登录的。如果要在 PostgreSQL 9.0 或者更早版本的服务器上安装 adminpack，请以 <code class="calibre11">postgres</code> 超级用户身份登录然后运行脚本 share/contrib/adminpack.sql。对于 PostgreSQL 9.1 以及之后的版本来说，请以 <code class="calibre11">postgres</code> 用户身份登录并执行 <code class="calibre11">CREATE EXTENSION adminpack</code>，或者也可以通过图形界面来安装，如图 4-5 所示。安装好以后请断开与服务器之间的连接并重连，然后就可以看到菜单已可点击。</p>
+<p class="tu"><img src="../images/00013.gif" alt="{%}" class="calibre17"/></p>
+<p class="calibre1"><strong class="calibre2">图 4-5：使用 pgAdmin 安装扩展包</strong></p>
+<h3 id="nav_point_90" class="calibre16"><strong class="calibre2">4.2.3　创建数据库资产并设置权限</strong></h3>
+<p class="calibre1">pgAdmin 允许你创建各种数据库资产并对其进行权限设置。</p>
+<p class="calibre1"><strong class="calibre2">1. 创建数据库以及其他数据库资产</strong></p>
+<p class="calibre1">利用 pgAdmin 创建一个新的数据库是非常简单的，只需右键单击树上的 database 节点并选择 New Database（新建数据库）即可，如图 4-6 所示。Definition（定义）选项卡上提供了一个下拉菜单供选择建库所用的模板数据库，我们在 2.4.1 节中介绍过相关内容。</p>
+<p class="tu"><img src="../images/00014.gif" alt="{%}" class="calibre17"/></p>
+<p class="calibre1"><strong class="calibre2">图 4-6：创建新数据库</strong></p>
+<p class="calibre1">创建角色、schema 和其他数据库资产的步骤是类似的，都有一些对应的相关页面供你设置其他属性。</p>
+<p class="calibre1"><strong class="calibre2">2. 权限管理</strong></p>
+<p class="calibre1">在 PostgreSQL 数据库资产权限管理方面，不会有比 pgAdmin 的授权向导更好的管理工具了，你可以通过菜单栏上的 Tools（工具）→ Grant Wizard（授权向导）打开其页面。如同其他许多功能项一样，在成功连到数据库之前，其菜单项一直都是灰的。另外该菜单项对于当前树状目录上的焦点位置也很敏感，点击到不同位置时，该菜单项就会显示出可用或者不可用等不同状态。例如，要为 <code class="calibre11">cesus</code> 这个 schema 中的项设置权限，请在目录树上选中此 schema 并点开授权向导，界面如图 4-7 所示。然后你就可以选择所有或者部分项，然后切换到“权限”选项卡上以设置你想要授予的角色和权限。</p>
+<p class="tu"><img src="../images/00015.gif" alt="{%}" class="calibre17"/></p>
+<p class="calibre1"><strong class="calibre2">图 4-7：授权向导</strong></p>
+<p class="calibre1">除了为已有对象授权以外，我们日常遇到更多的一个场景是为一个 schema 或者 database 中新建的对象设置默认权限。要执行此类授权，请右键单击 schema 或者 database 对象节点，然后选择“属性”菜单项，然后在弹出的界面上点击切换到“默认权限”选项卡，如图 4-8 所示。请注意：“默认权限”这一功能特性仅仅适用于 PostgreSQL 9.0 及之后的版本。</p>
+<p class="tu"><img src="../images/00016.gif" alt="{%}" class="calibre17"/></p>
+<p class="calibre1"><strong class="calibre2">图 4-8：默认授权管理</strong></p>
+<p class="calibre1">当为 schema 授予默认权限时，请记得一定要为相应的组角色授予访问此 schema 的权限。</p>
+<h3 id="nav_point_91" class="calibre16"><strong class="calibre2">4.2.4　数据导入和导出</strong></h3>
+<p class="calibre1">同 psql 一样，pgAdmin 也可以导入和导出文本文件。</p>
+<p class="calibre1"><strong class="calibre2">1. 导入文件</strong></p>
+<p class="calibre1">pgAdmin 的导入功能其实是对 psql 的 <code class="calibre11">\copy</code> 命令做了一层封装，并要求导入数据的目的表必须已建好。要实现数据导入，请在要导入数据的表上单击鼠标右键，如图 4-9 所示。</p>
+<p class="tu"><img src="../images/00017.gif" alt="{%}" class="calibre17"/></p>
+<p class="calibre1"><strong class="calibre2">图 4-9：Import（导入）菜单</strong></p>
+<p class="calibre1"><strong class="calibre2">2. 将数据导出为结构化文件或者报表格式</strong></p>
+<p class="calibre1">除了导入数据，你还可以将数据导出为分隔符分隔的文本文件格式以及 HTML 或者 XML 格式。要导出为分隔符文本格式，请按以下步骤操作。</p>
+<p class="calibre1">(1) 打开查询窗口（<img src="../images/00018.gif" alt="{%}" class="calibre17"/>）。</p>
+<p class="calibre1">(2) 编写查询语句。</p>
+<p class="calibre1">(3) 执行查询语句。</p>
+<p class="calibre1">(4) 点击菜单栏上的 File（文件）→Export（导出）。</p>
+<p class="calibre1">(5) 按照图 4-10 填写设置内容。</p>
+<p class="tu"><img src="../images/00019.gif" alt="{%}" class="calibre17"/></p>
+<p class="calibre1"><strong class="calibre2">图 4-10：Export（导出）菜单</strong></p>
+<p class="calibre1">导出为 HTML 或者 XML 的步骤非常类似，唯一的差别在于需要点击菜单栏上的 File（文件）→Quick Report（快速报表）选项，参见图 4-11。</p>
+<p class="tu"><img src="../images/00020.gif" alt="{%}" class="calibre17"/></p>
+<p class="calibre1"><strong class="calibre2">图 4-11：导出报表选项</strong></p>
+<h3 id="nav_point_92" class="calibre16"><strong class="calibre2">4.2.5　备份与恢复</strong></h3>
+<p class="calibre1">pgAdmin 为 <code class="calibre11">pg_dump</code> 和 <code class="calibre11">pg_restore</code> 提供了图形化的操作界面，相关具体功能已在 2.7 节中介绍过。本节内容中，我们将重复使用一些前面已经使用过的例子，不过是使用 pgAdmin 来执行操作，而非使用命令行。</p>
+<p class="calibre1">如果你的机器上安装了多个版本的 PostgreSQL 或 pgAdmin，我们建议你先确认 pgAdmin 指向了正确版本的 PostgreSQL 的 bin 目录（即 <code class="calibre11">pg_dump</code>、<code class="calibre11">pg_restore</code> 等命令行工具所在目录），可以通过检查 pgAdmin 的 bin 目录设置来确认，如图 4-12 所示。</p>
+<p class="tu"><img src="../images/00021.gif" alt="{%}" class="calibre17"/></p>
+<p class="calibre1"><strong class="calibre2">图 4-12：pgAdmin File（文件）→Options（选项）菜单</strong></p>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00002.gif" alt="" width="9%" class="calibre13"/>　如果你是在对一台远程服务器进行备份或者恢复操作，或者你操作的数据库数量特别庞大，那么我们建议你使用命令行工具而不要使用 pgAdmin，因为此种情况下操作过程本来就已经很耗时，使用 pgAdmin 操作会使得耗时和复杂度增加。另外也请牢记：对于 <code class="calibre11">pg_dump</code> 转储的自定义压缩格式、TAR 包格式、目录格式这三种二进制格式的备份文件，必须使用与 <code class="calibre11">pg_dump</code> 相同或者更新版本的 <code class="calibre11">pg_restore</code> 工具来进行恢复。</p>
+</blockquote>
+<p class="calibre1"><strong class="calibre2">1. 完整备份一个database中的数据</strong></p>
+<p class="calibre1">在 2.7.1 节中，我们已经演示了如何完整备份一个 database。以下我们使用 pgAdmin 界面重复演示一遍操作过程，请右键单击待备份的 database，并选择 Custom（自定义）格式，如图 4-13 所示。</p>
+<p class="tu"><img src="../images/00022.gif" alt="{%}" class="calibre17"/></p>
+<p class="calibre1"><strong class="calibre2">图 4-13：备份 database</strong></p>
+<p class="calibre1"><strong class="calibre2">2. 备份系统级对象</strong></p>
+<p class="calibre1">pgAdmin 为 <code class="calibre11">pg_dumpall</code> 提供了一个图形化界面，用于对系统对象进行备份。要使用该界面，请先连接到希望备份的 PostgreSQL 服务器。然后从顶部菜单中选择 Tools（工具）→Backup Globals（全局备份）。</p>
+<p class="calibre1">pgAdmin 不支持指定备份哪些全局对象，但在 <code class="calibre11">pg_dumpall</code> 的命令行界面上是可以的。pgAdmin 默认会备份所有的系统表空间和角色。</p>
+<p class="calibre1">如果你希望备份整个服务器端的所有数据，可以通过点击菜单栏上的 Tools（工具）→Backup Server（备份服务器）来实现。</p>
+<p class="calibre1"><strong class="calibre2">3. 选择性地备份部分数据库资产</strong></p>
+<p class="calibre1">pgAdmin 为 <code class="calibre11">pg_dump</code> 的选择性备份功能提供了一个图形化接口。在希望备份的数据库资产上右键单击，然后在弹出的菜单中选择 Backup（备份）（如图 4-14 所示）。你可以选择备份整个 database、一个特定的 schema 或者任何其他数据库资产。</p>
+<p class="tu"><img src="../images/00023.gif" alt="{%}" class="calibre17"/></p>
+<p class="calibre1"><strong class="calibre2">图 4-14：pgAdmin 的 schema 备份</strong></p>
+<p class="calibre1">如果希望仅备份当前图形界面上选中的数据库资产，那么你可以忽略备份界面上的其他选项卡（如图 4-13 所示），只用默认设置即可。当然，你也可以切换到 Objects（对象）选项卡选择备份更多对象，如图 4-15 所示。</p>
+<p class="tu"><img src="../images/00024.gif" alt="{%}" class="calibre17"/></p>
+<p class="calibre1"><strong class="calibre2">图 4-15：pgAdmin 的选择性备份 Objects（对象）选项卡</strong></p>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00001.gif" alt="" width="7%" class="calibre12"/>　pgAdmin 在后台其实就是调用了 <code class="calibre11">pg_dump</code> 命令行工具来实施备份动作，如果你希望了解 pgAdmin 最终使用的命令是什么样子，那么可以在点击 Backup（备份）按钮开始执行备份后切换到备份界面最右侧的 Messages（消息）选项卡，其中会记录系统自动生成的带实参的 <code class="calibre11">pg_dump</code> 命令行。</p>
+</blockquote>
+</body></html>

@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_232" class="calibre6"><strong class="calibre2">B.2　服务器级备份工具<code class="calibre11">pg_dumpall</code></strong></h2>
+<p class="calibre1">使用 <code class="calibre11">pg_dumpall</code> 工具可以将服务器上的所有数据库备份到单个纯文本文件或者单个纯文本 SQL 文件上。该备份工具将自动备份角色和表空间等系统级对象的信息，这类信息不属于任何一个数据库。示例 B-2 列出了 <code class="calibre11">pg_dumpall</code> 的所有帮助信息。<code class="calibre11">pg_dumpall</code> 的具体用法请参考 2.7.2 节的内容。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 B-2</strong>：<code class="calibre11">pg_dumpall</code> 帮助信息</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">pg_dumpall --help
+
+pg_dumpall可以将一个PostgreSQL数据库集群中的所有数据都提取到一个SQL脚本文件中。
+用法：
+pg_dumpall [选项]...
+
+通用选项：
+-f, --file=FILENAME         输出文件名
+--lock-wait-timeout=TIMEOUT 等待表锁超时后操作失败
+--help                      显示此帮助信息并退出
+--version                   输出版本信息并退出
+
+控制输出内容的选项：
+-a, --data-only              仅转储数据，而不转储schema
+-c, --clean                  重新创建数据库之前清除（删除）数据库
+-g, --globals-only           仅转储全局对象，而不转储数据库
+-o, --oids                   在转储中包含OID
+-O, --no-owner               以纯文本格式跳过对象所有权的恢复
+-r, --roles-only             仅转储角色，而不转储数据库和表空间
+-s, --schema-only            仅转储schema，而不转储数据
+-S, --superuser=NAME         要在转储中使用的超级用户用户名
+-t, --tablespaces-only       仅转储表空间，而不转储数据库和角色
+-x, --no-privileges          不转储特权（grant/revoke）
+--binary-upgrade             仅供升级工具使用
+--column-inserts             以带有列名的INSERT命令的形式转储数据
+--disable-dollar-quoting     禁用美元（符号）引号，而是使用SQL标准引号
+--disable-triggers           在仅恢复数据期间禁用触发器
+--inserts                    以INSERT命令（而非COPY命令）的形式转储数据
+--no-security-labels         不转储安全标签分配
+--no-tablespaces             不转储表空间分配
+--no-unlogged-table-data     不转储不记录WAL日志的表的数据
+--quote-all-identifiers      所有标识符加引号，即使不是关键字也加
+--use-set-session-authorization   使用SET SESSION AUTHORIZATION命令代替ALTER OWNER
+                                  命令来设置所有权
+
+连接选项：
+-d, --dbname=CONNSTR    使用连接连接串连接 ➊
+-h, --host=主机名       数据库服务器主机或套接字目录
+-l, --database=DBNAME   替代默认数据库
+-p, --port=端口号       数据库服务器端口号
+-U, --username=名称     作为指定数据库用户连接
+-w, --no-password       永远不提示输入密码
+-W, --password          强制要求输入密码（应该自动发生）
+--role=ROLENAME         在转储之前执行SET ROLE命令
+如果未使用-f/--file，则会将SQL脚本写到标准输出中。
+
+</code></pre>
+<p class="calibre1">➊　PostgreSQL 9.3 版中引入的新特性。</p>
+</body></html>

@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_126" class="calibre6"><strong class="calibre2">5.7　XML数据类型</strong></h2>
+<p class="calibre1">XML 和 JSON 这两种数据类型都属于非规范化数据，在关系型数据库中存储这类数据其实是有争议的。然而，所有的高级关系型数据库（比如 IBM DB2、Oracle、SQL Server）中都支持 XML 数据类型。作为最先进的开源关系型数据库，PostgreSQL 自然也会支持 XML 数据类型，并且还提供了大量 XML 操作函数。我们发表过很多关于在 PostgreSQL 中使用 XML 数据类型的技术文章（<a href="http://www.postgresonline.com/journal/index.php?/plugin/tag/xml" class="calibre5">http://www.postgresonline.com/journal/index.php?/plugin/tag/xml</a>）。PostgreSQL 原生支持创建、管理和解析 XML 数据的函数，详细列表可参见 PostgreSQL 官方手册中“XML 函数”这一节（<a href="http://www.postgresql.org/docs/current/interactive/functions-xml.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/functions-xml.html</a>）。与 <code class="calibre11">jsonb</code> 数据类型不一样，目前没有哪种索引类型支持直接对 XML 数据类型进行索引，因此只能使用函数索引对其一部分数据进行索引，这一点与 <code class="calibre11">json</code> 是相同的。</p>
+<h3 id="nav_point_127" class="calibre16"><strong class="calibre2">5.7.1　插入XML数据</strong></h3>
+<p class="calibre1">在往一个 <code class="calibre11">xml</code> 数据类型的列中插入数据时，PostgreSQL 会自动判定并确保只有格式合法的 XML 才会创建成功。<code class="calibre11">text</code> 类型字段中也可以存入一段 XML 文本，但是存入时不会进行格式合法性判断，这一点是 <code class="calibre11">text</code> 与 <code class="calibre11">xml</code> 类型的区别。不过请注意，即使 XML 文本的内容中附带了 DTD 或者 XSD 的格式描述，PostgreSQL 也不会按照这些格式要求来对 XML 的格式进行验证。为了梳理一下构成有效 XML 的要素，示例 5-30 向你展示了通过将某个列声明为 xml 并照常将数据插入到该列中，你如何将 XML 数据追加到表中。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-30</strong>：插入 XML 字段记录</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE TABLE families (id serial PRIMARY KEY, profile xml);
+INSERT INTO families(profile)
+VALUES(
+    '&lt;family name="Gomez"&gt;
+        &lt;member&gt;&lt;relation&gt;padre&lt;/relation&gt;&lt;name&gt;Alex&lt;/name&gt;&lt;/member&gt;
+        &lt;member&gt;&lt;relation&gt;madre&lt;/relation&gt;&lt;name&gt;Sonia&lt;/name&gt;&lt;/member&gt;
+        &lt;member&gt;&lt;relation&gt;hijo&lt;/relation&gt;&lt;name&gt;Brandon&lt;/name&gt;&lt;/member&gt;
+        &lt;member&gt;&lt;relation&gt;hija&lt;/relation&gt;&lt;name&gt;Azaleah&lt;/name&gt;&lt;/member&gt;
+        &lt;/family&gt;');
+
+</code></pre>
+<p class="calibre1">XML 数据的格式是千变万化的，你可以为 XML 字段设置一个 check 约束以确保输入的 XML 数据都符合某种格式（如需了解 check 约束的详细信息，请参考 6.2.3 节的内容）。示例 5-31 中创建了一个 check 约束，该约束要求输入的 XML 数据中的 <code class="calibre11">family</code> 节点下都有一个 <code class="calibre11">relation</code> 节点。<code class="calibre11">'/family/member/relation'</code> 是 XPath 语法，XPath 是一种能够在 <code class="calibre11">xml</code> 树状结构中定位到指定元素的语法。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-31</strong>：确保所有 XML 字段记录中都有至少一个 <code class="calibre11">member</code> 节点和一个 <code class="calibre11">relation</code> 节点</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">ALTER TABLE families ADD CONSTRAINT chk_has_relation
+CHECK (xpath_exists('/family/member/relation', profile));
+
+</code></pre>
+<p class="calibre1">如果我们试图插入这样一条记录：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">INSERT INTO families (profile) VALUES('&lt;family name="HsuObe"&gt;&lt;/family&gt;');
+
+</code></pre>
+<p class="calibre1">我们会看到这样的报错信息：<code class="calibre11">ERROR: new row for relation "families" violates check constraint "chk_has_relation"</code>（错误：试图插入“families”表中的新记录违反了约束“chk_has_relation”的要求）。</p>
+<p class="calibre1">如果需要基于 DTD 或者 XSD 对 XML 数据进行格式检查，你需要自行编写格式检查函数，然后将此函数放到 check 约束中调用。PostgreSQL 目前还没有原生支持基于 DTD 或者 XSD 的格式检查。</p>
+<h3 id="nav_point_128" class="calibre16"><strong class="calibre2">5.7.2　查询XML数据</strong></h3>
+<p class="calibre1">查询 XML 数据时，<code class="calibre11">xpath</code> 函数会发挥重要作用。该函数的第一个实参是一个 XPath 查询表达式，第二个实参是一个 <code class="calibre11">xml</code> 对象。查询结果是 XPath 查询语句所要查找的 XML 元素的列表。示例 5-32 中查询出了所有的家庭成员，查询中同时使用了 <code class="calibre11">xpath</code> 和 <code class="calibre11">unnest</code> 函数，其中 <code class="calibre11">unnest</code> 函数用于将数组转换成结果集。这样我们就把一段 XML 中的零碎信息提取出来并转换成了文本。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-32</strong>：查询 XML 字段</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT family,
+    (xpath('/member/relation/text()', f))[1]::text As relation,
+    (xpath('/member/name/text()', f))[1]::text As mem_name ➊
+FROM (SELECT (xpath('/family/@name', profile))[1]::text As family, ➋
+ unnest(xpath('/family/member', profile)
+ ) As f FROM families) x; ➌
+
+ family | relation | mem_name
+--------+----------+----------
+ Gomez  | padre    | Alex
+ Gomez  | madre    | Sonia
+ Gomez  | hijo     | Brandon
+ Gomez  | hija     | Azaleah
+
+</code></pre>
+<p class="calibre1">➊　获取每个 <code class="calibre11">member</code> 元素的 <code class="calibre11">relation</code> 标签和 <code class="calibre11">name</code> 标签中包含的文本元素。此处的语法中必须加数组下标，因为 <code class="calibre11">xpath</code> 语法返回的查询结果是数组类型的，即使返回的数组中只有一个元素也得加下标才能访问。</p>
+<p class="calibre1">➋　获取 <code class="calibre11">family</code> 根节点的 <code class="calibre11">name</code> 属性值。访问属性值的语法为 <code class="calibre11">@attribute_name</code>。</p>
+<p class="calibre1">➌　从原始的 XML 文本块中提取出所有的 <code class="calibre11">member</code> 节点的内容，每个 <code class="calibre11">member</code> 节点的内容格式为 <code class="calibre11">&lt;member&gt;</code>、<code class="calibre11">&lt;relation&gt;</code>、<code class="calibre11">&lt;/relation&gt;</code>、<code class="calibre11">&lt;name&gt;</code>、<code class="calibre11">&lt;/name&gt;</code> 和 <code class="calibre11">&lt;/member&gt;</code>。<code class="calibre11">xpath</code> 的斜杠语法表示要获取当前指定节点的子节点的内容。例如，<code class="calibre11">xpath('/family/member', 'profile')</code> 将以数组形式返回 <code class="calibre11">profile</code> 字段中 <code class="calibre11">family</code> 节点下所有 <code class="calibre11">member</code> 子节点的内容。<code class="calibre11">xpath('/family/@name', 'profile')</code> 返回的是 <code class="calibre11">family</code> 节点的 <code class="calibre11">name</code> 属性的值。默认情况下，<code class="calibre11">xpath</code> 返回的是包含前后标签部分的完整节点内容，加了 <code class="calibre11">text()</code> 以后，返回的就是该节点中包含的文本的内容。</p>
+</body></html>

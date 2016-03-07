@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_231" class="calibre6"><strong class="calibre2">B.1　使用<code class="calibre11">pg_dump</code>进行数据库备份</strong></h2>
+<p class="calibre1"><code class="calibre11">pg_dump</code> 可备份一个 database 的全部或者部分数据。支持的备份格式有：TAR 包格式、PostgreSQL 自定义压缩格式、纯文本格式以及 SQL 文本格式。纯文本格式转储的内容中含有 psql 专有命令行，因此恢复时也需要通过 psql 工具来执行此文本。SQL 文本格式转储的是仅包含标准 <code class="calibre11">CREATE</code> 和 <code class="calibre11">INSERT</code> 命令的 SQL 脚本，恢复时你可以使用 psql 或者 pgAdmin 工具来运行该脚本。示例 B-1 显示的是 <code class="calibre11">pg_dump</code> 命令的帮助信息。如果要了解 <code class="calibre11">pg_dump</code> 的全部用法，请参见 2.7.1 节。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 B-1</strong>：<code class="calibre11">pg_dump</code> 帮助信息</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">pg_dump --help
+
+pg_dump可将某个database转储为文本文件或者其他格式文件。
+用法：
+pg_dump [选项]... [database名]
+
+通用选项：
+-f, --file=FILENAME           输出文件名或者目录名
+-F, --format=c|d|t|p          输出文件格式（自定义格式、目录格式、tar包格式、纯文本）
+-j, --jobs=NUM                使用这多个并行作业进行转储 ➊
+-v, --verbose                 详细信息模式
+-Z, --compress=0-9            压缩格式的压缩级别
+--lock-wait-timeout=TIMEOUT   等待表锁超时后操作失败
+--help                        显示此帮助信息并退出
+--version                     输出版本信息并退出
+
+控制输出内容的选项：
+-a, --data-only               仅转储数据，而不转储schema
+-b, --blobs                   在转储中包含大对象
+-c, --clean                   在重新创建数据库对象之前清除（删除）数据库对象
+-C, --create                  包含用于在转储中创建数据库的命令
+-E, --encoding=ENCODING       以ENCODING编码格式转储数据
+-n, --schema=SCHEMA           仅转储命名schema
+-N, --exclude-schema=SCHEMA   不转储命名schema
+-o, --oids                    在转储中包含OID
+-O, --no-owner                以纯文本格式跳过对象所有权的恢复
+-s, --schema-only             仅转储schema，而不转储数据
+-S, --superuser=NAME          要以纯文本格式使用的超级用户用户名
+-t, --table=TABLE             仅转储命名表
+-T, --exclude-table=TABLE     不转储命名表
+-x, --no-privileges           不转储特权 （grant/revoke）
+--binary-upgrade              仅供升级工具使用
+--column-inserts              以带有列名的INSERT命令的形式转储数据
+--disable-dollar-quoting      禁用美元（符号）引号，而是使用SQL标准引号
+--disable-triggers            在仅恢复数据期间禁用触发器
+--exclude-table-data=TABLE    不转储命名表中的数据 ➋
+--if-exists                   删除对象时使用IF EXISTS ➌
+--inserts                     以INSERT命令（而非COPY命令）的形式转储数据
+--no-security-labels          不转储安全标签分配
+--no-synchronized-snapshots   在并行作业中不使用同步快照，通过设置该选项可以允许在
+                              PostgreSQL 9.2版之前的版本上使用pg_dump -j并发转储 ➍
+--no-tablespaces              不转储表空间分配
+--no-unlogged-table-data      不转储不记录WAL日志的表的数据
+--quote-all-identifiers       所有标识符加引号，即使不是关键字也加
+--section=SECTION             转储命名部分（包括三个部分：pre-data、data以及post-data。
+                              data部分包含表记录数据、大对象数据以及序列的值；postdata
+                              部分包含索引、触发器、规则和约束（除了验证检查约束）
+                              的定义；pre-data部分包含此外其他所有的对象定义） ➎
+--serializable-deferrable     等待直至转储正常运行为止
+--use-set-session-authorization 使用SET SESSION AUTHORIZATION命令代替ALTER OWNER命
+                                令来设置所有权
+连接选项：
+-d, --dbname=DBNAME      要转储的数据库 ➏
+-h, --host=主机名        数据库服务器主机或套接字目录
+-p, --port=端口号        数据库服务器端口号
+-U, --username=名称      作为指定数据库用户连接
+-w, --no-password        永远不提示输入密码
+-W, --password           强制要求输入密码（应该自动发生）
+--role=ROLENAME          在转储之前执行SET ROLE命令
+
+</code></pre>
+<p class="calibre1">➊ ➍　PostgreSQL 9.3 版中引入的新特性。</p>
+<p class="calibre1">➏</p>
+<p class="calibre1">➌　 　PostgreSQL 9.4 版中引入的新特性。</p>
+<p class="calibre1">➋ ➎　PostgreSQL 9.2 版中引入的新特性。</p>
+</body></html>

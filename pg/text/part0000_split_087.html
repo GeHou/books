@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_229" class="calibre6"><strong class="calibre2">A.5　Mac OS X</strong></h2>
+<p class="calibre1">在 Mac 机器上安装 PostgreSQL 有很多方法：EnterpriseDB 公司提供了独立安装包；Homebrew 包管理器使用越来越广泛，并且已经吸引了一些高级 Mac 用户；KyngChaos 这个站点上提供了最新最全的开源 GIS 系统的下载；Postgres.app 是新近出现的一个应用，但很适合新手们使用；另外历史悠久的 MacPorts 和 Fink 这两个软件发布平台也还在继续提供服务。可以看到，Mac 可用的安装源很多，但我们建议 Mac 用户最好从相同的数据源下载安装包。比如，你从 KyngChaos 上下载安装了 PostgreSQL，那么最好不要到 EnterpriseDB 网站上去下载扩展包，因为可能会出现不兼容问题。详情如下所示。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1">EnterpriseDB 公司（<a href="http://www.enterprisedb.com" class="calibre5">http://www.enterprisedb.com</a>）为 Mac OS X 提供了一个非常易用的一键式 PostgreSQL 安装包，附带了 pgAdmin 管理工具。此外该公司还提供了一个名为 stack builder 的软件，通过它可以下载常用扩展包、驱动程序、编程语言扩展以及管理工具等。</p>
+</li>
+<li class="calibre10"><p class="calibre1">Homebrew（<a href="http://brew.sh" class="calibre5">http://brew.sh</a>）是 Mac OS 下的一个安装包管理器，支持包括 PostgreSQL 在内的很多软件的安装管理。Russ Brooks 提供了一篇使用 Homebrew 安装 PostgreSQL 9.1 版的安装指南（<a href="http://www.russbrooks.com/2010/11/25/install-postgresql-9-on-os-x" class="calibre5">http://www.russbrooks.com/2010/11/25/install-postgresql-9-on-os-x</a>），你也可以参照这篇文档来安装 9.1 版之后的 PostgreSQL 版本，因为安装过程几乎没有任何差异。“利用 Brew 管理器将 PostgreSQL 从 9.2 版升级到 9.3 版”（<a href="https://mattbrictson.com/postgresql-93-brew-upgrade" class="calibre5">https://mattbrictson.com/postgresql-93-brew-upgrade</a>）这篇博文提供了版本升级的操作指导。你还能在 Homebrew PostgreSQL Wiki 站点（<a href="https://wiki.postgresql.org/wiki/Homebrew" class="calibre5">https://wiki.postgresql.org/wiki/Homebrew</a>）看到大量有价值的相关文章。</p>
+</li>
+<li class="calibre10"><p class="calibre1">由 Heroku 开发团队提供的 PostgreSQL.app（<a href="http://postgresapp.com/" class="calibre5">http://postgresapp.com/</a>）是一个免费的桌面应用安装包，号称是 Mac 平台上最方便最易用的 PostgreSQL 安装包。该安装包一般都是基于最新版本的 PostgreSQL 构建，其中还附带了常用的扩展包，比如 PostGIS、PL/Python 和 PL/V8 等。Postgres.app 作为一个独立的应用程序运行，可以按需启动和停止，非常适合用于开发，也适用于单用户场景。</p>
+</li>
+<li class="calibre10"><p class="calibre1">KyngChaos 站点（<a href="http://www.kyngchaos.com/software:postgres" class="calibre5">http://www.kyngchaos.com/software:postgres</a>）的内容是面向 GIS 用户的，上面不但提供了最新版本的 PostgreSQL 安装包，还提供了 PostGIS、pgRouting、R 语言和 QGIS 等扩展包。</p>
+</li>
+<li class="calibre10"><p class="calibre1">MacPorts（<a href="http://www.macports.org/" class="calibre5">http://www.macports.org/</a>）是 Mac OS X 平台上的一个软件发布平台，支持大量的开源软件，可以实现软件包的编译、安装、升级等操作。该系统是 Mac 操作系 统上最早支持 PostgreSQL 的软件发布平台。本书写作之时，该平台支持的最新版本是 PostgreSQL 9.3 版。</p>
+</li>
+<li class="calibre10"><p class="calibre1">Fink（<a href="http://www.finkproject.org/" class="calibre5">http://www.finkproject.org/</a>）是 Mac OS X 上的另一个软件发布平台，底层基于 Debian 的 apt-get 软件安装框架。本书写作之时，它提供 9.2 版的 PostgreSQL，相比其他发布平台稍显落后。</p>
+</li>
+</ul>
+
+<p class="calibre4" style="margin:0pt; border:0pt; height:1em" id="calibre_pb_117"> </p>
+</body></html>

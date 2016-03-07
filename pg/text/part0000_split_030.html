@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_49" class="calibre6"><strong class="calibre2">2.6　扩展包机制</strong></h2>
+<p class="calibre1">扩展包（extension）是一种用于扩展 PostgreSQL 系统功能的插件机制，该机制的前身被称为“contrib”<span class="zhu_shi_bian_hao">3</span>。该机制很好地体现了开源界的强大优势：人们互相协作、共同开发并自由分享新的功能特性。自从 9.1 版开始引入对 extension 扩展包机制的支持以来，目前它已经发展得非常成熟，这使得为 PostgreSQL 添加功能插件变得非常方便快捷。</p>
+<p class="zhu_shi_nei_rong"><span class="zhu_shi_bian_hao_xia">3</span>extension 与 contrib 本质上都是 PostgreSQL 的系统功能插件，二者功能类似但实现机制有很大差异，其版本分界点为 9.1 版，之前的插件机制被称为 contrib，9.1 版及之后的插件机制被称为 extension。——译者注</p>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00001.gif" alt="" width="7%" class="calibre12"/>　对于在 extension 扩展包机制推出之前就已存在的那些历史插件，理论上我们应称之为“contrib”以示差别，但放眼未来，这些老的 contrib 势必都会被改造为用 extension 机制实现。为了描述方便，下文会将二者统称为“扩展包”，但你应该清楚二者的区别。</p>
+</blockquote>
+<p class="calibre1">对于一台 PostgreSQL 服务器来说，并不是其中每个 database 都要安装全部的扩展包，只有当某个 database 的确需要此扩展包提供的功能时才应安装。如果你的 PostgreSQL 服务器上的所有 database 都需要某些扩展包的功能，那么可以新建一个模板数据库（有关模板数据库的介绍，请参见 2.4.1 节），然后在此模板数据库中预先安装好这些扩展包，那么后续的 database 就能以此模板数据库为基础来创建，这样就避免了每新建一个 database 就需要再安装一遍扩展包的麻烦。</p>
+<p class="calibre1">建议定期检查并卸载掉已经不再需要的扩展包以避免系统过于臃肿，因为有的扩展包需要占用相当大的空间。</p>
+<p class="calibre1">可以通过示例 2-7 中的语句来查看系统中已经安装了哪些扩展包。你的查询结果可能和我们在下面列出的很不一样，这是正常的，因为每台数据库服务器的具体情况可能都不一样。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 2-7</strong>：服务器上已安装的扩展</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT name, default_version, installed_version, left(comment,30) As comment
+FROM pg_available_extensions
+WHERE installed_version IS NOT NULL
+ORDER BY name;
+
+     name      |  def  | installed |                    com
+---------------+-------+-----------+--------------------------------------------
+ btree_gist    | 1.0   | 1.0       | support for indexing common datatypes in..
+ fuzzystrmatch | 1.0   | 1.0       | determine similarities and distance betw..
+ hstore        | 1.2   | 1.2       | data type for storing sets of (key, valu..
+ plpgsql       | 1.0   | 1.0       | PL/pgSQL procedural language..
+ plv8          | 1.3.0 | 1.3.0     | PL/JavaScript (v8) trusted procedural la..
+ postgis       | 2.1.3 | 2.1.3     | PostGIS geometry, geography, and raster ..
+ www_fdw       | 0.1.8 | 0.1.8     | WWW FDW - extension for handling differe..
+
+</code></pre>
+<p class="calibre1">如果想要了解系统中某个已安装的扩展包的更多详细内容，请在 psql 中执行类似以下的命令：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">\dx+ fuzzystrmatch
+
+</code></pre>
+<p class="calibre1">或者执行以下查询也可以：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT pg_catalog.pg_describe_object(d.classid, d.objid, 0) AS description
+FROM pg_catalog.pg_depend AS D INNER JOIN pg_catalog.pg_extension AS E
+ON D.refobjid = E.oid
+WHERE D.refclassid = 'pg_catalog.pg_extension'::pg_catalog.regclass AND deptype
+= 'e' AND E.extname = 'fuzzystrmatch';
+
+</code></pre>
+<p class="calibre1">查询结果显示了该扩展包中包含了哪些内容：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">description
+----------------------------------------------------------------------------
+function dmetaphone_alt(text)
+function dmetaphone(text)
+function difference(text,text)
+function text_soundex(text)
+function soundex(text)
+function metaphone(text,integer)
+function levenshtein_less_equal(text,text,integer,integer,integer,integer)
+function levenshtein_less_equal(text,text,integer)
+function levenshtein(text,text,integer,integer,integer)
+function levenshtein(text,text)
+
+</code></pre>
+<p class="calibre1">扩展包中可以包含各类数据库资产，包括：函数、表、数据类型、数据类型转换器、编程语言、运算符类，等等。但函数通常被认为是有效负载的大部分。</p>
+<h3 id="nav_point_50" class="calibre16"><strong class="calibre2">2.6.1　扩展包的安装</strong></h3>
+<p class="calibre1">将扩展包安装到系统中需要两个步骤：首先，下载安装包并安装到数据库服务器上；其次，将此扩展包安装到目标 database 中。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00001.gif" alt="" width="7%" class="calibre12"/>　我们在前述两个步骤中都使用了“安装”这个词，但其指代的具体动作是不一样的，当上下文环境不清楚时，我们会加以描述区分。</p>
+</blockquote>
+<p class="calibre1">以下我们将介绍扩展包的安装方法，同时也将介绍在不支持 extension 扩展包机制的老版本 PostgreSQL 上安装 contrib 扩展包的方法。</p>
+<p class="calibre1"><strong class="calibre2">1. 步骤一：将扩展包安装到数据库服务器</strong></p>
+<p class="calibre1">这一步的具体做法会根据操作系统的不同而有所不同。总的来说就是先下载该扩展包的安装文件以及该扩展包所依赖的库文件，然后将它们分别复制到操作系统的 bin 和 lib 文件夹，同时把 SQL 脚本文件复制到 share/extension 文件夹（9.1 版及之后版本）或者 share/contrib 文件夹（9.1 版之前的版本）。这样就为接下来执行第二步做好了准备。</p>
+<p class="calibre1">对于较小的扩展包来说，其所需的很多库文件在 PostgreSQL 安装好以后就有了，或者没有的话也可以通过 <code class="calibre11">yum</code> 或 <code class="calibre11">apt get postgresql-contrib</code> 命令较容易地获取到。对于通过以上方式获取不到的库文件，你要么自行编译，要么找一下别人已经编译好的安装包，要么从另一台环境完全相同的服务器上把库文件复制过来。对于 PostGIS 这类较大的扩展包，通常可以从你下载 PostgreSQL 的站点下载到完整安装包。如果想了解当前服务器上有哪些扩展包可用，请执行以下命令：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT * FROM pg_available_extensions;
+
+</code></pre>
+<p class="calibre1"><strong class="calibre2">2. 步骤二：将扩展包安装到数据库中（9.1版之前的做法）</strong></p>
+<p class="calibre1">在 9.1 版之前，安装 contrib 扩展包时需要在数据库上手工执行一些 SQL 脚本。一般来说，如果你下载的扩展包是一个可安装的程序，那么执行此程序后会自动将附加的脚本转储到 PostgreSQL 安装路径下的 contrib 文件夹中。该路径的具体位置可能会随着操作系统和 PostgreSQL 版本的不同而有所不同。</p>
+<p class="calibre1">例如，对于 CentOS 上的 PostgreSQL 9.0 版来说，执行 pgAdmin 扩展包安装脚本的命令行如下：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">psql -p 5432 -d postgres -f /usr/pgsql-9.0/share/contrib/adminpack.sql
+
+</code></pre>
+<p class="calibre1">该命令会以非交互方式调用 psql 来执行一个 SQL 脚本。</p>
+<p class="calibre1">contrib 与 extension 还有一个重要差别，那就是 contrib 机制不支持对扩展包信息进行查询，比如查询已安装哪些扩展包以及有哪些安装包可安装等。</p>
+<p class="calibre1"><strong class="calibre2">3. 步骤二：将扩展包安装到数据库中（9.1版及之后版本的做法）</strong></p>
+<p class="calibre1">9.1 版引入的 extension 扩展包机制使得安装过程更加简单和连贯。使用 <code class="calibre11">CREATE EXTENSION</code> 命令即可将扩展包安装到指定的 database 中。相比原来的安装方法，该新机制有三大主要优点：首先，用户不需要弄清楚扩展包文件存放的具体路径（share/extension）；其次，可以通过 <code class="calibre11">DROP EXTENSION</code> 命令方便地卸载扩展包；最后，支持查看当前已安装和可安装的扩展包列表。PostgreSQL 安装包中已经附带了最常用的若干扩展包，因此安装时你仅需执行 <code class="calibre11">CREATE EXTENSION</code> 命令来安装即可。通过 PostgreSQL Extension Network 站点（<a href="http://pgxn.org/" class="calibre5">http://pgxn.org/</a>）可以下载到 PostgreSQL 安装包中默认未附带的扩展包。</p>
+<p class="calibre1">以下是安装 fuzzystrmatch 扩展包的命令：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE EXTENSION fuzzystrmatch;
+
+</code></pre>
+<p class="calibre1">你仍可以使用 psql 以非交互方式安装扩展包。先连接到需要安装此扩展包的 database，然后执行类似以下命令行：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">psql -p 5432 -d mydb -c "CREATE EXTENSION fuzzystrmatch;"
+
+</code></pre>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00002.gif" alt="" width="9%" class="calibre13"/>　基于 C 语言的扩展包必须由具备超级用户权限的角色来安装。大多数扩展包都是基于 C 语言的。</p>
+</blockquote>
+<p class="calibre1">我们建议你创建专门的 schema 来安装扩展包，以确保扩展包数据与业务数据隔离。建好 schema 后，执行以下命令来将其指定给待安装的扩展包：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE EXTENSION fuzzystrmatch SCHEMA my_extensions;
+
+</code></pre>
+<p class="calibre1"><strong class="calibre2">4. 升级PostgreSQL版本以支持新的extension扩展包机制</strong></p>
+<p class="calibre1">如果你从 PostgreSQL 9.1 版或者更早的版本升级到了 9.1 版或者之后的版本，并且也正确地将数据从老版本导入到了新版本之中，那么之前安装的那些 contrib 扩展包依然是可以正常工作的。但为了简化管理并提升可维护性，你应该在 contrib 文件夹中升级你的旧扩展包以对扩展包使用新的方法。这种格式升级是完全可以实现的，尤其是对那些随 PostgreSQL 版本附带的扩展包来说更加没问题。不过请注意，这里说的“升级”是指从 contrib 格式到 extension 格式的“格式升级”，而不是指扩展包本身的“功能升级”。</p>
+<p class="calibre1">例如，如果你之前在一套 PostgreSQL 9.0 版的 <code class="calibre11">contrib</code> schema 中安装了 tablefunc 扩展包（这是一个用于实现跨表查询的功能插件），然后你将该系统升级到了 9.1 版。那么可以执行以下命令来升级此插件：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE EXTENSION tablefunc SCHEMA contrib FROM unpackaged;
+
+</code></pre>
+<p class="calibre1">该命令会搜索 <code class="calibre11">contrib</code> schema，找到所有属于 tablefunc 插件的成员对象，然后把它们按照新的 extension 扩展包模型格式进行封装，这样该扩展包就会出现在 <code class="calibre11">pg_available_extensions</code> 视图信息中，就好像是全新安装的一个 extension 扩展包一样。这样就实现了从 contrib 到 extension 的扩展包格式升级。</p>
+<p class="calibre1">该命令会将 <code class="calibre11">contrib</code> schema 中的插件函数按 extension 模式进行封装格式升级，函数本身不会有任何改动，但此后该 database 进行备份时不会包含这些函数，因为它们的身份已经发生了变化，从与别的函数身份无法区分的普通函数变为 <code class="calibre11">extension</code> 扩展包中的函数。</p>
+<p class="calibre1">你仍可以使用 psql 在某个数据库中安装扩展包，而不必首先连接到该数据库。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">psql -p 5432 -d mydb -c "CREATE EXTENSION fuzzystrmatch;"
+
+</code></pre>
+<h3 id="nav_point_51" class="calibre16"><strong class="calibre2">2.6.2　通用扩展包</strong></h3>
+<p class="calibre1">通用扩展包是指那些因功能比较基本和通用而在 PostgreSQL 安装包中默认附带的一些扩展包，但它们不一定会被默认安装，具体视其功能而定。有些早期的通用扩展包已被 PostgreSQL 内核接纳从而“登堂入室”成为系统基础功能，因此如果你是从较老版本的 PostgreSQL 升级上来的话，可能会发现原先要通过安装扩展包才能实现的功能现在已成了系统默认提供的功能。</p>
+<p class="calibre1"><strong class="calibre2">1. 比较常用的扩展包介绍</strong></p>
+<p class="calibre1">从 9.1 版开始，PostgreSQL 官方推荐开发人员使用 extension 扩展包模式来为系统制作功能插件。从仅包含函数和数据类型的基本插件到包含了存储过程语言支持（PL）、索引类型以及外部数据封装器的高级插件，都可以用 extension 扩展包机制来实现。本节我们列举了最常用（也有些人称之为“必备”）但默认情况下 PostgreSQL 并未安装的一些扩展包。你会发现下面列出的很多扩展包在你的 PostgreSQL 系统中已经有了，具体哪些会有哪些没有取决于你使用的是哪个 PostgreSQL 发行版，不同发行版之间可能会略有差异。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1">btree_gist（<a href="http://www.postgresql.org/docs/current/interactive/btree-gist.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/btree-gist.html</a>）</p>
+<p class="calibre1">该扩展包实现了基于 B- 树索引算法的 GiST 索引运算符类，适用于 B- 树索引支持的所有数据类型，其具体效果与标准的 B- 树索引类似。更多细节请参见 6.3.1 节的内容。</p>
+</li>
+<li class="calibre10"><p class="calibre1">btree_gin（<a href="http://www.postgresql.org/docs/current/interactive/btree-gin.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/btree-gin.html</a>）</p>
+<p class="calibre1">该扩展包实现了基于 B- 树索引算法的 GIN 索引运算符类，适用于 B- 树索引支持的所有数据类型，其具体效果与标准的 B- 树索引类似。更多细节请参见 6.3.1 节的内容。</p>
+</li>
+<li class="calibre10"><p class="calibre1">postgis（<a href="http://postgis.net/" class="calibre5">http://postgis.net/</a>）</p>
+<p class="calibre1">该扩展包将 PostgreSQL 提升为一个业界最先进的空间数据库，胜过了所有类似的商业化产品。如果你需要处理标准的 OGC GIS 数据，或者人口统计学数据，又或者地理编码数据，那么 postgis 会是你的必备之选。我们编写的图书 <em class="calibre8">PostGIS in Action</em>（<a href="http://www.postgis.us/" class="calibre5">http://www.postgis.us/</a>）中对 PostGIS 做了更加详尽的介绍。PostGIS 是扩展包界的“巨无霸”，它包含 800 多个函数、自定义数据类型以及空间索引等对象。</p>
+</li>
+<li class="calibre10"><p class="calibre1">fuzzystrmatch（<a href="http://www.postgresql.org/docs/current/interactive/fuzzystrmatch.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/fuzzystrmatch.html</a>）</p>
+<p class="calibre1">这是一个用于字符串模糊匹配的轻量级扩展包，包含了诸如 <code class="calibre11">soundex</code>、<code class="calibre11">levenshtein</code> 和 <code class="calibre11">metaphone</code> 等函数。我们在“soundex 等模糊匹配函数在 PostgreSQL 中如何实现”这篇文章（<a href="http://www.postgresonline.com/journal/archives/158-Where-is-soundex-and-other-warm-and-fuzzy-string-things.html" class="calibre5">http://www.postgresonline.com/journal/archives/158-Where-is-soundex-and-other-warm-and-fuzzy-string-things.html</a>）中介绍了该扩展包的用法。</p>
+</li>
+<li class="calibre10"><p class="calibre1">hstore（<a href="http://www.postgresql.org/docs/current/interactive/hstore.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/hstore.html</a>）</p>
+<p class="calibre1">该扩展包为 PostgreSQL 添加了对键值数据库的支持，同时也支持索引，非常适用于存储非结构化数据。如果你正在寻找一种介于关系型数据库和 NOSQL 数据库之间的产品，可以尝试一下 hstore。</p>
+</li>
+<li class="calibre10"><p class="calibre1">pg_trgm（trigram，<a href="http://www.postgresql.org/docs/current/interactive/pgtrgm.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/pgtrgm.html</a>）</p>
+<p class="calibre1">该扩展包提供了另外一种字符串模糊搜索算法库，可与 fuzzystrmatch 配合使用。在 9.1 版中，该扩展包新增了一种运算符类，使得基于 <code class="calibre11">ILIKE</code> 的搜索操作能用上索引。该扩展还能够让形如 <code class="calibre11">LIKE '%something%'</code> 的通配符查询能用上索引。关于这部分内容，在“ILIKE 和 LIKE 操作的新技巧介绍”这篇博文（<a href="http://www.postgresonline.com/journal/archives/212-PostgreSQL-9.1-Trigrams-teaching-LIKE-and-ILIKE-new-tricks.html" class="calibre5">http://www.postgresonline.com/journal/archives/212-PostgreSQL-9.1-Trigrams-teaching-LIKE-and-ILIKE-new-tricks.html</a>）中有更深入的探讨。</p>
+</li>
+<li class="calibre10"><p class="calibre1">dblink（<a href="http://www.postgresql.org/docs/current/interactive/dblink.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/dblink.html</a>）</p>
+<p class="calibre1">该扩展包支持从一台 PostgreSQL 服务器远程访问另一台 PostgreSQL 服务器上的数据。在 9.3 版中引入对外部数据源的支持之前，dblink 是唯一能够实现跨数据库交互的机制。目前该机制一般用于需要临时性连接到外部数据源或者临时的即席查询场景。例如，如果我们需要从备份数据中找回一些被误删的数据，那么我们一般会用 dblink 来连接到依据备份的数据恢复出来的老版本数据库。</p>
+</li>
+<li class="calibre10"><p class="calibre1">pgcrypto（<a href="http://www.postgresql.org/docs/current/interactive/pgcrypto.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/pgcrypto.html</a>）</p>
+<p class="calibre1">该扩展包提供了一系列的加密工具，包括使用广泛的 PGP 算法。使用该扩展包提供的功能来对数据库中存储的信用卡号码或其他顶级机密信息进行加密是非常方便的。在“使用 pgcrypto 扩展包来实现数据加密”这篇博文（<a href="http://www.postgresonline.com/journal/archives/165-Encrypting-data-with-pgcrypto.html" class="calibre5">http://www.postgresonline.com/journal/archives/165-Encrypting-data-with-pgcrypto.html</a>）中我们对其用法进行了快速的入门介绍。</p>
+</li>
+</ul>
+<p class="calibre1"><strong class="calibre2">2. 经典扩展包介绍</strong></p>
+<p class="calibre1">此处我们介绍两个经典扩展包，之所以称其为“经典”，是因为它们使用非常广泛并因此被 PostgreSQL 官方接纳而成为了系统内核功能的一部分，但在老版本的 PostgreSQL 上它们还是以扩展包的形式存在的，你在实际工作中有可能遇到这些老版本，所以我们在此还是有必要介绍一下这些曾经的扩展包。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1">tsearch（<a href="http://www.postgresql.org/docs/current/interactive/textsearch-intro.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/textsearch-intro.html</a>）</p>
+<p class="calibre1">该扩展包封装了一系列用于强化全文搜索功能的索引、运算符、自定义词典和函数。目前该扩展包的功能已被系统内核接纳并成为 PostgreSQL 基础功能的一部分。如果你使用的 PostgreSQL 版本较老，在其上 tsearch 还是以扩展包的形式存在，那么我们建议你可以升级到 tsearch2 这个新版本。当然，最好的做法其实是将 PostgreSQL 服务器软件升级到新版本，因为老版本上的 tsearch 插件的兼容性支持随时可能终止，这会导致你在老版本的 PostgreSQL 上再也无法享受到相关的功能更新和 BUG 修复。</p>
+</li>
+<li class="calibre10"><p class="calibre1">xml（<a href="http://www.postgresql.org/docs/current/interactive/functions-xml.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/functions-xml.html</a>）</p>
+<p class="calibre1">该扩展包提供了对 XML 数据类型的支持以及相关的函数和运算符。为了达到 ANSI SQL XML 标准的要求，PostgreSQL 内核接纳了该插件包的部分功能。其余未被纳入内核的那部分功能仍以扩展包的形式存在，不过已改名为 xml2。具体来说，如果你需要使用 <code class="calibre11">xlst_process</code> 函数来处理 XSL 模板数据，那么就需要安装 xml2 扩展包。另外 xml2 扩展包中还含有一些 XPath 函数。</p>
+</li>
+</ul>
+</body></html>

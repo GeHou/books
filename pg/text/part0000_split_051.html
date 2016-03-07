@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_110" class="calibre6"><strong class="calibre2">5.4　数组类型</strong></h2>
+<p class="calibre1">数组在 PostgreSQL 中扮演着重要的角色。它在构造聚合函数、形成 <code class="calibre11">IN</code> 和 <code class="calibre11">ANY</code> 子句、承载数据类型转换过程中生成的中间值等领域发挥着重要作用。在 PostgreSQL 中，每种数据类型都有相应的以该类型为基础的数组类型。如果你自定义了一个数据类型，那么 PostgreSQL 会在后台自动为此类型创建一个数组类型。例如，<code class="calibre11">integer</code> 整数类型有一个相应的整数数组类型 <code class="calibre11">integer[]</code>，字符类型 <code class="calibre11">character</code> 也有相应的字符数组类型 <code class="calibre11">character[]</code>，以此类推。以下我们将向你展示一些可以快速构造出数组的函数，可以免除你一个个元素录入的麻烦。此外还有一些用于管理数组的函数。你可以从 PostgreSQL 官方手册的“数组函数和运算符”一节（<a href="http://www.postgresql.org/docs/current/interactive/functions-array.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/functions-array.html</a>）中查到全部的数组函数和运算符列表。</p>
+<h3 id="nav_point_111" class="calibre16"><strong class="calibre2">5.4.1　数组构造函数</strong></h3>
+<p class="calibre1">最基本的构造数组的方法就是一个个元素手动录入，语法如下：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT ARRAY[2001, 2002, 2003] As yrs;
+
+</code></pre>
+<p class="calibre1">如果数组元素存在于一个查询返回的结果集中，那么可以使用这个略复杂一些的构造函数 <code class="calibre11">array()</code> 来生成数组：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT array(
+SELECT DISTINCT date_part('year', log_ts) FROM logs ORDER BY date_part('year', log_ts)
+);
+
+</code></pre>
+<p class="calibre1">尽管 <code class="calibre11">array</code> 函数仅能用于将单字段的查询结果集转换为数组，但你依然可以指定一个复合数据类型作为查询结果，这种情况下可以获得多列结果。我们会在本章后续的 5.8 节中演示该用法。</p>
+<p class="calibre1">你可以把一个直接以字符串格式书写的数组转换为一个真正的数组，语法如下：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT '{Alex,Sonia}'::text[] As name, '{43,40}'::smallint[] As age;
+
+name         | age
+-------------+--------
+{Alex,Sonia} | {43,40}
+
+</code></pre>
+<p class="calibre1">你还可以用 <code class="calibre11">string_to_array</code> 函数将一个用固定分隔符分隔的字符串转换为数组，如示例 5-13 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-13</strong>：将一个分隔符格式的字符串转换为数组</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT string_to_array('ca.ma.tx', '.') As estados;
+
+estados
+----------
+{ca,ma,tx}
+
+</code></pre>
+<p class="calibre1"><code class="calibre11">array_agg</code> 是一种变型聚合函数，它可以采用一组任何类型的数据并将其转换为数组，如示例 5-14 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-14</strong>：<code class="calibre11">array_agg</code> 函数的使用</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT array_agg(log_ts ORDER BY log_ts) As x
+FROM logs
+WHERE log_ts BETWEEN '2011-01-01'::timestamptz AND '2011-01-15'::timestamptz;
+
+x
+------------------------------------------
+{'2011-01-01', '2011-01-13', '2011-01-14'}
+
+</code></pre>
+<h3 id="nav_point_112" class="calibre16"><strong class="calibre2">5.4.2　引用数组中的元素</strong></h3>
+<p class="calibre1">一般来说，我们会通过数组下标来引用数组元素，请特别注意 PostgreSQL 的数组下标从 1 开始。如果你试图越界访问一个数组，也就是说数组下标已经超过了数组元素的个数，那么不会返回错误，而是会得到一个空值 <code class="calibre11">NULL</code>。下面的例子演示了获取数组的第一个和最后一个元素的方法：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT fact_subcats[1] AS primero,
+ fact_subcats[array_upper(fact_subcats, 1)] As segundo
+FROM census.lu_fact_types;
+
+</code></pre>
+<p class="calibre1">我们使用 <code class="calibre11">array_upper</code> 函数来获取数组元素的个数，该函数的第二个必需的形参代表数组的维度。在本例中，数组是一维的，但 PostgreSQL 支持多维数组。</p>
+<h3 id="nav_point_113" class="calibre16"><strong class="calibre2">5.4.3　数组的拆分与连接</strong></h3>
+<p class="calibre1">PostgreSQL 支持使用 <code class="calibre11">start:end</code> 语法对数组进行拆分。操作结果是原数组的一个子数组。例如，如果要得到一个仅包含当前数组第 2 个至第 4 个元素的新数组，可以使用以下语法：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT fact_subcats[2:4] FROM census.lu_fact_types;
+
+</code></pre>
+<p class="calibre1">如果要将两个数组连接到一起，可以使用连接运算符 <code class="calibre11">||</code>：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT fact_subcats[1:2] || fact_subcats[3:4] FROM census.lu_fact_types;
+
+</code></pre>
+<h3 id="nav_point_114" class="calibre16"><strong class="calibre2">5.4.4　将数组元素展开为记录行</strong></h3>
+<p class="calibre1">另外一个常用的数组操作函数是 <code class="calibre11">unnest</code>，通过它可以将数组元素纵向展开成一个包含若干条记录的结果集，如示例 5-15 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-15</strong>：使用 <code class="calibre11">unnest</code> 函数将数组纵向展开</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT unnest('{XOX,OXO,XOX}'::char(3)[]) As tic_tac_toe;
+
+tic_tac_toe
+---
+XOX
+OXO
+XOX
+
+</code></pre>
+<p class="calibre1">你可以在一个 <code class="calibre11">SELECT</code> 语句中使用多个 <code class="calibre11">unnest</code> 函数，但如果每个 <code class="calibre11">unnest</code> 展开后的记录行数不一致，或者说“对不齐”，那么得到的最终结果将是这些结果集之间的笛卡儿积，看起来不太好理解。</p>
+<p class="calibre1">示例 5-16 演示了一个 <code class="calibre11">unnest</code> 展开后可对齐的结果集，也就是说每个 <code class="calibre11">unnest</code> 都输出 3 行记录，最终连接成的记录也是 3 行，这也是我们一般希望见到的结果。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-16</strong>：多个可对齐数组的展开效果</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT
+unnest('{three,blind,mice}'::text[]) As  t,
+unnest('{1,2,3}'::smallint[]) As i;
+
+t     |i
+------+-
+three |1
+blind |2
+mice  |3
+
+</code></pre>
+<p class="calibre1">如果你从上述一个数组中拿掉一个元素，那么两个数组的元素就无法对齐了，此时展开得到的结果如示例 5-17 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-17</strong>：多个无法对齐的数组展开后的效果</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT
+unnest( '{blind,mouse}'::varchar[]) As v,
+unnest('{1,2,3}'::smallint[]) As i;
+
+v     |i
+------+-
+blind |1
+mouse |2
+blind |3
+mouse |1
+blind |2
+mouse |3
+
+</code></pre>
+<p class="calibre1">PostgreSQL 9.4 版引入了一个多实参 <code class="calibre11">unnest</code> 函数，该函数会在数组不平衡的位置置入空占位符。新的 <code class="calibre11">unnest</code> 的主要缺点是，它仅可以在 <code class="calibre11">FROM</code> 子句中出现。示例 5-18 使用 9.4 版构造重新访问我们的不平衡数组。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-18</strong>：使用多实参 <code class="calibre11">unnest</code> 取消不平衡数组的嵌套</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT * FROM unnest('{blind,mouse}'::text[], '{1,2,3}'::int[]) As f(t,i);
+
+t      | i
+-------+---
+blind  | 1
+mouse  | 2
+&lt;NULL&gt; | 3
+
+</code></pre>
+</body></html>

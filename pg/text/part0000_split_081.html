@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_215" class="calibre6"><strong class="calibre2">10.2　复制环境的搭建</strong></h2>
+<p class="calibre1">本节中我们会完整介绍一遍搭建复制环境的所有步骤，以下使用 9.0 版开始支持的流式复制模式，该模式基于主服务器和从属服务器之间的数据库连接来进行 WAL 日志传输。我们还将使用 9.1 版开始支持的一个特性，该特性可以很简单地设置好专用于复制的用户账号。</p>
+<h3 id="nav_point_216" class="calibre16"><strong class="calibre2">10.2.1　主服务器的配置</strong></h3>
+<p class="calibre1">主服务器的基本配置步骤如下所示。</p>
+<p class="calibre1">(1) 创建一个专用于复制的用户账号。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE ROLE pgrepuser REPLICATION LOGIN PASSWORD 'woohoo';
+
+</code></pre>
+<p class="calibre1">(2) 在 postgresql.conf 中设好以下配置项。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">listen_addresses = *
+wal_level = hot_standby
+archive_mode = on
+max_wal_senders = 2
+wal_keep_segments = 10
+
+</code></pre>
+<p class="calibre1">以上设置在 PostgreSQL 官方手册的“服务器配置：复制”这一节（<a href="http://www.postgresql.org/docs/current/interactive/runtime-config-replication.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/runtime-config-replication.html</a>）中有详细介绍。</p>
+<p class="calibre1">(3) 在 postgresql.conf 中添加 <code class="calibre11">archive_command</code> 配置指令，该指令是一个命令行字符串，表示希望将 WAL 日志保存到哪里。在流式复制模式下该配置指令中的目标路径可设定为任何路径。更多有关此配置指令的信息，请参见 PostgreSQL 官方手册中 的“PostgreSQL PGStandby 工具介绍”一节（<a href="http://www.postgresql.org/docs/current/interactive/pgstandby.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/pgstandby.html</a>）。</p>
+<p class="calibre1">在 Linux/Unix 上，<code class="calibre11">archive_command</code> 行可参照如下格式设定：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">archive_command = 'cp %p ../archive/%f'
+
+</code></pre>
+<p class="calibre1">你也可以使用 <code class="calibre11">rsync</code> 命令替代 <code class="calibre11">cp</code> 以实现异地归档：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">archive_command = 'rsync -av %p postgres@192.168.0.10:archive/%f'
+
+</code></pre>
+<p class="calibre1">在 Windows 上可按如下形式设定：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">archive_command = 'copy %p ..\\archive\\%f'
+
+</code></pre>
+<p class="calibre1">(4) 在 pg_hba.conf 文件中设置一条权限规则，以允许从属服务器作为复制体系中的客户端连到主服务器。例如以下这条规则所代表的含义是：允许一个名为 <code class="calibre11">pgrepuser</code> 的角色连接到主服务器，其 IP 地址范围为 192.168.0.1 到 192.168.0.254，验证方式为基于 MD5 的加密密码。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">host replication pgrepuser 192.168.0.0/24 md5
+
+</code></pre>
+<p class="calibre1">(5) 关闭 PostgreSQL 服务然后将 data 文件夹下除了 pg_xlog 和 pg_log 这两个文件夹以外的所有内容都复制到从属服务器相同的位置。请确保从属服务器 data 文件夹下存在 pg_xlog 和 pg_log 这两个文件夹，但这两个文件夹都是空的。如果你的数据库规模庞大，不允许停机并实施数据冷复制，那么可以使用 PostgreSQL 安装路径下的 bin 文件夹中的 <code class="calibre11">pg_basebackup</code> 工具，该工具可以为指定目录下的数据文件创建一份热副本，所谓“热副本”是指 <code class="calibre11">postgres</code> 服务还在运行期间就对其实施数据复制动作。</p>
+<h3 id="nav_point_217" class="calibre16"><strong class="calibre2">10.2.2　从属服务器的配置</strong></h3>
+<p class="calibre1">建议从属服务器与主服务器的各项系统配置完全相同，这会为你减少很多麻烦，特别是当你需要搭建一套用于保障系统高可用的主备倒换环境时，这一点尤其重要。从属服务器节点必须要能够处理主服务器发来的 WAL 事务日志。具体配置步骤如下。</p>
+<p class="calibre1">(1) 新建一个数据库实例作为从属服务器，要求采用与主服务器相同的 PostgreSQL 版本（最好是小版本号也完全相同），并且操作系统也相同，操作系统打的补丁也相同。事实上官方并不要求主服务器和从属服务器的软件平台完全相同，其实你可以尝试一下，看看在不一样的情况下是否能够配置成功，不过我们是不建议你在生产环境上这么做的。</p>
+<p class="calibre1">(2) 关闭从属服务器的 PostgreSQL 服务。</p>
+<p class="calibre1">(3) 使用从主服务器复制的 data 文件夹文件覆盖从属服务器上的相应文件。</p>
+<p class="calibre1">(4) 将下面的配置设置添加到 postgresql.conf 文件中。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">hot_standby = on
+
+</code></pre>
+<p class="calibre1">(5) 从属服务器的侦听端口不必与主服务器一样，因此可以选择在 postgresql.conf 中更改端口，也可以通过某些其他特定于操作系统的启动脚本进行更改，这些启动脚本会在启动之前设置 <code class="calibre11">PGPORT</code> 环境变量。任何启动脚本都将替代 postgresql.conf 中的设置。</p>
+<p class="calibre1">(6) 在 data 文件夹下创建一个名为 recovery.conf 的新文件，内容如下（注意下面第二行中要修改为真实的 IP 地址和端口）。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">standby_mode = 'on'
+primary_conninfo = 'host=192.168.0.1 port=5432 user=pgrepuser password=woohoo'
+trigger_file = 'failover.now'
+
+</code></pre>
+<p class="calibre1">(7) 如果发现从属服务器处理事务日志的速度较慢，跟不上主服务器产生日志的速度，为避免主服务器产生积压，你可以在从属服务器上指定一个路径用于缓存暂未处理的日志。请在 recovery.conf 中添加如下一个代码行，该代码行在不同操作系统下会有所不同。</p>
+<p class="calibre1">Linux/Unix 下：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">restore_command = 'cp %p ../archive/%f'
+
+</code></pre>
+<p class="calibre1">Windows 下：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">restore_command = 'copy %p ..\\archive\\%f'
+
+</code></pre>
+<p class="calibre1">本示例中，路径中指定的 archive 文件夹就是我们用于缓存日志的文件夹。</p>
+<h3 id="nav_point_218" class="calibre16"><strong class="calibre2">10.2.3　启动复制进程</strong></h3>
+<p class="calibre1">一般情况下，我们建议先启动所有从属服务器再启动主服务器，如果顺序反过来，会导致主服务器已经开始修改数据并生成事务日志了，但从属服务器却还无法进行复制处理，这会导致主服务器的日志积压。如果在未启动主服务器的情况下先启动从属服务器，那么从属服务器日志中会报错，说无法连接到主服务器，但这没有关系，忽略即可。等所有从属服务器都启动完毕后，就可以启动主服务器了。</p>
+<p class="calibre1">此时所有主从属服务器应该都是能访问的。主服务器的任何修改，包括安装一个扩展包或者是新建表这种对系统元数据的修改，都会被同步到从属服务器。从属服务器可对外提供查询服务。</p>
+<p class="calibre1">如果希望某个从属服务器脱离当前的主从复制环境，即此后以一台独立的 PostgreSQL 服务器身份而存在，请直接在其 data 文件夹下创建一个名为 failover.now 的空文件。从属服务器会在处理完当前接收到的最后一条事务日志后停止接收新的日志，然后将 recovery.conf 改名为 recovery.done。此时从属服务器已与主服务器彻底解除了复制关系，此后这台 PostgreSQL 服务器会作为一台独立的数据库服务器存在，其数据的初始状态就是它作为从属服务器时处理完最后一条事务日志后的状态。一旦从属服务器脱离了主从复制环境，就不可能再切换回主从复制状态了，要想切回去，必须按照前述步骤一切从零开始。</p>
+</body></html>

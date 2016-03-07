@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_198" class="calibre6"><strong class="calibre2">9.2　搜集语句的执行统计信息</strong></h2>
+<p class="calibre1">性能调优的第一步就是要确定哪些语句是性能瓶颈。PostgreSQL 提供了一个名为 <code class="calibre11">pg_stat_statements</code> 的性能监控扩展包以帮助用户找出耗时最长的语句。该扩展包能提供所有执行过的 SQL 语句的统计度量信息，包括哪些语句执行得最频繁以及每个语句的执行总耗时等。基于这些信息我们可以知道应将优化的重点放在哪里。</p>
+<p class="calibre1">大多数 PostgreSQL 版本都自带 <code class="calibre11">pg_stat_statements</code> 扩展包，但启动时必须明确指定预加载其动态库，这样系统才会启动用于搜集统计数据的后台进程。设置方法如下所示。</p>
+<p class="calibre1">(1) 在 postgresql.conf 配置文件中，将 <code class="calibre11">shared_preload_libraries = ''</code> 更改为 <code class="calibre11">shared_preload_libraries = 'pg_stat_statements'</code>。</p>
+<p class="calibre1">(2) 在 postgresql.conf 文件的自定义选项部分，添加以下几行。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">pg_stat_statements.max = 10000
+pg_stat_statements.track = all
+
+</code></pre>
+<p class="calibre1">(3) 重启 <code class="calibre11">postgresql</code> 服务。</p>
+<p class="calibre1">(4) 登录到每一个希望进行 SQL 语句性能统计的 database 中并执行以下语句：<code class="calibre11">CREATE EXTENSION pg_stat_statements;</code>。</p>
+<p class="calibre1">该扩展包提供了以下两个关键功能。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1">一个名为 <code class="calibre11">pg_stat_statements</code> 的视图，其中可以查询到当前登录用户在各 database 中执行过的所有 SQL 语句的统计信息。</p>
+</li>
+<li class="calibre10"><p class="calibre1">一个名为 <code class="calibre11">pg_stat_statements_reset</code> 的函数，该函数可以将到目前为止的语句执行统计信息全部清空，不过只有超级用户才有权限执行此函数。</p>
+</li>
+</ul>
+<p class="calibre1">示例 9-7 中的语句可以查出 <code class="calibre11">postgresql_book</code> 这个数据库中最耗时的 5 个 SQL 语句。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 9-7</strong>：找出特定 database 中最耗时的语句</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT
+    query, calls, total_time, rows,
+    100.0*shared_blks_hit/nullif(shared_blks_hit+shared_blks_read,0) AS hit_percent
+FROM pg_stat_statements As s INNER JOIN pg_database As d On d.oid = s.dbid
+WHERE d.datname = 'postgresql_book'
+ORDER BY total_time DESC LIMIT 5;
+
+</code></pre>
+</body></html>

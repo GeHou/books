@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_5" class="calibre6"><strong class="calibre2">PostgreSQL的特别之处以及选用理由</strong></h2>
+<p class="calibre1">PostgreSQL 之所以特别，是因为它不仅仅是一个数据库，还是一个功能强大的应用开发平台。</p>
+<p class="calibre1">PostgreSQL 支持用多种编程语言编写存储过程和函数。除了系统自带的编程语言外，还可以通过安装语言扩展包来支持新的语言。内置的基础语言包括 SQL 和 PL/pgSQL，通过安装扩展包还可以支持 PL/Perl、PL/Python、PL/V8（又称为 PL/JavaScript）以及 PL/R 等。前述语言的安装包在 PostgreSQL 发行版中大多都已自带，需要时安装一下扩展包即可使用。这种支持多语言的能力是非常有价值的，因为每种语言的特点不同，有的语言适合解决特定领域内的问题，有的语言过程化特性更丰富，有的语言语法特性更强大，那么开发人员就可以根据待解决问题的特点来选择最合适的语言。比如可以通过使用 R 语言的统计和图形函数以及 R 语言中简洁的专业表达式来解决统计领域的问题，可以通过 Python 来调用 Web 服务，也可以编写 map reduce 函数并在 SQL 语句中调用。</p>
+<p class="calibre1">用户甚至可以写一个聚合函数并嵌入到上述这些语言中，这样就可以把 SQL 语言的聚合运算能力与上述语言本身的能力相结合，从而拓展了这些语言的能力范围。此外，PostgreSQL 还支持调用 C 语言写的函数，与调用上述其他语言写的函数没有区别。可以在同一个 SQL 语句中调用分别由不同语言编写的多个函数。甚至可以仅使用 SQL 语言（即无过程化能力的纯 SQL）来创建一个用户自定义聚合函数。在 MySQL 和 SQL Server 中，用户自定义聚合函数是需要对数据库软件本身进行重编译才能做到的，但在 PostgreSQL 中却不需要。简而言之，PostgreSQL 对多语言的支持是极其灵活和强大的，开发人员不但能够为不同任务选择不同的编程语言，也能够为同一任务的不同子任务选用不同的语言。另外，在其他绝大多数数据库都不允许使用 SQL 的场景下，PostgreSQL 也允许你使用 SQL。PostgreSQL 中不用编译任何代码就可以创建非常复杂的函数。</p>
+<p class="calibre1">PostgreSQL 支持非常强大的用户自定义数据类型功能，不但使用方法简单，而且性能也超越了绝大多数其他关系型数据库。在用户自定义数据类型方面，与 PostgreSQL 实力最接近的对手只有 Oracle。用户可以在 PostgreSQL 中定义新的数据类型，然后就可以将该数据类型用作表列类型。每种数据类型都有伴随的数组类型，这样可以将某个类型的数组存储到某个数据列中，或者在 SQL 语句中使用该数组。另外还可以为新增的数据类型定义相应的运算符、函数和索引绑定来与其协同工作。很多 PostgreSQL 的第三方扩展包就利用该自定义数据类型能力来优化性能，或者通过添加支持某个领域专用的特殊 SQL 语法来让业务代码更简洁和易于维护，或者实现一些在别的数据库中完全不可能实现的功能。</p>
+<p class="calibre1">如果不需要自定义数据类型和相应的函数，那么系统自带的数据类型也是种类繁多的，比如 <code class="calibre11">json</code>（在 9.2 版中引入），另外还有很多数据类型扩展包可供选择。很多这类扩展包是 PostgreSQL 发行版中自带的。从 PostgreSQL 9.1 开始引入了一种新的语法：<code class="calibre11">CREATE EXTENSION</code>。该语法仅通过一条 SQL 语句就实现了扩展包的安装。如果需要在某个数据库中使用某个扩展包的功能，则在该数据库中安装该扩展包即可。通过 <code class="calibre11">CREATE EXTENSION</code> 语法，可以安装前述任何一种过程式语言（简称 PL），以及使用比较广泛的数据类型及其相应的函数和运算符，比如 <code class="calibre11">hstore</code> 键 - 值存储、<code class="calibre11">ltree</code> 层次化存储、PostGIS 地理空间扩展以及数不胜数的其他扩展。举个例子，如果想加载 <code class="calibre11">hstore</code>，只需执行下面这个命令即可：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE EXTENSION hstore;
+
+</code></pre>
+<p class="calibre1">此外，有一条 SQL 命令可以列出所有可用的以及已安装的扩展包（详见 2.6 节)。</p>
+<p class="calibre1">前面提到了 PostgreSQL 支持各种扩展，也提到了它对多种编程语言的支持，但你可能对这些都不感兴趣。你可能觉得：“哦，支持 Python，还支持 Perl……可那又怎么样？能不能说点我不知道的？”别着急，当我们继续往后深入学习的时候，你一定能够不时地体会到“哇，这个功能太牛了！”这样的惊喜，而这样的惊喜在我们多年使用 PostgreSQL 的过程中已经体会过太多次。PostgreSQL 的每次升级都会为用户提供新的特性，这些特性包括易用性的升级、性能的提升，以及对于关系型数据库功能极限的不断超越。到最后你会发现：我为什么还要使用别家的数据库？ PostgreSQL 已经提供了我所需要的一切功能了啊，而且还是免费的！你不再需要去阅读那些商业数据库附带的密密麻麻的授权条款，来了解在一个 8 核服务器上支持甲特性、乙特性和丙特性所需要的费用是多少，也不需要了解如果服务器 CPU 从 8 核升级到 16 核后要再为许可证加多少钱。</p>
+<p class="calibre1">此外，PostgreSQL 在其支持的所有平台上的功能表现都很一致。因此你根本不需要担心你的客户要求支持哪种操作系统，Unix、Linux、Mac OS X、Windows，PostgreSQL 全都支持。PostgreSQL 官方站点提供各种操作系统下的二进制安装包下载，当然你也可以自行编译安装。</p>
+</body></html>

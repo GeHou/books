@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_167" class="calibre6"><strong class="calibre2">7.3　适用于聚合操作的<code class="calibre11">FILTER</code>子句</strong></h2>
+<p class="calibre1">9.4 版中新引入了用于聚合操作的 <code class="calibre11">FILTER</code> 子句，这是近期 ANSI SQL 标准中新加入的一个关键字。该关键字用于替代同为 ANSI SQL 标准语法的 <code class="calibre11">CASE WHEN</code> 子句，使聚合操作的语法得以简化。例如，假设你需要使用 <code class="calibre11">CASE WHEN</code> 子句来统计每个学生不同科目的多次测试的平均成绩，语法如下。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-19</strong>：在 <code class="calibre11">AVG</code> 聚合函数中使用 <code class="calibre11">CASE WHEN</code></p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT student,
+    AVG(CASE WHEN subject ='algebra' THEN score ELSE NULL END) As algebra,
+    AVG(CASE WHEN subject ='physics' THEN score ELSE NULL END) As physics
+FROM test_scores
+GROUP BY student;
+
+</code></pre>
+<p class="calibre1">用 <code class="calibre11">FILTER</code> 子句可以实现与上面语句等价的效果，语法如示例 7-20 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-20</strong>：<code class="calibre11">AVG</code> 聚合函数与 <code class="calibre11">FILTER</code> 子句的配合使用</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT student,
+    AVG(score) FILTER (WHERE subject ='algebra') As algebra,
+    AVG(score) FILTER (WHERE subject ='physics') As physics
+FROM test_scores
+GROUP BY student;
+
+</code></pre>
+<p class="calibre1">对于求平均值、求合计值以及其他很多聚合函数来说，<code class="calibre11">CASE</code> 和 <code class="calibre11">FILTER</code> 子句是等价的，即二者可以起到相同的作用。<code class="calibre11">FILTER</code> 子句的优势在于写法比较清晰简洁并且操作大数据量时速度比较快。<code class="calibre11">CASE</code> 语句对于筛选掉的字段值是当成 <code class="calibre11">NULL</code> 处理的，因此对于 <code class="calibre11">array_agg</code> 这种会处理 <code class="calibre11">NULL</code> 值的聚合函数来说，使用 <code class="calibre11">CASE WHEN</code> 子句就不止是写法繁琐的问题了，还会导致输出不想要的结果。在示例 7-21 中，我们使用 <code class="calibre11">CASE...WHEN...</code> 方法查询每个学生的各门课程的多次测试成绩的列表来向你演示这个问题。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-21</strong>：<code class="calibre11">CASE WHEN</code> 子句与 <code class="calibre11">array_agg</code> 函数配合使用</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT student,
+    array_agg(CASE WHEN subject ='algebra' THEN score ELSE NULL END) As algebra,
+    array_agg(CASE WHEN subject ='physics' THEN score ELSE NULL END) As physics
+FROM test_scores
+GROUP BY student;
+
+ student |          algebra          |     physics
+---------+---------------------------+-------------------------------
+ jojo    | {74,NULL,NULL,NULL,74,..} | {NULL,83,NULL,NULL,NULL,79,..}
+ jdoe    | {75,NULL,NULL,NULL,78,..} | {NULL,72,NULL,NULL,NULL,72..}
+ robe    | {68,NULL,NULL,NULL,77,..} | {NULL,83,NULL,NULL,NULL,85,..}
+ lhsu    | {84,NULL,NULL,NULL,80,..} | {NULL,72,NULL,NULL,NULL,72,..}
+(4 rows)
+
+</code></pre>
+<p class="calibre1">可以看到上面输出的成绩列表中含有很多的 <code class="calibre11">NULL</code> 值。这个问题可以通过使用子查询来解决，但比起使用 <code class="calibre11">FILTER</code> 来说还是麻烦又低效。示例 7-22 中演示了使用 <code class="calibre11">FILTER</code> 时的写法。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-22</strong>：<code class="calibre11">FILTER</code> 子句与 <code class="calibre11">array_agg</code> 函数的配合使用</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT student,
+    array_agg(score) FILTER (WHERE subject ='algebra') As algebra,
+    array_agg(score) FILTER (WHERE subject ='physics') As physics
+FROM test_scores
+GROUP BY student;
+
+ student | algebra | physics
+---------+---------+--------
+ jojo    | {74,74} | {83,79}
+ jdoe    | {75,78} | {72,72}
+ robe    | {68,77} | {83,85}
+ lhsu    | {84,80} | {72,72}
+
+</code></pre>
+<p class="calibre1"><code class="calibre11">FILTER</code> 子句适用于所有聚合函数，不仅仅是 PostgreSQL 中内置的那些聚合函数，通过安装扩展包支持的聚合函数也是可以用的。</p>
+</body></html>

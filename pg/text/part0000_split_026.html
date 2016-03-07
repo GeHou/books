@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_36" class="calibre6"><strong class="calibre2">2.2　连接管理</strong></h2>
+<p class="calibre1">我们可能时不时地会遇到一些想要终止数据库连接的情况，比如有人执行了写得很糟糕的 SQL 语句把系统资源耗光，当然这肯定不是他的本意，又比如你在执行某些语句时发现其耗时太长，超出了自己忍耐的极限。发生这些情况时，我们一般都会希望结束这些操作或者干脆彻底终止这个连接。另外，当我们执行全库备份、全库恢复或者对有人正在访问的表执行数据恢复时，我们都会需要先终止一些相关连接。下面将介绍具体的操作过程。</p>
+<p class="calibre1">请记住，强行终止连接是一种很不“优雅”的行为，应当尽量少用。应当先在客户端应用程序中通过某种方式判定并记录下那些已经失控（耗时长或者占资源多）的语句，然后基于这些记录下来的信息分析出应该终止哪些相关连接。出于礼貌，你应该在终止连接之前通知相关用户其连接即将被强行终止，或者如果实在有必要，你也可以不管它什么礼貌不礼貌，等四下无人时直接终止这些连接就好了。</p>
+<p class="calibre1">我们一般会使用以下三个 SQL 语句来取消正在运行的查询并终止连接。以下是典型的流程。</p>
+<p class="calibre1">(1) 查出活动连接列表及其进程 ID。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT * FROM pg_stat_activity;
+
+</code></pre>
+<p class="calibre1">该命令还能查出每个连接上最近一次执行的语句、使用的用户名（<code class="calibre11">usename</code> 字段）、所在的 database 名（<code class="calibre11">datname</code> 字段）以及语句开始执行的时间。通过查询该视图可以找到需要终止的会话所对应的进程 ID。</p>
+<p class="calibre1">(2) 取消连接上的活动查询。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT pg_cancel_backend(procid);
+
+</code></pre>
+<p class="calibre1">该操作不会终止连接本身。</p>
+<p class="calibre1">(3) 终止该连接。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT pg_terminate_backend(procid);
+
+</code></pre>
+<p class="calibre1">如果你未停止某个连接上正在执行的语句就直接终止该连接，那么这些语句此时也会被停止掉。在上述步骤 2 执行完毕后，客户端应用的挂起状态被解除，即客户端可以重新执行语句，有些着急的用户会在此时再次执行刚刚被终止掉的语句，这又会导致系统陷入之前的状态。为了避免此种情况的发生，可以采用直接终止连接的方式。</p>
+<p class="calibre1">PostgreSQL 支持在 <code class="calibre11">SELECT</code> 查询语句中调用函数。因此，尽管 <code class="calibre11">pg_terminate_backend</code> 和 <code class="calibre11">pg_cancel_backend</code> 一次仅能处理一个连接，但你可以通过在 <code class="calibre11">SELECT</code> 语句中调用函数的方式实现一次处理多个连接。例如，如果你希望一次性终止某个用户的所有连接，那么在 9.2 版及之后的版本上可以执行以下语句。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE usename = 'some_role';
+
+</code></pre>
+<p class="calibre1">在 9.2 版之前的版本上可以执行以下语句。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT pg_terminate_backend(procpid) FROM pg_stat_activity WHERE usename = 'some_role';
+
+</code></pre>
+<p class="calibre1">从 9.1 版开始，<code class="calibre11">pg_stat_activity</code> 视图发生了较大变化，一些字段的名称发生了变化，并且另外新增了一些字段。原来的 <code class="calibre11">procpid</code> 现在叫 <code class="calibre11">pid</code>。</p>
+</body></html>

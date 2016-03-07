@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_151" class="calibre6"><strong class="calibre2">7.1　视图</strong></h2>
+<p class="calibre1">关系型数据库中的表存储的是规范化的数据，因此当需要从多张表中取数据时，就需要写关联查询的 SQL 语句。如果你的应用场景需要反复执行这种关联查询语句，可以考虑创建一个视图。简单来说，视图就是持久化存储在数据库中的一个查询语句。</p>
+<p class="calibre1">有人认为用户不应该直接访问表，而应该通过视图来访问，不过这就意味着需要为每张表都创建一个视图。这种做法的优点是在表的本体之上增加了一个访问层，方便了权限控制和业务逻辑抽象，缺点就是太麻烦。我们认为这个观点是合理的，但事实上由于惰性很少有人会这么做。</p>
+<p class="calibre1">PostgreSQL 的视图功能近年来有了长足的发展。在 9.1 版之前，要想对视图进行更新操作，唯一的方法就是使用规则。“使用可更新视图来对数据库进行抽象”（<a href="http://www.postgresonline.com/journal/archives/11-Database-Abstraction-with-updatable-Views.html" class="calibre5">http://www.postgresonline.com/journal/archives/11-Database-Abstraction-with-updatable-Views.html</a>）这篇博文中有一个关于规则的例子。在 9.1 版及之后的版本中，你依然可以通过创建规则来更新视图，但我们推荐使用 <code class="calibre11">INSTEAD OF</code> 触发器来实现该功能，这是业界标准做法，其他数据库一般也都这么实现。</p>
+<p class="calibre1">9.3 版中推出了可自动更新的视图。如果你的视图是从单个表得出的，并且你将主键作为一个输出列，那么就可以直接对此视图发出 <code class="calibre11">UPDATE</code> 命令。基础表将存储该更新。</p>
+<p class="calibre1">9.3 版中还引入了<strong class="calibre2">物化视图</strong>。每个视图都对应一个 SQL 查询语句，视图本质上就是该 SQL 的查询结果集的一个别名。每次访问视图时都需要执行其对应的 SQL，但物化视图将视图逻辑映射后的数据记录实际存储下来，这样访问物化视图时就省略了视图底层 SQL 的执行过程，就像访问一张本地表一样。一旦物化视图建立好以后，只有对它执行 <code class="calibre11">REFRESH</code> 操作时才会再次从基础表中读取数据。根据前面的描述可以知道，使用物化视图可以节省计算资源，因为视图底层 SQL（这种 SQL 逻辑可能极其复杂）不用反复执行。但物化视图也有缺点，因为如果刷新不及时就会导致取出的数据可能不是最新的。</p>
+<p class="calibre1">9.4 版开始支持用户在物化视图刷新时也能对其进行访问，该版本还引入了 <code class="calibre11">WITH CHECK OPTION</code> 修饰符，用于防止在视图的范围之外进行插入和更新。</p>
+<h3 id="nav_point_152" class="calibre16"><strong class="calibre2">7.1.1　单表视图</strong></h3>
+<p class="calibre1">最简单的视图是从单个表得出的。如果打算将数据写回到该表，请始终包含主键，如示例 7-1 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-1</strong>：创建基于单表的视图</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE OR REPLACE VIEW census.vw_facts_2011 AS
+SELECT fact_type_id, val, yr, tract_id FROM census.facts WHERE yr = 2011;
+
+</code></pre>
+<p class="calibre1">自从 9.3 版起，就可以使用 <code class="calibre11">INSERT</code>、<code class="calibre11">UPDATE</code> 和 <code class="calibre11">DELETE</code> 命令在该视图中更改数据了。更新和删除命令将遵从作为视图一部分的任何 <code class="calibre11">WHERE</code> 条件。例如，下面的删除命令将仅删除 <code class="calibre11">yr</code>=2011 的记录：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">DELETE FROM census.vw_facts_2011 WHERE val = 0;
+
+</code></pre>
+<p class="calibre1">以下 <code class="calibre11">UPDATE</code> 操作更新不了任何记录：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">UPDATE census.vw_facts_2011 SET val = 1 WHERE val = 0 AND yr = 2012;
+
+</code></pre>
+<p class="calibre1">注意你可以插入和更新将该视图置于视图的 <code class="calibre11">WHERE</code> 条件之外的数据：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">UPDATE census.vw_facts_2011 SET yr = 2012 WHERE yr = 2011;
+
+</code></pre>
+<p class="calibre1">上述 <code class="calibre11">UPDATE</code> 语句操作的目标记录是落在视图可见范围内的，但更新后会把本来落在视图可见范围内的记录变成了落到视图可见范围之外，也就是说视图更新后少了一条记录。但为了保持视图数据的一致性，我们不希望这种情况发生，也就是说希望更新后的数据仍然应该落在视图可见范围内。这可以通过 9.4 版中引入的 <code class="calibre11">WITH CHECK OPTION</code> 修饰符来实现。创建视图时如果包含此修饰符，那么此视图中插入的数据或者更新后的数据落在视图可见范围之外时，系统会报错，违反了该约束的操作会失败。下面我们将限定 <code class="calibre11">vs_facts_2011</code> 视图仅允许插入 2011 年的数据，同时不允许将 <code class="calibre11">yr</code> 字段修改为 2011 以外的其他值。我们修改一下视图定义把这个约束加上，语法如示例 7-2 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-2</strong>：创建带有 <code class="calibre11">WITH CHECK OPTION</code> 约束的单表视图</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE OR REPLACE VIEW census.vw_facts_2011 AS
+SELECT fact_type_id, val, yr, tract_id
+FROM census.facts WHERE yr = 2011 WITH CHECK OPTION;
+
+</code></pre>
+<p class="calibre1">尝试执行以下更新操作：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">UPDATE census.vw_facts_2011 SET yr = 2012 WHERE val &gt; 2942;
+
+</code></pre>
+<p class="calibre1">你会看到这样的报错信息：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">ERROR:  new row violates WITH CHECK OPTION for view"vw_facts_2011"
+DETAIL:  Failing row contains (1, 25001010500, 2012, 2985.000, 100.00).
+
+</code></pre>
+<h3 id="nav_point_153" class="calibre16"><strong class="calibre2">7.1.2　使用触发器来更新视图</strong></h3>
+<p class="calibre1">视图可以将针对多张表的关联查询封装为针对视图的简单查询。如果视图的基表有多张，那么直接更新该视图是不允许的，因为多张表必然带来的问题就是操作要落到哪个基表上，PostgreSQL 是无法自动判定的。假设你有一个视图，该视图基于一张国家信息表和一张省份信息表，此时你希望删除该视图的一条记录，PostgreSQL 无法得知你到底想要仅删除一条国家记录，还是仅删除一个省份记录，还是删除一个国家以及该国家对应的所有省的记录。PostgreSQL 无法自动判定你想做什么并不代表就不能对这种复杂视图进行修改操作，你可以通过编写触发器来对这些操作进行转义处理，转义后的逻辑中可以体现你的意图。</p>
+<p class="calibre1">我们首先建立一个关联了两张表的视图，如示例 7-3 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-3</strong>：创建 <code class="calibre11">vw_facts</code> 视图</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE OR REPLACE VIEW census.vw_facts AS
+SELECT y.fact_type_id, y.category, y.fact_subcats, y.short_name, x.tract_id, x.yr, x.val, x.perc
+FROM census.facts As x INNER JOIN census.lu_fact_types As y
+ON x.fact_type_id = y.fact_type_id;
+
+</code></pre>
+<p class="calibre1">然后可以定义一个或者多个 <code class="calibre11">INSTEAD OF</code> 触发器来实现针对 <code class="calibre11">INSERT</code>、<code class="calibre11">UPDATE</code>、<code class="calibre11">DELETE</code> 这三大基本操作的转义处理。触发器需要有一个基础函数，你可以使用任何语言来编写该基础函数，其命名也没有规则限制。我们在示例 7-4 中选择使用 PL/pgSQL 语法来编写。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-4</strong>：在 <code class="calibre11">vw_facts</code> 视图上建一个对 <code class="calibre11">insert</code>、<code class="calibre11">update</code>、<code class="calibre11">delete</code> 操作进行转义处理的函数</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE OR REPLACE FUNCTION census.trig_vw_facts_ins_upd_del() RETURNS trigger AS
+$$
+BEGIN
+    IF (TG_OP = 'DELETE') THEN ➊
+        DELETE FROM census.facts AS f
+        WHERE
+            f.tract_id = OLD.tract_id AND f.yr = OLD.yr AND
+            f.fact_type_id = OLD.fact_type_id;
+        RETURN  OLD;
+    END IF;
+    IF (TG_OP = 'INSERT') THEN ➋
+        INSERT INTO census.facts(tract_id, yr, fact_type_id, val, perc)
+        SELECT NEW.tract_id, NEW.yr, NEW.fact_type_id, NEW.val, NEW.perc;
+        RETURN NEW;
+    END IF;
+    IF (TG_OP = 'UPDATE') THEN ➌
+        IF
+            ROW(OLD.fact_type_id, OLD.tract_id, OLD.yr, OLD.val, OLD.perc) !=
+            ROW(NEW.fact_type_id, NEW.tract_id, NEW.yr, NEW.val, NEW.perc)
+        THEN ➍
+            UPDATE census.facts AS f
+            SET
+                tract_id = NEW.tract_id,
+                yr = NEW.yr,
+                fact_type_id = NEW.fact_type_id,
+                val = NEW.val,
+                perc = NEW.perc
+            WHERE
+                f.tract_id = OLD.tract_id AND
+                f.yr = OLD.yr AND
+                f.fact_type_id = OLD.fact_type_id;
+            RETURN NEW;
+        ELSE
+            RETURN NULL;
+        END IF;
+    END IF;
+END;
+$$
+LANGUAGE plpgsql VOLATILE;
+
+</code></pre>
+<p class="calibre1">❶　对删除操作进行转义处理，筛选条件的字段取值来源于 <code class="calibre11">OLD</code> 记录。<span class="zhu_shi_bian_hao">1</span></p>
+<p class="zhu_shi_nei_rong"><span class="zhu_shi_bian_hao_xia">1</span><code class="calibre11">OLD</code> 记录是指原始的针对视图的删除动作所要删除的视图记录。也就是说，<code class="calibre11">OLD</code> 记录是视图记录，而非视图基础表的记录。——译者注</p>
+<p class="calibre1">❷　对插入操作进行转义处理。</p>
+<p class="calibre1">❸　对更新操作进行转义处理。根据 <code class="calibre11">OLD</code> 记录的内容判断哪些记录要更新为 <code class="calibre11">NEW</code> 记录。<span class="zhu_shi_bian_hao">2</span></p>
+<p class="zhu_shi_nei_rong"><span class="zhu_shi_bian_hao_xia">2</span><code class="calibre11">NEW</code> 记录指的是原始的针对视图的更新动作设置的修改后的视图记录。也就是说，<code class="calibre11">NEW</code> 记录是视图记录，而非视图基础表的记录。——译者注</p>
+<p class="calibre1">❹　比较 <code class="calibre11">OLD</code> 记录和 <code class="calibre11">NEW</code> 记录的字段值，只有二者不一样时才真正执行更新动作。</p>
+<p class="calibre1">接下来，我们将此触发器函数绑定到视图上，语法如示例 7-5 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-5</strong>：将触发器函数绑定到视图上</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE TRIGGER census.trig_01_vw_facts_ins_upd_del
+INSTEAD OF INSERT OR UPDATE OR DELETE ON census.vw_facts
+FOR EACH ROW EXECUTE PROCEDURE census.trig_vw_facts_ins_upd_del();
+
+</code></pre>
+<p class="calibre1">现在针对视图进行更新、删除或插入操作时，这些操作将更新基础 <code class="calibre11">facts</code> 表：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">UPDATE census.vw_facts SET yr = 2012 WHERE yr = 2011 AND tract_id = '25027761200';
+
+</code></pre>
+<p class="calibre1">执行后会输出一条注释：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">Query returned successfully: 56 rows affected, 40 ms execution time.
+
+</code></pre>
+<p class="calibre1">如果我们试图更新的字段不在更新行比较列表中（如此处所示），那么更新操作就不会命中任何记录，因为入口条件不满足：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">UPDATE census.vw_facts SET short_name = 'test';
+
+</code></pre>
+<p class="calibre1">输出消息将如下所示：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">Query returned successfully: 0 rows affected, 931 ms execution time.
+
+</code></pre>
+<p class="calibre1">前面的例子中我们用一个触发器函数处理了所有类型的触发事件（<code class="calibre11">insert</code>、<code class="calibre11">update</code>、<code class="calibre11">delete</code>），但实际上专门为每种触发事件创建一个独立的触发器也是可以的。</p>
+<h3 id="nav_point_154" class="calibre16"><strong class="calibre2">7.1.3　物化视图</strong></h3>
+<p class="calibre1">物化视图会把视图可见范围内的数据在本地缓存下来，然后就可以当成一张本地表来使用。首次创建物化视图以及对其执行 <code class="calibre11">REFRESH MATERIALIZED VIEW</code> 刷新操作时都会触发数据缓存动作，只不过前者是全量缓存，后者是增量刷新。请注意物化视图特性是从 9.3 版开始支持的。</p>
+<p class="calibre1">物化视图最典型的应用场景是用于加速时效性要求不高的长时复杂查询，在 OLAP（在线分析与处理）领域，这种查询是经常出现的。</p>
+<p class="calibre1">物化视图还有一个特点就是支持建立索引以加快查询速度。示例 7-6 建立了示例 7-1 中的视图的物化版本。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-6</strong>：建立物化视图</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE MATERIALIZED VIEW census.vw_facts_2011_materialized AS
+SELECT fact_type_id, val, yr, tract_id FROM census.facts WHERE yr = 2011;
+
+</code></pre>
+<p class="calibre1">然后对物化视图建立一个索引，语法与在普通表上建索引完全相同，如示例 7-7 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-7</strong>：在物化视图上建立索引</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE UNIQUE INDEX ix
+ON census.vw_facts_2011_materialized (tract_id, fact_type_id, yr);
+
+</code></pre>
+<p class="calibre1">当物化视图中含大量记录时，为了加快对它的访问速度，我们需要对数据进行排序。要实现这一点，最简单的方法就是在创建物化视图时使用的 <code class="calibre11">SELECT</code> 语句中增加 <code class="calibre11">ORDER BY</code> 子句。另外一种方法就是对其执行聚簇排序操作以使得记录的物理存储顺序与索引的顺序相同，具体步骤是：首先创建一个索引，该索引应体现你所希望的排序；然后基于指定索引对物化视图执行 <code class="calibre11">CLUSTER</code> 命令，语法如示例 7-8 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-8</strong>：基于某索引对物化视图执行聚簇排序操作</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CLUSTER census.vw_facts_2011_materialized USING ix; ➊
+CLUSTER census.vw_facts_2011_materialized; ➋
+
+</code></pre>
+<p class="calibre1">➊　指定聚簇操作所依据的索引名。执行过以后系统就会自动记下该表是依据哪个索引进行聚簇排序的，后面再次执行聚簇操作时系统会自动使用该索引，所以索引名仅在首次聚簇操作时需要，后续不再需要。</p>
+<p class="calibre1">➋　每次刷新过物化视图后，都需要重新对其进行一次聚簇排序操作。</p>
+<p class="calibre1">相对于 <code class="calibre11">CLUSTER</code> 方案来说，<code class="calibre11">ORDER BY</code> 方案的优点在于每次执行 <code class="calibre11">REFRESH MATERIALIZED VIEW</code> 时都会自动对记录进行重排序，但 <code class="calibre11">CLSUTER</code> 方案就必须手动执行；其缺点在于物化视图加了 <code class="calibre11">ORDRE BY</code> 以后，<code class="calibre11">REFRESH</code> 操作执行会耗时更久。在正式使用 <code class="calibre11">ORDER BY</code> 方案之前，你应该对 <code class="calibre11">REFRESH</code> 操作进行测试，看其性能是否可接受。另一种测试方法是直接运行创建物化视图时所用的带 <code class="calibre11">ORDER BY</code> 的 SQL 语句。</p>
+<p class="calibre1">在 PostgreSQL 9.3 版中，刷新物化视图的语法如下：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">REFRESH MATERIALIZED VIEW census.vw_facts_2011_materialized;
+
+</code></pre>
+<p class="calibre1">在 PostgreSQL 9.4 版中，为了解决物化视图刷新操作导致的锁表问题，可以使用以下语法：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">REFRESH MATERIALIZED VIEW CONCURRENTLY census.vw_facts_2011_materialized;
+
+</code></pre>
+<p class="calibre1">物化视图有以下几个缺点。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1">不支持通过 <code class="calibre11">CREATE OR REPLACE</code> 语法来对一个现有的物化视图进行重建，要想重建只能先删除再重建，即使只做很小的改变也需要这么干。删除语法是 <code class="calibre11">DROP MATERIALIZED VIEW+</code> 视图名。删除以后，该视图上所有的索引都会丢失。</p>
+</li>
+<li class="calibre10"><p class="calibre1">每次刷新数据时都要执行一次 <code class="calibre11">REFRESH MATERIALIZED VIEW</code> 操作。PostgreSQL 不支持自动刷新物化视图。要想实现自动刷新，你必须使用类似 <code class="calibre11">crontab</code>、pgAgent 定时任务或者是触发器之类的机制。我们在“使用物化视图和语句级触发器来实现数据缓存”这篇博文（<a href="http://www.postgresonline.com/journal/archives/313-Caching-data-with-materialized-views-and-statement-level-triggers.html" class="calibre5">http://www.postgresonline.com/journal/archives/313-Caching-data-with-materialized-views-and-statement-level-triggers.html</a>）中提供了一个使用触发器来进行刷新的例子，可供你参考。</p>
+</li>
+<li class="calibre10"><p class="calibre1">在 9.3 版中，刷新物化视图是一个阻塞操作；也就是说，视图在刷新期间是无法访问的。9.4 版中引入了一个新的 <code class="calibre11">CONCURRENTLY</code> 关键字，在 <code class="calibre11">REFRESH</code> 命令中增加了该关键字以后，可以解除锁定限制，前提条件是被刷新的物化视图上要有一个唯一索引。实现无锁刷新的代价就是如果有人在刷新期间进行视图访问，那么刷新时间会变长。</p>
+</li>
+</ul>
+</body></html>

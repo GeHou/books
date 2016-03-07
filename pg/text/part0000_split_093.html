@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_235" class="calibre6"><strong class="calibre2">B.5　非交互模式下的psql命令</strong></h2>
+<p class="calibre1">示例 B-5 是非交互模式下 psql 的命令行帮助信息。关于该模式下的具体使用例子请参考 3.2 节的内容。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 B-5</strong>：psql 基本帮助信息</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">psql --help
+
+psql是PostgreSQL的交互式终端。
+使用方法：
+psql [选项]... [database名称 [用户名]]
+
+通用选项：
+-c,--command=命令        仅运行单个命令（SQL或内部命令），然后退出
+-d, --dbname=数据库名称  要连接到的数据库名称
+-f, --file=文件名        从文件执行命令，然后退出
+-l, --list               列出可用的数据库，然后退出
+-v, --set=, --variable=名称=值 将psql变量NAME设置为VALUE
+-X, --no-psqlrc          不读取启动文件（~/.psqlrc）
+-1 ("one"), --single-transaction 将命令文件作为单一事务执行
+--help                   显示此帮助信息并退出
+--version                输出版本信息并退出
+
+输入和输出选项：
+-a, --echo-all           回显所有来自于脚本的输入
+-e, --echo-queries       回显发送给服务器的命令
+-E, --echo-hidden        显示内部命令生成的查询
+-L, --log-file=文件名    将会话日志发送给文件
+-n, --no-readline        禁用增强命令行编辑功能（readline）
+-o, --output=FILENAME    将查询结果发送给文件（或|管道）
+-q, --quiet              以静默模式运行（不显示消息，仅显示查询输出）
+-s, --single-step        单步模式 （每个查询均需确认）
+-S, --single-line        单行模式（SQL命令不允许跨行）
+
+输出格式选项：
+-A, --no-align           非对齐表输出模式
+-F, --field-separator=字符串 设置字段分隔符（默认为“|”）
+-H, --html               HTML表输出模式
+-P, --pset=VAR[=ARG]     将打印选项VAR设置为ARG（参见\pset命令）
+-R, --record-separator=字符串 设置记录分隔符（默认为换行符）
+-t, --tuples-only        仅打印行
+-T, --table-attr=文本    设置HTML表标记属性（例如：宽度、边框等）
+-x, --expanded           打开扩展表输出
+-z, --field-separator-zero ➊
+                           将字段分隔符设置为零字节
+-0, --record-separator-zero ➋
+                           将记录分隔符设置为零字节
+
+连接选项：
+-h, --host=主机名        数据库服务器主机或套接字目录
+-p, --port=端口          数据库服务器端口（默认为“5432”）
+-U, --username=用户名    数据库用户名
+-w, --no-password        永远不提示输入密码
+-W, --password           强制要求输入密码（应该自动发生）
+
+如需了解更多信息，请在psql中输入“\?”（用于内部命令）或者“\help”（用于SQL命令），或者参考PostgreSQL官方手册中的psql部分。
+
+</code></pre>
+<p class="calibre1">➊ ➋　PostgreSQL 9.2 版中引入的新特性。</p>
+
+<p class="calibre4" style="margin:0pt; border:0pt; height:1em" id="calibre_pb_125"> </p>
+</body></html>

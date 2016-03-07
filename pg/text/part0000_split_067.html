@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h1 id="nav_point_176" class="not-in-toc"><strong class="calibre2">第 8 章　函数编写</strong></h1>
+<p class="calibre1">在大多数数据库中，你都可以把若干 SQL 语句组合在一起然后将其作为一个单元来处理。PostgreSQL 也支持这种能力。这种机制在不同数据库中的名称不一样，有的叫存储过程，有的叫用户自定义函数等名称，而 PostgreSQL 统一称之为函数。</p>
+<p class="calibre1">函数不是仅仅将一堆 SQL 语句编排在一起即可，其中还需要使用过程化语言（Procedural Language，PL）来对 SQL 语句的执行过程进行控制。</p>
+<p class="calibre1">在 PostgreSQL 中，你可以选择使用不同的语言来编写函数，可选择的语言有很多，其中 SQL、C、PL/pgSQL、PL/Perl 以及 PL/Python 一般都会随 PostgreSQL 安装包附带。从 PostgreSQL 9.2 版开始新增了对 PL/V8 语言的支持，通过它你可以使用 JavaScript 语言来编写函数。对于 Web 应用的开发人员来说，引入对 PL/V8 的支持是很令人激动的一件事情，因为 JSON、JSONB 数据类型和 JavaScript 语言是绝配。内置的 <code class="calibre11">json</code> 和 <code class="calibre11">jsonb</code> 数据类型在 5.6 节中进行过介绍。</p>
+<p class="calibre1">你可以按需安装 PL/R、PL/Java、PL/sh、PL/TSQL 等语言扩展，此外还有一些用于高端逻辑处理以及人工智能处理的试验性语言，比如 PL/Scheme 和 PL/OpenCL 等。你可以在官方手册的“过程化语言”这一节（<a href="http://www.postgresql.org/docs/current/interactive/external-pl.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/external-pl.html</a>）中查到 PostgreSQL 支持的完整语言列表。</p>
+</body></html>

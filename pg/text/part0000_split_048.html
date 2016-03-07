@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_100" class="calibre6"><strong class="calibre2">5.1　数值类型</strong></h2>
+<p class="calibre1">PostgreSQL 支持常用的整数、小数、浮点数等数字类型。我们想重点介绍的是 serial 类型以及一个灵活实用的整数序列生成函数。</p>
+<h3 id="nav_point_101" class="calibre16"><strong class="calibre2">5.1.1　<code class="calibre11">serial</code>类型</strong></h3>
+<p class="calibre1"><code class="calibre11">serial</code> 类型和它的兄弟类型 <code class="calibre11">bigserial</code> 是两种可以自动生成递增整数值的数据类型，一般如果表本身的字段不适宜作为主键字段时，会增加一个专门的字段并指定为 <code class="calibre11">serial</code> 类型以作为主键。在不同的数据库产品中这种数据类型有着不同的称呼，一般最常见的叫法是 <code class="calibre11">autonumber</code>。建表时如果指定了一个字段类型为 <code class="calibre11">serial</code>，那么 PostgreSQL 会首先将其作为整型处理，同时自动在该表所在 schema 中创建一个名为 <code class="calibre11">table_name_column_name_seq</code> 的序列。然后设定该序列为该整型字段的取值来源。如果修改了表定义并删除此 <code class="calibre11">serial</code> 字段，那么系统同时也会自动删除掉附属的序列。</p>
+<p class="calibre1">在 PostgreSQL 中，序列自身就是一种数据库资产。你可以通过 pgAdmin 图形界面或者 <code class="calibre11">ALTER SEQUENCE</code> 语句来管理该类对象。你可以设置其当前值和边界值（也就是最大和最小值），还可以设置每次递增的步长。虽然一般来说序列值都是递增的，但你也可以将其设为递减，只要将步长值 <code class="calibre11">increment</code> 设为负数即可。作为一种独立的数据库资产，你可以通过 <code class="calibre11">CREATE SEQUENCE</code> 命令来创建序列，还可以在多张表间共用同一个序列。如果你需要生成一个跨越多表的唯一键值，那么这种多表共享序列的用法是特别方便的。</p>
+<p class="calibre1">要实现多表共用同一个序列，请先将字段定义为 <code class="calibre11">integer</code> 或者 <code class="calibre11">bigint</code> 类型，然后指定其默认值为 <code class="calibre11">nextval(sequence_name)</code> 即可。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00002.gif" alt="" width="9%" class="calibre13"/>　如果你重命名了一张含 <code class="calibre11">serial</code> 字段的表，这张表的 <code class="calibre11">serial</code> 字段关联的序列是不会跟着改名的，但关联运作机制是不受影响的。如果你特别重视对象名的一致性，可以手动修改序列的名称以保持与表名一致。</p>
+</blockquote>
+<h3 id="nav_point_102" class="calibre16"><strong class="calibre2">5.1.2　生成数组序列的函数</strong></h3>
+<p class="calibre1">PostgreSQL 有一个名为 <code class="calibre11">generate_series</code> 的灵活又实用的数组生成函数，目前为止我们还没发现有哪种数据库支持类似功能。<code class="calibre11">generate_series</code> 函数的方便之处在于你可以使用它有效地模仿 SQL 中的 <code class="calibre11">for</code> 循环。假设我们需要得到一个列表，该列表中包含了特定日期区间内每个月份最后一天的日期。如果不借助 <code class="calibre11">generate_series</code> 函数，要实现此功能要么写一个内部使用循环的函数，要么生成一个基于日期类型的笛卡儿积然后逐条筛选。如果使用了 <code class="calibre11">generate_series</code> 函数，那么仅需一行 SQL 即可。我们会在后续的示例 5-11 中展示具体做法。</p>
+<p class="calibre1">示例 5-1 使用可选的步长形参来生成整数序列。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-1</strong>：使用 <code class="calibre11">generate_series()</code> 函数生成步长为 13 的整数序列</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT x FROM generate_series(1,51,13) As x;
+x
+----
+1
+14
+27
+40
+
+</code></pre>
+<p class="calibre1">如上面的示例 5-1 所示，你可以传入一个可选的步长实参来指定对于每个后续元素要跳过多少个步长。如果不指定，则默认为 <code class="calibre11">1</code>。另外请注意：结束值将永远不会超出我们指定的区间，因此，尽管我们的区间结束于 51，但我们的最后一个数字是 40，因为 40 再加上 13 就会超出上限。</p>
+</body></html>

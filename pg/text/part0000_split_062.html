@@ -1,0 +1,237 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_155" class="calibre6"><strong class="calibre2">7.2　灵活易用的PostgreSQL专有SQL语法</strong></h2>
+<p class="calibre1">我们在多年编写 SQL 语句的过程中使用过很多 PostgreSQL 的专有语法，借助它们可以编写出更加简洁以及功能更加强大的 SQL。我们在本节中介绍的这些语法都是 PostgreSQL 的专有语法。“专有”意味着该语法不符合 ANSI SQL 标准。如果你的老板要求编写的 SQL 必须遵守 ANSI SQL 标准，又或者你的 SQL 需要移植到别的数据库上去，那么请不要使用本节介绍的这些专有语法。</p>
+<h3 id="nav_point_156" class="calibre16"><strong class="calibre2">7.2.1　DISTINCT ON</strong></h3>
+<p class="calibre1">我们认为最好用的一个专有语法就是 <code class="calibre11">DISTINCT ON</code>，其功能类似 <code class="calibre11">DISTINCT</code> 但却可以精确到更细的粒度。<code class="calibre11">DISTINCT</code> 会将结果集中完全重复的记录剔除，但 <code class="calibre11">DISTINCT ON</code> 可以将结果集中指定字段值的重复记录剔除，具体实现方法是先对结果集按照 <code class="calibre11">DISTINCT ON</code> 指定的字段进行排序，然后筛选出每个字段值第一次出现时所在的记录，其余的记录都剔除。可以看到一个小小的单词 <code class="calibre11">ON</code> 就实现了必须写大量代码才能实现的功能。</p>
+<p class="calibre1">在示例 7-9 中，我们演示了如何获取马萨诸塞州每个县的第一个人口统计区的信息。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-9</strong>：<code class="calibre11">DISTINCT ON</code> 的用法</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT DISTINCT ON (left(tract_id, 5))
+    left(tract_id, 5) As county, tract_id, tract_name
+FROM census.lu_tracts
+ORDER BY county, tract_id;
+
+county |  tract_id   |                     tract_name
+-------+-------------+----------------------------------------------------
+25001  | 25001010100 | Census Tract 101, Barnstable County, Massachusetts
+25003  | 25003900100 | Census Tract 9001, Berkshire County, Massachusetts
+25005  | 25005600100 | Census Tract 6001, Bristol County, Massachusetts
+25007  | 25007200100 | Census Tract 2001, Dukes County, Massachusetts
+25009  | 25009201100 | Census Tract 2011, Essex County, Massachusetts
+:
+
+</code></pre>
+<p class="calibre1">请注意，<code class="calibre11">ON</code> 修饰符支持设置多列，运算时将基于这多个列的总体唯一性来进行去重操作。同时查询语句中 <code class="calibre11">ORDER BY</code> 子句的排序字段列表的最左侧必须是 <code class="calibre11">DISTINCT ON</code> 指定的字段列表，即保证整个结果集是按照这几个字段排序的，这样最终去重后得到的结果才是你想要的。</p>
+<h3 id="nav_point_157" class="calibre16"><strong class="calibre2">7.2.2　<code class="calibre11">LIMIT</code>和<code class="calibre11">OFFSET</code>关键字</strong></h3>
+<p class="calibre1"><code class="calibre11">LIMIT</code> 关键字指定了查询时仅返回指定数量的记录，<code class="calibre11">OFFSET</code> 关键字指定了从第几条记录开始返回。你可以将二者结合起来使用也可以单独使用。一般来说，这两个关键字总是和 <code class="calibre11">ORDER BY</code> 联用的，因为只有在一个已经按照用户的意图排好序的结果集上指定返回特定的子结果集才有意义。在示例 7-10 中，我们演示了 <code class="calibre11">OFFSET</code> 关键字的用法，如果不设置 <code class="calibre11">OFFSET</code> 的话，其值默认为 0。</p>
+<p class="calibre1">该语法并非 PostgreSQL 所特有，事实上它最早源自于 MySQL。这种限制返回结果记录数的功能在很多数据库中都支持，但具体语法和内部实现机制各有千秋。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-10</strong>：要求示例 7-9 的查询结果集仅返回从第 3 条开始的 3 条记录</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT DISTINCT ON (left(tract_id, 5))
+    left(tract_id, 5) As county, tract_id, tract_name
+FROM census.lu_tracts
+ORDER BY county, tract_id LIMIT 3 OFFSET 2;
+
+county |  tract_id   |                    tract_name
+-------+-------------+--------------------------------------------------
+25005  | 25005600100 | Census Tract 6001, Bristol County, Massachusetts
+25007  | 25007200100 | Census Tract 2001, Dukes County, Massachusetts
+25009  | 25009201100 | Census Tract 2011, Essex County, Massachusetts
+
+</code></pre>
+<h3 id="nav_point_158" class="calibre16"><strong class="calibre2">7.2.3　简化的类型转换语法</strong></h3>
+<p class="calibre1">ANSI SQL 标准中定义了一个名为 <code class="calibre11">CAST</code> 的类型转换函数，可以实现数据类型之间的互转。例如 <code class="calibre11">CAST('2011-1-11' AS date)</code> 可以将文本 <code class="calibre11">2011-1-1</code> 转换为一个日期型数据。PostgreSQL 支持一种简写语法，该语法使用了两个冒号来表示转换关系，具体格式为： <code class="calibre11">'2011-1-1'::date</code>。这种写法形式更简洁也更易于使用，比如有时候我们需要级联执行多个类型转换动作，也就是说需要将类型 A 转换为类型 B 再转为类型 C，这种情况用简写语法也是可以实现的，例如 <code class="calibre11">someXML::text::integer</code>。</p>
+<h3 id="nav_point_159" class="calibre16"><strong class="calibre2">7.2.4　一次性插入多条记录</strong></h3>
+<p class="calibre1">PostgreSQL 支持一次性插入多条记录的语法。示例 7-11 演示了如何向我们在示例 6-2 中创建的表中一次性插入多条记录。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-11</strong>：一次性插入多条记录</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">INSERT INTO logs_2011 (user_name, description, log_ts)
+VALUES
+    ('robe', 'logged in', '2011-01-10 10:15 AM EST'),
+    ('lhsu', 'logged out', '2011-01-11 10:20 AM EST');
+
+</code></pre>
+<p class="calibre1">请注意，在 PostgreSQL 中 <code class="calibre11">VALUES</code> 子句并不是只能作为 <code class="calibre11">INSERT</code> 语句的一部分来使用，它其实是一个动态生成的临时结果集，可用于多种场合，如示例 7-12 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-12</strong>：使用 <code class="calibre11">VALUES</code> 语法来模拟一个虚拟表</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT *
+FROM (
+    VALUES
+        ('robe', 'logged in', '2011-01-10 10:15 AM EST'::timestamptz),
+        ('lhsu', 'logged out', '2011-01-11 10:20 AM EST'::timestamptz)
+    ) AS l (user_name, description, log_ts);
+
+</code></pre>
+<p class="calibre1">将 <code class="calibre11">VALUES</code> 子句当作一个虚拟表来用时，需要为该表指定字段名，并将那些无法隐式转换的字段值显式地进行类型转换。</p>
+<h3 id="nav_point_160" class="calibre16"><strong class="calibre2">7.2.5　使用<code class="calibre11">ILIKE</code>实现不区分大小写的查询</strong></h3>
+<p class="calibre1">PostgreSQL 是一套区分大小写的系统，如果要实现不区分大小写的文本搜索，有两种方法：一种是将 ANSI <code class="calibre11">LIKE</code> 运算符两边的文本都用 <code class="calibre11">upper</code> 函数转为大写，但这样会导致用不上索引，或者必须单独建立一个基于 <code class="calibre11">upper</code> 函数的函数式索引才能使查询语句用上索引；另一种是使用 PostgreSQL 所特有的 <code class="calibre11">ILIKE</code> 运算符（~），语法如下：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT tract_name FROM census.lu_tracts WHERE tract_name ILIKE '%duke%';
+
+tract_name
+------------------------------------------------
+Census Tract 2001, Dukes County, Massachusetts
+Census Tract 2002, Dukes County, Massachusetts
+Census Tract 2003, Dukes County, Massachusetts
+Census Tract 2004, Dukes County, Massachusetts
+Census Tract 9900, Dukes County, Massachusetts
+
+</code></pre>
+<h3 id="nav_point_161" class="calibre16"><strong class="calibre2">7.2.6　可以返回结果集的函数</strong></h3>
+<p class="calibre1">PostgreSQL 允许返回集的函数显示在 SQL 语句的 <code class="calibre11">SELECT</code> 子句中。许多其他数据库都不支持该特性，在这些数据库中仅会在 <code class="calibre11">SELECT</code> 子句中显示标量函数。</p>
+<p class="calibre1">在一个复杂的 SQL 语句中使用返回结果集的函数很容易就会导致意外的结果，这是因为这类函数输出的结果集会与该语句其他部分生成的结果集产生笛卡儿积，从而生成更多的记录行。因此在使用之前你必须对此后果有所了解。在示例 7-13 中，我们使用 <code class="calibre11">generate_series</code> 函数演示了这种情况。先建表如下：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE TABLE interval_periods (i_type interval);
+INSERT INTO interval_periods (i_type)
+VALUES('5 months'), ('132 days'), ('4862 hours');
+
+</code></pre>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-13</strong>：在 <code class="calibre11">SELECT</code> 语句中使用返回结果集的函数</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT i_type,
+    generate_series('2012-01-01'::date,'2012-12-31'::date,i_type) As dt
+FROM interval_periods;
+
+i_type     |           dt
+-----------+-------------------------
+5 months   | 2012-01-01 00:00:00-05
+5 months   | 2012-06-01 00:00:00-04
+5 months   | 2012-11-01 00:00:00-04
+132 days   | 2012-01-01 00:00:00-05
+132 days   | 2012-05-12 00:00:00-04
+132 days   | 2012-09-21 00:00:00-04
+4862 hours | 2012-01-01 00:00:00-05
+4862 hours | 2012-07-21 15:00:00-04
+
+</code></pre>
+<h3 id="nav_point_162" class="calibre16"><strong class="calibre2">7.2.7　限制对继承表的<code class="calibre11">DELETE</code>、<code class="calibre11">UPDATE</code>、<code class="calibre11">INSERT</code>操作的影响范围</strong></h3>
+<p class="calibre1">如果表间是继承关系，那么查询父表时就会将子表中满足条件的记录也查出来。<code class="calibre11">DELETE</code> 和 <code class="calibre11">UPDATE</code> 操作也遵循类似逻辑，即对父表的修改操作也会影响子表的记录。有时你可能希望操作仅限定于主表范围之内而并不希望子表受到波及。</p>
+<p class="calibre1">PostgreSQL 提供了 <code class="calibre11">ONLY</code> 关键字以实现此功能。我们在示例 7-30 中展示了 <code class="calibre11">ONLY</code> 的用法。在该示例中，我们希望仅从生产表中删除那些尚未迁移到日志表中的记录。如果没有 <code class="calibre11">ONLY</code> 修饰符，我们最终将从子表中删除先前可能已移动过的记录。</p>
+<h3 id="nav_point_163" class="calibre16"><strong class="calibre2">7.2.8　<code class="calibre11">DELETE USING</code>语法</strong></h3>
+<p class="calibre1">我们经常会遇到“只有当记录的字段值落在另外一个结果集中时才需要删除该记录”的情况，那么此时就必须借助一次关联查询才能定位到要删除的目标记录。<code class="calibre11">USING</code> 子句可以将需要借助的一个或者多个中间表（或者子查询）纳入同一个 <code class="calibre11">DELETE</code> 语句中。在示例 7-14 中，我们借助一个关联查询实现了删除 <code class="calibre11">census.facts</code> 表中符合 <code class="calibre11">short_name='s01'</code> 这个条件的记录。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-14</strong>：<code class="calibre11">DELETE USING</code> 的用法</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">DELETE FROM census.facts
+USING census.lu_fact_types As ft
+WHERE facts.fact_type_id = ft.fact_type_id AND ft.short_name = 's01';
+
+</code></pre>
+<p class="calibre1">而符合标准的方式将会是，在 <code class="calibre11">WHERE</code> 子句中使用笨拙的 <code class="calibre11">IN</code> 表达式。</p>
+<h3 id="nav_point_164" class="calibre16"><strong class="calibre2">7.2.9　将修改影响到的记录行返回给用户</strong></h3>
+<p class="calibre1"><code class="calibre11">RETURNING</code> 是 ANSI SQL 规定的标准语法，但支持该语法的数据库却不多。在示例 7-30 中，我们通过 <code class="calibre11">RETURNING</code> 子句将在 <code class="calibre11">DELETE</code> 操作中被删除的记录返回给了用户。当然，<code class="calibre11">INSERT</code> 和 <code class="calibre11">UPDATE</code> 操作也是可以使用 <code class="calibre11">RETURNING</code> 的。对于带 <code class="calibre11">serial</code> 类型字段的表来说，<code class="calibre11">RETURNING</code> 语法是很有用的，因为向这类表中插入记录时，<code class="calibre11">serial</code> 字段是临时生成而非用户指定的。也就是说在插入动作完成之前，用户也不知道 <code class="calibre11">serial</code> 字段的值会是多少，除非是再查询一遍。而 <code class="calibre11">RETURNING</code> 语法使得用户不用再次查询就立即得到了 <code class="calibre11">serial</code> 字段的值。最常见的 用法一般是 <code class="calibre11">RETURNING *</code>，即返回所有字段的值，但也可以指定仅返回特定字段，如示例 7-15 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-15</strong>：在 <code class="calibre11">UPDATE</code> 语句中使用 <code class="calibre11">RETURNING</code> 子句返回修改过的记录</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">UPDATE census.lu_fact_types AS f
+SET short_name = replace(replace(lower(f.fact_subcats[4]),' ','_'),':','')
+WHERE f.fact_subcats[3] = 'Hispanic or Latino:' AND f.fact_subcats[4] &gt; ''
+RETURNING fact_type_id, short_name;
+
+fact_type_id  |                    short_name
+--------------+--------------------------------------------------
+96            | white_alone
+97            | black_or_african_american_alone
+98            | american_indian_and_alaska_native_alone
+99            | asian_alone
+100           | native_hawaiian_and_other_pacific_islander_alone
+101           | some_other_race_alone
+102           | two_or_more_races
+
+</code></pre>
+<h3 id="nav_point_165" class="calibre16"><strong class="calibre2">7.2.10　在查询中使用复合数据类型</strong></h3>
+<p class="calibre1">PostgreSQL 会在建表时自动创建一个结构与表完全相同的数据类型，其中包含了多个其他数据类型的成员字段，因此也会被称为复合数据类型。你第一次见到基于复合数据类型的查询语句时可能会感到很惊讶。事实上，你可能已经在编写调试 SQL 语句的过程中见识过它的神奇之处。先看一下这个语句：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT x FROM census.lu_fact_types As x LIMIT 2;
+
+</code></pre>
+<p class="calibre1">第一眼看到这个语句时，你可能认为我们漏写了一个“.*”，但请看一下该语句的执行结果：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">x
+------------------------------------------------------------------
+(86,Population,"{D001,Total:}",d001)
+(87,Population,"{D002,Total:,""Not Hispanic or Latino:""}",d002)
+
+</code></pre>
+<p class="calibre1">语句不但没有报错，而且返回的结果是标准的 <code class="calibre11">lu_fact_type</code> 类型。我们来看一下第一行记录的内容来确认有没有问题，<code class="calibre11">86</code> 是 <code class="calibre11">fact_type_id</code> 字段的值，<code class="calibre11">Population</code> 是 <code class="calibre11">category</code> 字段的值，<code class="calibre11">{D001,Total:}</code> 是 <code class="calibre11">fact_subcats</code> 属性。可以看到，字段值与表定义完全匹配，没有问题。复合数据类型可以作为多个很有用的函数的输入，比如 <code class="calibre11">array_agg</code> 和 <code class="calibre11">hstore</code>（hstore 扩展包提供的一个函数，可以将一行记录转换为 <code class="calibre11">hstore</code> 的一个键值对象）等。</p>
+<p class="calibre1">如果你的项目正在使用 Ajax 技术和 PostgreSQL 数据库，并且使用的是 PostgreSQL 9.2 版或者更新的版本，那么就可以充分利用 PostgreSQL 对 JSON 类型的原生支持能力，通过联用 <code class="calibre11">array_agg</code> 和 <code class="calibre11">array_to_json</code> 这两个函数来将语句的查询结果转换为一个 JSON 对象后输出，如示例 7-16 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-16</strong>：将查询结果转换为 JSON 格式</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT array_to_json(array_agg(f)) As cat ➊
+FROM (
+    SELECT MAX(fact_type_id) As max_type, category ➋
+    FROM census.lu_fact_types
+    GROUP BY category
+) As f;
+
+</code></pre>
+<p class="calibre1">输出结果如下：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">cats
+----------------------------------------------------
+[{"max_type":102,"category":"Population"},
+{"max_type":153,"category":"Housing"}]
+
+</code></pre>
+<p class="calibre1">➊　将子查询 <code class="calibre11">f</code> 中的所有记录转换为一个基于复合数据类型的数组。</p>
+<p class="calibre1">➋　定义一个名为 <code class="calibre11">f</code> 的子查询，可以从中查出记录。</p>
+<p class="calibre1">PostgreSQL 9.3 版提供了一个名为 <code class="calibre11">json_agg</code> 的函数，该函数的效果相当于上面示例中 <code class="calibre11">array_to_json</code> 和 <code class="calibre11">array_agg</code> 联用的效果，但 <code class="calibre11">json_agg</code> 执行速度更快。在示例 7-17 中，我们使用 <code class="calibre11">json_agg</code> 改写了示例 7-16 中的语句，二者的输出是相同的。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 7-17</strong>：使用 <code class="calibre11">json_agg</code> 将查询结果转为 JSON 格式</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT json_agg(f) As cats
+FROM (
+    SELECT MAX(fact_type_id) As max_type, category
+    FROM census.lu_fact_types
+    GROUP BY category
+) As f;
+
+</code></pre>
+<h3 id="nav_point_166" class="calibre16"><strong class="calibre2">7.2.11　DO</strong></h3>
+<p class="calibre1"><code class="calibre11">DO</code> 命令可以执行一个基于过程化语言的匿名代码段。在下面的示例中，我们将演示如何通过执行一个匿名代码段来将示例 3-7 中插入的数据从中间表加载到产品表中。例子中的匿名代码段是用 PL/pgSQL 编写的，但你也可以使用别的语言编写。</p>
+<p class="calibre1">示例 7-18 中生成了一系列的 <code class="calibre11">INSERT INTO SELECT</code> 语句，然后通过这些语句实现数据迁移，这些 SQL 还实现了由列转行的转换操作。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00002.gif" alt="" width="9%" class="calibre13"/>　示例 7-18 中的 <code class="calibre11">lu_fact_types</code> 建表语句中仅包含了部分字段。请从本书附加的代码和数据资源包中找到 <code class="calibre11">building_census_tables.sql</code> 这个脚本，其中有完整的建表语句。</p>
+<p class="calibre1"><strong class="calibre2">示例 7-18</strong>：使用 <code class="calibre11">DO</code> 命令来生成动态 SQL</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">set search_path=census;
+DROP TABLE IF EXISTS lu_fact_types;
+CREATE TABLE lu_fact_types (
+    fact_type_id serial,
+    category varchar(100),
+    fact_subcats varchar(255)[],
+    short_name varchar(50),
+    CONSTRAINT pk_lu_fact_types PRIMARY KEY(fact_type_id)
+);
+
+DO language plpgsql
+$$
+DECLARE var_sql text;
+BEGIN
+    var_sql := string_agg(
+        'INSERT INTO lu_fact_types(category, fact_subcats, short_name)
+        SELECT
+            ''Housing'',
+            array_agg(s' || lpad(i::text,2,'0') || ') As fact_subcats,
+            ' || quote_literal('s' || lpad(i::text,2,'0')) || ' As short_name
+        FROM staging.factfinder_import
+        WHERE s' || lpad(I::text,2,'0') || ' ~ ''^[a-zA-Z]+'' ', ';'
+    )
+    FROM generate_series(1,51) As I; ➊
+    EXECUTE var_sql; ➋
+END
+$$;
+
+</code></pre>
+<p class="calibre1">➊　使用 <code class="calibre11">string_agg</code> 函数让一组 SQL 语句形成单一字符串的形式 <code class="calibre11">INSERT INTO lu_fact_type(...) SELECT ... WHERE s01 ~ '[a-zA-Z]+';</code>。</p>
+<p class="calibre1">➋　执行该 SQL。</p>
+</body></html>

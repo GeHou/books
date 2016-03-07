@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_107" class="calibre6"><strong class="calibre2">5.3　时间类型</strong></h2>
+<p class="calibre1">PostgreSQL 对时间类型的支持在业界是无人能及的。除了常见的日期和时间类型，PostgreSQL 还支持时区，并能够按照不同的时区对夏令时进行自动转换。此外 PostgreSQL 还支持一些特殊的数据类型，如 <code class="calibre11">interval</code>，该类型可以用于对日期时间进行数学运算。PostgreSQL 还有正无穷大和负无穷大的概念，这样我们就不用为了表达这两个概念而弄出一些奇奇怪怪的潜规则，搞这些潜规则迟早会导致问题。最后，9.2 版引入了对区间（range）类型的支持，该类型可以表达时间区间的概念，并且提供了大量与区间运算相关的运算符、函数和索引。我们会在本章后续的 5.5 节中详细介绍该类型。</p>
+<p class="calibre1">在最新的版本中，PostgreSQL 支持 9 种时间相关的数据类型。理解这些类型之间的区别很重要，否则你就无法为不同业务场景选择适用的数据类型。除了 <code class="calibre11">range</code> 类型外，其他所有类型都遵循 ANSI SQL 标准。业界的其他数据库最多支持这些类型中的一部分而非所有。Oracle 支持的类型最多，SQL Server 其次，MySQL 又次之，MySQL 的任何版本都不支持时区类型。</p>
+<p class="calibre1">PostgreSQL 的每种时间类型都有其独特之处，因此我们接下来对其分别做一些更详细的介绍。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1"><code class="calibre11">date</code></p>
+<p class="calibre1">该类型仅存储月、日、年，没有时区、小时、分和秒的信息。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">time</code>（<strong class="calibre2">又称</strong><code class="calibre11">time without time zone</code>）</p>
+<p class="calibre1">该类型仅存储小时、分、秒信息，不带日期和时区信息。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">timestamp</code>（<strong class="calibre2">又称</strong><code class="calibre11">timestamp without time zone</code>）</p>
+<p class="calibre1">该类型存储了日期（年、月、日）和时间（时、分、秒）数据，但不带时区信息。因此，即使你修改了数据库服务器所在的时区信息，该类字段查询出来显示的值也是固定不变的。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">timestamptz</code>（<strong class="calibre2">又称</strong><code class="calibre11">timestamp with time zone</code>）</p>
+<p class="calibre1">该类型同时存储了日期、时间以及时区信息。在系统内部，该类型的字段值是以 UTC 世界标准时间格式存储的，但当查询显示时，会按照服务器的时区设置进行换算后再显示（时区也可以在库级 / 用户级 / 会话级分别进行设置）。如果你输入的时间戳不带时区数据，那么存入 <code class="calibre11">timestamptz</code> 类型字段中时，PostgreSQL 会自动使用当前数据库服务器的时区信息来补充。如果修改了数据库服务器的时区设置，你可以看到查询出来的时间数据发生了变化。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">timetz</code>（<strong class="calibre2">又称</strong><code class="calibre11">time with time zone</code>）</p>
+<p class="calibre1">与 <code class="calibre11">timestamptz</code> 类型类似，但该类型的使用频率较低，因为它虽然携带了时区信息但却没有日期信息。该类型永远假设当前时间是夏令时。有的编程语言不支持这种仅有时间而无日期的数据类型，因此可能会将其自动转换为带时区的时间戳类型，转换时日期就取计算机系统时间的初始值（例如，Unix 时间纪元起始于 1970 年，因此转换后的日期就是 1970 年 1 月 1 日，时区和时间不变，夏令时）。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">interval</code></p>
+<p class="calibre1">该类型描述了一个时间段的长度，单位可以是小时、天、月、分钟或者其他粒度。该类型适用于对日期和时间进行数学运算的场景。例如，假设从现在开始 666 天之后世界就会灭亡，那么你可以在现在的时刻上加上长度为 666 天的一个 <code class="calibre11">interval</code> 类型值就可以知道世界灭亡的准确时刻。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">tsrange</code></p>
+<p class="calibre1">该类型是 9.2 版新引入的，可用于定义 <code class="calibre11">timestamp with no timezone</code> 的开区间和闭区间。该类型包含两个时间戳以及开区间和闭区间限定符。例如，<code class="calibre11">'[2012-01-01 14:00 2012-01-01 15:00)'::tsrange</code> 定义了从 14:00 开始到 15:00 之前结束的一个时间段。请参考 PostgreSQL 官方手册中“区间类型”这一节（<a href="http://www.postgresql.org/docs/current/static/rangetypes.html#RANGETYPES-BUILTIN" class="calibre5">http://www.postgresql.org/docs/current/static/rangetypes.html#RANGETYPES-BUILTIN</a>）以了解更多信息。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">tstzrange</code></p>
+<p class="calibre1">该类型也是 9.2 版新引入的，可用于定义 <code class="calibre11">timestamp with timezone</code> 的开区间和闭区间。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">daterange</code></p>
+<p class="calibre1">该类型也是 9.2 版引入的，可用于定义日期的开区间和闭区间。</p>
+</li>
+</ul>
+<h3 id="nav_point_108" class="calibre16"><strong class="calibre2">5.3.1　时区详解</strong></h3>
+<p class="calibre1">PostgreSQL 中有众多支持时区的数据类型，关于它们有一个常见的误解，就是认为 PostgreSQL 会在日期和时间类型的基础上额外增加一个标记来标识时区，这种理解是错误的。如果你存储了这么一个带时区的信息：<code class="calibre11">2012-2-14 18:08:00-8</code>（-8 代表比 UTC 时间迟 8 小时的时区），PostgreSQL 内部其实是这么工作的。</p>
+<p class="calibre1">(1) 通过计算得到 2012-02-14 18:08:00-8 代表的 UTC 标准时间，就是 2012-02-15 04:08:00-0。</p>
+<p class="calibre1">(2) 把上述计算得到的 UTC 标准时间存储下来。</p>
+<p class="calibre1">当你回调该数据以用于显示时，PostgreSQL 内部是这样运作的：</p>
+<p class="calibre1">(1) 找到服务器所观察到的时区或者请求的时区（例如 <code class="calibre11">America/New_York</code>）。</p>
+<p class="calibre1">(2) 计算该时区相对于 UTC 标准时间的时差（对于 <code class="calibre11">America/New_York</code> 时区来说，与 UTC 的时差是 -5 小时）。</p>
+<p class="calibre1">(3) 根据 UTC 标准时间和时区的时差计算出当地时间（2012-02-15 16:08:00 加上时差 -5 小时后得到 2012-02 15 21:08:00）。</p>
+<p class="calibre1">(4) 显示计算结果（<code class="calibre11">2012-02- 15 21:08:00</code>）。</p>
+<p class="calibre1">可以看到，PostgreSQL 并没有存储时区信息而仅是使用时区信息来把日期和时间转换为 UTC 标准时间再存储下来。此后时区信息就丢失了。当 PostgreSQL 需要显示该日期时间信息时，它会按顺序查找当前会话级、用户级、数据库级、服务器级的时区设置，然后使用找到的第一个时区来将 UTC 标准时间转换为对应时区的时间值后再显示。如果你使用了带时区信息的数据类型，请务必要了解将服务器从一个时区搬迁到另一个时区后将会发生的后果。假设你的数据库服务器起初在纽约，然后将其数据拿到洛杉矶做了恢复，那么所有带时区信息的日期和时间数据看起来都会不一样了。这初看起来有点怪，但其实是正常的，你务必要预见到这种情况的发生。</p>
+<p class="calibre1">以下我们将向你演示一个时区处理不当导致出问题的例子。假设麦当劳公司的服务器都部署在东海岸，服务器中记录了各门店的开门营业时间，并且是用 <code class="calibre11">timetz</code> 格式存储的。然后在旧金山开了一家新的麦当劳分店，分店的经理给麦当劳总部打电话，告知他们要求把新店的信息纳入总部的管理数据库，并标记其开门营业时间为上午 7 点。于是位于东海岸的数据库服务器中会记录下分店的营业时间为上午 7 点，但这个时间转换到旧金山当地时区却是凌晨 4 点。于是旧金山很多早起的人们就会很奇怪为什么明明说好了是凌晨 4 点开门却到了时间还没营业。买不到早点是小事，但你可以想象这三小时的时差能导致多么大的混乱，这甚至可能导致人命关天的问题。</p>
+<p class="calibre1">看了上面的例子，你可能会问：既然这么危险，那么为什么还要使用带时区的时间类型？原因有以下几个：首先，这些类型能够自动执行时区转换，从而避免了繁琐的手工劳动。例如，某航空公司的某个航班上午 8 点从波士顿出发，上午 11 点到达洛杉矶，但是该公司的数据库服务器位于欧洲，如果这些时间入库时都要手工计算时差后再录入那就效率太低了。使用了支持时区的数据类型后只需要录入带时区信息的波士顿和洛杉矶本地时间即可；另一个使用带时区的数据类型的理由是其自动处理夏令时的能力。世界各国对于夏令时的规定五花八门，如果某个数据库可能会被全球各地的应用访问，那么就需要及时按照最新的全球夏令时规定来更新库中的时间信息。手工跟踪全球夏令时的变化是一件无比繁琐的工作，这需要一个全职的程序员专门来收集各国的夏令时安排，并在前述数据库中刷新这些国家（包括其海外飞地）的相关时间数据。</p>
+<p class="calibre1">这里有一个非常有趣的例子：一位出差中的销售员需要坐飞机回家，起点是旧金山，终点是奥克兰附近。当她登上飞机时，当地时钟显示的时间是 2012 年 3 月 11 日凌晨 1 点 50 分。当她降落时，当地时钟显示时间是 2012 年 3 月 11 日凌晨 3 点 10 分。那么请问这段旅程共花了多长时间？要回到这个问题有一个关键点，那就是在这段飞行的过程中发生了夏令时的转换，也就是说时间向前跃迁了。如果使用了带时区信息的时间戳，算出来的时间间隔就是 20 分钟，对于一段仅仅跨越旧金山海湾的短途飞行来说，这个答案显然是可信的。如果我们不使用带时区信息的数据类型，一定会得到错误的答案。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT '2012-03-11 3:10 AM America/Los_Angeles'::timestamptz
+ - '2012-03-11 1:50 AM America/Los_Angeles'::timestamptz;
+
+</code></pre>
+<p class="calibre1">以上查询得到的答案是 20 分钟，然而以下查询得到的答案却是 1 小时 20 分钟。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT '2012-03-11 3:10 AM'::timestamp- '2012-03-11 1:50 AM'::timestamp;
+
+</code></pre>
+<p class="calibre1">我们再举几个例子来把这个问题讲得更透彻一些。如示例 5-8 所示，我输入时使用的是带时区的洛杉矶本地时间，但由于数据库服务器位于波士顿，所以查询时输出的时间是带时区信息的波士顿本地时间。请注意，输出显示附带了时差，这是没问题的，与我原始录入的时间之间仅仅是显示差异而已，在数据库系统内部是以 UTC 标准时间存储的。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-8</strong>：输入时使用的是一个时区的本地时间，输出却是另一个时区的本地时间</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT '2012-02-28 10:00 PM America/Los_Angeles'::timestamptz;
+
+2012-02-29 01:00:00-05
+
+</code></pre>
+<p class="calibre1">在示例 5-9 中，我们要求返回的是不带时区的时间戳。因此这个查询在全世界任何地方的数据库服务器上执行都会返回相同的结果。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-9</strong>：将带时区信息的时间戳数据转换为不带时区的时间戳数据</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT '2012-02-28 10:00 PM America/Los_Angeles'::timestamptz AT TIME ZONE 'Europe/Paris';
+
+2012-02-29 07:00:00
+
+</code></pre>
+<p class="calibre1">以上查询其实回答了这么一个问题：洛杉矶本地时间 2012-02-28 10:00 p.m. 对巴黎来说是当地时间几点？请注意查询结果是不带相对于 UTC 标准时间的时差的。另外请注意可以通过官方名称而非 UTC 时差来指定一个时区，可以访问维基百科来查看所有时区的官方名称（<a href="http://en.wikipedia.org/wiki/Tz_database" class="calibre5">http://en.wikipedia.org/wiki/Tz_database</a>）。</p>
+<h3 id="nav_point_109" class="calibre16"><strong class="calibre2">5.3.2　日期时间类型的运算符和函数</strong></h3>
+<p class="calibre1">时间间隔类型（<code class="calibre11">interval</code>）的引入极大简化了 PostgreSQL 中日期和时间类型的数学运算过程。如果没有 <code class="calibre11">interval</code> 类型，我们就得创建一堆专门的函数来实现这些运算功能，很多其他数据库就是这么干的。通过 <code class="calibre11">interval</code> 类型，我们可以使用我们很熟悉的加减运算符对日期和时间进行进行相加或者相减操作。下面的例子展示了可用于日期和时间类型的运算符和函数。</p>
+<p class="calibre1"><code class="calibre11">+</code> 运算符可以在一个时间类型值上加上一段时间间隔：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT '2012-02-10 11:00 PM'::timestamp + interval '1 hour';
+
+2012-02-11 00:00:00
+
+</code></pre>
+<p class="calibre1">你也可以将两个 <code class="calibre11">interval</code> 类型直接相加：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT '23 hours 20 minutes'::interval + '1 hour'::interval;
+
+24:20:00
+
+</code></pre>
+<p class="calibre1"><code class="calibre11">-</code> 运算符可以从一个时间类型值中减去一段时间间隔：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT '2012-02-10 11:00 PM'::timestamptz - interval '1 hour';
+
+2012-02-10 22:00:00-05
+
+</code></pre>
+<p class="calibre1">示例 5-10 中展示了区间重叠运算符 <code class="calibre11">OVERLAPS</code> 的用法，如果两个参与运算的时间段有重叠，那么判定结果就是 <code class="calibre11">true</code>。这是 ANSI SQL 标准中规定的运算符，其效果等价于 <code class="calibre11">overlaps</code> 函数。<code class="calibre11">OVERLAPS</code> 运算符需要四个形参，前两个是第一个时间段的首尾时间点，后两个是第二个时间段的首尾时间点。<code class="calibre11">OVERLAPS</code> 运算符会将这两个时间段看作是半开半闭区间，也就是说起始时点包含在时段内，结束时点不包含在时段内。这与 <code class="calibre11">BETWEEN</code> 运算符的逻辑是不一样的，<code class="calibre11">BETWEEN</code> 会认为起始点和结束点都是包含在区间内的。只要你设置的时间段的起始时点和结束时点不相同（如果相同的话就意味着时间段长度为 0，也就说时间段变成了一个时间点），这个差异不会造成什么问题。如果你经常需要使用 <code class="calibre11">OVERLAPS</code> 运算符，请务必注意这一点。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-10</strong>：对时间戳和日期类型使用 <code class="calibre11">OVERLAPS</code> 运算符</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT ('2012-10-25 10:00 AM'::timestamp, '2012-10-25 2:00 PM'::timestamp) OVERLAPS
+('2012-10-25 11:00 AM'::timestamp,'2012-10-26 2:00 PM'::timestamp) AS x,
+('2012-10-25'::date,'2012-10-26'::date) OVERLAPS
+('2012-10-26'::date,'2012-10-27'::date) As y;
+
+x  |y
+---+---
+t  |f
+
+</code></pre>
+<p class="calibre1">除了运算符以外，PostgreSQL 还支持一些时间类型的函数。你可以从 PostgreSQL 官方手册的“日期和时间类型的相关函数和操作”（<a href="http://www.postgresql.org/docs/current/interactive/functions-datetime.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/functions-datetime.html</a>）这一节内容中查到完整的函数列表，我们在此仅演示一个例子。</p>
+<p class="calibre1">我们再次用到了用途广泛的 <code class="calibre11">generate_series</code> 函数。你可以对日期时间类型使用此函数，此时应使用 <code class="calibre11">interval</code> 类型值作为步长。</p>
+<p class="calibre1">如示例 5-11 所示，我们可以用本地日期时间格式来输入日期，也可以使用在国际上更为通用的 ISO 格式“Y-M-D”来输入日期。PostgreSQL 会自动识别不同的输入格式。为保险起见，我们倾向于使用 ISO 标准格式，因为在不同文化中对于日期的惯用格式是不一样的。由于本地设置的差异，在数据库服务器之间甚至是数据库实例之间也会存在这种日期格式差异。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">实例 5-11</strong>：使用 <code class="calibre11">generate_series()</code> 函数来生成时间序列数组</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT (dt - interval '1 day')::date As eom
+FROM generate_series('2/1/2012', '6/30/2012', interval '1 month') As dt;
+eom
+------------
+2012-01-31
+2012-02-29
+2012-03-31
+2012-04-30
+2012-05-31
+
+</code></pre>
+<p class="calibre1">另一种经常使用的操作就是从日期和时间类型的数值中抽取出一部分。在 PostgreSQL 中，联用 <code class="calibre11">date_part</code> 和 <code class="calibre11">to_char</code> 函数可以实现此目标。示例 5-12 中，除了演示这两个函数的用法外，我们还顺便为你演示了一下带时区信息的日期时间类型在发生夏令时变换时的转换逻辑，为此我们特地挑选了一个美国东部时区（<code class="calibre11">US/East</code>）中横跨夏令时变化点的时间段。夏令时从凌晨 2 点生效，因此该表的最后一行就是夏令时变化以后的新时间。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-12</strong>：从日期时间类型中提取部分元素</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT dt, date_part('hour',dt) As mh, to_char(dt, 'HH12:MI AM') As tm FROM
+generate_series( '2012-03-11 12:30 AM', '2012-03-11 3:00 AM', interval '15 minutes' ) As dt;
+
+dt                     | mh | tm
+-----------------------+----+----------
+2012-03-11 00:30:00-05 |  0 | 12:30 AM
+2012-03-11 00:45:00-05 |  0 | 12:45 AM
+2012-03-11 01:00:00-05 |  1 | 01:00 AM
+2012-03-11 01:15:00-05 |  1 | 01:15 AM
+2012-03-11 01:30:00-05 |  1 | 01:30 AM
+2012-03-11 01:45:00-05 |  1 | 01:45 AM
+2012-03-11 03:00:00-04 |  3 | 03:00 AM
+
+</code></pre>
+<p class="calibre1"><code class="calibre11">generate_series</code> 函数默认生成的是 <code class="calibre11">timesatamptz</code> 类型数据，需要显式转换为 <code class="calibre11">timestamp</code> 类型。</p>
+</body></html>

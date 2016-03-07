@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_22" class="calibre6"><strong class="calibre2">1.4　最新版本的PostgreSQL中引入的新特性</strong></h2>
+<p class="calibre1">PostgreSQL 的版本发布是很有规律的，每年的 9 月份会发布一个大版本。每个新版本都会带来易用性、稳定性、安全性、性能等方面的提升，以及一些试验性质的功能。而且版本升级过程也变得越来越简单。那么显而易见，请尽量把你的数据库及时升级到最新的稳定版。关于每个版本引入的关键特性列表，请参见官方提供的“PostgreSQL 各版本功能特性一览表”（<a href="http://www.postgresql.org/about/featurematrix" class="calibre5">http://www.postgresql.org/about/featurematrix</a>）。</p>
+<h3 id="nav_point_23" class="calibre16"><strong class="calibre2">1.4.1　为什么要升级</strong></h3>
+<p class="calibre1">如果你正在使用 PostgreSQL 8.4 或者更早期的版本，请立即升级！因为 8.4 版在 2014 年 7 月已进入生命周期终结（End of Life，EOL）状态，此后不再提供官方的升级支持。请参考 PostgreSQL 官方的发行版支持策略（<a href="http://www.postgresql.org/support/versioning/" class="calibre5">http://www.postgresql.org/support/versioning/</a>）以获取更多关于 PostgreSQL EOL 政策的细节。请务必不要使用已过了 EOL 期限的版本，因为开发组不会再为其提供新的安全更新和功能补丁。一旦这种老版本出了问题，你只能花钱去请 PostgreSQL 专家级顾问来解决故障或寻找临时解决方案，这种服务一般都是很昂贵的，而且你不一定能找得到这种专家。</p>
+<p class="calibre1">不管当前使用的是哪个大版本，你都应该尽快跟进小版本号的更新。比如从 8.4.17 升级到 8.4.21，只需要替换二进制文件并重启一下即可。小版本仅修改 bug 而不会涉及功能变化，因此这种升级是很安全的，也会为你降低出问题的几率。</p>
+<h3 id="nav_point_24" class="calibre16"><strong class="calibre2">1.4.2　PostgreSQL 9.4版中引入的新特性</strong></h3>
+<p class="calibre1">本书写作期间，PostgreSQL 9.3 是最新的稳定发行版，9.4 还只是测试版，但其安装包已可下载用于测试。9.4 测试版包含以下特性。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1">物化视图特性的改进。在 9.3 版中，刷新物化视图期间会对其加锁并禁止访问。但一般来说刷新物化视图会需要一定的时间，因此在生产环境中该刷新动作会导致物化视图可用性显著降低。9.4 版中取消了刷新时的加锁动作，因此即使是正在被刷新的物化视图也可被访问。但请注意：利用此特性的前提是物化视图必须要拥有一个唯一索引。</p>
+</li>
+<li class="calibre10"><p class="calibre1">新增了对 SQL:2008 标准中规定的 <code class="calibre11">percentile_disc</code>（不连续百分比）和 <code class="calibre11">percentile_cont</code>（连续百分比）这两个分析函数的支持，须配合 <code class="calibre11">WITHIN GROUP (ORDER BY...)</code> 子句使用。详细例子可参见 depesz 博客网站的一篇关于 ORDERED SET WITHIN GROUP 聚合运算的介绍文章（<a href="http://www.depesz.com/2014/01/11/waiting-for-9-4-support-ordered-set-within-group-aggregates/" class="calibre5">http://www.depesz.com/2014/01/11/waiting-for-9-4-support-ordered-set-within-group-aggregates/</a>）。这些函数为你提供了系统原生的快速取中间值功能。例如，如果我们希望从一批考试成绩中取中间点到 3/4 处部分的值，可执行以下查询：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT subject, percentile_cont(ARRAY[0.5, 0.75])
+  WITHIN GROUP (ORDER BY score) As med_75_score
+ FROM test_scores GROUP BY subject;
+
+</code></pre>
+<p class="calibre1">在 PostgreSQL 中，要实现 <code class="calibre11">percentile_cont</code> 和 <code class="calibre11">percentile_disc</code>，可以取一个数组或 0 到 1 之间的单个值（此值代表所希望查询的百分比范围），并且此实现会相应地返回一个值数组或单个值。语句中的 <code class="calibre11">ORDER BY score</code> 表示希望根据 <code class="calibre11">score</code> 字段的值来进行百分比计算。</p>
+</li>
+<li class="calibre10"><p class="calibre1">创建视图时支持 <code class="calibre11">WITH CHECK OPTION</code> 子句，其作用是确保在视图上执行更新或者插入操作时，修改后或者新插入的记录仍然是在本视图可见范围内。详见第 7 章中的示例 7-2。</p>
+</li>
+<li class="calibre10"><p class="calibre1">新增对 <code class="calibre11">jsonb</code> 数据类型的支持，该数据类型是 JSON（JavaScript Object Notation）类型的二进制存储版本，并且支持索引。通过 <code class="calibre11">jsonb</code> 类型可以对 JSON 格式的文档数据建立索引，并可加快对其内部元素的访问速度。详细信息请参考 5.6 节，同时可参考这两篇博客文章：“引入新的 jsonb 数据类型：JSON 类型的结构化存储格式”（<a href="http://www.depesz.com/2014/03/25/waiting-for-9-4-introduce-jsonb-a-structured-format-for-storing-json/" class="calibre5">http://www.depesz.com/2014/03/25/waiting-for-9-4-introduce-jsonb-a-structured-format-for-storing-json/</a>）以及“jsonb：通配符查询”（<a href="http://obartunov.livejournal.com/177977.html" class="calibre5">http://obartunov.livejournal.com/177977.html</a>）。</p>
+</li>
+<li class="calibre10"><p class="calibre1">GIN 索引的查询速度提升，同时占用空间减少。GIN 索引的使用范围日益广泛，并且非常适用于全文搜索、三连词处理、<code class="calibre11">hstore</code> 键值数据库以及 <code class="calibre11">jsonb</code> 类型支持等场景。在很多情况下你甚至可以把它当作 B- 树索引的一个替代品，而且一般来说 GIN 索引占用的空间会更少。详情请参见“使用 GIN 索引来代替位图索引”这篇文章的介绍（<a href="http://hlinnaka.iki.fi/2014/03/28/gin-as-a-substitute-for-bitmap-indexes" class="calibre5">http://hlinnaka.iki.fi/2014/03/28/gin-as-a-substitute-for-bitmap-indexes</a>）。</p>
+</li>
+<li class="calibre10"><p class="calibre1">支持更多 JSON 函数。请参见 Depesz 博客站的文章“9.4 版中的新 JSON 函数介绍”（<a href="http://www.depesz.com/2014/01/30/waiting-for-9-4-new-json-functions/" class="calibre5">http://www.depesz.com/2014/01/30/waiting-for-9-4-new-json-functions/</a>）。</p>
+</li>
+<li class="calibre10"><p class="calibre1">支持使用以下语法轻松地将所有资产从一个表空间移动到另一个表空间中：<code class="calibre11">ALTER TABLESPACE old_space MOVE ALL TO new_space;</code>。</p>
+</li>
+<li class="calibre10"><p class="calibre1">支持对返回的结果集中的记录加上数字编号。当我们从数组、<code class="calibre11">hstore</code>、复合类型等格式数据源中取出非格式化数据时，由于缺少可用于唯一标识记录的主键，因此一般需要为每条记录加一个数字型的行号。现在可以将系统列 <code class="calibre11">ordinality</code>（该列是在 ANSI SQL 标准中定义的）添加到输出。以下是一个使用 <code class="calibre11">hstore</code> 对象以及返回一个键值对的 <code class="calibre11">each</code> 函数的例子：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT ordinality, key, value
+ FROM each('breed=&gt;pug,cuteness=&gt;high'::hstore) WITH ordinality;
+</code></pre>
+</li>
+<li class="calibre10"><p class="calibre1">支持通过执行 SQL 命令来更改系统配置设置。<code class="calibre11">ALTER system SET ...</code> 语法可实现对全局系统设置的动态修改，这一功能在之前版本中只能通过修改 postgresql.conf 文件才能实现。关于 postgresql.conf 文件用法的详情请参见 2.1.1 节。</p>
+</li>
+<li class="calibre10"><p class="calibre1">支持对外部表建触发器。通过该功能，即便外部数据源与你相隔万里之遥，只要对方一修改数据，你立即就可以得到通知。不过目前我们尚不确定该功能的实际使用效果到底如何，因为在数据源极其遥远的情况下，由于存在网络延迟，其效果就很难说了。</p>
+</li>
+<li class="calibre10"><p class="calibre1">新增 <code class="calibre11">unnest</code> 函数，该函数以可预见的方式将不同大小的数组分配到各个列中。</p>
+</li>
+<li class="calibre10"><p class="calibre1">新增 <code class="calibre11">ROWS FROM</code> 语法，该语法可以将多个函数返回的结果集逐行拼接起来，最后作为一个完整的结果集返回，因此即使这些结果集之间的元素个数不一致也没关系，如下例所示：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT * FROM ROWS FROM (
+jsonb_each('{"a":"foo1","b":"bar"}'::jsonb),
+jsonb_each('{"c":"foo2"}'::jsonb)) x
+(a1,a1_val,a2_val);
+</code></pre>
+</li>
+<li class="calibre10"><p class="calibre1">支持使用 C 对动态后台工作线程进行编码以按需完成工作。contrib/worker_spi 目录下的 9.4 版源码中实现了一个小型的示例可供参考。</p>
+</li>
+</ul>
+<h3 id="nav_point_25" class="calibre16"><strong class="calibre2">1.4.3　PostgreSQL 9.3版新特性列表</strong></h3>
+<p class="calibre1">9.3 版（发布于 2013 年）中引入的主要特性如下。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1">增加了对 ANSI SQL 的标准 <code class="calibre11">LATERAL</code> 子句的支持。<code class="calibre11">LATERAL</code> 语法允许将 <code class="calibre11">FROM</code> 子句与关联一起使用以引用关联的另一方上的变量。在一个关联查询语句中，如果参与关联的一方是一个临时结果集，比如一个子查询或者一个能够返回结果集的函数，那么在该子查询或者函数中可以引用关联关系另一方结果集中的列。如果没有 <code class="calibre11">LATERAL</code> 语法，这种横向关联是不可能的，只有 <code class="calibre11">WHERE</code> 关联条件部分才能进行被关联方之间列的交叉引用。如果你需要使用 <code class="calibre11">unnest</code>、<code class="calibre11">generate_series</code> 或者以正则表达式作为查询条件的查询语句来构造关联一方的结果集，那么 <code class="calibre11">LATERAL</code> 语法几乎是不可或缺的，因为这种情况下势必要参考关联关系另一方的数据才能生成自己一方的数据。请参考 7.6 节以了解更多细节。</p>
+</li>
+<li class="calibre10"><p class="calibre1">支持并行 <code class="calibre11">pg_dump</code>。从 8.4 版开始支持并行恢复，在该版本中实现了对并行备份的支持，这可以大大加快大型数据库的备份速度。</p>
+</li>
+<li class="calibre10"><p class="calibre1">支持物化视图（详细信息请参见 7.1.3 节）。物化视图可以将经常使用的视图中的数据进行持久化，从而避免反复执行相同的查询。</p>
+</li>
+<li class="calibre10"><p class="calibre1">支持自动可更新视图。对视图执行更新操作不再需要创建触发器或者规则，现在可以直接针对视图执行 <code class="calibre11">UPDATE</code> 操作，该操作在系统内部会自动映射到此视图的基表上。</p>
+</li>
+<li class="calibre10"><p class="calibre1">支持定义基于递归 CTE 表达式的视图。</p>
+</li>
+<li class="calibre10"><p class="calibre1">支持更多针对 JSON 类型的构造函数和解析函数。详见 7.6 节。</p>
+</li>
+<li class="calibre10"><p class="calibre1">支持在基于正则表达式条件的查询中使用索引。</p>
+</li>
+<li class="calibre10"><p class="calibre1">引入了支持 64 位大对象操作的 API，该 API 可操作 TB 级大小的对象。之前最多支持到 2 GB。</p>
+</li>
+<li class="calibre10"><p class="calibre1">postgres_fdw 驱动程序（10.3.3 节中会进行介绍）支持对其他 PostgreSQL 数据库（即使在使用较低版本 PostgreSQL 的远程服务器上）进行读写操作。伴随此更改的是对实施可写功能的 FDW API 的升级。</p>
+</li>
+<li class="calibre10"><p class="calibre1">复制功能做了大量改进，其中最主要的两点是：实现了复制功能的架构无关性，即复制的架构不依赖于特定的操作系统或者硬件；另外支持了基于流式复制的重新选主过程。</p>
+</li>
+<li class="calibre10"><p class="calibre1">支持使用 C 语言创建后台工作线程，可用于执行一些定时任务。</p>
+</li>
+<li class="calibre10"><p class="calibre1">支持对 DDL 操作定义触发器。</p>
+</li>
+<li class="calibre10"><p class="calibre1">支持新的 psql 命令：<code class="calibre11">watch</code>。详细信息参见 3.4.2 节。</p>
+</li>
+<li class="calibre10"><p class="calibre1">支持新的 <code class="calibre11">COPY DATA</code> 命令，可用于 PostgreSQL 与外部程序之间导入或者导出数据。3.5.3 节有详细介绍。</p>
+</li>
+</ul>
+<h3 id="nav_point_26" class="calibre16"><strong class="calibre2">1.4.4　PostgreSQL 9.2版新特性列表</strong></h3>
+<p class="calibre1">9.2 版（2012 年 9 月发布）中引入的主要特性如下。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1">支持索引内查询。如果查询的列都位于索引内，那么 PostgreSQL 会省略不必要的表访问动作，仅依据索引自身数据就可以完成全部查询动作。该优化会给键值查询以及类似 <code class="calibre11">COUNT(*)</code> 这种聚合查询带来巨大的性能提升。</p>
+</li>
+<li class="calibre10"><p class="calibre1">内存排序操作性能提升可达 20%。</p>
+</li>
+<li class="calibre10"><p class="calibre1">在预处理语句中做了一些改进。现在会对预处理语句进行解析、分析和重写，但你可以跳过该计划来避免被绑定到特定实参输入上。你现在还可以保存依赖实参的某个预处理语句的计划。这样会降低预处理语句比等效的即席查询执行得更差的几率。<span class="zhu_shi_bian_hao">4</span></p>
+</li>
+<li class="calibre10"><p class="calibre1">支持级联流式复制，即支持从一个 slave 节点到另一个 slave 节点的流式复制。</p>
+</li>
+<li class="calibre10"><p class="calibre1">支持基于空间分区树算法的 SP-GiST 索引，这种索引是 GiST 索引的强化版本，对于很多依赖 GiST 索引的扩展包来说，使用这种索引可以得到巨大的性能提升。</p>
+</li>
+<li class="calibre10"><p class="calibre1">新增了对 <code class="calibre11">ALTER TABLE IF EXISTS</code> 语法的支持，修改表结构之前可以不用再检查此表是否存在。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">ALTER TABLE</code> 和 <code class="calibre11">ALTER TYPE</code> 这两个命令新增了大量功能选项，本来要实现这些功能的话需要删除表并重建。更多细节请参见 depesz 博客网站的“More Alter Table Alter Types”这篇博文（<a href="http://www.depesz.com/2012/02/14/waiting-for-9-2-more-rewrite-less-alter-table-alter-types/" class="calibre5">http://www.depesz.com/2012/02/14/waiting-for-9-2-more-rewrite-less-alter-table-alter-types/</a>）。</p>
+</li>
+<li class="calibre10"><p class="calibre1">增加了更多的 <code class="calibre11">pg_dump</code> 和 <code class="calibre11">pg_restore</code> 选项。细节请参见“9.2 版中 <code class="calibre11">pg_dump</code> 工具的增强”（<a href="http://www.postgresonline.com/journal/archives/252-PostgreSQL-9.2-pg_dump-enhancements.html" class="calibre5">http://www.postgresonline.com/journal/archives/252-PostgreSQL-9.2-pg_dump-enhancements.html</a>）。</p>
+</li>
+<li class="calibre10"><p class="calibre1">新增了对 PL/V8 语法扩展包的支持，以后可以使用目前非常流行的 JavaScript 语言来编写函数。</p>
+</li>
+<li class="calibre10"><p class="calibre1">JSON 正式成为系统内置数据类型，同时转正的还有 <code class="calibre11">row_to_json</code> 和 <code class="calibre11">array_to_json</code> 函数。使用 Ajax 的 Web 开发人员应该会很欢迎该特性。详见 7.6 节和示例 7-16。</p>
+</li>
+<li class="calibre10"><p class="calibre1">新增了对区间数据类型的支持，不再需要通过编写函数来实现类似功能。区间类型虽然是首次引入，但系统为其提供了丰富的运算符和配套函数。Exclusion 类型的约束可以很好地保证该类型数据的合法性。</p>
+</li>
+<li class="calibre10"><p class="calibre1">支持在 SQL 函数中通过实参名称引用实参，之前版本仅支持通过实参编号引用实参。有多个实参时，通过实参名称引用会更方便。</p>
+</li>
+</ul>
+<p class="zhu_shi_nei_rong"><span class="zhu_shi_bian_hao_xia">4</span>语句的 PREPARE 预解析机制有改进。在之前版本中进行 PREPARE 操作时，规划器会对预解析的语句生成执行计划，但由于此时的语句中不携带具体的选项值（预提交的语法形式如 <code class="calibre11">PREPARE my_stmt AS select a from tab where b=$1 and c&gt;$2</code>），因此规划器会基于表的统计信息来进行推测，并生成一个通用的、比较保守的执行计划，这往往会导致得到的执行计划并非最优，从而出现语句经过预解析后再执行反而比直接执行更慢的情况。为解决此问题，当前版本中的 PREPARE 操作有所变化，仍然会执行语句解析、语句分析、语句改写这几个过程，但会跳过生成执行计划这一步骤，留到语句 EXECUTE 阶段根据真正的选项再生成执行计划，这样就保证了执行计划是最优的。但这带来的另一个问题就是 EXECUTE 效率降低，因为每次都要生成执行计划。为此系统做了另一个优化：如果 EXECUTE 阶段生成的执行计划与原来在 PREPARE 阶段生成的通用执行计划效率类似，那么系统还是会将通用执行计划存储下来并复用。通过以上策略，避免了有时执行预提交的语句反而更慢的情况。——译者注</p>
+<h3 id="nav_point_27" class="calibre16"><strong class="calibre2">1.4.5　PostgreSQL 9.1版新特性列表</strong></h3>
+<p class="calibre1">在 9.1 版中，PostgreSQL 推出了诸多企业级特性，开始与 SQL Server 和 Oracle 等重量级对手展开正面竞争。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1">内置的复制特性全面增强，支持同步复制。</p>
+</li>
+<li class="calibre10"><p class="calibre1">引入新的 <code class="calibre11">CREATE EXTENSION</code> 和 <code class="calibre11">ALTER EXTENSION</code> 命令来管理扩展包，安装和卸载扩展包变得轻而易举。</p>
+</li>
+<li class="calibre10"><p class="calibre1">引入兼容 ANSI 标准的外部数据封装器（FDW）机制，用于查询外部数据源。</p>
+</li>
+<li class="calibre10"><p class="calibre1">支持可写 CTE 表达式，此后 <code class="calibre11">UPDATE</code> 和 <code class="calibre11">INSERT</code> 语句也可以享受到 CTE 语法带来的便利。</p>
+</li>
+<li class="calibre10"><p class="calibre1">支持建立无日志的表，以加快写操作速度。有的场景下，记录预写日志确无必要。</p>
+</li>
+<li class="calibre10"><p class="calibre1">支持针对视图建立触发器。在之前的版本中，如果希望对视图进行修改操作，只能通过建立 <code class="calibre11">DO INSTEAD</code> 类型的规则（详情请参见官网链接：<a href="http://www.postgresql.org/docs/current/interactive/rules-update.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/rules-update.html</a>）来实现，且这种规则只能用 SQL 语言编写，但支持视图触发器后，就可以用上 PostgreSQL 支持的所有语言，这样就可以针对视图实现更复杂更抽象的业务逻辑。</p>
+</li>
+<li class="calibre10"><p class="calibre1">引入 KNN GiST 索引类型，该类索引能对常用的很多扩展包带来性能提升，比如全文检索、三连词（用于模糊查找以及区分大小写查找操作）以及 PostGIS 等。</p>
+</li>
+</ul>
+</body></html>

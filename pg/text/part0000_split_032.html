@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_56" class="calibre6"><strong class="calibre2">2.8　基于表空间机制进行存储管理</strong></h2>
+<p class="calibre1">PostgreSQL 使用“表空间”这一概念来将逻辑存储空间映射到磁盘上的物理存储空间。PostgreSQL 在安装阶段会自动生成两个表空间：一个是 <code class="calibre11">pg_default</code>，用于存储所有的用户级数据；另一个是 <code class="calibre11">pg_global</code>，用于存储所有的系统级数据。这两个表空间就位于默认的数据文件夹下。你可以不受限地创建表空间并将其物理存储位置设定到任何一块物理磁盘上。你也可以为 database 设定默认表空间，这样该 database 中创建的任何新对象都会存储到此表空间上。你也可以将现存的数据库对象迁移到新的表空间中。</p>
+<h3 id="nav_point_57" class="calibre16"><strong class="calibre2">2.8.1　表空间的创建</strong></h3>
+<p class="calibre1">创建表空间需要先为其取一个逻辑名称并指定某个物理文件夹作为其存储位置，注意要确保 <code class="calibre11">postgres</code> 操作系统账户对此文件夹有完全的访问权限。如果你目前使用的是 Windows 服务器，请使用如下命令行（注意使用 Unix 风格的斜杠作为路径分隔符）：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE TABLESPACE secondary LOCATION 'C:/pgdata94_secondary';
+
+</code></pre>
+<p class="calibre1">对于基于 Unix 的系统来说，你必须先创建文件夹或者定义一个 fstab 位置，然后执行以下命令：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE TABLESPACE secondary LOCATION '/usr/data/pgdata94_secondary';
+
+</code></pre>
+<h3 id="nav_point_58" class="calibre16"><strong class="calibre2">2.8.2　在表空间之间迁移对象</strong></h3>
+<p class="calibre1">你可以将数据库中的对象在表空间之间随意迁移。如果希望将一个 database 的所有对象都移动到另一个表空间中，可以执行以下命令：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">ALTER DATABASE mydb SET TABLESPACE secondary;
+
+</code></pre>
+<p class="calibre1">如果只希望移动一张表，命令如下：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">ALTER TABLE mytable SET TABLESPACE secondary;
+
+</code></pre>
+<p class="calibre1">PostgreSQL 9.4 版中引入了一个新功能：一次性把一个表空间的多个对象迁移到另一个表空间。如果命令执行者是超级用户，那么源表空间所有的对象都会被迁移过去；否则仅会迁移执行者所拥有的对象。</p>
+<p class="calibre1">将 <code class="calibre11">pg_default</code> 默认表空间中的所有对象迁移到 secondary 表空间，所需的命令行如下：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">ALTER TABLESPACE pg_default MOVE ALL TO secondary;
+
+</code></pre>
+<p class="calibre1">在迁移过程中所涉及的 database 和表会被锁定。</p>
+</body></html>

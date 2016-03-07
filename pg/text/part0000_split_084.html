@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_226" class="calibre6"><strong class="calibre2">A.2　CentOS、Fedora、Red Hat以及Scientific Linux</strong></h2>
+<p class="calibre1">大多数 Linux/Unix 发行版会在其软件存储库中提供 PostgreSQL，但版本可能比较老。为了解决这个问题，很多人会使用逆向移植（“逆向移植”英文为 backport，是指将新版本的软件——比如数据库软件、工具软件、补丁包等——逆向移植到老版本的操作系统上，这样构建出来的版本包既能维持平台兼容性，又能提供新的软件特性，从而以最小的代价解决了老版本软件存在的问题，与全面升级操作系统平台相比，这是一种兼容性好、风险低的解决方案）的版本包，这种版本包的软件存储库中会提供较新版本的 PostgreSQL 软件。</p>
+<p class="calibre1">对于具有冒险精神的 Linux 用户来说，可以从 PostgreSQL Yum 存储库（<a href="http://yum.postgresql.org/" class="calibre5">http://yum.postgresql.org/</a>）下载最新版本的 PostgreSQL，包括开发中的版本。此存储库中不仅包含 PostgreSQL 服务器核心组件，还包含比较常用的扩展包。PostgreSQL 的开发团队负责维护这个存储库，并且会在第一时间发布补丁和版本更新。在本书写作之时，PostgreSQL Yum 存储库支持的操作系统平台包括 Fedora 14-20、Red Hat Enterprise Linux 4-6、CentOS 4-6 以及 Scientific Linux 5-6。如果使用的操作系统平台较老或者是仍需要 PostgreSQL 8.3 版这样的老版本，那么是无法使用最新的 PostgreSQL Yum 存储库的，请检查一下所使用的操作系统平台的老版本存储库，检查一下存储库仍在维护哪些内容。如果希望了解更多基于 YUM 的软件安装机制，请参考我们的 PostgresOnline 网站上关于 Yum 部分的内容（<a href="http://www.postgresonline.com/journal/categories/53-yum" class="calibre5">http://www.postgresonline.com/journal/categories/53-yum</a>）。</p>
+</body></html>

@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_32" class="calibre6"><strong class="calibre2">2.1　配置文件</strong></h2>
+<p class="calibre1">配置文件控制着一个 PostgreSQL 服务器实例的基本行为，主要包含以下几个文件。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1">postgresql.conf</p>
+<p class="calibre1">该文件包含一些通用设置，比如内存分配、新建 database 的默认存储位置、PostgreSQL 服务器的 IP 地址、日志的位置以及许多其他设置。9.4 版中引入了一个新的 postgresql.auto.conf 文件，任何时候执行 <code class="calibre11">ALTER SYSTEM</code> SQL 命令，都会创建或重写该文件。该文件中的设置会替代 postgresql.conf 文件中的设置。</p>
+</li>
+<li class="calibre10"><p class="calibre1">pg_hba.conf</p>
+<p class="calibre1">该文件用于控制访问安全性，管理客户端对 PostgreSQL 服务器的访问权限，内容包括：允许哪些用户连接到哪个数据库，允许哪些 IP 或者哪个网段的 IP 连接到本服务器，以及指定连接时使用的身份验证模式。</p>
+</li>
+<li class="calibre10"><p class="calibre1">pg_ident.conf</p>
+<p class="calibre1">pg_hba.conf 的权限控制信息中的身份验证模式字段如果指定为 ident 方式，则用户连接时系统会尝试访问 pg_ident 文件，如果该文件存在，则系统会基于文件内容将当前执行登录操作的操作系统用户映射为一个 PostgreSQL 数据库内部用户的身份来登录。有些人会把操作系统的 root 用户映射为 PostgreSQL 的 <code class="calibre11">postgres</code> 超级用户账号。pg_hba.conf 中的每条权限控制信息均可以指定一个独立的 pg_ident.conf 文件作为用户映射信息数据源。</p>
+</li>
+</ul>
+<p class="calibre1">如果你在安装过程中使用了默认配置，则上述文件会位于 PostgreSQL 主数据文件夹中。你可以使用任何文本编辑器来编辑这些文件，或者在 pgAdmin 工具中专门的功能页面上也可以进行修改（在 pgAdmin 工具中直接修改系统配置文件的功能是基于 PostgreSQL 提供的 Admin Pack 系列管理 API 实现的）。4.2.2 节中会有关于如何在 pgAdmin 工具中修改 postgresql.conf 和 pg_hba.conf 文件的介绍。如果你不确定这些文件的具体位置，请以超级用户身份连接到任何一个数据库上并执行示例 2-1 中的查询语句即可找到。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 2-1</strong>：配置文件的位置</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT name, setting FROM pg_settings WHERE category = 'File Locations';
+
+       name        |                 setting
+-------------------+------------------------------------------
+ config_file       | /etc/postgresql/9.3/main/postgresql.conf
+ data_directory    | /var/lib/postgresql/9.3/main
+ external_pid_file | /var/run/postgresql/9.3-main.pid
+ hba_file          | /etc/postgresql/9.3/main/pg_hba.conf
+ ident_file        | /etc/postgresql/9.3/main/pg_ident.conf
+
+</code></pre>
+<h3 id="nav_point_33" class="calibre16"><strong class="calibre2">2.1.1　postgresql.conf</strong></h3>
+<p class="calibre1">postgresql.conf 文件包含了 PostgreSQL 服务能够正常运行所必需的基础设置以及新建数据库时所使用的默认设置。你可以在数据库级、用户级、会话级甚至是函数级替代这些设置。“对你的 PostgreSQL 服务器进行调优”（<a href="https://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server" class="calibre5">https://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server</a>）这篇文章详细介绍了如何通过修改设置来对你的 PostgreSQL 系统进行优化。</p>
+<p class="calibre1">通过查询 <code class="calibre11">pg_settings</code> 视图可以很方便地检查当前设置，示例 2-2 展示了具体语法。该示例中查询了主要的几个关键设置并给出了查询结果中每一列的含义说明，但如果你希望更深入地了解这些设置，我们建议你参考官方手册中的相关介绍（<a href="http://www.postgresql.org/docs/current/interactive/view-pg-settings.htmls" class="calibre5">http://www.postgresql.org/docs/current/interactive/view-pg-settings.htmls</a>）。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 2-2</strong>：关键的设置</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT name, context ➊, unit ➋,
+    setting, boot_val, reset_val ➌
+FROM pg_settings
+WHERE name IN ( 'listen_addresses', 'max_connections', 'shared_buffers', 'effec
+tive_cache_size', 'work_mem', 'maintenance_work_mem'
+)
+ORDER BY context, name;
+
+         name         | context    | unit | setting | boot_val  | reset_val
+----------------------+------------+------+---------+-----------+-----------
+ listen_addresses     | postmaster |      | *       | localhost | *
+ max_connections      | postmaster |      | 100     | 100       | 100
+ shared_buffers       | postmaster | 8kB  | 131584  | 1024      | 131584
+ effective_cache_size | user       | 8kB  | 16384   | 16384     | 16384
+ maintenance_work_mem | user       | kB   | 16384   | 16384     | 16384
+ work_mem             | user       | kB   | 5120    | 1024      | 5120
+
+</code></pre>
+<p class="calibre1">➊　如果将 <code class="calibre11">context</code> 设置为 <code class="calibre11">postmaster</code>，那么更改此形参后需要重启 PostgreSQL 服务才能生效；如果将其设置为 <code class="calibre11">user</code>，那么只需要执行一次重新加载即可全局生效。重启数据库服务会终止活动连接，但重新加载不会。</p>
+<p class="calibre1">➋　<code class="calibre11">unit</code> 字段表示这些设置的单位。示例 2-2 的输出结果中内存设置的单位可能会让你觉得有点乱，有些是以 8 KB 为单位，有些是以 KB 为单位。在 postgresql.conf 中设置内存时，请尽量选择一个合适的数值单位，比如我们要将内存设定为 128 MB，那么“xxx = 128 MB”就是一个比较好的写法，而“xxx = 131072 KB”显然就不太好，虽然二者是等价的。你也可以通过 SHOW 命令查看特定系统设置，比如：<code class="calibre11">SHOW effective_cache_size</code> 或 <code class="calibre11">SHOW maintenance_work_mem</code>。<code class="calibre11">SHOW</code> 命令的输出结果会自动根据数值大小选择合适的单位。如果希望一次性查看使用了合适单位的所有设置，可以使用 <code class="calibre11">SHOW ALL</code> 命令，其输出结果会针对每个设置选用合适的单位。</p>
+<p class="calibre1">➌　<code class="calibre11">setting</code> 是指当前设置；<code class="calibre11">boot_val</code> 是指默认设置；<code class="calibre11">reset_val</code> 是指重新启动服务器或重新加载设置之后的新设置。在 postgresql.conf 中修改了设置后，一定要记得查看一下 <code class="calibre11">setting</code> 和 <code class="calibre11">reset_val</code> 并确保二者是一致的，否则说明设置并未生效，需要重新启动服务器或者重新加载设置。</p>
+<p class="calibre1">请特别注意 postgresql.conf 中的以下网络设置，修改这些值是一定要重新启动数据库服务的。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00002.gif" alt="" width="9%" class="calibre13"/>　对于 9.4 版及之后的版本来说，postgresql.auto.conf 的优先级是高于 postgresql.conf 的，如果这两个文件中存在同名配置项，则系统会优先使用前者设定的值。</p>
+</blockquote>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1"><code class="calibre11">listen_addresses</code></p>
+<p class="calibre1">表示 PostgreSQL 服务使用的 IP 地址，一般会设定为 <code class="calibre11">localhost</code> 或者 <code class="calibre11">local</code>，但也有很多人会设为 <code class="calibre11">*</code>，表示使用本机任一 IP 地址均可连接到 PostgreSQL 服务。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">port</code></p>
+<p class="calibre1">PostgreSQL 服务的侦听端口，默认值为 5432。如果是在 Red Hat 或者 CentOS 平台上，可以更改 <code class="calibre11">PGPORT</code> 值 /etc/sysconfig/pgsql/your_service_name_here 来更改侦听端口。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">max_connections</code></p>
+<p class="calibre1">系统允许的最大并发连接数。</p>
+</li>
+</ul>
+<p class="calibre1">按照我们的经验，以下四个设置对系统性能有着全局性的影响，我们建议你在实际环境下 通过实测来找到最优值。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1"><code class="calibre11">shared_buffers</code></p>
+<p class="calibre1">此设置定义了用于缓存最近访问过的数据页的内存区大小，所有用户会话均可共享此缓存区。此设置对查询速度有着重大影响，一般来说是越大越好，至少应该达到系统总内存的 25%，但不宜超过 8 GB，因为超过后会出现“边际收益递减”效应，即消耗的内存很多，但得到的速度提升却很少，得不偿失。修改此设置需要重启 PostgreSQL 服务。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">effective_cache_size</code></p>
+<p class="calibre1">此设置表示一个查询执行过程中可以使用的最大缓存，包括操作系统使用的部分以及 PostgreSQL 使用的部分。系统并不会根据这个值来真实地分配这么多内存，但是规划器会根据这个值来判断系统能否提供查询执行过程中所需的内存。如果将此设置设得过小，远远小于系统真实可用内存量，那么可能会给规划器造成误导，让规划器认为系统可用内存有限，从而选择不使用索引而是走全表扫描（因为使用索引虽然速度快，但需要占用更多的中间内存）。在一台专用于运行PostgreSQL数据库服务的服务器上，建议将 <code class="calibre11">effective_cache_size</code> 的值设为系统总内存的一半或者更多。此设置的更改可动态生效，执行重新加载即可。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">work_mem</code></p>
+<p class="calibre1">此设置指定了用于执行排序、哈希关联、表扫描等操作的最大内存量。要得到此设置的最优值需要考虑以下一些因素：数据库的使用方式，需要预留多少内存给除数据库系统外的程序，以及服务器是否专用于运行 PostgreSQL 服务等问题。如果使用场景仅仅是有很多用户并发执行简单查询，那么这个值设得很小也没问题。关于 <code class="calibre11">work_mem</code> 设置有一篇很好的文章“理解 <code class="calibre11">work_mem</code>”（<a href="http://www.depesz.com/2011/07/03/understanding-postgresql-conf-work_mem/" class="calibre5">http://www.depesz.com/2011/07/03/understanding-postgresql-conf-work_mem/</a>）。此设置的更改可动态生效，执行重新加载即可。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">maintenance_work_mem</code></p>
+<p class="calibre1">此设置指定可用于 vaccum 操作（即清空已标记为“被删除”状态的记录）这类系统内部维护操作的内存总量。其值不应大于 1 GB。此设置的更改可动态生效，执行重新加载即可。</p>
+</li>
+</ul>
+<p class="calibre1">上述设置可在库级、用户级以及函数级设置。例如，如果有一个精通 SQL 的用户要在库上执行非常复杂的 SQL 语句，那么可以为此用户单独调大 <code class="calibre11">work_mem</code> 的值。又比如有一个函数中有很多排序操作，那么可以仅针对此函数调大 <code class="calibre11">work_mem</code> 的值。</p>
+<p class="calibre1">PostgreSQL 9.4 版中引入了对新的 <code class="calibre11">ALTER SYSTEM</code> SQL 命令的支持，使用该命令可以更改设置。例如，如果要全局设置 <code class="calibre11">work_mem</code>，执行以下命令即可：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">ALTER SYSTEM set work_mem = 8192;
+
+</code></pre>
+<p class="calibre1">每个设置有着各自不同的特性，有的更改后必须重启数据库服务才能生效，有的只要重新加载一次就可以了，下面这个命令可以实现设置重新加载：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT pg_reload_conf();
+
+</code></pre>
+<p class="calibre1">PostgreSQL 记录更改是在一个称为 postgresql.auto.conf 的替代文件中通过 <code class="calibre11">ALTER SYSTEM</code> 所做出的，而不是直接对 postgresql.conf 进行更改。</p>
+<p class="calibre1"><strong class="calibre2">“遇到修改了postgredql.conf文件，结果服务器崩溃了这种情况。”</strong></p>
+<p class="calibre1">定位这种问题最简单的方法是查看日志文件，该文件位于 PostgreSQL 数据文件夹的根目录或者 pg_log 子文件夹下。只要找到最近修改的那个日志文件并查看其最后部分的内容就能找到本次问题的相关错误日志，日志的内容一般都是比较直白易懂的，你看了就会明白。</p>
+<p class="calibre1">最常见的错误是把 <code class="calibre11">shared_buffers</code> 设得太大了，还有一个常见问题是由于上次系统异常关闭导致遗留了一个没来得及删除的 postmaster.pid 文件，该文件就位于数据文件夹下，你可以手动删除该文件并重新启动 PostgreSQL。</p>
+<h3 id="nav_point_34" class="calibre16"><strong class="calibre2">2.1.2　pg_hba.conf</strong></h3>
+<p class="calibre1">pg_hba.conf 文件指定了允许哪些用户以何种方式连接到 PostgreSQL 数据库。针对该文件的修改可动态生效。一个典型的 pg_hba.conf 文件看起来如示例 2-3 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 2-3</strong>：pg_hba.conf 文件示例</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11"># TYPE DATABASE USER ADDRESS METHOD
+# IPv4 local connections:
+host all  all  127.0.0.1/32 ident ➊
+# IPv6 local connections:
+host all  all ::1/128 ➋trust
+host all  all 192.168.54.0/24 ➌md5
+hostssl ➍ all all 0.0.0.0/0 md5
+# Allow replication connections from localhost, by a user with the ➎
+# replication privilege.
+#host replication postgres 127.0.0.1/32 trust
+#host replication postgres ::1/128 trust
+
+</code></pre>
+<p class="calibre1">➊　身份验证模式。一般有以下几种常用选项：<code class="calibre11">ident</code>、<code class="calibre11">trust</code>、<code class="calibre11">md5</code> 以及 <code class="calibre11">password</code>。从 9.1 版开始引入了 <code class="calibre11">peer</code> 身份验证模式（详情请参考官方手册相关章节：<a href="http://www.postgresql.org/docs/current/interactive/auth-methods.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/auth-methods.html</a>）。<code class="calibre11">ident</code> 和 <code class="calibre11">peer</code> 模式仅适用于 Linux、Unix 和 Mac，不适用于 Windows。一些比较少见的身份验证模式，比如 <code class="calibre11">gss</code>、<code class="calibre11">radius</code>、<code class="calibre11">ldap</code> 以及 <code class="calibre11">pam</code> 等，可能并不会在所有的发行版中都默认安装。</p>
+<p class="calibre1">➋　用于定义网络范围的 IPv6 语法。只有服务器支持 IPv6 时才可以配置该项，如果在非 IPv6 网络环境下配置了这样的条目，系统会直接忽略该配置项。</p>
+<p class="calibre1">➌　用于定义网络范围的 IPv4 语法。第一部分（本例中为 <code class="calibre11">192.168.54.0</code>）是网络地址，后面跟着的 <code class="calibre11">/24</code> 是位掩码。本例中这样定义可以达到如下效果：对于任何一个位于 192.168.54.0 子网中的客户端来说，只要该客户端提供的经 md5 算法加密的密码是正确的，那么系统就允许该客户端连到数据库服务器。</p>
+<p class="calibre1">➍　这是针对 SSL 连接的规则。本例中，任何使用 SSL 连接并能提供合法 md5 加密密码的客户端都可以连接到本地数据库服务器。</p>
+<p class="calibre1">➎　此处是一套复制系统中其他成员节点的 IP 地址列表，每个成员的地址都必须存在于此列表中，否则无法加入该复制系统。该特性从 9.0 版开始引入。本例中，这几行是注释掉的。</p>
+<p class="calibre1">对于每一个连接请求，<code class="calibre11">postgres</code> 服务会按照 pg_hba.conf 文件中记录的规则条目自上而下进行检查。当匹配到第一条允许此请求接入的规则时，就不再往下检查，系统将允许该连接请求。类似地，如果匹配到一条拒绝此连接请求的规则，也不再继续检查，并拒绝该连接请求。如果一直搜索到文件的末尾都没能找到匹配项，那么按照默认规则处理，即拒绝该连接。大家常犯的一个错误是把规则的顺序放错。例如，如果你将 <code class="calibre11">+0.0.0.0/0 reject+</code> 规则放到 <code class="calibre11">+127.0.0.1/32 trust+</code> 的前面，那么此时本地用户全都无法连接，即使下面有规则允许也不行。</p>
+<p class="calibre1"><strong class="calibre2">1. “遇到修改了ph_hba.conf文件，结果服务器崩溃了这种情况。”</strong></p>
+<p class="calibre1">不用担心，这种事情经常发生，解决起来不难。这一般是因为拼写错误或增加了一种不支持的身份验证模式导致。如果 <code class="calibre11">postgres</code> 服务无法正确地解析 pg_hba.conf 文件，那么为确保系统安全它会禁止所有的连接请求甚至是禁止系统启动。最简单的诊断方法是看一下日志，文件就在数据文件夹的根目录下或者其 pg_log 子文件夹下。可以打开修改日期最近的日志文件并看一下最后部分的内容，错误提示信息一般就在那里，而且一般都是很好理解的。如果你经常会笔误改错东西，那么请一定记得在修改配置文件之前做个备份。</p>
+<p class="calibre1"><strong class="calibre2">2. 身份验证方法</strong></p>
+<p class="calibre1">PostgreSQL 提供了多种模式用于用户身份验证，很可能是所有数据库里面支持的模式最多的。大多数人只会用到其中几种最常见的：<code class="calibre11">trust</code>、<code class="calibre11">peer</code>、<code class="calibre11">ident</code>、<code class="calibre11">md5</code> 和 <code class="calibre11">password</code>。还有一种 <code class="calibre11">reject</code> 模式，其作用是拒绝所有请求。pg_hba.conf 中定义的这些身份验证规则就好像是整个 PostgreSQL 服务器的看门人，确保着整个系统的外部访问安全。当然，在通过了这一层外部安全控制并成功建立连接以后，连上来的用户仍需遵守角色权限和数据库访问限制等内部约束规则。</p>
+<p class="calibre1">如需了解有关各种身份验证方法的详细内容，请参考官方手册中的“PostgreSQL 客户端身份验证”（<a href="http://www.postgresql.org/docs/current/interactive/client-authentication.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/client-authentication.html</a>）。最常用的身份验证方法有以下这些。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1"><code class="calibre11">trust</code></p>
+<p class="calibre1">这是最不安全的身份验证模式。该模式允许用户“自证清白”，即可以不用密码就连接到数据库。只要源端 IP 地址、连接用户名、要访问的 database 名都与该条规则匹配，用户就可以连上来。<code class="calibre11">trust</code> 模式很不安全，因此应对其使用予以限制，即只能允许从数据库服务器本机发起的连接或者是同属内网的用户发起的连接使用此模式。但即使加了前述限制也不能保证安全，因为会有人通过伪装 IP 地址的方式来冒用此权限，所以有人认为该模式应该被彻底禁用。然而在单用户的桌面环境下这却是最常用的身份验证模式，因为一般这种场景下系统的安全性根本不是问题。连接时如果未指定用户名，那么默认会使用当前登录的操作系统用户名。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">md5</code></p>
+<p class="calibre1">该模式很常用，要求连接发起者携带用 md5 算法加密的密码。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">password</code></p>
+<p class="calibre1">不推荐，因为该模式使用明文密码进行身份验证，不安全。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">ident</code></p>
+<p class="calibre1">该身份验证模式下，系统会将请求发起者的操作系统用户映射为 PostgreSQL 数据库内部用户，并以该内部用户的权限登录，且此时无需提供登录密码。操作系统用户与数据库内部用户之间的映射关系会记录在 pg_ident.conf 文件中。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">peer</code></p>
+<p class="calibre1">该模式使用连接发起端的操作系统名进行身份验证。仅可用于 Linux、BSD、Mac OS X 和 Solaris，并且仅可用于本地服务器发起的连接。</p>
+</li>
+</ul>
+<p class="calibre1">多种身份验证模式是可以同时使用的，即使是针对同一个 database 也可以这么做，也就是说我们可以针对同一个 database 设置多条身份验证规则，并且每条规则的身份验证模式都不一样。虽然身份验证模式很灵活，但请你务必牢记 PostgreSQL 对于 pg_hba.conf 中的规则的查找顺序是从上到下，第一条匹配到的规则就是系统使用的规则。</p>
+<h3 id="nav_point_35" class="calibre16"><strong class="calibre2">2.1.3　配置文件的重新加载</strong></h3>
+<p class="calibre1">很多（但非全部）配置文件更改后必须要重启 <code class="calibre11">postgres</code> 服务才能生效，但另外一些只需要执行一次重新加载即可生效。重新加载的过程并不会中断当前已建立的连接。打开一个命令行窗口执行以下命令即可。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">pg_ctl reload -D your_data_directory_here
+
+</code></pre>
+<p class="calibre1">如果你在 RedHat Enterprise Linux、CentOS 或者 Ubuntu 上是以服务的形式安装的 PostgreSQL，那么请执行以下命令。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">service postgresql-9.3 reload
+
+</code></pre>
+<p class="calibre1">上述命令中的 <code class="calibre11">postgresql-9.3</code> 是服务名。对于较老的版本来说，服务名可能就叫 <code class="calibre11">postgresql</code>，不带版本号。</p>
+<p class="calibre1">另一种重新加载配置文件的方法是以超级用户权限登录到任何一个 database 并执行以下 SQL 语句：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT pg_reload_conf();
+
+</code></pre>
+<p class="calibre1">另外也可以从 pgAdmin 工具中执行重新加载，请参考 4.2.2 节。</p>
+</body></html>

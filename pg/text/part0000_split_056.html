@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h1 id="nav_point_133" class="not-in-toc"><strong class="calibre2">第 6 章　表、约束和索引</strong></h1>
+<p class="calibre1">表是关系型数据库存储体系的基本单元。设计好结构化的表并且定义表与表之间的关联关系是关系型数据库的核心设计思想。在 PostgreSQL 中，约束定义了表与表之间的关系。与以堆结构存储的记录相比，表的优势就在于有索引。你会在很多书的末尾看到词汇索引表，也会在写字楼入口大堂处看到每层楼的租户名单，表索引的作用与它们是类似的，即在表中快速查找到目标数据的位置，这样你就可以不用每次查询时都扫描整张表的内容。</p>
+<p class="calibre1">本章中，我们将介绍建表和插入记录的语法。然后将介绍约束的用法，约束可以保证数据库的记录不会违反我们制定的规则。最后我们将向你展示如何为表创建索引来加速查询。在表上建索引是需要经过深思熟虑的，因为一个错误的索引会导致查询效果比全表扫描还慢，也就是说建了还不如不建。并不是所有的索引都是“生来平等”的，数据库领域的算法专家们为不同的数据类型设计出了不同类型的索引，目的是将查询的速度提升到极致。</p>
+</body></html>

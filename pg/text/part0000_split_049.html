@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_103" class="calibre6"><strong class="calibre2">5.2　字符和字符串</strong></h2>
+<p class="calibre1">PostgreSQL 有三种最基础的数据类型：<code class="calibre11">character</code>（也称为 <code class="calibre11">char</code>）、<code class="calibre11">character varying</code>（也称为 <code class="calibre11">varchar</code>）和 <code class="calibre11">text</code>。<code class="calibre11">varchar</code> 和 <code class="calibre11">text</code> 适用于存储长度可变化的文本，每一行记录需要多大空间就分配多大空间。这两种类型的存储方式是完全一致的，性能表现也没有差别。</p>
+<p class="calibre1"><code class="calibre11">char</code> 类型占用的存储空间是固定的，适用于如邮政编码、电话号码以及社会保险号等定长字符串的存储。如果存储的字符长度达不到 <code class="calibre11">char</code> 类型的定义长度，那么会在后面用空格填充，不管存储时还是查询显示时都是这样。这种模式对于存储空间有所浪费，但这也是 ANSI SQL 标准中规定的做法。除此以外，在 PostgreSQL 中 <code class="calibre11">char</code> 和 <code class="calibre11">varchar</code> 没有别的性能差别。</p>
+<p class="calibre1">没有大小修饰符的 <code class="calibre11">varchar</code> 与 <code class="calibre11">text</code> 之间几乎没什么差别。对于 <code class="calibre11">text</code> 列来说，不管它所包含的字符有多少，你都可以对其进行排序。有些数据库驱动程序（比如 ODBC）可能会对二者的处理略有差别。<code class="calibre11">varchar</code> 和 <code class="calibre11">text</code> 的存储空间上限均为约 1 GB，但事实上系统在后台会把超过一个物理存储页大小的内容用 <code class="calibre11">TOAST</code> 机制处理。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00002.gif" alt="" width="9%" class="calibre13"/>　在 PostgreSQL 9.2 版之前，如果你需要加大一个 <code class="calibre11">varchar</code> 字段的长度定义而此时该表中已有记录存在，那么系统实际上会在后台建一张新表再把数据从旧表转移到新表，该过程会耗费一定时间并会导致锁表。因此，大家一般会通过使用 <code class="calibre11">text</code> 类型来避免此问题。</p>
+</blockquote>
+<p class="calibre1">关于是否应该彻底废弃 <code class="calibre11">varchar</code> 并完全转用 <code class="calibre11">text</code> 这个问题，业界一直有着不同的声音。我们不会在此处浪费篇幅争论此问题，请你参考“我为 <code class="calibre11">varchar(x)</code> 的辩护”这篇博文（<a href="http://www.postgresonline.com/journal/archives/154-In-Defense-of-varcharx.html" class="calibre5">http://www.postgresonline.com/journal/archives/154-In-Defense-of-varcharx.html</a>）以了解这场争论的详情。</p>
+<p class="calibre1">有时候，为了保持跨平台应用的兼容性，你需要使字符串类型的操作变得不区分大小写。要实现此目标，你需要重写那些区分大小写的比较运算符。相比 <code class="calibre11">text</code>，对 <code class="calibre11">varchar</code> 进行运算符重写要更容易一些。我们在“将 MS Access 与 PostgreSQL 协同使用”这篇博文中（<a href="http://www.postgresonline.com/journal/archives/24-Using-MS-Access-with-PostgreSQL.html" class="calibre5">http://www.postgresonline.com/journal/archives/24-Using-MS-Access-with-PostgreSQL.html</a>）演示了如何使 <code class="calibre11">varchar</code> 类型变得不区分大小写而且同时还能够用上索引。</p>
+<h3 id="nav_point_104" class="calibre16"><strong class="calibre2">5.2.1　字符串函数</strong></h3>
+<p class="calibre1">常见的字符串操作包括：填充（<code class="calibre11">lpad</code>、<code class="calibre11">rpad</code>）、修整空白（<code class="calibre11">rtrim</code>、<code class="calibre11">ltrim</code>、<code class="calibre11">trim</code>、<code class="calibre11">btrim</code>）、提取子字符串（<code class="calibre11">substring</code>）以及连接（<code class="calibre11">||</code>）。示例 5-2 演示了填充操作，示例 5-3 演示了修整空白操作。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-2</strong>：使用 <code class="calibre11">lpad</code> 和 <code class="calibre11">rpad</code> 进行填充操作</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT lpad('ab', 4, '0') As ab_lpad, rpad('ab', 4, '0') As ab_rpad, lpad('abcde',
+4, '0') As ab_lpad_trunc; ➊
+
+ab_lpad | ab_rpad | ab_lpad_trunc
+--------+---------+-----
+00ab    | ab00    | abcd
+
+</code></pre>
+<p class="calibre1">➊　如果字符串超过指定长度的话，<code class="calibre11">lpad</code> 不但不会填充，反而会对其进行截断。</p>
+<p class="calibre1">默认情况下，<code class="calibre11">trim</code> 函数用于移除空格，但你也可以传入一个可选实参，指示要剪裁的其他字符。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-3</strong>：剪裁空格和字符</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT
+a As a_before, trim(a) As a_trim, rtrim(a) As a_rt,
+i As i_before, ltrim(i, '0') As i_lt_0,
+rtrim(i, '0') As i_rt_0, trim(i, '0') As i_t_0
+FROM ( SELECT repeat(' ', 4) || i || repeat(' ', 4) As a, '0' || i As i FROM gener
+ate_series(0, 200, 50) As i
+) As x;
+
+a_before     | a_trim |  a_rt   | i_before | i_lt_0 | i_rt_0 | i_t_0
+-------------+--------+---------+----------+--------+--------+-------
+     0       | 0      |     0   | 00       |        |        |
+     50      | 50     |     50  | 050      | 50     | 05     | 5
+     100     | 100    |     100 | 0100     | 100    | 01     | 1
+     150     | 150    |     150 | 0150     | 150    | 015    | 15
+     200     | 200    |     200 | 0200     | 200    | 02     | 2
+
+</code></pre>
+<p class="calibre1">从 PostgreSQL 9.0 版开始支持一种很有用的字符串操作函数 <code class="calibre11">string_agg</code>，我们已在示例 3-11 中展示了其用法，你还将在示例 5-21 中再次见到它。该函数与 MySQL 的 <code class="calibre11">group_concat</code> 函数作用是相同的。</p>
+<h3 id="nav_point_105" class="calibre16"><strong class="calibre2">5.2.2　将字符串拆分为数组、表或者子字符串</strong></h3>
+<p class="calibre1">PostgreSQL 中有一些函数可以对字符串进行拆分操作。</p>
+<p class="calibre1"><code class="calibre11">split_part</code> 函数可以将指定位置的元素从用固定分隔符分隔的字符串中取出来，如示例 5-4 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-4</strong>：取出分隔符字符串中的第 <em class="calibre8">n </em>个元素</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT split_part('abc.123.z45', '.', 2) As x;
+
+x
+--------
+123
+
+</code></pre>
+<p class="calibre1"><code class="calibre11">string_to_array</code> 函数可以将基于固定分隔符的字符串拆分为一个数组。通过将 <code class="calibre11">string_to_array</code> 和 <code class="calibre11">unnest</code> 函数结合使用，你可以将一个字符串展开为若干记录行，如示例 5-5 所示。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-5</strong>：将基于固定分隔符格式的字符串展开为记录行</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT unnest(string_to_array('abc.123.z45', '.')) As x;
+
+x
+--------
+abc
+123
+z45
+
+</code></pre>
+<h3 id="nav_point_106" class="calibre16"><strong class="calibre2">5.2.3　正则表达式和模式匹配</strong></h3>
+<p class="calibre1">PostgreSQL 对正则表达式的支持是极其强大的。你可以设定查询返回结果的格式为表或者数组，并且对其进行极其复杂的替换和更新操作。包括逆向引用（back reference）在内的一些高级搜索方法都是支持的。在本节中，我们将提供一个小型的示例以说明这些内容。如需了解更多相关信息，请参考 PostgreSQL 官方手册中的“模式匹配”（<a href="http://www.postgresql.org/docs/current/interactive/functions-matching.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/functions-matching.html</a>）和“字符串函数”（<a href="http://www.postgresql.org/docs/current/interactive/functions-string.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/functions-string.html</a>）这两节的内容。</p>
+<p class="calibre1">示例 5-6 展示了如何对以数字形式存储的电话号码进行格式化操作。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-6</strong>：使用逆向引用技术对电话号码进行重新格式化</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT regexp_replace(
+'6197306254',
+'([0-9]{3})([0-9]{3})([0-9]{4})',
+ E'\(\\1\) \\2-\\3'
+ ) As x;
+
+x
+--------------
+(619) 730-6254
+
+</code></pre>
+<p class="calibre1"><code class="calibre11">\\1</code> 和 <code class="calibre11">\\2</code> 是模式匹配表达式中的元素。我们使用反斜杠（<code class="calibre11">\</code>）来转义圆括号，表示此处是真的要作为一个圆括号来用。<code class="calibre11">E'</code> 是 PostgreSQL 的构造符语法，表示后续跟着的字符串是一个表达式，其中类似 <code class="calibre11">\</code> 的特殊字符应该按照字面含义来处理。</p>
+<p class="calibre1">假设一个字符串中内嵌了一些电话号码，示例 5-7 演示了如何仅通过一个 SQL 语句就将这些号码提取出来并作为记录行输出：</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 5-7</strong>：将文本中的电话号码作为单独的行返回</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT unnest(regexp_matches( 'Cell (619)852-5083. Casa 619-730-6254. Bésame mucho.
+        E'[(]{0,1}[0-9]{3}[)-.]{0,1}[0-9]{3}[-.]{0,1}[0-9]{4}', 'g')
+) As x;
+
+x
+-------------
+(619)852-5083
+619-730-6254
+
+</code></pre>
+<p class="calibre1">示例 5-7 中用到的匹配规则如下所示。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1"><code class="calibre11">[(]{0,1}</code>：开始是 0 个或者 1 个 <code class="calibre11">(</code>。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">[0-9]{3}</code>：跟着 3 位数字。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">[)-.]{0,1}</code>：跟着 0 个或者 1 个 <code class="calibre11">)</code> 或者 <code class="calibre11">-</code> 或者 <code class="calibre11">.</code>。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">[0-9]{4}</code>：跟着 4 位数字。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">regexp_matches</code> 函数会返回根据一个正则表达式筛选匹配得到的字符串数组。如果不传入 <code class="calibre11">g</code> 形参，则仅返回第一个命中的字符串。<code class="calibre11">g</code> 表示 global，即需要进行完整搜索并返回所有匹配上的字符串，每个字符串作为数组中的一个元素。</p>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">unnest</code> 函数将一个数组分解为一个行集。</p>
+</li>
+</ul>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00001.gif" alt="" width="7%" class="calibre12"/>　同一个正则表达式可以有多种写法。比如，<code class="calibre11">\\d</code> 代表 <code class="calibre11">[0-9]</code>。但我们建议不要为了省那几个字符而把表达式搞得太晦涩难懂，应该采用更加容易理解的写法。</p>
+</blockquote>
+<p class="calibre1">除了正则表达式专用的那些函数外，你还可以将正则表达式与 <code class="calibre11">SIMILAR TO</code>（<code class="calibre11">~</code>）运算符一起使用。以下查询可以查出所有内嵌了电话号码的字符串：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT description
+FROM mytable
+WHERE description ~ E'[(]{0,1}[0-9]{3}[)-.]{0,1}[0-9]{3}[-.]{0,1}[0-9]{4}';
+
+</code></pre>
+</body></html>

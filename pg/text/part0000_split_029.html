@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_43" class="calibre6"><strong class="calibre2">2.5　权限管理</strong></h2>
+<p class="calibre1">PostgreSQL 的权限管理机制非常灵活而自由，因此要想管理得当是很需要一些技巧的。比如，权限控制可精确到数据库对象级别，如有必要甚至可以针对同一张表的不同字段分别单独设定其权限。要想完整地介绍所有关于权限管理的知识可能会需要好几章的篇幅，因此我们在本节中仅介绍能让你达到正常使用程度所必备的知识，同时会指导你避开一些隐蔽的“雷区”，这些“雷”一旦踩到，会导致要么你根本无法访问想要访问的内容，要么服务器上的数据得不到有效防护。</p>
+<p class="calibre1">请参考官方手册中“权限管理”章节（<a href="http://www.postgresql.org/docs/current/interactive/ddl-priv.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/ddl-priv.html</a>）来了解权限管理体系的概要。</p>
+<p class="calibre1">做好 PostgreSQL 的权限管理可不是件很轻松的活。利用 pgAdmin 工具的图形化界面来进行操作会简单一些，或者说至少能让你比较清楚地了解到系统当前权限设置的全貌。通过 pgAdmin 可以完成绝大多数权限管理工作。如果你得负责权限管理工作而你又是个 PostgreSQL 新手，那么建议使用这个工具。如果等不了我们按部就班的慢慢介绍，你也可以直接跳到 4.2.3 节去学习。</p>
+<h3 id="nav_point_44" class="calibre16"><strong class="calibre2">2.5.1　权限的类型</strong></h3>
+<p class="calibre1">PostgreSQL 中支持的对象级权限包括 <code class="calibre11">SELECT</code>、<code class="calibre11">INSERT</code>、<code class="calibre11">UPDATE</code>、<code class="calibre11">ALTER</code>、<code class="calibre11">EXECUTE</code>、<code class="calibre11">TRUNCATE</code> 等以及一个附带的 <code class="calibre11">WITH GRANT</code> 修饰符。除了 <code class="calibre11">GRANT</code> 外，前几类权限都可顾名思义猜到其含义，<code class="calibre11">GRANT</code> 的用法在 2.5.3 节中会专门介绍。请注意，每种权限都有其适用的数据库资产类型，比如对于函数来说 <code class="calibre11">TRUNCATE</code> 权限毫无意义，对表来说 <code class="calibre11">EXECUTE</code> 权限也无意义。</p>
+<h3 id="nav_point_45" class="calibre16"><strong class="calibre2">2.5.2　入门介绍</strong></h3>
+<p class="calibre1">假设你已安装好 PostgreSQL，建好了一个超级用户角色并设定好了密码。请参照以下步骤来建立其他角色并设定其权限。</p>
+<p class="calibre1">(1) PostgreSQL 在安装阶段会默认创建一个超级用户角色以及一个 database，二者的名称都是 <code class="calibre11">postgres</code>。请以 <code class="calibre11">postgres</code> 身份登录服务器。</p>
+<p class="calibre1">(2) 在创建你自己的首个 database 之前，需要先建一个角色作为此 database 的所有者，所有者可以登录该库。语法如下：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE ROLE mydb_admin LOGIN PASSWORD 'something';
+
+</code></pre>
+<p class="calibre1">(3) 创建 database 并设定其所有者：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE DATABASE mydb WITH owner = mydb_admin;
+
+</code></pre>
+<p class="calibre1">(4) 然后用 <code class="calibre11">mydb_admin</code> 身份登录并创建 schema 和表。</p>
+<h3 id="nav_point_46" class="calibre16"><strong class="calibre2">2.5.3　GRANT</strong></h3>
+<p class="calibre1"><code class="calibre11">GRANT</code> 命令可以将权限授予他人。基本用法如下。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">GRANT some_privilege TO some_role;
+
+</code></pre>
+<p class="calibre1">请牢记以下几条关于 <code class="calibre11">GRANT</code> 的使用原则。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1">只有权限的拥有者才能将权限授予别人，并且拥有者自身还得有 <code class="calibre11">GRANT</code> 操作的权限。这一点是不言而喻的，因为自己没有的东西当然给不了别人。</p>
+</li>
+<li class="calibre10"><p class="calibre1">有些权限只有对象的所有者才能拥有，任何情况下都不能授予别人。这类权限包括 <code class="calibre11">DROP</code> 和 <code class="calibre11">ALTER</code>。</p>
+</li>
+<li class="calibre10"><p class="calibre1">对象的所有者天然拥有此对象的所有权限，不需要再次授予。</p>
+</li>
+<li class="calibre10"><p class="calibre1">授权时可以加上 <code class="calibre11">WITH GRANT</code> 子句，这意味着被授权者可以将得到的权限再次授予别人。示例如下。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">GRANT ALL ON ALL TABLES IN SCHEMA public TO mydb_admin WITH GRANT OPTION;
+</code></pre>
+</li>
+<li class="calibre10"><p class="calibre1">如果希望一次性将某个对象的所有权限都授予某人，可以使用 <code class="calibre11">ALL</code> 关键字，而不需要一个个权限都写下来 <span class="zhu_shi_bian_hao">2</span>。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">GRANT ALL ON my_schema.my_table TO mydb_admin;
+</code></pre>
+</li>
+<li class="calibre10"><p class="calibre1"><code class="calibre11">ALL</code> 关键字还可以用于指代某个 database 或者 schema 中的所有对象。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA my_schema TO PUBLIC;
+</code></pre>
+</li>
+<li class="calibre10"><p class="calibre1">如果希望将权限授予所有人，可以用 <code class="calibre11">PUBLIC</code> 关键字来指代所有角色。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">GRANT USAGE ON SCHEMA my_schema TO PUBLIC;
+
+</code></pre>
+</li>
+</ul>
+<p class="zhu_shi_nei_rong"><span class="zhu_shi_bian_hao_xia">2</span>原文此处示例不妥，我做了修改。——译者注</p>
+<p class="calibre1">官方手册的“GRANT”章节（<a href="http://www.postgresql.org/docs/current/interactive/sql-grant.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/sql-grant.html</a>）中对 <code class="calibre11">GRANT</code> 命令的所有细节都有极其详尽的说明，我们强烈推荐你先认真阅读一下此章节，以免不小心设错权限导致系统安全隐患。</p>
+<p class="calibre1">默认情况下会将某些权限授予 <code class="calibre11">PUBLIC</code>。这些权限包括：<code class="calibre11">CONNECT</code>、<code class="calibre11">CREATE TEMP TABLE</code>（针对数据库）、<code class="calibre11">EXECUTE</code>（针对函数）以及 <code class="calibre11">USAGE</code>（针对语言）。有些情况下出于安全考虑，你可能希望取消一些默认权限，那么可以使用 <code class="calibre11">REVOKE</code> 命令：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">REVOKE EXECUTE ON ALL FUNCTIONS IN SCHEMA my_schema FROM PUBLIC;
+
+</code></pre>
+<h3 id="nav_point_47" class="calibre16"><strong class="calibre2">2.5.4　默认权限</strong></h3>
+<p class="calibre1">从 PostgreSQL 9.0 版开始引入了默认权限，使用默认权限，用户可以一次性针对某个特定 schema 或 database 中的所有数据库资产进行权限设置操作，哪怕这些资产还没创建。如果你的默认权限更新及时，那么这样可以大大简化权限管理工作。</p>
+<p class="calibre1">假设我们希望对所有数据库用户都授予某 schema 中所有函数和表的 <code class="calibre11">EXECUTE</code> 和 <code class="calibre11">SELECT</code> 权限，那么我们可以按示例 2-6 这样来定义权限。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 2-6</strong>：定义 schema 的默认权限</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">GRANT USAGE ON SCHEMA my_schema TO PUBLIC;
+ALTER DEFAULT PRIVILEGES IN SCHEMA my_schema
+GRANT SELECT, REFERENCES ON TABLES TO PUBLIC;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA my_schema
+GRANT ALL ON TABLES TO mydb_admin WITH GRANT OPTION;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA my_schema
+GRANT SELECT, UPDATE ON SEQUENCES TO public;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA my_schema
+GRANT ALL ON FUNCTIONS TO mydb_admin WITH GRANT OPTION;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA my_schema
+GRANT USAGE ON TYPES TO PUBLIC;
+
+</code></pre>
+<blockquote class="calibre18">
+<p class="calibre1"><img src="../images/00002.gif" alt="" width="9%" class="calibre13"/>　新增或者修改默认权限并不会影响已有的权限设置，即只有当某个对象的某项权限未专门设定的情况下，默认权限设定才会生效。</p>
+</blockquote>
+<p class="calibre1">要了解更多关于默认权限的信息，请参考官方手册中“修改默认权限”这一节（<a href="http://www.postgresql.org/docs/current/interactive/sql-alterdefaultprivileges.html" class="calibre5">http://www.postgresql.org/docs/current/interactive/sql-alterdefaultprivileges.html</a>）的内容。</p>
+<h3 id="nav_point_48" class="calibre16"><strong class="calibre2">2.5.5　PostgreSQL权限体系中一些与众不同的特点</strong></h3>
+<p class="calibre1">最后，在你自己去深入学习了解权限管理体系之前，我们会给你列举一些比较隐蔽的“奇葩”特性。</p>
+<p class="calibre1">在一般的数据库中，一个 database 的所有者会对此库中的所有对象都拥有完全的控制权，但 PostgreSQL 不一样，一个 database 的所有者仅对自己在本库中所创建的对象拥有控制权，对其他角色在本库中所创建的对象却没有访问权限。矛盾的是，所有者却又有权能删掉整个库。比如另一个角色在你的库中创建了某个对象，你虽然身为此库的所有者却无权访问这些对象，然后此时你却可以把整个库都删掉。总体来看，这种情况是比较奇怪的。</p>
+<p class="calibre1">人们常常会忘记执行 <code class="calibre11">GRANT USAGE ON SCHEMA</code> 或者 <code class="calibre11">GRANT ALL ON SCHEMA</code> 语句来为 schema 对象进行使用授权。但其实这个步骤是必要的，因为在 PostgreSQL 中，即使已经将 schema 中的表和函数的访问权限授予某个角色，在没有此 schema 的 <code class="calibre11">USAGE</code> 权限的情况下，此角色依然不能访问此 schema 中的表或者函数对象。</p>
+</body></html>

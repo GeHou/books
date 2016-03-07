@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_199" class="calibre6"><strong class="calibre2">9.3　人工干预规划器生成执行计划的过程</strong></h2>
+<p class="calibre1">规划器生成执行计划的行为会受到多方面因素的影响，具体包括：是否有合适的索引、执行成本设置、执行策略设置以及数据如何分布等。本节中，我们将向你介绍多种可以对规划器施加人工干预的方法，通过这些方法可以得到更合理的执行计划。</p>
+<h3 id="nav_point_200" class="calibre16"><strong class="calibre2">9.3.1　策略设置</strong></h3>
+<p class="calibre1">与某些其他数据库产品不同的是，PostgreSQL 查询规划器不接受索引提示，但你可以逐个查询或永久禁用各种策略设置（比如全表扫描、位图扫描、哈希聚合、哈希关联等都是一种执行策略，都有相应的策略设置），以阻止规划器选出某些效率较低的执行策略。PostgreSQL 官方手册中的“Planner Method Configuration”（规划器方法配置）这一节（<a href="http://www.postgresql.org/docs/current/static/runtime-config-query.html" class="calibre5">http://www.postgresql.org/docs/current/static/runtime-config-query.html</a>）中介绍了所有规划器优化设置。默认情况下，所有策略设置都已启用，此时规划器因为不受什么约束所以灵活性是最大的。如果你已经对要查询的数据的特点预先有了一定了解，那么就可以有针对性地禁用某些策略来优化语句的执行路径。不过请注意，即使你设置了某种策略为禁用，也并不意味着规划器就一定不会使用该策略。规划器仅将这些设置当作用户的建议来对待，最终的决定权还是在规划器。</p>
+<p class="calibre1">我们有时候会将 <code class="calibre11">enable_nestloop</code>（嵌套循环）和 <code class="calibre11">enable_seqscan</code>（全表扫描）这两个设置设为“禁用”，因为这两种执行策略的效率是很低的，不到万不得已不应使用，所以通过禁用这两个设置可以告诉规划器“不到万不得已不要使用这两种策略”。你可以禁用这两种执行策略，但规划器在没有别的选择时还是可能会使用的，因为无论如何至少应该保证语句可以正常执行。如果你在执行计划中看到了全表扫描和嵌套循环这两种执行策略，那么我们建议核查一下到底是因为规划器已经找不到更好的策略所以不得不用，还是规划器选择了错误的策略。鉴别这两种情况的最好办法就是我们前面说过的，先禁用对应的策略然后再查看规划器是否还在使用这些策略，如果是，就说明是规划器不得不用；如果不是，则说明规划器之前选择了错误的策略。</p>
+<h3 id="nav_point_201" class="calibre16"><strong class="calibre2">9.3.2　你的索引被用到了吗</strong></h3>
+<p class="calibre1">如果规划器选择了全表扫描策略，那就意味着后续执行过程中会从头到尾读取表中的每一条记录。规划器会在以下两种情况下选择全表扫描策略：一种情况是表上没有合适的索引能满足查询条件的要求；另外一种是规划器认为通过索引来查找数据的成本要高于全表扫描。如果你禁用了全表扫描策略，但规划器依然选择了这么干，这就说明表上无索引或者虽然有索引但不适用此语句的查询条件。有两个错是大家经常会犯的，一个是表上缺少必要的索引，另一个是索引建得不对而导致查询语句用不上。通过查询 <code class="calibre11">pg_stat_user_indexes</code> 和 <code class="calibre11">pg_stat_user_tables</code> 这两个视图可以很方便地得知你的索引是否被用上了，这两个视图是由 <code class="calibre11">pg_stat_statements</code> 扩展包提供的，关于该扩展包，我们已经在 9.2 节中介绍过了。</p>
+<p class="calibre1">我们下面通过若干例子来说明。还是使用示例 7-18 中建过的表，我们在该表的数组列 <code class="calibre11">fact_subcats</code> 上建一个 GIN 索引，GIN 类型的索引是为数不多的能够支持数组类型的索引。语句如下：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">CREATE INDEX idx_lu_fact_types ON census.lu_fact_types USING gin (fact_subcats);
+
+</code></pre>
+<p class="calibre1">我们接下来执行一个查询语句以验证所建索引是否有效，查询条件为：<code class="calibre11">fact_subcats</code> 数组列中要包含“White alone”和“Asian alone”这两个元素。虽然全表扫描策略的默认设置就是“启用”，但我们还是显式地设定一下以防万一。示例 9-8 显示了该语句的执行计划。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 9-8</strong>：允许规划器选择全表扫描策略</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">set enable_seqscan = true;
+EXPLAIN (ANALYZE)
+SELECT *
+FROM census.lu_fact_types
+WHERE fact_subcats &amp;&amp; '{White alone, Black alone}'::varchar[];
+
+Seq Scan on lu_fact_types
+      (cost=0.00..2.85 rows=2 width=200) (actual time=0.066..0.076 rows=2 loops=1)
+Filter: (fact_subcats &amp;&amp; '{"White alone","Black alone"}'::character varying[]) Rows
+Removed by Filter: 66
+Planning time: 0.182 ms
+Execution time: 0.108 ms
+
+</code></pre>
+<p class="calibre1">请注意，在启用全表扫描策略的情况下，规划器忽略了索引而选用了全表扫描策略。这可能是因为表的规模很小或者是因为索引不适用于本语句中的查询条件。在示例 9-9 中，我们执行的语句相同，但通过禁用全表扫描策略来强迫规划器使用了索引。</p>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 9-9</strong>：禁用全表扫描策略，强行要求使用索引</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">set enable_seqscan = false;
+EXPLAIN (ANALYZE)
+SELECT *
+FROM census.lu_fact_types
+WHERE fact_subcats &amp;&amp; '{White alone, Black alone}'::varchar[];
+
+Bitmap  Heap  Scan on  lu_fact_types (cost=12.02..14.04 rows=2 width=200) (actual
+time=0.058..0.058  rows=2   loops=1) Recheck  Cond:  (fact_subcats  &amp;&amp;  '{"White
+alone","Black alone"}'::character varying[]) Heap Blocks: exact=1 -&gt; Bitmap Index
+Scan on idx_lu_fact_types
+        (cost=0.00..12.02 rows=2 width=0) (actual time=0.048..0.048 rows=2 loops=1)
+          Index Cond:  (fact_subcats &amp;&amp; '{"White alone","Black alone"}'::character
+varying[])
+Planning time: 0.230 ms
+Execution time: 0.119 ms
+
+</code></pre>
+<p class="calibre1">通过该执行计划可以看到，索引建得没问题，是可以使用的，但规划器评估后认为使用索引的执行成本要高于使用全表扫描，因此规划器选择了使用全表扫描策略。事实证明规划器的评估结果是对的，通过上面两个例子中最后的执行时间可以看到，使用索引查询的耗时要略微多于使用全表扫描的耗时。但随着表中的数据的增加，我们将会看到规划器优先选择索引查询策略。</p>
+<p class="calibre1">为了与前面的例子做个对比，假设我们需要执行如下这样一个查询：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT* FROM census.lu_fact_types WHERE 'White alone' = ANY(fact_subcats);
+
+</code></pre>
+<p class="calibre1">我们会看到不管将 <code class="calibre11">enable_seqscan</code> 设为启用还是禁用，规划器总是会选择执行全表扫描，因为此时索引无法满足查询条件的需要。因此，建立合适的索引并编写正确的、能用上索引的 SQL 是很重要的。保证了这些以后，后续的工作就是多试验几次，以确保生成的执行计划是最优的。</p>
+<h3 id="nav_point_202" class="calibre16"><strong class="calibre2">9.3.3　表的统计信息</strong></h3>
+<p class="calibre1">你可能会认为规划器又神秘又强大，但无论如何规划器并不是神，它只是遵循一套设定好的算法来生成执行计划。关于规划器算法的内容细节已经远远超出本书的范畴，在此不做讨论。虽然规划器的算法严重依赖于表的统计信息，但规划器不会在每次生成执行计划之前临时扫描所有的相关表以获取其统计信息，因为如果那么做的话任何语句的执行都将巨慢无比，完全没有执行效率可言，因此规划器会依赖预先搜集好的表统计信息。</p>
+<p class="calibre1">要想规划器能够做出准确的决定，及时准确地更新表统计信息是至关重要的。如果统计信息与实际情况相差太大，规划器就很可能会常常推导出错误的执行计划，最差的情况就是错误地选择了全表扫描策略。一般来说，平均一张表只有 20% 的记录采样率，统计信息会基于这些参与采样的记录来生成。对于非常大的表来说，采样率可能更低。你可以通过设置 <code class="calibre11">STATISTICS</code> 值来修改在每一列上采样的行数。</p>
+<p class="calibre1">通过查询 <code class="calibre11">pg_stats</code> 表可以了解当前的统计信息是什么样的，查询结果如示例 9-10 所示。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">SELECT
+    attname As colname,
+    n_distinct,
+    most_common_vals AS common_vals,
+    most_common_freqs As dist_freq
+FROM pg_stats
+WHERE tablename = 'facts'
+ORDER BY schemaname, tablename, attname;
+
+</code></pre>
+<blockquote class="calibre18">
+<p class="calibre1"><strong class="calibre2">示例 9-10</strong>：数据分布直方图</p>
+</blockquote>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">colname      | n_distinct | common_vals      | dist_freq
+-------------+------------+------------------+-----------------
+fact_type_id |         68 | {135,113...      | {0.0157,0.0156333,...
+perc         |        985 | {0.00,...        | {0.1845,0.0579333,0.056...
+tract_id     |       1478 | {25025090300...  | {0.00116667,0.00106667,0.0...
+val          |       3391 | {0.000,1.000,2...| {0.2116,0.0681333,0...
+yr           |          2 | {2011,2010}      | {0.748933,0.251067}
+
+</code></pre>
+<p class="calibre1"><code class="calibre11">pg_stats</code> 表给出了表中指定列的值域分布图，规划器会根据此信息制定相应的执行计划。系统后台会有一个进程持续不断地更新 <code class="calibre11">pg_stats</code> 表。当表中插入或者删除大量数据后，你应该手动执行 <code class="calibre11">VACUUM ANALYZE</code> 来更新表的统计信息。<code class="calibre11">VACCUM</code> 指示将已删除的记录永久性地从表中移除，<code class="calibre11">ANALYZE</code> 指示更新表的统计信息。</p>
+<p class="calibre1">对于经常参与关联查询并且在 <code class="calibre11">WHERE</code> 子句频繁使用的列，应该考虑提升采样的行数。所需执行的代码如下：</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">ALTER TABLE census.facts ALTER COLUMN fact_type_id SET STATISTICS 1000;
+
+</code></pre>
+<h3 id="nav_point_203" class="calibre16"><strong class="calibre2">9.3.4　磁盘页的随机访问成本以及磁盘驱动器的性能</strong></h3>
+<p class="calibre1">另一个会影响规划器执行策略选择的设置是 <code class="calibre11">random_page_cost</code>（随机页访问成本比，简称 RPC）比率，它表示在磁盘上顺序读取和随机读取同一条记录的性能之比。一般来说，物理磁盘速度越快（一般也会越贵），该比率就会越小。RPC 的默认值是 4，该值适用于目前市面上的大多数机械硬盘。但如果使用的是固态硬盘或者 SAN 存储系统，有必要对此值进行调整。</p>
+<p class="calibre1">你可以在 database、服务器、表空间这三个级别设置 RPC 比率。如果要在服务器级别设置该比率，请直接在 postgresql.conf 文件中设置即可。如果同一台数据库服务器上使用了不同类型的硬盘，并且不同的表空间落在不同的硬盘上，那么可以在表空间级别设置 RPC 比率，语法如下所示。</p>
+<pre class="dai_ma_wu_xing_hao"><code class="calibre11">ALTER TABLESPACE pg_default SET (random_page_cost=2);
+
+</code></pre>
+<p class="calibre1">有关该设置的详细信息，请参考“关于随机页访问成本比的回顾”这篇博文（<a href="http://www.databasesoup.com/2012/05/random-page-cost-revisited.html" class="calibre5">http://www.databasesoup.com/2012/05/random-page-cost-revisited.html</a>）。这篇文章建议采用以下设置。</p>
+<ul class="calibre9">
+<li class="calibre10"><p class="calibre1">高端 NAS/SAN 存储：2.5 或者 3.0</p>
+</li>
+<li class="calibre10"><p class="calibre1">亚马逊 EBS 和 Heroku 云平台：2.0</p>
+</li>
+<li class="calibre10"><p class="calibre1">iSCSI 和其他普通 SAN 存储：6.0，但可能变化比较大，需要按照实际情况设定</p>
+</li>
+<li class="calibre10"><p class="calibre1">固态硬盘：2.0 至 2.5</p>
+</li>
+<li class="calibre10"><p class="calibre1">NvRAM（也叫 NAND）：1.5</p>
+</li>
+</ul>
+</body></html>
