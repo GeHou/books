@@ -1,0 +1,1029 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="zho">
+  <head>
+    <meta content="0a0e1b6a-604c-4f1b-9590-85d9aa3e15b4" name="dtb:uid"/>
+    <meta content="4" name="dtb:depth"/>
+    <meta content="calibre (2.34.0)" name="dtb:generator"/>
+    <meta content="0" name="dtb:totalPageCount"/>
+    <meta content="0" name="dtb:maxPageNumber"/>
+  </head>
+  <docTitle>
+    <text>Redis入门指南（第2版）</text>
+  </docTitle>
+  <navMap>
+    <navPoint class="chapter" id="num_1" playOrder="1">
+      <navLabel>
+        <text>目录</text>
+      </navLabel>
+      <content src="index_split_000.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_2" playOrder="2">
+      <navLabel>
+        <text>扉页</text>
+      </navLabel>
+      <content src="index_split_001.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_3" playOrder="3">
+      <navLabel>
+        <text>版权</text>
+      </navLabel>
+      <content src="index_split_002.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_4" playOrder="4">
+      <navLabel>
+        <text>前言</text>
+      </navLabel>
+      <content src="index_split_003.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_5" playOrder="5">
+      <navLabel>
+        <text>第1章 简介</text>
+      </navLabel>
+      <content src="index_split_004.html"/>
+      <navPoint class="chapter" id="num_6" playOrder="6">
+        <navLabel>
+          <text>1.1 历史与发展</text>
+        </navLabel>
+        <content src="index_split_005.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_7" playOrder="7">
+        <navLabel>
+          <text>1.2 特性</text>
+        </navLabel>
+        <content src="index_split_006.html"/>
+        <navPoint class="chapter" id="num_8" playOrder="8">
+          <navLabel>
+            <text>1.2.1 存储结构</text>
+          </navLabel>
+          <content src="index_split_006.html#filepos47395"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_9" playOrder="9">
+          <navLabel>
+            <text>1.2.2 内存存储与持久化</text>
+          </navLabel>
+          <content src="index_split_006.html#filepos50397"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_10" playOrder="10">
+          <navLabel>
+            <text>1.2.3 功能丰富</text>
+          </navLabel>
+          <content src="index_split_006.html#filepos51160"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_11" playOrder="11">
+          <navLabel>
+            <text>1.2.4 简单稳定</text>
+          </navLabel>
+          <content src="index_split_006.html#filepos53275"/>
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_12" playOrder="12">
+      <navLabel>
+        <text>第2章 准备</text>
+      </navLabel>
+      <content src="index_split_007.html"/>
+      <navPoint class="chapter" id="num_13" playOrder="13">
+        <navLabel>
+          <text>2.1 安装Redis</text>
+        </navLabel>
+        <content src="index_split_008.html"/>
+        <navPoint class="chapter" id="num_14" playOrder="14">
+          <navLabel>
+            <text>2.1.1 在POSIX系统中安装</text>
+          </navLabel>
+          <content src="index_split_008.html#filepos58441"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_15" playOrder="15">
+          <navLabel>
+            <text>2.1.2 在OS X系统中安装</text>
+          </navLabel>
+          <content src="index_split_008.html#filepos60486"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_16" playOrder="16">
+          <navLabel>
+            <text>2.1.3 在Windows中安装</text>
+          </navLabel>
+          <content src="index_split_008.html#filepos63415"/>
+        </navPoint>
+      </navPoint>
+      <navPoint class="chapter" id="num_17" playOrder="17">
+        <navLabel>
+          <text>2.2 启动和停止Redis</text>
+        </navLabel>
+        <content src="index_split_009.html"/>
+        <navPoint class="chapter" id="num_18" playOrder="18">
+          <navLabel>
+            <text>2.2.1 启动Redis</text>
+          </navLabel>
+          <content src="index_split_009.html#filepos69505"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_19" playOrder="19">
+          <navLabel>
+            <text>2.2.2 停止Redis</text>
+          </navLabel>
+          <content src="index_split_009.html#filepos75966"/>
+        </navPoint>
+      </navPoint>
+      <navPoint class="chapter" id="num_20" playOrder="20">
+        <navLabel>
+          <text>2.3 Redis命令行客户端</text>
+        </navLabel>
+        <content src="index_split_010.html"/>
+        <navPoint class="chapter" id="num_21" playOrder="21">
+          <navLabel>
+            <text>2.3.1 发送命令</text>
+          </navLabel>
+          <content src="index_split_010.html#filepos77473"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_22" playOrder="22">
+          <navLabel>
+            <text>2.3.2 命令返回值</text>
+          </navLabel>
+          <content src="index_split_010.html#filepos79038"/>
+        </navPoint>
+      </navPoint>
+      <navPoint class="chapter" id="num_23" playOrder="23">
+        <navLabel>
+          <text>2.4 配置</text>
+        </navLabel>
+        <content src="index_split_011.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_24" playOrder="24">
+        <navLabel>
+          <text>2.5 多数据库</text>
+        </navLabel>
+        <content src="index_split_012.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_25" playOrder="25">
+      <navLabel>
+        <text>第3章 入门</text>
+      </navLabel>
+      <content src="index_split_013.html"/>
+      <navPoint class="chapter" id="num_26" playOrder="26">
+        <navLabel>
+          <text>3.1 热身</text>
+        </navLabel>
+        <content src="index_split_014.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_27" playOrder="27">
+        <navLabel>
+          <text>3.2 字符串类型</text>
+        </navLabel>
+        <content src="index_split_015.html"/>
+        <navPoint class="chapter" id="num_28" playOrder="28">
+          <navLabel>
+            <text>3.2.1 介绍</text>
+          </navLabel>
+          <content src="index_split_015.html#filepos96532"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_29" playOrder="29">
+          <navLabel>
+            <text>3.2.2 命令</text>
+          </navLabel>
+          <content src="index_split_015.html#filepos97479"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_30" playOrder="30">
+          <navLabel>
+            <text>3.2.3 实践</text>
+          </navLabel>
+          <content src="index_split_015.html#filepos106387"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_31" playOrder="31">
+          <navLabel>
+            <text>3.2.4 命令拾遗</text>
+          </navLabel>
+          <content src="index_split_015.html#filepos110772"/>
+        </navPoint>
+      </navPoint>
+      <navPoint class="chapter" id="num_32" playOrder="32">
+        <navLabel>
+          <text>3.3 散列类型</text>
+        </navLabel>
+        <content src="index_split_016.html"/>
+        <navPoint class="chapter" id="num_33" playOrder="33">
+          <navLabel>
+            <text>3.3.1 介绍</text>
+          </navLabel>
+          <content src="index_split_016.html#filepos124417"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_34" playOrder="34">
+          <navLabel>
+            <text>3.3.2 命令</text>
+          </navLabel>
+          <content src="index_split_016.html#filepos127601"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_35" playOrder="35">
+          <navLabel>
+            <text>3.3.3 实践</text>
+          </navLabel>
+          <content src="index_split_016.html#filepos134729"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_36" playOrder="36">
+          <navLabel>
+            <text>3.3.4 命令拾遗</text>
+          </navLabel>
+          <content src="index_split_016.html#filepos140298"/>
+        </navPoint>
+      </navPoint>
+      <navPoint class="chapter" id="num_37" playOrder="37">
+        <navLabel>
+          <text>3.4 列表类型</text>
+        </navLabel>
+        <content src="index_split_017.html"/>
+        <navPoint class="chapter" id="num_38" playOrder="38">
+          <navLabel>
+            <text>3.4.1 介绍</text>
+          </navLabel>
+          <content src="index_split_017.html#filepos144866"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_39" playOrder="39">
+          <navLabel>
+            <text>3.4.2 命令</text>
+          </navLabel>
+          <content src="index_split_017.html#filepos147050"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_40" playOrder="40">
+          <navLabel>
+            <text>3.4.3 实践</text>
+          </navLabel>
+          <content src="index_split_017.html#filepos155252"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_41" playOrder="41">
+          <navLabel>
+            <text>3.4.4 命令拾遗</text>
+          </navLabel>
+          <content src="index_split_017.html#filepos159670"/>
+        </navPoint>
+      </navPoint>
+      <navPoint class="chapter" id="num_42" playOrder="42">
+        <navLabel>
+          <text>3.5 集合类型</text>
+        </navLabel>
+        <content src="index_split_018.html"/>
+        <navPoint class="chapter" id="num_43" playOrder="43">
+          <navLabel>
+            <text>3.5.1 介绍</text>
+          </navLabel>
+          <content src="index_split_018.html#filepos166593"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_44" playOrder="44">
+          <navLabel>
+            <text>3.5.2 命令</text>
+          </navLabel>
+          <content src="index_split_018.html#filepos167802"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_45" playOrder="45">
+          <navLabel>
+            <text>3.5.3 实践</text>
+          </navLabel>
+          <content src="index_split_018.html#filepos174886"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_46" playOrder="46">
+          <navLabel>
+            <text>3.5.4 命令拾遗</text>
+          </navLabel>
+          <content src="index_split_018.html#filepos180661"/>
+        </navPoint>
+      </navPoint>
+      <navPoint class="chapter" id="num_47" playOrder="47">
+        <navLabel>
+          <text>3.6 有序集合类型</text>
+        </navLabel>
+        <content src="index_split_019.html"/>
+        <navPoint class="chapter" id="num_48" playOrder="48">
+          <navLabel>
+            <text>3.6.1 介绍</text>
+          </navLabel>
+          <content src="index_split_019.html#filepos188568"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_49" playOrder="49">
+          <navLabel>
+            <text>3.6.2 命令</text>
+          </navLabel>
+          <content src="index_split_019.html#filepos190759"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_50" playOrder="50">
+          <navLabel>
+            <text>3.6.3 实践</text>
+          </navLabel>
+          <content src="index_split_019.html#filepos201070"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_51" playOrder="51">
+          <navLabel>
+            <text>3.6.4 命令拾遗</text>
+          </navLabel>
+          <content src="index_split_019.html#filepos203859"/>
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_52" playOrder="52">
+      <navLabel>
+        <text>第4章 进阶</text>
+      </navLabel>
+      <content src="index_split_020.html"/>
+      <navPoint class="chapter" id="num_53" playOrder="53">
+        <navLabel>
+          <text>4.1 事务</text>
+        </navLabel>
+        <content src="index_split_021.html"/>
+        <navPoint class="chapter" id="num_54" playOrder="54">
+          <navLabel>
+            <text>4.1.1 概述</text>
+          </navLabel>
+          <content src="index_split_021.html#filepos218420"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_55" playOrder="55">
+          <navLabel>
+            <text>4.1.2 错误处理</text>
+          </navLabel>
+          <content src="index_split_021.html#filepos221564"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_56" playOrder="56">
+          <navLabel>
+            <text>4.1.3 WATCH命令介绍</text>
+          </navLabel>
+          <content src="index_split_021.html#filepos225646"/>
+        </navPoint>
+      </navPoint>
+      <navPoint class="chapter" id="num_57" playOrder="57">
+        <navLabel>
+          <text>4.2 过期时间</text>
+        </navLabel>
+        <content src="index_split_022.html"/>
+        <navPoint class="chapter" id="num_58" playOrder="58">
+          <navLabel>
+            <text>4.2.1 命令介绍</text>
+          </navLabel>
+          <content src="index_split_022.html#filepos232796"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_59" playOrder="59">
+          <navLabel>
+            <text>4.2.2 实现访问频率限制之一</text>
+          </navLabel>
+          <content src="index_split_022.html#filepos239447"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_60" playOrder="60">
+          <navLabel>
+            <text>4.2.3 实现访问频率限制之二</text>
+          </navLabel>
+          <content src="index_split_022.html#filepos242723"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_61" playOrder="61">
+          <navLabel>
+            <text>4.2.4 实现缓存</text>
+          </navLabel>
+          <content src="index_split_022.html#filepos245259"/>
+        </navPoint>
+      </navPoint>
+      <navPoint class="chapter" id="num_62" playOrder="62">
+        <navLabel>
+          <text>4.3 排序</text>
+        </navLabel>
+        <content src="index_split_023.html"/>
+        <navPoint class="chapter" id="num_63" playOrder="63">
+          <navLabel>
+            <text>4.3.1 有序集合的集合操作</text>
+          </navLabel>
+          <content src="index_split_023.html#filepos250051"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_64" playOrder="64">
+          <navLabel>
+            <text>4.3.2 SORT命令</text>
+          </navLabel>
+          <content src="index_split_023.html#filepos251698"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_65" playOrder="65">
+          <navLabel>
+            <text>4.3.3 BY参数</text>
+          </navLabel>
+          <content src="index_split_023.html#filepos256584"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_66" playOrder="66">
+          <navLabel>
+            <text>4.3.4 GET参数</text>
+          </navLabel>
+          <content src="index_split_023.html#filepos263559"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_67" playOrder="67">
+          <navLabel>
+            <text>4.3.5 STORE参数</text>
+          </navLabel>
+          <content src="index_split_023.html#filepos267060"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_68" playOrder="68">
+          <navLabel>
+            <text>4.3.6 性能优化</text>
+          </navLabel>
+          <content src="index_split_023.html#filepos269874"/>
+        </navPoint>
+      </navPoint>
+      <navPoint class="chapter" id="num_69" playOrder="69">
+        <navLabel>
+          <text>4.4 消息通知</text>
+        </navLabel>
+        <content src="index_split_024.html"/>
+        <navPoint class="chapter" id="num_70" playOrder="70">
+          <navLabel>
+            <text>4.4.1 任务队列</text>
+          </navLabel>
+          <content src="index_split_024.html#filepos273522"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_71" playOrder="71">
+          <navLabel>
+            <text>4.4.2 使用Redis实现任务队列</text>
+          </navLabel>
+          <content src="index_split_024.html#filepos275952"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_72" playOrder="72">
+          <navLabel>
+            <text>4.4.3 优先级队列</text>
+          </navLabel>
+          <content src="index_split_024.html#filepos280162"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_73" playOrder="73">
+          <navLabel>
+            <text>4.4.4 “发布/订阅”模式</text>
+          </navLabel>
+          <content src="index_split_024.html#filepos284159"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_74" playOrder="74">
+          <navLabel>
+            <text>4.4.5 按照规则订阅</text>
+          </navLabel>
+          <content src="index_split_024.html#filepos288465"/>
+        </navPoint>
+      </navPoint>
+      <navPoint class="chapter" id="num_75" playOrder="75">
+        <navLabel>
+          <text>4.5 管道</text>
+        </navLabel>
+        <content src="index_split_025.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_76" playOrder="76">
+        <navLabel>
+          <text>4.6 节省空间</text>
+        </navLabel>
+        <content src="index_split_026.html"/>
+        <navPoint class="chapter" id="num_77" playOrder="77">
+          <navLabel>
+            <text>4.6.1 精简键名和键值</text>
+          </navLabel>
+          <content src="index_split_026.html#filepos294492"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_78" playOrder="78">
+          <navLabel>
+            <text>4.6.2 内部编码优化</text>
+          </navLabel>
+          <content src="index_split_026.html#filepos295351"/>
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_79" playOrder="79">
+      <navLabel>
+        <text>第5章 实践</text>
+      </navLabel>
+      <content src="index_split_027.html"/>
+      <navPoint class="chapter" id="num_80" playOrder="80">
+        <navLabel>
+          <text>5.1 PHP与Redis</text>
+        </navLabel>
+        <content src="index_split_028.html"/>
+        <navPoint class="chapter" id="num_81" playOrder="81">
+          <navLabel>
+            <text>5.1.1 安装</text>
+          </navLabel>
+          <content src="index_split_028.html#filepos320018"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_82" playOrder="82">
+          <navLabel>
+            <text>5.1.2 使用方法</text>
+          </navLabel>
+          <content src="index_split_028.html#filepos321475"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_83" playOrder="83">
+          <navLabel>
+            <text>5.1.3 简便用法</text>
+          </navLabel>
+          <content src="index_split_028.html#filepos323539"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_84" playOrder="84">
+          <navLabel>
+            <text>5.1.4 实践：用户注册登录功能</text>
+          </navLabel>
+          <content src="index_split_028.html#filepos328086"/>
+        </navPoint>
+      </navPoint>
+      <navPoint class="chapter" id="num_85" playOrder="85">
+        <navLabel>
+          <text>5.2 Ruby与Redis</text>
+        </navLabel>
+        <content src="index_split_029.html"/>
+        <navPoint class="chapter" id="num_86" playOrder="86">
+          <navLabel>
+            <text>5.2.1 安装</text>
+          </navLabel>
+          <content src="index_split_029.html#filepos341989"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_87" playOrder="87">
+          <navLabel>
+            <text>5.2.2 使用方法</text>
+          </navLabel>
+          <content src="index_split_029.html#filepos342262"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_88" playOrder="88">
+          <navLabel>
+            <text>5.2.3 简便用法</text>
+          </navLabel>
+          <content src="index_split_029.html#filepos343495"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_89" playOrder="89">
+          <navLabel>
+            <text>5.2.4 实践：自动完成</text>
+          </navLabel>
+          <content src="index_split_029.html#filepos344939"/>
+        </navPoint>
+      </navPoint>
+      <navPoint class="chapter" id="num_90" playOrder="90">
+        <navLabel>
+          <text>5.3 Python与Redis</text>
+        </navLabel>
+        <content src="index_split_030.html"/>
+        <navPoint class="chapter" id="num_91" playOrder="91">
+          <navLabel>
+            <text>5.3.1 安装</text>
+          </navLabel>
+          <content src="index_split_030.html#filepos354380"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_92" playOrder="92">
+          <navLabel>
+            <text>5.3.2 使用方法</text>
+          </navLabel>
+          <content src="index_split_030.html#filepos354682"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_93" playOrder="93">
+          <navLabel>
+            <text>5.3.3 简便用法</text>
+          </navLabel>
+          <content src="index_split_030.html#filepos355605"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_94" playOrder="94">
+          <navLabel>
+            <text>5.3.4 实践：在线的好友</text>
+          </navLabel>
+          <content src="index_split_030.html#filepos357147"/>
+        </navPoint>
+      </navPoint>
+      <navPoint class="chapter" id="num_95" playOrder="95">
+        <navLabel>
+          <text>5.4 Node.js与Redis</text>
+        </navLabel>
+        <content src="index_split_031.html"/>
+        <navPoint class="chapter" id="num_96" playOrder="96">
+          <navLabel>
+            <text>5.4.1 安装</text>
+          </navLabel>
+          <content src="index_split_031.html#filepos370274"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_97" playOrder="97">
+          <navLabel>
+            <text>5.4.2 使用方法</text>
+          </navLabel>
+          <content src="index_split_031.html#filepos370521"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_98" playOrder="98">
+          <navLabel>
+            <text>5.4.3 简便用法</text>
+          </navLabel>
+          <content src="index_split_031.html#filepos380122"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_99" playOrder="99">
+          <navLabel>
+            <text>5.4.4 实践：IP地址查询</text>
+          </navLabel>
+          <content src="index_split_031.html#filepos383394"/>
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_100" playOrder="100">
+      <navLabel>
+        <text>第6章 脚本</text>
+      </navLabel>
+      <content src="index_split_032.html"/>
+      <navPoint class="chapter" id="num_101" playOrder="101">
+        <navLabel>
+          <text>6.1 概览</text>
+        </navLabel>
+        <content src="index_split_033.html"/>
+        <navPoint class="chapter" id="num_102" playOrder="102">
+          <navLabel>
+            <text>6.1.1 脚本介绍</text>
+          </navLabel>
+          <content src="index_split_033.html#filepos398805"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_103" playOrder="103">
+          <navLabel>
+            <text>6.1.2 实例：访问频率限制</text>
+          </navLabel>
+          <content src="index_split_033.html#filepos400100"/>
+        </navPoint>
+      </navPoint>
+      <navPoint class="chapter" id="num_104" playOrder="104">
+        <navLabel>
+          <text>6.2 Lua语言</text>
+        </navLabel>
+        <content src="index_split_034.html"/>
+        <navPoint class="chapter" id="num_105" playOrder="105">
+          <navLabel>
+            <text>6.2.1 Lua语法</text>
+          </navLabel>
+          <content src="index_split_034.html#filepos406841"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_106" playOrder="106">
+          <navLabel>
+            <text>6.2.2 标准库</text>
+          </navLabel>
+          <content src="index_split_034.html#filepos428822"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_107" playOrder="107">
+          <navLabel>
+            <text>6.2.3 其他库</text>
+          </navLabel>
+          <content src="index_split_034.html#filepos438172"/>
+        </navPoint>
+      </navPoint>
+      <navPoint class="chapter" id="num_108" playOrder="108">
+        <navLabel>
+          <text>6.3 Redis与Lua</text>
+        </navLabel>
+        <content src="index_split_035.html"/>
+        <navPoint class="chapter" id="num_109" playOrder="109">
+          <navLabel>
+            <text>6.3.1 在脚本中调用Redis命令</text>
+          </navLabel>
+          <content src="index_split_035.html#filepos440301"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_110" playOrder="110">
+          <navLabel>
+            <text>6.3.2 从脚本中返回值</text>
+          </navLabel>
+          <content src="index_split_035.html#filepos441577"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_111" playOrder="111">
+          <navLabel>
+            <text>6.3.3 脚本相关命令</text>
+          </navLabel>
+          <content src="index_split_035.html#filepos442521"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_112" playOrder="112">
+          <navLabel>
+            <text>6.3.4 应用实例</text>
+          </navLabel>
+          <content src="index_split_035.html#filepos446154"/>
+        </navPoint>
+      </navPoint>
+      <navPoint class="chapter" id="num_113" playOrder="113">
+        <navLabel>
+          <text>6.4 深入脚本</text>
+        </navLabel>
+        <content src="index_split_036.html"/>
+        <navPoint class="chapter" id="num_114" playOrder="114">
+          <navLabel>
+            <text>6.4.1 KEYS与ARGV</text>
+          </navLabel>
+          <content src="index_split_036.html#filepos456035"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_115" playOrder="115">
+          <navLabel>
+            <text>6.4.2 沙盒与随机数</text>
+          </navLabel>
+          <content src="index_split_036.html#filepos458511"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_116" playOrder="116">
+          <navLabel>
+            <text>6.4.3 其他脚本相关命令</text>
+          </navLabel>
+          <content src="index_split_036.html#filepos461542"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_117" playOrder="117">
+          <navLabel>
+            <text>6.4.4 原子性和执行时间</text>
+          </navLabel>
+          <content src="index_split_036.html#filepos463998"/>
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_118" playOrder="118">
+      <navLabel>
+        <text>第7章 持久化</text>
+      </navLabel>
+      <content src="index_split_037.html"/>
+      <navPoint class="chapter" id="num_119" playOrder="119">
+        <navLabel>
+          <text>7.1 RDB方式</text>
+        </navLabel>
+        <content src="index_split_038.html"/>
+        <navPoint class="chapter" id="num_120" playOrder="120">
+          <navLabel>
+            <text>7.1.1 根据配置规则进行自动快照</text>
+          </navLabel>
+          <content src="index_split_038.html#filepos472239"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_121" playOrder="121">
+          <navLabel>
+            <text>7.1.2 用户执行 SAVE或 BGSAVE命令</text>
+          </navLabel>
+          <content src="index_split_038.html#filepos473407"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_122" playOrder="122">
+          <navLabel>
+            <text>7.1.3 执行 FLUSHALL命令</text>
+          </navLabel>
+          <content src="index_split_038.html#filepos474992"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_123" playOrder="123">
+          <navLabel>
+            <text>7.1.4 执行复制时</text>
+          </navLabel>
+          <content src="index_split_038.html#filepos475776"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_124" playOrder="124">
+          <navLabel>
+            <text>7.1.5 快照原理</text>
+          </navLabel>
+          <content src="index_split_038.html#filepos476274"/>
+        </navPoint>
+      </navPoint>
+      <navPoint class="chapter" id="num_125" playOrder="125">
+        <navLabel>
+          <text>7.2 AOF方式</text>
+        </navLabel>
+        <content src="index_split_039.html"/>
+        <navPoint class="chapter" id="num_126" playOrder="126">
+          <navLabel>
+            <text>7.2.1 开启AOF</text>
+          </navLabel>
+          <content src="index_split_039.html#filepos480753"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_127" playOrder="127">
+          <navLabel>
+            <text>7.2.2 AOF的实现</text>
+          </navLabel>
+          <content src="index_split_039.html#filepos481528"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_128" playOrder="128">
+          <navLabel>
+            <text>7.2.3 同步硬盘数据</text>
+          </navLabel>
+          <content src="index_split_039.html#filepos486060"/>
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_129" playOrder="129">
+      <navLabel>
+        <text>第8章 集群</text>
+      </navLabel>
+      <content src="index_split_040.html"/>
+      <navPoint class="chapter" id="num_130" playOrder="130">
+        <navLabel>
+          <text>8.1 复制</text>
+        </navLabel>
+        <content src="index_split_041.html"/>
+        <navPoint class="chapter" id="num_131" playOrder="131">
+          <navLabel>
+            <text>8.1.1 配置</text>
+          </navLabel>
+          <content src="index_split_041.html#filepos489835"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_132" playOrder="132">
+          <navLabel>
+            <text>8.1.2 原理</text>
+          </navLabel>
+          <content src="index_split_041.html#filepos495317"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_133" playOrder="133">
+          <navLabel>
+            <text>8.1.3 图结构</text>
+          </navLabel>
+          <content src="index_split_041.html#filepos503571"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_134" playOrder="134">
+          <navLabel>
+            <text>8.1.4 读写分离与一致性</text>
+          </navLabel>
+          <content src="index_split_041.html#filepos504272"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_135" playOrder="135">
+          <navLabel>
+            <text>8.1.5 从数据库持久化</text>
+          </navLabel>
+          <content src="index_split_041.html#filepos505042"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_136" playOrder="136">
+          <navLabel>
+            <text>8.1.6 无硬盘复制</text>
+          </navLabel>
+          <content src="index_split_041.html#filepos506988"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_137" playOrder="137">
+          <navLabel>
+            <text>8.1.7 增量复制</text>
+          </navLabel>
+          <content src="index_split_041.html#filepos508905"/>
+        </navPoint>
+      </navPoint>
+      <navPoint class="chapter" id="num_138" playOrder="138">
+        <navLabel>
+          <text>8.2 哨兵</text>
+        </navLabel>
+        <content src="index_split_042.html"/>
+        <navPoint class="chapter" id="num_139" playOrder="139">
+          <navLabel>
+            <text>8.2.1 什么是哨兵</text>
+          </navLabel>
+          <content src="index_split_042.html#filepos514059"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_140" playOrder="140">
+          <navLabel>
+            <text>8.2.2 马上上手</text>
+          </navLabel>
+          <content src="index_split_042.html#filepos515518"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_141" playOrder="141">
+          <navLabel>
+            <text>8.2.3 实现原理</text>
+          </navLabel>
+          <content src="index_split_042.html#filepos525319"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_142" playOrder="142">
+          <navLabel>
+            <text>8.2.4 哨兵的部署</text>
+          </navLabel>
+          <content src="index_split_042.html#filepos535839"/>
+        </navPoint>
+      </navPoint>
+      <navPoint class="chapter" id="num_143" playOrder="143">
+        <navLabel>
+          <text>8.3 集群</text>
+        </navLabel>
+        <content src="index_split_043.html"/>
+        <navPoint class="chapter" id="num_144" playOrder="144">
+          <navLabel>
+            <text>8.3.1 配置集群</text>
+          </navLabel>
+          <content src="index_split_043.html#filepos540933"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_145" playOrder="145">
+          <navLabel>
+            <text>8.3.2 节点的增加</text>
+          </navLabel>
+          <content src="index_split_043.html#filepos550982"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_146" playOrder="146">
+          <navLabel>
+            <text>8.3.3 插槽的分配</text>
+          </navLabel>
+          <content src="index_split_043.html#filepos552155"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_147" playOrder="147">
+          <navLabel>
+            <text>8.3.4 获取与插槽对应的节点</text>
+          </navLabel>
+          <content src="index_split_043.html#filepos567304"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_148" playOrder="148">
+          <navLabel>
+            <text>8.3.5 故障恢复</text>
+          </navLabel>
+          <content src="index_split_043.html#filepos570784"/>
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_149" playOrder="149">
+      <navLabel>
+        <text>第9章 管理</text>
+      </navLabel>
+      <content src="index_split_044.html"/>
+      <navPoint class="chapter" id="num_150" playOrder="150">
+        <navLabel>
+          <text>9.1 安全</text>
+        </navLabel>
+        <content src="index_split_045.html"/>
+        <navPoint class="chapter" id="num_151" playOrder="151">
+          <navLabel>
+            <text>9.1.1 可信的环境</text>
+          </navLabel>
+          <content src="index_split_045.html#filepos576154"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_152" playOrder="152">
+          <navLabel>
+            <text>9.1.2 数据库密码</text>
+          </navLabel>
+          <content src="index_split_045.html#filepos577287"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_153" playOrder="153">
+          <navLabel>
+            <text>9.1.3 命名命令</text>
+          </navLabel>
+          <content src="index_split_045.html#filepos579016"/>
+        </navPoint>
+      </navPoint>
+      <navPoint class="chapter" id="num_154" playOrder="154">
+        <navLabel>
+          <text>9.2 通信协议</text>
+        </navLabel>
+        <content src="index_split_046.html"/>
+        <navPoint class="chapter" id="num_155" playOrder="155">
+          <navLabel>
+            <text>9.2.1 简单协议</text>
+          </navLabel>
+          <content src="index_split_046.html#filepos580848"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_156" playOrder="156">
+          <navLabel>
+            <text>9.2.2 统一请求协议</text>
+          </navLabel>
+          <content src="index_split_046.html#filepos585376"/>
+        </navPoint>
+      </navPoint>
+      <navPoint class="chapter" id="num_157" playOrder="157">
+        <navLabel>
+          <text>9.3 管理工具</text>
+        </navLabel>
+        <content src="index_split_047.html"/>
+        <navPoint class="chapter" id="num_158" playOrder="158">
+          <navLabel>
+            <text>9.3.1 redis-cli</text>
+          </navLabel>
+          <content src="index_split_047.html#filepos587426"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_159" playOrder="159">
+          <navLabel>
+            <text>9.3.2 phpRedisAdmin</text>
+          </navLabel>
+          <content src="index_split_047.html#filepos592007"/>
+        </navPoint>
+        <navPoint class="chapter" id="num_160" playOrder="160">
+          <navLabel>
+            <text>9.3.3 Rdbtools</text>
+          </navLabel>
+          <content src="index_split_047.html#filepos595029"/>
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_161" playOrder="161">
+      <navLabel>
+        <text>附录A Redis命令属性</text>
+      </navLabel>
+      <content src="index_split_048.html"/>
+      <navPoint class="chapter" id="num_162" playOrder="162">
+        <navLabel>
+          <text>A.1 REDIS_CMD_WRITE</text>
+        </navLabel>
+        <content src="index_split_049.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_163" playOrder="163">
+        <navLabel>
+          <text>A.2 REDIS_CMD_DENYOOM</text>
+        </navLabel>
+        <content src="index_split_050.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_164" playOrder="164">
+        <navLabel>
+          <text>A.3 REDIS_CMD_NOSCRIPT</text>
+        </navLabel>
+        <content src="index_split_051.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_165" playOrder="165">
+        <navLabel>
+          <text>A.4 REDIS_CMD_RANDOM</text>
+        </navLabel>
+        <content src="index_split_052.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_166" playOrder="166">
+        <navLabel>
+          <text>A.5 REDIS_CMD_SORT_FOR_SCRIPT</text>
+        </navLabel>
+        <content src="index_split_053.html"/>
+      </navPoint>
+      <navPoint class="chapter" id="num_167" playOrder="167">
+        <navLabel>
+          <text>A.6 REDIS_CMD_LOADING</text>
+        </navLabel>
+        <content src="index_split_054.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint class="chapter" id="num_168" playOrder="168">
+      <navLabel>
+        <text>附录B 配置参数索引</text>
+      </navLabel>
+      <content src="index_split_055.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_169" playOrder="169">
+      <navLabel>
+        <text>附录C CRC16实现参考</text>
+      </navLabel>
+      <content src="index_split_056.html"/>
+    </navPoint>
+  </navMap>
+</ncx>
