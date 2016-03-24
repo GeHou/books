@@ -1,0 +1,547 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+		"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN"><head><meta name="generator" content="HTML Tidy，see www.w3.org"/>
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+<title>什么是数学：对思想和方法的基本研究（中文版第三版）</title>
+<link href="../Styles/style0001.css" rel="stylesheet" type="text/css"/>
+</head><body>
+<h1 class="title1">第2章　数学中的数系</h1>
+<h2 class="title2" id="mllj1">引言</h2>
+<p class="normaltext">为了创造一个既符合于实际又满足于理论上的需要的强有力的工具，我们必须把数的原始概念，即只把自然数当作数的这种概念，大大推广．在一个漫长而曲折的发展过程中，零、负整数、分数逐渐取得了和正整数同样的地位；而且今天这些数的运算规则已为普通中、小学校的儿童所掌握．但是，为了在代数运算中得到完全的自由，我们必须更进一步地引进无理数和复数．虽然自然数概念的这些推广人们已用了好几个世纪，而且已经成了近代一切数学的基础，但是直到最近，它们才有了一个逻辑上坚实的基础．在这一章我们将扼要地叙述一下这个发展过程．</p>
+<h3 class="title3" id="mllj2">§1　有理数</h3>
+<h4 class="title4" id="mllj3">1．作为度量工具的有理数</h4>
+<p class="normaltext">自然数是从计算有限集合的元素个数的过程中抽象出来的．但在日常生活中，我们不仅要<b>数</b>单个的<b>对象</b>，而且也需要<b>度量</b>像长度、面积、重量和时间<b>这样的量</b>．如果我们要能够自如地度量这种能任意细分的量，就必须把算术的范围扩展到自然数的范围之外．第一步是<b>把度量的问题变为计数的问题</b>．首先我们任意地选择一个<b>度量单位</b>——英尺、码、英寸、磅、克或秒（选哪一个根据情况而定），并规定它为1．然后我们数一数被度量的那个量包含有多少个单位．某一块铅可能恰好是54磅．但是一般说来，算单位的个数的过程，其结果不一定是“正好算完”，即给定的量不一定恰好是我们所选择的单位的整数倍．我们可以说，在大多数情况下它是介于这个单位的两个相邻倍数之间，例如在53磅和54磅之间．遇到这种情形时，我们将进行下一步：通过把原单位分成n等分，引进一个新的小单位．在通常的语言中，这个新的小单位可以有专门的名称，例如，1英尺分为12英寸，1米分为100厘米，1磅分为16盎司，1小时分为60分，1分钟分为60秒等等．但在数学的符号系统中，把原来一个单位分为n等分而得到的小单位，用符号<img src="../Images/image00483.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>来表示；而且如果一个给定的量恰好包含m个小单位，它的度量将用符号<img src="../Images/image00484.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>来表示．这符号称为<b>分数</b>或<b>比</b>（有时记作m∶n）．经过了若干世纪的摸索，人们才有意识地采取了下一个具有决定性的步骤，即：符号<img src="../Images/image00484.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>脱离了它同测量过程及被测量的量的具体关系，而被看作是一种纯粹的<b>数</b>，它本身作为一个实体与自然数有同样的地位．当m和n是自然数时，符号<img src="../Images/image00484.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>称为<b>有理数</b>．</p>
+<p class="normaltext">我们把这些新的符号叫作数（数这个词原来只是指自然数），这是完全合理的，因为这些符号的加法和乘法与自然数的加法和乘法有同样的规律．为了说明这一点，必须首先定义有理数的加法、乘法及相等．众所周知，这些定义是：对任意整数a，b，c，d有</p>
+<p class="picture"><img src="../Images/image00485.jpeg" alt="alt"/></p>
+<p class="picture"><img src="../Images/image00486.jpeg" alt="alt"/></p>
+<p class="normaltext6">例如：</p>
+<p class="picture"><img src="../Images/image00487.jpeg" alt="alt"/></p>
+<p class="normaltext6">很清楚，如果我们希望用有理数来度量长度、面积等等的话，这些定义就不得不这样建立．但是严格说来，我们这些符号的加法、乘法及相等的规则是用我们的定义本身建立起来的，除了为了相容性和便于应用外，并没有一个先验的必要性强加给我们．在定义（1）的基础上我们能证明：<b>自然数的算术基本规律在有理数的范围内继续成立：</b></p>
+<p class="picture"><img src="../Images/image00488.jpeg" alt="alt"/></p>
+<p class="normaltext">例如，对分数加法交换律的证明是通过展开等式</p>
+<p class="picture"><img src="../Images/image00489.jpeg" alt="alt"/></p>
+<p class="normaltext6">而得到的，这里第一个等号和最后一个等号是应用分数加法的定义（1），而中间一个等号是应用自然数的加法和乘法交换律的结果．读者可用同样的方式验证其他四个规律．</p>
+<p class="normaltext">为了真正理解这些事实，我们必须再次强调有理数是我们自己的创造，而规则（1）是按我们的意志强加上去的．我们可以胡乱地宣布加法的某些规则，例如<img src="../Images/image00490.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，特别地由此得到<img src="../Images/image00491.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．从度量的观点来看，这是一个荒谬的结果．这种类型的规则，虽然在逻辑上是允许的，但将使我们的符号算术变成毫无意义的游戏．人们要求创造一个适合于度量的工具，在这里，思维正是顺应着这个要求而自由发挥的．</p>
+<h4 class="title4" id="mllj4">2．数学内部对有理数的需要　推广的原则</h4>
+<p class="normaltext">引进有理数，除了有其“实际”原因以外，还有一个更内在的，从某些方面来看甚至是更为迫切的理由．我们现在将完全不依靠上一小节的论点来讨论它．这个讨论是完全算术性的，而且就数学发展的主要趋势来说，它也是很典型的．</p>
+<p class="normaltext" id="b22">在通常的自然数的算术中，我们总能进行两个基本运算：加法和乘法．但是“逆运算”<b>减法</b>和<b>除法</b>并不总是可行的．两个整数a，b的差b－a是一个使得a＋c＝b的整数c，即方程a＋x＝b的解．但在自然数的范围内，符号b－a仅限于b＞a时才有意义，因为只有这时方程a＋x＝b才有一个自然数的解x．通过a－a＝0而引进符号0时，消除了这个限制，这是很大的一个进步．更重要的进步表现在，引进了符号-1，-2，-3，…以及对b＜a的情况，定义</p>
+<p class="normaltext5">b－a＝-（a－b）．</p>
+<p class="normaltext6">这保证了减法能在<b>正整数和负整数范围内</b>无限制地进行．为了在一个扩大了的既包括正整数，又包括负整数的算术中引进新的符号-1，-2，-3，…，当然我们必须<b>定义</b>它们的<b>运算</b>，使得<b>算术运算原来的规律保持不变</b>．例如，我们对负数乘法规定</p>
+<p class="picture"><img src="../Images/image00492.jpeg" alt="alt"/></p>
+<p class="normaltext6">这是我们希望保持分配律a（b＋c）＝ab＋ac的结果．因为如果我们让（-1）（-1）＝-1，令a＝-1，b＝1，c＝-1，就会有-1·（1－1）＝-1－1＝-2，可另一方面我们实际上有-1·（1－1）＝-1·0＝0．对数学家来说，经过了很长的一段时间才认识到“符号规则”（3）以及负数、分数所服从的其他定义是不能加以“证明”的．它们是我们<b>创造</b>出来的，为的是在保持算术基本规律的条件下使运算能够自如．<b>能够</b>并且必须加以证明的仅仅是，在这些定义的基础上，算术的交换律、结合律、分配律是保持不变的．甚至伟大的欧拉也曾借助于一个完全不令人信服的讨论来证明（-1）（-1）“必须”等于+1．他说，因为它必须或是+1，或是-1，而由于（-1）＝（+1）（-1），所以不能是-1．</p>
+<p class="normaltext">正如引进负整数和0冲破了对减法的限制一样，分数的引进为除法消除了类似的算术上的障碍．用方程</p>
+<p class="picture"><img src="../Images/image00493.jpeg" alt="alt"/></p>
+<p class="normaltext6">定义的、两个整数a和b的比x＝<img src="../Images/image00494.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，仅当a是b的一个因子时才<b>作为一个整数</b>而存在．如果不是这种情形，例如a＝2，b＝3，我们简单地引进一个新的符号<img src="../Images/image00494.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，称为分数，它服从于<img src="../Images/image00495.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝b这样的规则，使得<img src="../Images/image00494.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>“按照定义”是（4）的解．发明分数作为一个新数的符号，使得除法可以不受限制地进行——除非<b>用零来除</b>，但这是<b>断然不许可的</b>．</p>
+<p class="normaltext">像<img src="../Images/image00496.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00497.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00498.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>等等的表达式，我们把它们看成是无意义的符号．因为如果允许用0除，我们就能从正确的等式0·1＝0·2推出荒谬的结果1＝2．但有时用符号∞（读作“无穷大”）来表示这些表达式是有用的，<b>其前提是我们不打算对符号∞应用通常数的计算所服从的规则．</b></p>
+<p class="normaltext" id="a14"><b>全体有理数</b>——整数和分数，正数和负数——的纯算术意义现在是很明显的了．因为在这种扩大了的数的范围内，不仅形式上的结合律、交换律和分配律成立，而且方程a＋x＝b和ax＝b不受限制地总有解x＝b－a和x＝<img src="../Images/image00494.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>（只要后一情形中a≠0）．换句话说，在有理数的范围内，所谓<b>有理运算</b>——加、减、乘、除——可以无限制地进行，而决不会超出这个范围之外．这样一个封闭的数的范围称为一个<b>域</b>．在这一章后面和第三章中，我们还要碰到其他一些域的例子．</p>
+<p class="normaltext">通过引进新的符号，扩充一个范围，使得在原来范围内成立的规律，在这更大的范围内继续成立，这是数学<b>推广</b>过程的一个特征．从自然数到有理数的推广，既满足去掉减法和除法的限制这一理论上的需要，也满足用数来表示度量结果这实际上的需要．由于有理数适应了这两方面的需要，这就使得有理数有了它真正的重大意义．如我们已经看到的那样，数的概念的这种扩充，可以通过创造形如0，-2，<img src="../Images/image00499.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>这种抽象符号的新数来实现．今天，我们把这些数当成理所当然的事来看待，以至于很难相信，直到17世纪，其合法性还不能像正整数那样为人们所普遍承认，当有必要而用到它们时，人们是相当犹疑和不安的．人的天性倾向于依附于“具体”（像自然数的例子所表明过的那样），这就是采取这不可避免的步骤时如此缓慢的原因．然而，只有在这种抽象的领域内，才能创造出一个令人满意的算术系统．</p>
+<h4 class="title4" id="mllj5">3．有理数的几何解释</h4>
+<p class="normaltext">下述作图方法给出了有理数的一个具有启发性的几何解释．</p>
+<p class="normaltext">在一条直线即“数轴”上，我们标出从0到1的线段，如图8．确定从0到1这线段的长为单位长，这单位长度我们是可以任意选取的．于是，正整数和负整数表示为数轴上一组等距离的点，正数在0点的右边而负数在左边．为了表示分母为n的分数，我们把每一个单位长线段分为n等分，则这些分点表示了分母为n的分数．如果我们对每一个整数n都这样做，那么所有的有理数将都能用数轴上的点来表示．我们称这些点为<b>有理点</b>，我们将不加区分地使用“有理数”和“有理点”这两个术语．</p>
+<p class="picture"><img src="../Images/image00500.jpeg" alt="alt"/></p>
+<p class="tz"><b>图8</b>　数轴</p>
+<p class="normaltext">在第一章§1，我们对自然数定义了关系式A＜B．在数轴上与此类似的事实是：如果自然数A小于自然数B，则点A在点B的左边．因为这种几何关系对<b>所有</b>有理数都成立，于是我们可以用保持对应点之间几何次序的方式来推广这个算术关系．这一点用如下定义来实现：如果B－A为正，称有理数A<b>小于</b>有理数B（A＜B），而称B<b>大于</b>A（B＞A）．由此可知，如果A＜B，则在A和B<b>之间</b>的点（数）是既＞A又＜B的．一对不同的点与它们之间的这些点合在一起称为一个<b>线节</b>或<b>区间</b>［A，B］．</p>
+<p class="normaltext">从原点到点A的距离（取正值），称为A的<b>绝对值</b>，用符号</p>
+<p class="normaltext5">｜A｜</p>
+<p class="normaltext6">来表示．用话来说，如果A≥0，我们有｜A｜＝A；如果A≤0，我们有｜A｜＝-A．显然，如果A和B符号相同，等式｜A＋B｜＝｜A｜＋｜B｜成立；如果A和B符号相反，我们有｜A＋B｜＜｜A｜＋｜B｜．因此，把这两个命题合起来，不论A和B的符号如何，总有一般的不等式</p>
+<p class="normaltext5" id="b36">｜A＋B｜≤｜A｜＋｜B｜</p>
+<p class="normaltext6">成立．</p>
+<p class="normaltext">有一个重要的基本事实可以表述如下：<b>有理点在直线上是稠密的．</b>这个意思是，在每一个不论是多么小的区间中都存在着有理点．为了表明这一点，我们只须取一个足够大的分母n，使得区间［0，<img src="../Images/image00483.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>］小于问题中给定的区间［A，B］；这时分数<img src="../Images/image00484.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>中至少有一个一定落在这区间中．因此在直线上任何一个区间，不论它多么小，都不可能没有有理点．而且由此得知，在任何一个区间中必须有无穷多个有理点，因为如果只有有限个，则在任意两个相邻的有理点之间的区间内，将不存在有理点，我们刚才看到这是不可能的．</p>
+<h3 class="title3" id="mllj6">§2　不可公度线段　无理数和极限概念</h3>
+<h4 class="title4" id="mllj7">1．引言</h4>
+<p class="normaltext">在比较两个线段a和b的长度时，可能b恰好包含a的正整数r倍．在这情况下我们可以用a来表示线段b的度量，说b的长度是a的r倍．也可能出现a的整数倍不等于b的情形，这时我们把a分为n等分，每一个长为<img src="../Images/image00501.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，使得线段<img src="../Images/image00501.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的某个整数m倍等于b：</p>
+<p class="picture"><img src="../Images/image00502.jpeg" alt="alt"/></p>
+<p class="normaltext6">当形如（1）的等式成立时，我们说两个线段a和b是<b>可公度的</b>，因为它们有一公共度量线段<img src="../Images/image00501.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，它的n倍等于a，而它的m倍等于b．与a可公度的所有线段，其长度总可以用（1）［选择适当的整数m和n（n≠0）］来表示．在图9中，如果我们选a为单位线段，则与单位线段可公度的线段将对应于数轴上的全体有理点<img src="../Images/image00484.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．就度量的所有实际目的来说，有理数完全够了．即使从理论上看，由于全体有理点稠密地布满整个直线，似乎直线上所有的点都是有理点．如果这是真的，则任何一线段将和单位长线段可通约．但是，情况决不这么简单，这是早期希腊数学（毕达哥拉斯学派）最惊人的发现之一．存在着<b>不可公度线段</b>，或者说，如果我们认为每一线段都对应着借助于单位长度而给出的一个数，则存在着<b>无理数</b>．这个发现是科学上极其重要的事件．很可能这标志着数学上（我们认为是希腊人的特殊贡献）严格推理的起源．肯定地说，从希腊人的时代直到今天，它一直深刻地影响着数学和哲学．</p>
+<p class="picture"><img src="../Images/image00503.jpeg" alt="alt"/></p>
+<p class="tz"><b>图9</b>　有理点</p>
+<p class="normaltext">在欧几里得的<b>原本</b>中，以几何形式出现的欧多克斯的不可公度理论是希腊数学的杰作，虽然在简化了这经典著作的中学课本中，它通常被略去了．直到19世纪末期，在戴特金（Dedekind）、康托（Cantor）和维尔斯特拉斯（Weierstrass）建立了无理数的严格理论之后，欧多克斯的这个理论才充分被人理解．我们将用现代算术方法来说明这个理论．</p>
+<p class="normaltext">首先我们说明：<b>一个正方形的对角线与它的边是不可公度的．</b>我们可以假设，给定的正方形的边是选定的单位长，而对角线的长为x．根据勾股定理，我们有</p>
+<p class="normaltext5">x<sup class="suptext">2</sup>＝1<sup class="suptext">2</sup>＋1<sup class="suptext">2</sup>＝2．</p>
+<p class="normaltext6">（我们可以用符号<img src="../Images/image00504.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>表示x．）现在如果x与1是可公度的，我们就能找到两个整数p和q，使x＝<img src="../Images/image00505.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，则</p>
+<p class="picture"><img src="../Images/image00506.jpeg" alt="alt"/></p>
+<p class="normaltext6">我们可以假设<img src="../Images/image00505.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>已经是不可约的了，因为分子和分母的任一公因子在一开始即可约去．由于2是右边的一个因子，所以p<sup class="suptext">2</sup>是偶数，故p本身是偶数，因为奇数的平方只能是奇数．于是我们可以写出p＝2r．这时等式（2）变成</p>
+<p class="normaltext5">4r<sup class="suptext">2</sup>＝2q<sup class="suptext">2</sup>，或2r<sup class="suptext">2</sup>＝q<sup class="suptext">2</sup>．</p>
+<p class="normaltext6">由于2是左边的因子，则q必须是偶数．这样一来p和q同时可以被2整除，这和p、q没有公因子的假设矛盾．因此等式（2）不成立，且x不能是有理数．</p>
+<p class="normaltext">我们的结果可以表述为：没有等于<img src="../Images/image00504.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>的有理数．</p>
+<p class="normaltext">上一段的讨论表明，一个很简单的几何作图就能产生一个与单位长不可公度的线段．如果用圆规在数轴上标出这样一个线段，则这样作出来的点不可能与任何有理点重合：<b>有理点全体</b>虽然是处处稠密的，<b>但不能覆盖整个数轴</b>．按照平常的想法，稠密的有理点集合不能覆盖整个直线，这当然显得很奇怪，而且表面看来是荒谬的．在我们的“直觉”中，没有任何东西能帮助我们“看到”无理点和有理点有什么不同．这使我们不难理解，为什么不可公度线段的发现使希腊的哲学家和数学家激动不已，以致到今天，对爱思考的人来说，它仍保留着使人激动的魅力．</p>
+<p class="picture"><img src="../Images/image00507.jpeg" alt="alt"/></p>
+<p class="tz"><b>图10</b>　<img src="../Images/image00504.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>的作图</p>
+<p class="normaltext">我们很容易作出许多与单位长不可公度的线段．如果在数轴上以0为起点把这些线段标出来，则它们的端点称为<b>无理点．</b>引进分数的指导原则是用<b>数来度量长度</b>，现在在处理与单位长不可公度的线段时，我们将保持这个原则．如果我们要求<b>以数为一方，以直线上的点为另一方，在它们之间有一个相互对应</b>的话，就必须引进<b>无理数</b>．</p>
+<p class="normaltext">综上所述：到目前为止我们可以说，一个无理数表示一个与单位长不可通约的线段的长度．在以下几小节，我们将改进其中某些含糊的地方，并且把这个完全几何式的定义进一步提炼，以使从逻辑严格性的观点上看，我们能达到更加满意的程度．我们处理这个问题的第一步将要用到十进位小数．</p>
+<p class="normaltexta" id="a22"><b>习题：</b>1）证明<img src="../Images/image00508.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，<img src="../Images/image00509.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，<img src="../Images/image00510.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，<img src="../Images/image00511.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>不是有理数．（提示：用<a href="part0012.xhtml#b31">此处</a>引理）．</p>
+<p class="normaltext2">2）证明<img src="../Images/image00504.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＋<img src="../Images/image00509.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>和<img src="../Images/image00504.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＋<img src="../Images/image00508.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>不是有理数（提示：例如，如果这些数的第一个等于一个有理数r，则写<img src="../Images/image00509.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＝r－<img src="../Images/image00504.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，再平方，<img src="../Images/image00504.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>将是有理数）．</p>
+<p class="normaltext2">3）证明<img src="../Images/image00504.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＋<img src="../Images/image00509.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＋<img src="../Images/image00510.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>是无理数．试作出一些类似的更一般的例子．</p>
+<h4 class="title4" id="mllj8">2．十进位小数　无限小数</h4>
+<p class="normaltext" id="b8">要在数轴上确立一个处处稠密的点集，我们无需用<b>全体</b>有理数；例如只考虑下面这些数就够了：把每一个单位区间分为10，然后100，1000等等个相等的线段，这样得到的点对应着“十进位小数”．例如<img src="../Images/image00512.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．它对应的点位于第一个单位区间长为10<sup class="suptext">-1</sup>的第二个子区间内，是长为10<sup class="suptext">-2</sup>的第三个“子子”区间的端点．（a<sup class="suptext">-n</sup>表示<img src="../Images/image00513.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>）．一个<b>十进位小数</b>，如果在小数点之后有n个数码，可以写成</p>
+<p class="normaltext5">f＝z＋a<sub>1</sub>10<sup class="suptext">-1</sup>＋a<sub>2</sub>10<sup class="suptext">-2</sup>＋a<sub>3</sub>10<sup class="suptext">-3</sup>＋…＋a<sub>n</sub>10<sup class="suptext">-n</sup>，</p>
+<p class="normaltext6">这里z是一整数，而这些a是表示十分之一、百分之一等等的数码——0，1，2，…，9．在十进位数系中数f简记为z.a<sub>1</sub>a<sub>2</sub>a<sub>3</sub>…a<sub>n</sub>．我们立刻可以看到，这些十进位小数能写成一个普通形式的分数<img src="../Images/image00514.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，其中q＝10<sup class="suptext">n</sup>．例如f＝1.314＝<img src="../Images/image00515.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．如果p和q有公因子，这十进位小数可以写成分母是10<sup class="suptext">n</sup>的某个因子的分数．另一方面，当不可约分数的分母不是10的某个幂的因子时，这分数不能表示为十进位小数，例如<img src="../Images/image00516.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00517.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝0.004，但是<img src="../Images/image00518.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>不能写成n位十进位小数（这里n为任意的有限数）．因为形如</p>
+<p class="picture"><img src="../Images/image00519.jpeg" alt="alt"/></p>
+<p class="normaltext6">的等式意味着</p>
+<p class="normaltext5">10<sup class="suptext">n</sup>＝3b，</p>
+<p class="normaltext6">而这是荒谬的，因为3不是10的任意次幂的因子．</p>
+<p class="normaltext">现在，让我们在数轴上任意选取一个不对应于十进位小数的点P，例如，有理点<img src="../Images/image00518.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>或无理点<img src="../Images/image00504.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>．于是，在划分单位区间为十等分等等的过程中，P始终不会作为子区间的一个端点．但是，P能够以我们所希望的任意精确度包含在越来越小的十进位划分的区间中．这近似过程可以描述如下．</p>
+<p class="normaltext">假设P在第一个单位区间．我们把这区间分为十等分，每个长为10<sup class="suptext">-1</sup>，并且发现，例如，P在第三个这样的区间内．这时我们能说P在十进位小数0.2和0.3<b>之间</b>．我们把0.2到0.3这区间分为十等分，每个长为10<sup class="suptext">-2</sup>，例如，发现P在第四个这样的区间内．再把它划分，我们发现P在第一个长为10<sup class="suptext">-3</sup>的区间内，现在我们能说P在0.230和0.231之间．这过程能无限地继续进行下去，而引出一个无穷的数码序列a<sub>1</sub>，a<sub>2</sub>，a<sub>3</sub>，…，a<sub>n</sub>，…，它有下述性质：不论我们取多么大的n，点P总在区间I<sub>n</sub>中，这I<sub>n</sub>的左端点是十进位小数0．a<sub>1</sub>a<sub>2</sub>a<sub>3</sub>…a<sub>n－1</sub>a<sub>n</sub>，它的右端点是0．a<sub>1</sub>a<sub>2</sub>a<sub>3</sub>…a<sub>n－1</sub>（a<sub>n</sub>＋1），I<sub>n</sub>的长度是10<sup class="suptext">-n</sup>．如果我们不断选取n＝1，2，3，4，…，我们看到这些区间I<sub>1</sub>，I<sub>2</sub>，I<sub>3</sub>，…中的每一个包含在前一个之中，而它们的长度为10<sup class="suptext">-1</sup>，10<sup class="suptext">-2</sup>，10<sup class="suptext">-3</sup>，…，趋向于零．我们说点P包含在<b>一串十进位区间的区间套</b>中．例如，P点为有理数<img src="../Images/image00518.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>时，所有数码a<sub>1</sub>，a<sub>2</sub>，a<sub>3</sub>，…都等于3，P包含在每一个这样的区间I<sub>n</sub>内：I<sub>n</sub>由0.333…33到0.333…34，即<img src="../Images/image00518.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>大于0.333…33而小于0.333…34，这里数码的个数可以任意多．我们这样来表述这个事实，n个数码的十进位小数0.333…33，当n增大时，“趋向于<img src="../Images/image00518.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>”，写成</p>
+<p class="normaltext5"><img src="../Images/image00518.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝0.333…，</p>
+<p class="normaltext6">后面这些点表示这十进位小数“无限”伸展．</p>
+<p class="normaltext">在上一小节中定义的无理数<img src="../Images/image00504.jpeg" class="tpzz1" alt="alt" style="height:1.4em"/>，也引出一个无限伸展的十进位小数，但在这里，决定这序列中数码的值的规律却不明显．事实上，我们不知道有什么明确的公式能够决定这一串数，尽管我们希望要多少位数码都可以计算出来：</p>
+<p class="picture"><img src="../Images/image00520.jpeg" alt="alt"/></p>
+<p class="normaltext" id="b33">作为一个一般的定义，我们说，如果对每个n，点P都是在以z．a<sub>1</sub>a<sub>2</sub>a<sub>3</sub>…a<sub>n</sub>为端点且长为10<sup class="suptext">-n</sup>的区间内，则P不能用任何有限的n个数码的十进位小数表示，而表示为<b>无限十进位小数</b>z.a<sub>1</sub>a<sub>2</sub>a<sub>3</sub>…．</p>
+<p class="normaltext">以此方式，在数轴上的所有点和所有<b>有限及无限</b>十进位小数之间建立了一个对应．我们提出一个推测性的定义：一个“数”是一个<b>有限或者无限</b>十进位小数．那些不表示有理数的无限小数称为<b>无理数</b>．</p>
+<p class="normaltext">直到19世纪中叶，这些思想才作为有理数和无理数系统——<b>数的连续统</b>——的一个令人满意的解释被人们所接受．17世纪以来数学的巨大进展，特别是解析几何和微积分的发展，是以数系的概念作为基础而得以进行下去的．但是，在批判地重新检查这些原则并巩固成果时，越来越感到对无理数的概念要作更精确的分析．为了说明数的连续统的近代理论，作为一个预备，我们将以多多少少直观的形式，讨论<b>极限</b>的基本概念．</p>
+<p class="normaltexta"><b>习题：</b>计算<img src="../Images/image00508.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>和<img src="../Images/image00521.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，至少精确到10<sup class="suptext">-2</sup>．</p>
+<h4 class="title4" id="mllj9">3．极限　无穷等比级数</h4>
+<p class="normaltext">如我们在上一小节所看到的那样，有时会出现由一系列有理数s<sub>n</sub>来逼近某个有理数s的情形，这里假定指标n连续取所有的值1，2，3，…．例如s＝<img src="../Images/image00518.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，则s<sub>1</sub>＝0.3，s<sub>2</sub>＝0.33，s<sub>3</sub>＝0.333，等等．作为另一个例子，让我们把单位区间二等分，把第二个子区间再二等分，再把其中的第二个二等分，如此下去直到最小的区间长为2<sup class="suptext">-n</sup>，这里n可选得任意大，例如n＝100，n＝100000或者我们所希望的任意数．这时我们把所有这些区间，除了最后一个以外，都加起来，我们得到总的长度等于</p>
+<p class="picture"><img src="../Images/image00522.jpeg" alt="alt"/></p>
+<p class="normaltext6">我们看到s<sub>n</sub>和1的差为<img src="../Images/image00523.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，当n无限增大时，这个差变得任意小或者说“趋向于零”．但是，下述的说法是没有意义的：如果n<b>是</b>无穷的话，这差<b>是</b>零．因为无穷只意味着无穷尽的<b>过程</b>，而不是一个实际的<b>量</b>．我们这样来描述s<sub>n</sub>的动态，<b>当n趋向于无穷时，和s<sub>n</sub>趋向于极限1．</b>并且记作</p>
+<p class="picture"><img src="../Images/image00524.jpeg" alt="alt"/></p>
+<p class="normaltext6">在等式右边我们得到一个<b>无穷级数</b>．这“等式”决不意味着我们真的一定要加无限多项；它只是下述事实的一个简记：有限项的和s<sub>n</sub>，<b>当n趋于</b>无穷时（决不<b>是</b>无穷），其极限为1．等式（4）带有一个不完全的符号“＋…”，这不过是如下确切陈述在数学上的一个简写：</p>
+<p class="normaltext5">1＝当n趋于无穷时，</p>
+<p class="picture"><img src="../Images/image00525.jpeg" alt="alt"/></p>
+<p class="normaltext6">用更简单而一目了然的形式可以写作</p>
+<p class="picture"><img src="../Images/image00526.jpeg" alt="alt"/></p>
+<p class="normaltext">作为极限的另外一个例子，我们可以考虑一个数q的幂．如果-1＜q＜1，例如q＝<img src="../Images/image00518.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>或q＝-<img src="../Images/image00527.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，则q的逐次幂</p>
+<p class="normaltext5">q，q<sup class="suptext">2</sup>，q<sup class="suptext">3</sup>，q<sup class="suptext">4</sup>，…，q<sup class="suptext">n</sup>，…，</p>
+<p class="normaltext6" id="b79">当n增大时，将趋于零．如果q是负的，q<sup class="suptext">n</sup>的符号将是正负交替，而q<sup class="suptext">n</sup>将从两边交错地趋于零．因而如果q＝<img src="../Images/image00518.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，则q<sup class="suptext">2</sup>＝<img src="../Images/image00528.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，q<sup class="suptext">3</sup>＝<img src="../Images/image00529.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，q<sup class="suptext">4</sup>＝<img src="../Images/image00530.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，…，而如果q＝-<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，则q<sup class="suptext">2</sup>＝<img src="../Images/image00532.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，q<sup class="suptext">3</sup>＝-<img src="../Images/image00533.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，q<sup class="suptext">4</sup>＝<img src="../Images/image00534.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，…．我们说<b>当n趋于无穷时，q<sup class="suptext">n</sup>的极限为零．</b>或用符号表示为</p>
+<p class="picture"><img src="../Images/image00535.jpeg" alt="alt"/></p>
+<p class="normaltext6">（顺便说一下，如果q＞1或q＜-1，则q<sup class="suptext">n</sup>不趋于零，其数值无限增大而没有极限．）</p>
+<p class="normaltext">为了严格证明论断（7），我们从<a href="part0011.xhtml#b30">此处</a>已经证明的不等式出发，那里说到了（1＋p）<sup class="suptext">n</sup>≥1＋np对任意正整数n和p＞-1成立．如果q是0和1之间的任一固定数，例如q＝<img src="../Images/image00536.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，我们有q＝<img src="../Images/image00537.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，这里p＞0．因此</p>
+<p class="picture"><img src="../Images/image00538.jpeg" alt="alt"/></p>
+<p class="normaltext6">或（见<a href="part0019.xhtml#a15">此处</a>法则4）</p>
+<p class="picture"><img src="../Images/image00539.jpeg" alt="alt"/></p>
+<p class="normaltext6">因此q<sup class="suptext">n</sup>介于0和<img src="../Images/image00540.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>之间，由于p是固定的，而后者当n增大时趋向于零，从而显然q<sup class="suptext">n</sup>→0．如果q是负的，我们有q＝<img src="../Images/image00541.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，这时0和<img src="../Images/image00542.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>变成<img src="../Images/image00543.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>和<img src="../Images/image00542.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，其他推理都不变．</p>
+<p class="normaltext">我们现在考虑<b>等比级数</b></p>
+<p class="picture"><img src="../Images/image00544.jpeg" alt="alt"/></p>
+<p class="normaltext6">（q＝<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的情形，上面已讨论过了）．如<a href="part0011.xhtml#b32">此处</a>所示，我们可以把s<sub>n</sub>表示为简单清楚的形式．如果用q乘s<sub>n</sub>，我们得到</p>
+<p class="picture"><img src="../Images/image00545.jpeg" alt="alt"/></p>
+<p class="normaltext6">从（8）中减去（8a），我们看到除了1和q<sup class="suptext">n＋1</sup>外，所有其他的项全消去了．由此得到</p>
+<p class="normaltext5">（1－q）s<sub>n</sub>＝1－q<sup class="suptext">n＋1</sup>，</p>
+<p class="normaltext6">或者除一下变成</p>
+<p class="picture"><img src="../Images/image00546.jpeg" alt="alt"/></p>
+<p class="normaltext6">若让n增大，极限概念就起作用了．我们已经看到，q<sup class="suptext">n＋1</sup>＝q·q<sup class="suptext">n</sup>，当-1＜q＜1时是趋于零的．于是我们得到极限关系：</p>
+<p class="picture"><img src="../Images/image00547.jpeg" alt="alt"/></p>
+<p class="normaltext6">若写成<b>无穷等比级数，</b>就变成</p>
+<p class="picture"><img src="../Images/image00548.jpeg" alt="alt"/></p>
+<p class="normaltext6">例如</p>
+<p class="picture"><img src="../Images/image00549.jpeg" alt="alt"/></p>
+<p class="normaltext6">与等式（4）是一致的．同样地，</p>
+<p class="picture"><img src="../Images/image00550.jpeg" alt="alt"/></p>
+<p class="normaltext6">所以0.99999…＝1．类似地，有限十进位小数0.2374和无限十进位小数0.23739999999…表示同一个数．</p>
+<p class="normaltext">在第六章，我们将以近代的严格精神对极限概念再作一般的讨论．</p>
+<p class="normaltexta"><b>习题：</b>1）如果｜q｜＜1，证明1－q＋q<sup class="suptext">2</sup>－q<sup class="suptext">3</sup>＋q<sup class="suptext">4</sup>＝…＝<img src="../Images/image00551.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext2">2）序列a<sub>1</sub>，a<sub>2</sub>，a<sub>3</sub>，…的极限是什么？这里a<sub>n</sub>＝<img src="../Images/image00552.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．（提示：写出形如<img src="../Images/image00552.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝1－<img src="../Images/image00553.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的表达式，注意第二项趋于零．）</p>
+<p class="normaltext2">3）当n→∞时，<img src="../Images/image00554.jpeg" class="tpzz1" alt="alt" style="height:2.5em"/>的极限是什么？［提示：写成形如<img src="../Images/image00555.jpeg" class="tpzz1" alt="alt" style="height:2.5em"/>的表达式．］</p>
+<p class="normaltext2">4）证明对｜q｜＜1，有1＋2q＋3q<sup class="suptext">2</sup>＋4q<sup class="suptext">3</sup>＋…＝<img src="../Images/image00556.jpeg" class="tpzz1" alt="alt" style="height:2.5em"/>．（提示：用<a href="part0011.xhtml#b10">此处</a>习题3的结果．）</p>
+<p class="normaltext2">5）无穷级数1－2q＋3q<sup class="suptext">2</sup>－4q<sup class="suptext">3</sup>＋…的极限是什么？</p>
+<p class="normaltext2">6）<img src="../Images/image00557.jpeg" class="tpzz1" alt="alt" style="height:2.5em"/>，<img src="../Images/image00558.jpeg" class="tpzz1" alt="alt" style="height:2.5em"/>和<img src="../Images/image00559.jpeg" class="tpzz1" alt="alt" style="height:2.5em"/>的极限各是什么？（提示：用<a href="part0011.xhtml#mllj8">此处</a>、<a href="part0011.xhtml#mllj10">此处</a>、<a href="part0011.xhtml#mllj11">此处</a>的结果．）</p>
+<h4 class="title4" id="mllj10">4．有理数和循环小数</h4>
+<p class="normaltext">如果有理数<img src="../Images/image00505.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>不是有限十进位小数，那么通过不断地作除法能表示为一个无限的十进位小数．在这过程中每次必然有一个非零的余数，否则这十进位小数是有限的．在除的过程中出现的所有不同余数将是1和q－1之间的整数，所以最多只能有q－1个不同的余数值，这意味着，最多除q次，某个余数k将第二次出现．但由此随后而来的所有余数，将按照余数k第一次出现后它们出现的同样次序重复．这说明<b>任何有理数的十进位小数表示式是循环的</b>；开始出现有限个数码，随后同样的一个数码或一组数码将无限次地再现．例如，<img src="../Images/image00560.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝0.166666666…；<img src="../Images/image00561.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝0.142857142857…；<img src="../Images/image00562.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝0.09090909…；<img src="../Images/image00563.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝0.11090909…；<img src="../Images/image00564.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝0.122222222…；等等．（那些能表示为有限小数的有理数，也可以认为是一个循环小数，它在有限个数码之后，只是无限次地重复着数0．）我们顺便指出，有一些循环小数，在循环部分的前面有一个非循环的部分．</p>
+<p class="normaltext">反之可以看出，<b>所有循环小数都是有理数．</b>例如，取无限循环小数</p>
+<p class="normaltext5">p＝0.3322222…，</p>
+<p class="normaltext6">我们有p＝<img src="../Images/image00565.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＋10<sup class="suptext">-3</sup>·2·（1＋10<sup class="suptext">-1</sup>＋10<sup class="suptext">-2</sup>＋…）．括号中的表达式是一个无穷等比级数</p>
+<p class="picture"><img src="../Images/image00566.jpeg" alt="alt"/></p>
+<p class="normaltext6">因此p＝<img src="../Images/image00565.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＋2·10<sup class="suptext">-3</sup>·<img src="../Images/image00567.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image00568.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image00569.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image00570.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext">对一般情形的证明在实质上是一样的，但要求更一般的记号．在一般的循环小数</p>
+<p class="normaltext5">p＝0．a<sub>1</sub>a<sub>2</sub>a<sub>3</sub>…a<sub>m</sub>b<sub>1</sub>b<sub>2</sub>…b<sub>n</sub>b<sub>1</sub>b<sub>2</sub>…b<sub>n</sub>b<sub>1</sub>b<sub>2</sub>…b<sub>n</sub>…</p>
+<p class="normaltext6">中，我们令0．b<sub>1</sub>b<sub>2</sub>…b<sub>n</sub>＝B，使B表示这小数的循环部分．于是p变成</p>
+<p class="normaltext5">p＝0.a<sub>1</sub>a<sub>2</sub>…a<sub>m</sub>＋10<sup class="suptext">-m</sup>B（1＋10<sup class="suptext">-n</sup>＋10<sup class="suptext">-2n</sup>＋10<sup class="suptext">-3n</sup>＋…），</p>
+<p class="normaltext6">括号中的表达式是q＝10<sup class="suptext">-n</sup>的无穷等比级数，按上一小节等式（10），它的和是<img src="../Images/image00571.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，因此</p>
+<p class="picture"><img src="../Images/image00572.jpeg" alt="alt"/></p>
+<p class="normaltexta"><b>习题：</b>1）把分数<img src="../Images/image00562.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00573.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00574.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00575.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00576.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00577.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>表示为十进位小数并确定其循环部分．</p>
+<p class="normaltext2">*2）数142857有如下性质：用数2，3，4，5，6中的任一个去乘它，所得的积只是它的数码的一个重新排列．试用<img src="../Images/image00561.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的十进位小数展式来解释这性质．</p>
+<p class="normaltext2">3）把习题1）中的有理数表示为以5，7，12为基底的“小数”．</p>
+<p class="normaltext2">4）把<img src="../Images/image00518.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>表示为一个二进位数．</p>
+<p class="normaltext2">5）把0.11212121…写成一个分数．如果它是以3或5为基底的小数，求出这符号的值．</p>
+<h4 class="title4" id="mllj11">5．用区间套给出无理数的一般定义</h4>
+<p class="normaltext">在<a href="part0013.xhtml#b33">此处</a>我们采用了一个推测性的定义：一个“数”是一个有限或者无限十进位小数．我们约定那些不表示有理数的无限小数应称为无理数．在上一小节结果的基础上，现在我们可以把这个定义叙述如下：<b>数的连续统</b>或<b>实数系</b>（“实”是相对于§5中要引进的“虚”或“复”数而言）<b>是全体无限小数</b>．（有限小数可以看成从某个位置开始所有数码全是零这样的特殊情形．或者可以描述为，我们把最后一位是a的有限小数，改写为这样一个无限小数，在a的位置上代之以a－1，随后所有数码全等于9，按照第三小节这表示0.999…＝1这一事实．）<b>有理数是循环小数；无理数是非循环小数．</b>即使这个定义看来也不能完全令人满意，因为，如我们在第一章所看到的那样，十进位系统并非显示事物本质的唯一方式．我们可以用二进位或任何其他系统同样进行推理．由于这个原因，我们希望给数的连续统以一个更一般的定义，使它摆脱对基底10的特殊依赖关系．要做到这一点，最简单的办法可能是这样：</p>
+<p class="normaltext">让我们考虑数轴上任意一串以有理点为端点的区间I<sub>1</sub>，I<sub>2</sub>，…，I<sub>n</sub>，…，它们中的每一个包含在前一个里面，且使得当n增大时，第n个区间I<sub>n</sub>的长度趋向于零．这样的一列区间称为<b>一组区间套</b>．对于十进位区间的情况，I<sub>n</sub>长为10<sup class="suptext">-n</sup>，但也可以是2<sup class="suptext">-n</sup>或只要求它小于<img src="../Images/image00483.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．现在我们把下述事实作为一个基本的几何公理：<b>对应于每一组这样的区间套，在数轴上恰有一个点包含在所有这些区间中</b>（不难看出，所有这些区间的公共点顶多只有<b>一个</b>，因为区间的长度趋于零，而对两个不同的点来说，长度比它们之间的距离还小的区间，不能同时包含它们）．根据定义这个点叫作<b>实数</b>，如果不是有理点就称之为<b>无理数</b>．按此定义，我们在点和数之间建立了一个完全的对应．这里没有其他新的东西，不过是无限十进位小数表示的定义的更为一般的表述．</p>
+<p class="picture" id="a34"><img src="../Images/image00578.jpeg" alt="alt"/></p>
+<p class="tz"><b>图11</b>　区间套　序列的极限</p>
+<p class="normaltext">在这里，读者完全有理由提出一个疑问：在数轴上，我们认为属于一组区间套的所有区间的那个“点”，当它不是有理点时，它<b>是</b>什么？我们的回答是：在数轴（看作一直线）上，在以有理点为端点的每一组区间套中存在着一个点，这是一个基本的<b>几何公理</b>．这个公理并不需要从其他数学事实逻辑地推导出来．正如接受数学上的其他公理或公设一样，我们接受它是因为它在直观上是合理的，而且在构造一个相容的数学思想体系中它是有用的．从纯粹形式的观点来看，首先，我们可以在直线上只作出有理点，然后，<b>定义</b>一个无理点是<b>某个有理端点区间套的一个符号．</b>一个无理点完全由长度趋于零的有理端点区间套所描述．由此我们的基本公理实际上相当于一个定义．在引进了有理端点区间套之后，借助于无理点是“存在”的这种直觉而下的这个定义，就抛开了我们进行推理的直观拐杖，而且使我们知道无理点的所有<b>数学性质</b>可表示为有理端点区间套的性质．</p>
+<p class="normaltext">关于本书序言中所讲的哲学见解，在这里，我们找到了一个典型例子．我们抛弃了朴素的、“实在”的方法，即把一个数学对象看成我们谨慎地研究其性质的“自在之物”；而认为数学对象之所以存在，只在于它们的数学性质以及它们之间的相互关系．这些关系和性质完全给出了这个对象进入数学活动的领域的各个可能方面．我们放弃了数学上的“自在之物”，如同物理上放弃了观测不到的以太一样．这就是把一个无理数定义为有理端点区间套的“本质”所在．</p>
+<p class="normaltext">从数学上来看，这里重要的是，对定义为有理端点区间套的无理数来说，加、乘等运算以及“小于”、“大于”的关系，能立刻从有理数域得到推广，而且保持着有理数域中原有的一切规律．例如，两个无理数α和β的加法，可以用定义了α和β的两组有理端点区间套来定义．我们把两个序列中相应区间的起点值和末端值分别相加，构造出第三组区间套．这新的区间套定义为α＋β．类似地，我们可以定义积αβ，差α－β和商α／β．在这些定义的基础上，可以说明本章§1讨论的算术规律对无理数也都成立．其细节在这里略去了．</p>
+<p class="normaltext">这些规律可以简单而直接地加以验证，虽然对于那些急切想知道数学能用来作什么，而不想分析它的逻辑基础的初学者来说，这些验证会令人感到冗长乏味．某些近代数学教科书一开始就用一个对实数系统卖弄学问式的完整分析使许多学生念不下去，而把这部分引论弃之不顾的读者，在了解到如下事实后是可以得到安慰的：迟至十九世纪后期，所有伟大的数学家在作出他们的发现时，都是基于他们对这个数系直觉上的“朴素”概念．</p>
+<p class="normaltext">从物理观点来看，用区间套来定义一个无理数，相当于通过一系列越来越准确的测量来决定某个可观测的量的值．任何一种测量的方法，比如说测定长度，只有在这方法的精确度所表明的某个可能的误差范围之内才有意义．由于有理数在直线上是稠密的，用任何物理方法，无论它多么正确，也不可能决定一个给定的长度究竟是有理数还是无理数．这样看来，要恰当地描述物理现象，似乎不必用到无理数．但是，我们在第六章将能比较清楚地看到，引进无理数对物理现象的数学描述确实带来了好处，这就是，通过自由地运用极限概念而使得这个描述极大地简化，而数的连续统正是极限概念的基础．</p>
+<h4 class="title4" id="mllj12">*6．定义无理数的另一个方法　戴特金分割</h4>
+<p class="normaltext">戴特金（1831～1916）是数学基础的逻辑和哲学分析的伟大开拓者之一，他采用了另一种稍微不同的方式来定义无理数．他的文章“连续性与无理数”和“数是什么，数应当是什么？”对数学基础的研究产生了深刻的影响．戴特金采取了一个带有一般抽象思想的处理方法，而不是用特殊的区间套．他的方法以“分割”的定义为其基础．对此，我们简单地加以说明．</p>
+<p class="normaltext">假设给定某种方法，把<b>全体有理数集</b>分为两类A和B，使B类的每一个元素b大于A类的每一个元素a．任何一个这种分类称为有理数集的一个<b>分割</b>．对一个分割恰有三种可能，其中有一种且只有一种必定成立：</p>
+<p class="normaltext">1）<b>A有一个最大元素a<sup class="suptext">*</sup>．</b>例如A是所有≤1的有理数，而B是所有＞1的有理数．</p>
+<p class="normaltext">2）<b>B有一个最小元素b<sup class="suptext">*</sup>．</b>例如A是所有＜1的有理数，而B是所有≥1的有理数．</p>
+<p class="normaltext">3）A<b>中没有最大元素且B中也没有最小元素．</b>例如，A是所有负有理数、零和所有平方小于2的正有理数，而B是所有其平方大于2的正有理数．A和B一起包括了全体有理数，因为我们已经证明过没有平方等于2的有理数．</p>
+<p class="normaltext">A有最大元素a<sup class="suptext">*</sup><b>同时</b>B有最小元素b<sup class="suptext">*</sup>，这情形是不可能的，因为有理数<img src="../Images/image00579.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>在a<sup class="suptext">*</sup>和b<sup class="suptext">*</sup>中间，它将大于A的最大元素而小于B的最小元素，因此不属于A，B中任何一个．</p>
+<p class="normaltext">在第三种情形，A中既没有最大有理数，B中也没有最小有理数，戴特金称这分割定义了一个无理数，或简单地说这分割<b>是</b>一个无理数．容易看出这定义和用区间套所作的定义是一致的，如果我们把至少被区间I<sub>n</sub>中一个区间的左端点超过的所有有理数算作A类，而其余的有理数放入B类，则任何一个区间套I<sub>1</sub>，I<sub>2</sub>，I<sub>3</sub>，…定义了一个分割．</p>
+<p class="normaltexta">在哲学上，戴特金的无理数定义涉及一个更高程度的抽象，因为它对确定两类A和B的这个数学规则的性质没有加以限制．康托用一个更为具体的方法来定义实数连续统．虽然，初看起来它和区间套方法或分割方法很不同，但是，用这三种方法定义的数系有相同的性质，在这个意义上说，它与那两个方法中的任何一个都等价．康托的思想是受到下述事实启发的：1）实数可以看成一个无限十进位小数，2）无限十进位小数可以看成有限十进位小数的极限．让我们摆脱对十进位系统的依赖，我们可以像康托那样陈述：任何一个有理数序列，如果“收敛”的话，它就定义为一个<b>实数</b>．收敛的意思可理解为，当a<sub>m</sub>和a<sub>n</sub>在这序列中充分靠后，也就是说m，n趋于无穷时，序列中任意两项的差（a<sub>m</sub>－a<sub>n</sub>）趋于零（用一串十进位小数逼近任意一个数，就有这个性质，因为在第n位之后任意两项的差最多是10<sup class="suptext">-n</sup>）．由于用有理数序列逼近同一个实数有许多方法，所以，如果在两个收敛的有理数列a<sub>1</sub>，a<sub>2</sub>，a<sub>3</sub>，…和b<sub>1</sub>，b<sub>2</sub>，b<sub>3</sub>，…中，当n无限增大时，a<sub>n</sub>－b<sub>n</sub>趋于零，我们就说它们定义了同一个实数．对这样的序列很容易定义出加法等等运算．</p>
+<h3 class="title3" id="mllj13">§3　解析几何概述<sup class="suptext"><a id="fhzs1" href="part0013.xhtml#zhushi1">〔1〕</a></sup></h3>
+<h4 class="title4" id="mllj14">1．基本原理</h4>
+<p class="normaltext">数的连续统——不论是作为理所当然的事来接受也好，还是只有作了批判性的检查之后才接受也好——从17世纪以来成了数学，特别是解析几何和微积分的基础．</p>
+<p class="normaltext" id="a19">引进了数的连续统，就可以把每一直线段和一个作为它的长度的确定实数联系起来．但是我们可以更进一步，不仅长度而且<b>每一个几何对象和每一个几何运算都能纳入数的领域．</b>在几何学的这个算术化过程中，决定性的步骤是早在1629年由费马（1601～1655）和1637年由笛卡儿（Descartes，1596～1650）所采取的．解析几何的基本思想是引进“坐标”，即对一个<b>几何对象</b>附上或标上<b>数</b>，从而完全刻划了这个对象．大多数读者都知道这就是直角坐标或笛卡儿坐标，它用来刻划平面上任意一点P的位置．首先我们在平面上作一对固定的垂线，以此作为每一个点所参照的“x轴”和“y轴”．把这两条直线看成是有方向的数轴并且用同样的单位来度量．如图12，对每个点P指定两个坐标x和y．它们用如下方法得到：我们考虑从“原点”O到点P的有向线段（有时称之为P点的“位置向量”），把它垂直地投影到两个坐标轴上，得到x轴上的有向线段OP′，并以数x作为它的有向长度；同样得到y轴上的有向线段OQ′，并以数y作为它的有向长度．两个数x和y称为P点的<b>坐标</b>．反之，如果x和y是任意预先给定的两个数，则相应的点P是唯一确定的．如果x和y都是正的，P在坐标系的<b>第一象限</b>（图13）；如果它们都是负的，P在第三象限；如果x是正的而y是负的，它在第四象限；如果x是负的而y是正的，则在第二象限．</p>
+<p class="picture"><img src="../Images/image00580.jpeg" alt="alt"/></p>
+<p class="tz"><b>图12</b>　一个点的直角坐标</p>
+<p class="picture"><img src="../Images/image00581.jpeg" alt="alt"/></p>
+<p class="tz"><b>图13</b>　四个象限</p>
+<p class="normaltext" id="a52">坐标为x<sub>1</sub>，y<sub>1</sub>的点P<sub>1</sub>和坐标为x<sub>2</sub>，y<sub>2</sub>的点P<sub>2</sub>的距离由公式</p>
+<p class="picture"><img src="../Images/image00582.jpeg" alt="alt"/></p>
+<p class="normaltext6">给出，这由勾股定理立刻得出，也可以从图14看出．</p>
+<p class="picture"><img src="../Images/image00583.jpeg" alt="alt"/></p>
+<p class="tz"><b>图14</b>　两点间距离</p>
+<h4 class="title4" id="mllj15">*2.　直线方程和曲线方程</h4>
+<p class="normaltext">如果C是坐标为x＝a，y＝b的一个固定点，那么与C的距离为定长r的点P的轨迹，是一个以C为圆心，r为半径的圆．从距离公式（1）得知，这圆上的点的坐标x，y满足方程</p>
+<p class="picture"><img src="../Images/image00584.jpeg" alt="alt"/></p>
+<p class="tz"><b>图15</b>　圆</p>
+<p class="picture"><img src="../Images/image00585.jpeg" alt="alt"/></p>
+<p class="normaltext6">它称为<b>圆的方程</b>，因为它是（以半径r绕着C旋转的）圆上点P的坐标x，y的完全（充分和必要）条件．把括号展开，方程（2）的形式变为</p>
+<p class="picture"><img src="../Images/image00586.jpeg" alt="alt"/></p>
+<p class="normaltext6">其中k＝r<sup class="suptext">2</sup>－a<sup class="suptext">2</sup>－b<sup class="suptext">2</sup>．反之，如果给定一个形如（3）的方程，那里的a，b，k是使k＋a<sup class="suptext">2</sup>＋b<sup class="suptext">2</sup>为正数的任意常数，则用“配方法”，我们能把这方程写成</p>
+<p class="normaltext5">（x－a）<sup class="suptext">2</sup>＋（y－b）<sup class="suptext">2</sup>＝r<sup class="suptext">2</sup></p>
+<p class="normaltext6">的形式，其中r<sup class="suptext">2</sup>＝k＋a<sup class="suptext">2</sup>＋b<sup class="suptext">2</sup>．可见方程（3）确定一个以C点（坐标为a，b）为圆心，r为半径的圆．</p>
+<p class="normaltext">直线方程的形式是更简单的．例如x轴的方程为y＝0，因为y＝0对x轴上所有点都成立，而对其他的点则不成立．y轴的方程为x＝0．经过原点二等分两条坐标轴之间的夹角的直线方程是x＝y和x＝-y．容易看出任意直线有形如</p>
+<p class="picture"><img src="../Images/image00587.jpeg" alt="alt"/></p>
+<p class="normaltext6">的方程，这里a，b，c是刻划了直线的固定常数．方程（4）的意思仍然是满足方程的所有实数对x，y是直线上点的坐标，反之亦然．</p>
+<p class="normaltext">读者可能已经知道方程</p>
+<p class="picture"><img src="../Images/image00588.jpeg" alt="alt"/></p>
+<p class="normaltext6" id="b50">表示一个椭圆（图16）．这曲线交x轴于点A（p，0）和A′（-p，0），交y轴于B（0，q）和B′（0，-q）．（记号P（x，y）或简记为（x，y），是“坐标为x和y的点P”这句话的简写方式．）如果p＞q，这长为2p的线段AA′称为椭圆的长轴，而长为2q的线段BB′称为短轴．这椭圆是到点F（<img src="../Images/image00589.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，0）和F′（-<img src="../Images/image00589.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，0）的距离之和等于2p的点P的轨迹．作为一个练习，读者可以用公式（1）验证这一点．点F和F′称为椭圆的<b>焦点</b>．比值e＝<img src="../Images/image00590.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>称为椭圆的<b>离心率</b>．</p>
+<p class="picture"><img src="../Images/image00591.jpeg" alt="alt"/></p>
+<p class="tz"><b>图16</b>　椭圆；F和F′是焦点</p>
+<p class="normaltext">形如</p>
+<p class="picture"><img src="../Images/image00592.jpeg" alt="alt"/></p>
+<p class="normaltext6">的方程表示一双曲线．这曲线由两个分支组成，分别交x轴于A（p，0）和A′（-p，0）（图17）．长2p的线段AA′称为双曲线的实轴．当我们离原点越来越远时，这双曲线越来越接近两条直线qx±py＝0，但实际上永远不会到达这些直线．它们称为双曲线的<b>渐近线</b>．双曲线是到两个点F（<img src="../Images/image00593.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，0）和F′（-<img src="../Images/image00593.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，0）的距离之<b>差</b>等于2p的点P的轨迹．这两个点也称为双曲线的焦点．比值e＝<img src="../Images/image00594.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>是它的离心率．</p>
+<p class="picture" id="b81"><img src="../Images/image00595.jpeg" alt="alt"/></p>
+<p class="tz"><b>图17</b>　双曲线；F和F′是焦点</p>
+<p class="normaltext">方程</p>
+<p class="picture"><img src="../Images/image00596.jpeg" alt="alt"/></p>
+<p class="normaltext6">也定义一双曲线，现在它的渐近线是两个坐标轴（图18）．这“等边”双曲线的方程表明，对曲线上的每一点P来说，点P所决定的矩形面积等于1．方程为</p>
+<p class="picture"><img src="../Images/image00597.jpeg" alt="alt"/></p>
+<p class="picture"><img src="../Images/image00598.jpeg" alt="alt"/></p>
+<p class="tz"><b>图18</b>　等边双曲线方程xy＝1．由点P（x，y）确定的矩形面积xy等于1</p>
+<p class="normaltext6">（c为一常数）的一个等边双曲线只是一般双曲线的一特殊情形，正如圆是椭圆的特殊情形那样．等边双曲线的特征在于：它的两个渐近线（这时是两个坐标轴）是相互垂直的．</p>
+<p class="normaltext" id="a51">对我们来说，这里关键在于下列基本思想：几何对象可以完全用数和代数的术语来表达，而且几何的运算也同样如此．例如，如果要找两条直线的交点，我们考虑直线的两个方程</p>
+<p class="picture"><img src="../Images/image00599.jpeg" alt="alt"/></p>
+<p class="normaltext6">为了找出两条直线的公共点，只要把它的坐标当作两个联立方程（8）的解x，y，就可简单地求得．类似地，要找任何两条曲线，例如圆x<sup class="suptext">2</sup>＋y<sup class="suptext">2</sup>－2ax－2by＝k和直线ax＋by＝c的交点，只要把两个相应的方程联立起来求解就是了．</p>
+<h3 class="title3" id="mllj16">§4　无限的数学分析</h3>
+<h4 class="title4" id="mllj17">1．基本概念</h4>
+<p class="normaltext">正整数序列</p>
+<p class="normaltext5">1，2，3，4…</p>
+<p class="normaltext6">是最早和最重要的无限集．这个序列没有末尾，没有“终结”，这事实并不神秘，因为不论整数n有多大，总有下一个整数n＋1．但是，从表示“没有终结”这意思的<b>形容词</b>“无限的”过渡到<b>名词</b>“无限”时，我们不能把通常用特殊符号∞表示的“无限”看成像普通的<b>数</b>那样．我们不可能把符号∞包括在实数系统中而仍然保持算术的基本规律．尽管如此，无限的概念还是渗透到了所有的数学领域之中，因为数学对象通常不是当作单个对象来研究，而是当作包含了无限多个同样类型的对象的类或集合（例如，全体整数，全体实数或平面上全体三角形）的成员来研究．由于这个原因，我们必须确切地分析数学的无限性．由康托和他的学派在19世纪末创建的近代集合论，面对着这个挑战取得了惊人的成绩．康托的集合论已经渗透到并强烈影响着数学的许多领域，在研究数学的逻辑和哲学基础方面，它是最基本最重要的工具．它的出发点是<b>集合</b>或<b>集</b>的一般概念．这意思是指，任意由某些对象组成的集合，它是由明确规定哪些对象属于这个集合的某些规则所定义的．例如，我们可以考虑全体正整数集，全体十进位循环小数集，全体实数集，或三维空间中全体直线集．</p>
+<p class="normaltext" id="a33">用于比较两个不同集合的“元素个数”的基本概念是“等势”．如果两个集合A和B的元素可以按如下方式彼此配对，使得A的每一个元素对应着B的一个且仅一个元素，而B的每一个元素对应着A的一个且仅一个元素，那么这个对应就称为<b>一一对应</b>，而且称A和B是<b>等势</b>的．对<b>有限</b>集来说，等势的概念和通常的<b>个数相等</b>的概念是一致的，因为两个有限集有同样多个元素必须而且只须两个集合的元素之间能建立一一对应．实际上这就是数东西的意思，因为当我们数一组有限个对象时，我们就是简单地在这些对象和一组数字符号1，2，3，…，n之间建立一个一一对应．</p>
+<p class="normaltextc">在两个有限集之间建立它们的等势性，并不一定要数这些对象．例如，不用数我们就能知道，任何有限个半径为1的圆的集合和它们圆心的集合是等势的．</p>
+<p class="normaltext">康托的思想是，把等势的概念推广到无限集，以此定义无限的“算术”．全体实数集和一条直线上的所有点是等势的，因为选择一个原点和一个单位长，我们就可以把直线上每一点P和一个作为其坐标的实数x一对一地联系起来：</p>
+<p class="normaltext5">P↔x．</p>
+<p class="normaltext"><b>偶数</b>是<b>全体整数集</b>的一个真子集，而<b>整数</b>是全体<b>有理数</b>的真子集．（一个集S的<b>真子集</b>是指这样一个集S′，它由S的一些元素组成，但又不包括S的所有元素．）显然，<b>如果一个集是有限的，</b>即如果它只包含某个数n那么多的元素，<b>则它不能和它的任何一个真子集等势，</b>因为任何真子集最多只能有n－1个元素．<b>但是如果一个集合包含了无限多个元素，</b>看来十分荒谬的是，<b>它可以和它本身的一个真子集等势</b>．例如，标出</p>
+<p class="picture"><img src="../Images/image00600.jpeg" alt="alt"/></p>
+<p class="normaltext6">它在<b>正整数</b>和它的真子集<b>偶数</b>之间建立了一一对应，从而表明正整数集和偶数集是等势的．这与我们熟知的真理“整体大于它的任意一部分”是矛盾的，它表明在无限性的领域内，会出现多么令人惊奇的事．</p>
+<h4 class="title4" id="mllj18">2．有理数的可数性和连续统的不可数性</h4>
+<p class="normaltext">康托在分析无限性时，他最初的发现之一是：<b>有理数</b>集（它包含整数集这个无限子集，因而它本身是无限集）是和<b>整数</b>集等势的．稠密的有理数集与疏散的它的整数子集的元素一样多，初看起来这似乎是很奇怪的．确实，人们不能<b>按大小次序</b>来排列正有理数（对正整数能这样做），不能说a是第一个有理数，b是挨着它的那个比它大的有理数，等等，因为任意两个给定的有理数之间有无穷多个有理数，因而没有“挨着它的”那一个．但是，正如康托看到的那样，抛开按序相连的两个元素之间的量的关系，就可以像整数那样将全体有理数排列成一行r<sub>1</sub>，r<sub>2</sub>，r<sub>3</sub>，r<sub>4</sub>，…．在这序列中将有第一个有理数，第二个，第三个等等，而且每个有理数恰好出现一次．一个集合，如果其元素能像整数那样排列成一个序列，就称这个集合是<b>可数的</b>．通过展示这样的可数性，康托表明，有理数是和整数集等势的，因为对应</p>
+<p class="picture"><img src="../Images/image00601.jpeg" alt="alt"/></p>
+<p class="normaltext6">是一对一的．现在我们来描述把有理数排列起来的一个方式．</p>
+<p class="normaltext">每一个有理数都能写成<img src="../Images/image00602.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的形式，这里a和b是整数．而且所有这些数能布置成这样的阵势，使<img src="../Images/image00602.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>在第a列第b行．例如把<img src="../Images/image00603.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>放在下面表中的第3列第4行．所有的有理数现在可以按照下面的设计排列：在刚刚规定的布阵中，我们画一条连续的折线通过这布阵中所有的数．从1开始我们沿水平方向到右边的下一个位置，得到2，这是序列中的第二个数，然后沿对角线向左下边到第一列<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>所占的位置上，然后垂直地向下到<img src="../Images/image00518.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的位置上，再沿对角线向上，直到第一行的3，通过4再沿对角线向下到<img src="../Images/image00532.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，这样进行下去，如图19所示．</p>
+<p class="picture"><img src="../Images/image00604.jpeg" alt="alt"/></p>
+<p class="tz"><b>图19</b>　有理数的可列性</p>
+<p class="normaltext6">沿着这折线走，我们得到一个序列1，2，<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00518.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00605.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，3，4，<img src="../Images/image00606.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00607.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00532.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00608.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00609.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00610.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00611.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，5，…，其中的有理数按照它们在折线中出现的次序排列．在这序列中，现在我们消去所有a和b有公因子的数<img src="../Images/image00602.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，使得每一个有理数r以最简单的方式恰好出现一次．因而我们得到一个序列1，2，<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00518.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，3，4，<img src="../Images/image00606.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00607.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00532.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00608.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，5，…，其中每一个正有理数出现一次而且只出现一次．这说明全体正有理数是可数的．根据有理数和直线上有理点一一对应这个事实，我们同时证明了直线上正有理点集是可数的．</p>
+<p class="normaltexta"><b>习题：</b>1）说明全体正整数和负整数是可数的，全体正有理数和负有理数是可数的．</p>
+<p class="normaltextb">2）如果S和T是可数集，说明集S＋T（见<a href="part0014.xhtml#a13">此处</a>）是可数的．说明对三个、四个或任意n个集的并集有同样的结果．最后说明由可数个可数集组成的集同样是可数的．</p>
+<p class="normaltext" id="b34">由于有理数已表明是可数的，人们可能猜想<b>任何</b>无限集都是可数的，而且这就是无限分析的最终结果．可是情况远非如此．康托有一个极有意义的发现：<b>全体实数集</b>（有理数和无理数）<b>是不可数的</b>．换句话说，全体实数与整数或有理数相比有一个根本的不同，可以说，它是更高一级类型的无限．关于这个事实康托用反证法天才地给出了一个证明，它是许多数学论证的典范．该证明大略如下．首先，我们作一个尝试性的假设：所有实数真的排列成了一个序列．然后，我们找出一个数，它不包含在这假定的可数集里面．这样就引出了矛盾，因为既然假设<b>所有</b>实数都包括在这个可数集里面，那么，即使有一个数遗漏了，这个假设也必然是不成立的．由于实数是可数的这个假设不成立，反过来，康托的关于实数集是不可数的命题就是真的．</p>
+<p class="normaltext">为了做到这一点，我们假设全体实数是可数的并且已经把它们排列成一个无限十进位小数的表：</p>
+<p class="picture"><img src="../Images/image00612.jpeg" alt="alt"/></p>
+<p class="normaltext6">其中这些N表示整数部分，小写的字母表示小数点后的数码．我们假设这个十进位小数序列包含了<b>所有</b>实数．现在，证明中最根本的一点是，通过“对角线过程”构造一个新的数，而我们能说明它不包含在这个序列中．为此，我们首先选取一个数码a不同于a<sub>1</sub>，也不等于0和9（以避免像0.999…＝1.000…这种<b>等式</b>可能造成的含糊不清），然后选取一个数码b不同于b<sub>2</sub>，也不等于0和9，同样地，c不等于c<sub>3</sub>，等等．（例如，我们可以简单地选取a＝1，除非a<sub>1</sub>＝1，在a<sub>1</sub>＝1时，我们选a＝2．按照这个表，类似地选出所有数码b，c，d，e，…．）现在考虑无限十进位小数</p>
+<p class="normaltext5">z＝0.abcde…，</p>
+<p class="normaltext6">这新的数z肯定不同于上表中的任何一个数；它不等于第一个，因为小数点后的第一个数码与之不同；它不能等于第二个，因为第二个数码与之不同；一般地，它不能和表中的第n个数相同，因为第n个数码与之不同．这说明我们按序排列的十进位小数表<b>不</b>包含所有的实数．因此实数集是不可数的．</p>
+<p class="normaltext">读者也许认为，数的连续统不可数，其原因在于直线是无限延伸的这个事实，而有限线段将只包含可数个无限多的点．但事实并非如此，因为容易证明整个数的连续统等势于任意有限线段，例如从0到1而不包括端点的线段．我们所要求的一一对应可以这样来得到：在<img src="../Images/image00518.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>和<img src="../Images/image00607.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>处把线段折弯，再从一点投影，如图20所示．由此得知，即使数轴上的有限线段也包含了不可数无限多的点．</p>
+<p class="picture"><img src="../Images/image00613.jpeg" alt="alt"/></p>
+<p class="tz"><b>图20</b>　一折线段上的点和整个直线上的点之间的一一对应</p>
+<p class="normaltextc"><b>习题：</b>说明数轴上的任意区间［A，B］等势于任意其他区间［C，D］．</p>
+<p class="normaltext">关于数的连续统的不可数性，有另一个可能是更为直观的证明值得在此讲一讲．由我们刚才的证明可以知道，只要把我们的注意力限制在0和1之间的点集就够了．其证明仍然是反证法．我们假设直线上0到1之间的所有点能排成序列</p>
+<p class="picture"><img src="../Images/image00614.jpeg" alt="alt"/></p>
+<p class="normaltext6">我们把标号a<sub>1</sub>的点用一个长为<img src="../Images/image00615.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的区间盖住，标号a<sub>2</sub>的点用一个长为<img src="../Images/image00616.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的区间盖住，如此下去．如果0和1之间所有点都包含在序列（1）中，则这单位区间将完全被长为<img src="../Images/image00615.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00616.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，…的子区间（可能互相重叠）序列完全盖住．（其中有些区间超出了这个单位区间，这一事实并不影响我们的证明．）这些区间长度的总和由等比级数</p>
+<p class="picture"><img src="../Images/image00617.jpeg" alt="alt"/></p>
+<p class="picture"><img src="../Images/image00618.jpeg" alt="alt"/></p>
+<p class="tz"><b>图21</b>　两条不等长的线段上的点的一一对应</p>
+<p class="normaltext6">给出．因此从序列（1）包含了0到1的所有实数这个假定出发，我们推出用一系列总长为<img src="../Images/image00528.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的区间可以覆盖住长度为1的整个区间．这在直观上是荒谬的．我们将把这个矛盾看成是证明，虽然从逻辑的角度来看，还需要更充分的分析．</p>
+<p class="normaltextc">上面这段推理可以在近代的“测度”理论中建立一个很重要的定理．用一个长为<img src="../Images/image00619.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的更小的区间来代替上面的区间，这里ε是任意小的正数．我们看到直线上任一可数点集能包含在总长为<img src="../Images/image00620.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的一系列区间中，由于ε是任意的，<img src="../Images/image00620.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>能随意地小．用测度论的术语，我们说可数点集有<b>零测度</b>．</p>
+<p class="normaltext2"><b>练习：</b>用正方形的面积代替区间的长度，证明对平面上的可数点集上述结果同样成立．</p>
+<h4 class="title4" id="mllj19">3．康托的“基数”</h4>
+<p class="normaltext">总结一下至今得到的结果：如果<b>有限</b>集A包含的元素比有限集B的元素多，那么A中元素的个数不能等于B中元素的个数．如果我们用更一般的<b>等势集</b>的概念来代替“有相同（有限）个数元素的集”的概念，则上面的论述在无限集当中不成立；所有整数集包含比偶数集更多的元素，而有理数集比整数集更多，但我们已经看到这些集是等势的．人们可能认为<b>所有</b>无限集都是等势的，而只有有限集和无限集不等势．但康托的结果否定了这一点，有一个集，即实数连续统，和任何可数集不等势．</p>
+<p class="normaltext">因此至少有两类不同的“无限”，整数的可数无限性和连续统的不可数无限性．如果两个集合A和B（不论有限还是无限）是等势的，我们就称它们有<b>相同的基数</b>．如果A和B是有限的，它就变成有<b>相同的自然数</b>这一通常的概念，可以认为它是这个概念的一个合理的推广．如果集A和集B的某个子集等势，而B不等势于A或它的任意子集，我们将按照康托的说法，称集B有一个比集A<b>更大的基数</b>．这里，“数”这个词的用法和对于有限集来谈数的大小这个通常的意思也是一致的．整数集是实数集的一个子集，而实数集既不和整数集也不和它的任意子集等<b>势</b>（即实数集不是可数的，也不是有限的）．因此，根据我们的定义，实数连续统有一个比整数集更大的基数．</p>
+<p class="normaltexta"><sup class="suptext">*</sup>事实上，康托实际说明了如何构造一系列无限集，使它们有越来越大的基数．由于我们可以从正整数集开始，因此，显然，只须表明：<b>对任意给定集A，可以构造另一个具有更大基数的集B．</b>由于这个定理极为一般，其证明必然比较抽象．我们定义集B是这样的集：它的元素是集A的所有不同子集．我们所说的“子集”将不仅包括A的真子集，而且也包括A本身和完全不包含任何元素的空“子集”0．因此，如果A由三个整数1，2，3组成，则B包括了8个不同的元素｛1，2，3｝，｛1，2｝，｛1，3｝，｛2，3｝，｛1｝，｛2｝，｛3｝和0．集B的每一个元素，本身是一个由A的某些元素组成的<b>集</b>．现在假设B和A等势（或B和A的某个子集等势），即有某个规则使A的元素（或A的子集的元素）一对一地和B的所有元素相对应，也就是说有A的子集S<sub>a</sub>使</p>
+<p class="picture"><img src="../Images/image00621.jpeg" alt="alt"/></p>
+<p class="normaltext7">其中S<sub>a</sub>表示与A的元素a对应的那个A的子集．我们将指出B的一个元素T（即A的一个子集），它不能和任意元素a相对应，从而引出矛盾．为了构造这个子集，我们注意对A的任一元素x存在两种可能：在给定的对应（2）中，x所指定的集S<sub>x</sub>或包含元素x，或S<sub>x</sub>不包含x．我们<b>定义T为A的这样一个子集，它包含所有使S<sub>x</sub>不包含x的那些元素x．</b>这子集和每一个S<sub>a</sub>至少差一个元素a，因为如果S<sub>a</sub>包含a，则T不包含a，可是如果S<sub>a</sub>不包含a，则T包含a．因此T不包括在对应（2）中．这表明在A的元素（或A的任意子集的元素）和B的元素之间，不可能建立一个一一对应．但对应</p>
+<p class="normaltext8">a↔｛a｝，</p>
+<p class="normaltext7">在A的元素和由A的所有单元素子集组成的B的子集之间建立了一个一一对应．因此按照上一段的定义，B有一个比A大的基数．</p>
+<p class="normaltexta"><sup class="suptext">*</sup><b>习题：</b>如果A有n个元素，这里n是一正整数，说明上面所定义的B包含2<sup class="suptext">n</sup>个元素．如果A是全体正整数集，说明B和0到1之间的实数连续统等势（提示：在第一种情形，用记号0和1的一个有限序列为符号来表示A的一个子集．在第二种情形，用它们的一个无限序列来表示A的一个子集：</p>
+<p class="normaltext8">a<sub>1</sub>a<sub>2</sub>a<sub>3</sub>…，</p>
+<p class="normaltext7">这里，a<sub>n</sub>＝1或0是按照A的第n个元素属于还是不属于这给定的子集而定的．）</p>
+<p class="normaltext2" id="b57">也许有人以为，找出一个比从0到1的实数集有更大基数的<b>点集</b>是一件简单的事．一个“二维”的正方形肯定显得比“一维”的线段包含有“更多”的点．十分令人惊异的是，事实并非如此；<b>一个正方形中的点集的基数与一个线段上的点集的基数是相等的．</b>为了证明这一点，我们安排下述对应．</p>
+<p class="normaltext2">如果（x，y）是单位正方形中的点，x和y可以写成十进位小数形式，如</p>
+<p class="normaltext8">x＝0.a<sub>1</sub>a<sub>2</sub>a<sub>3</sub>a<sub>4</sub>…，</p>
+<p class="normaltext8">y＝0.b<sub>1</sub>b<sub>2</sub>b<sub>3</sub>b<sub>4</sub>…．</p>
+<p class="normaltext7">为了避免含糊，例如对有理数<img src="../Images/image00532.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>我们选用0.250000…而不用0.249999…．然后对正方形的一点（x，y），我们指定从0到1这线段上的一点</p>
+<p class="normaltext8">z＝0.a<sub>1</sub>b<sub>1</sub>a<sub>2</sub>b<sub>2</sub>a<sub>3</sub>b<sub>3</sub>a<sub>4</sub>b<sub>4</sub>…</p>
+<p class="normaltext7">与之对应．显然，正方形上不同的点（x，y）和（x′，y′）对应于线段上不同的点z和z′．所以正方形的基数不能超过线段的基数．</p>
+<p class="normaltext2">（事实上，刚才定义的对应在正方形的所有点的集合和单位线段的一个真子集之间是一对一的；例如，这正方形中没有一个点能和点0.2140909090…对应，因为对于数1／4我们选取的是0.25000…的形式，而不是0.24999…．但是可以把这个对应稍微修改一下，使整个正方形和整个线段之间是一一对应的，因而看到它们有相同的基数．）</p>
+<p class="normaltext2">一个类似的论证表明：立方体中点的基数不大于线段的基数．</p>
+<p class="normaltext2">虽然这些结果似乎都是和维数的直观思想矛盾的，但我们必须记住，我们定义的对应不是“连续的”．如果我们从0到1沿着线段连续地移动，则正方形上相对应的点将不形成一连续曲线，而是完全无秩序地出现．一个点集的维数不仅依赖于集合的基数，而且还依赖于这些点在空间中分布的方式．在第五章我们将重新回到这个问题上来．</p>
+<h4 class="title4" id="mllj20">4．反证法<sup class="suptext"><a id="fhzs2" href="part0013.xhtml#zhushi2">〔2〕</a></sup></h4>
+<p class="normaltext">基数理论仅仅是一般集合理论的一个方面．这个集合理论是康托不顾当时某些最卓越的数学家的严厉批评而创立的．其中许多批评者，例如克隆尼克和庞加莱（Poincaré），反对使“集”的一般概念含糊不清和定义某些集合时所用的非构造性的推理方法．</p>
+<p class="normaltext">对非构造性的推理方法的异议可以归结为，所谓<b>真正的</b>反证法究竟是什么？反证法本身是一种人们熟知的数学推理方法．为了证明一个命题A是真的，我们先作一个尝试性的假定，认为同A相反的命题A′为真．然后用一系列的推理得出一个与A′相矛盾的结论，从而证实了A′的荒谬．于是在“排中律”这个基本逻辑法则的基础上，由A′的荒谬证明了A的正确．</p>
+<p class="normaltext">在整个这本书中，我们会遇到许多例子，在那里反证法可以容易地改换为直接证明方法．但是反证法往往比较简捷，可以避免对直接目标来说是不必要的一些细节，而且，有一些定理，至今除了反证法以外还不可能给出其他的证明．甚至有这样的定理，它可以用反证法加以证明，但是由于这个定理本身的特点，即使在原则上也不可能给出直接的构造性的证明．例如在<a href="part0013.xhtml#b34">此处</a>的定理就是如此．在数学历史上曾有这样的不同时期，当数学家为了表明某个问题的可解性而致力于直接<b>构造</b>这解时，另有一些人则用反证法给出非构造性的证明而绕过构造的任务．</p>
+<p class="normaltext" id="a38">通过构造某种类型的对象的具体例子来证明该对象的存在，和说明如果不存在将导致矛盾，这二者之间是有本质差别的．在第一种情况，我们有一个实在的对象，而在第二种情况，我们有的仅仅是一个矛盾．最近有一些卓越的数学家鼓吹从数学中完全排除所有非构造性的证明．即使我们愿意采用这样的方案，但在目前，将是极为复杂的，甚至会部分地破坏富有生命力的数学整体．由于这个原因，毫不足怪，采用这个方案的“直觉主义”学派遇到了强大的阻力，即使最彻底的直觉主义者也不能总是履行他们的信条．</p>
+<h4 class="title4" id="mllj21">5．有关无限的悖论</h4>
+<p class="normaltext">虽然直觉主义者的那种不妥协的立场对大多数数学家来说是太极端了，但是当美妙的无限集理论中出现了一些逻辑上明显的悖论时，集论受到了严重的威胁．人们很快就发现，毫无约束地滥用“集合”的概念必然引出矛盾．有一个由罗素（R. Russell）揭示出的悖论可叙述如下．大多数集合不包含它自身作为元素．例如，全体整数集A只包含数为元素；A本身，不是一个整数，而是一个<b>整数集</b>，A并不包含它自身为元素．这样的集我们可以称之为“普通的”．有许多集可能包含它自身为元素，例如集S定义如下：“凡是可以用不超过三十个字来定义的集合是S的元素．”<sup class="suptext"><a id="fhzs3" href="part0013.xhtml#zhushi3">〔3〕</a></sup>可以看到，S是包含了它自身为一元素的．这样的集我们可以称之为“非普通集”．但无论如何，多数集将是普通的．为了排除“非普通”集的反常状态，我们可以只着眼于<b>所有普通集组成的集</b>，称它为C．集合C的每一个元素本身是一个集合，而且事实上是一个普通集．现在产生了一个问题：C本身是普通集还是非普通集？它必须是这二者之一．如果C是普通集，由于C定义为包含<b>所有</b>普通集，它包含了它本身作为一个元素．这样的话，C必须是非普通集，因为非普通集是那些包含了它本身为元素的集．这是一个矛盾．因此C必须是非普通集．但这时C包含了一个非普通集（即C本身）为其元素，这与C只包含普通集的定义相矛盾．因此，无论哪一种情形，仅仅是C的存在，就已经使我们陷入矛盾．</p>
+<h4 class="title4" id="mllj22">6．数学的基础</h4>
+<p class="normaltext">像这样的一些悖论，让罗素和其他一些人系统地研究数学和逻辑的基础．他们努力的最终目标是，为数学推理提供逻辑基础，使得能避免可能出现的矛盾，而且仍然包括被所有（或某些）数学家认为是重要的一切东西．虽然，这宏大的目标至今没有达到，而且可能永远不会达到，然而数理逻辑这门学科却已吸引了日益增多的研究者的注意．在这领域中有许多问题能用很简单的话来叙述，但却很难解决．我们举出<b>连续统假设</b>为例．这个假设是：没有一个集合，它的基数大于整数集的基数而小于实数集的基数．许多有趣的结果能从这个假设推出，但至今它却没有得到证明也没有被否定，尽管最近哥德尔（K. <img src="../Images/image00622.jpeg" class="tpzz1" alt="alt" style="height:1em"/>）证明了，如果在集合论基础上的通常的公理是相容的，则加上连续统假设而得到的扩大的公理体系也是相容的．这种问题最终归结为<b>数学的存在</b>意味着什么这样一个问题．幸运的是，数学的存在并不取决于对这个问题能否作出令人满意的回答．以伟大的数学家希尔伯特（Hilbert）为首的“形式主义”学派断言，在数学中，“存在”的意义简单说来就是“没有矛盾”．因此需要建立这样一组公理，从它们出发，能纯形式地推导出数学的一切，并且证明这组公理不导致矛盾．哥德尔和其他人最近的结果似乎表明，这个至少当初为希尔伯特所相信的方案是不能实现的．具有重要意义的是，希尔伯特关于数学的形式化结构的理论，本质上是基于直观方法的．即使在最纯粹的形式推导、逻辑推理或公理化方面，构造性直观总是以这种或那种方式，或明或暗地作为最活跃的因素在数学中起着作用．</p>
+<h3 class="title3" id="mllj23">§5　复数</h3>
+<h4 class="title4" id="mllj24">1．复数的起源</h4>
+<p class="normaltext">有许多原因使得数的概念必须越出实数连续统而引进所谓复数．人们必须认识到，在数学发展史上，在数学思想的发展过程中，所有这种推广和新的发明决不是个别人努力的结果．它们是具有继承性的逐步演化的过程的产物，而不能把主要功劳归于某个人．为了便于作形式计算，需要用到负数和有理数．它们并不像自然数那样直观和具体，直到中世纪末，数学家们在用到这些概念时才开始失去不舒适的感觉．直到19世纪中叶，数学家们才完全认识到，在一个扩充的数域中的运算，其逻辑和哲学基础本质上是形式主义的；这扩充的数域必须通过定义来创造，这些定义是随意的．但是，如果不能在更大的范围内保持在原来范围内通行的规则和性质，它是毫无用处的．这些扩充有时可以和“实际”对象相联系，通过这种方式为新的应用提供工具，这是最重要的，但是这只能提供一种动力而不是扩充的合理性的逻辑证明．</p>
+<p class="normaltext">最早要求应用复数是为了<b>解二次方程</b>．我们回忆一下线性方程ax＝b的概念，这里要确定的是未知量x．方程的解是x＝<img src="../Images/image00494.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．如果要求每一个带有整数系数a≠0和b的线性方程有解，必须引进有理数．像</p>
+<p class="picture"><img src="../Images/image00623.jpeg" alt="alt"/></p>
+<p class="normaltext6">这样的方程，在有理数域内不存在解x．这促使我们构造一个更广的实数域，使得在这个域中有解．然而即使实数域也没能足以提供二次方程的完整理论．像</p>
+<p class="picture"><img src="../Images/image00624.jpeg" alt="alt"/></p>
+<p class="normaltext6">这样一个简单的方程没有实数解，因为任意实数的平方不可能是负的．</p>
+<p class="normaltext">我们或者满足于宣称这个简单的方程不可解，或者按照我们所熟悉的扩充数的概念的途径引进使得这个方程可解的数．当我们用定义i<sup class="suptext">2</sup>＝-1引进新的符号i时，正是这样做的．当然，对于把数作为<b>计数</b>手段这样的概念来说，这个符号i是“虚单位”，是不起作用的．这纯粹是一个<b>符号</b>，它服从于基本规则i<sup class="suptext">2</sup>＝-1，而其价值将完全取决于究竟这个引进是否真正有用以及数系的这个扩充能不能实现．</p>
+<p class="normaltext">由于我们希望对符号i能像对普通实数那样进行加、乘，我们自然要造出像2i，3i，-i，2＋5i这样的符号，或更一般地，a＋bi这样的符号，这里a和b是任意两个实数．如果这些符号服从熟知的加法和乘法的交换律、结合律和分配律，则有，例如</p>
+<p class="picture"><img src="../Images/image00625.jpeg" alt="alt"/></p>
+<p class="normaltext">沿着这条思路，我们通过如下<b>定义</b>作系统地推广：一个形如a＋bi的符号，其中a和b是任意两个实数，称为带有<b>实部a</b>和<b>虚部b</b>的<b>复数</b>．在这些符号的加法和乘法运算中，除了i<sup class="suptext">2</sup>总是用-1来代替以外，将把i看成和一个普通实数一样．更确切地说，我们用规则</p>
+<p class="picture"><img src="../Images/image00626.jpeg" alt="alt"/></p>
+<p class="normaltext6">来定义复数的加法和乘法．特别的，我们有</p>
+<p class="picture"><img src="../Images/image00627.jpeg" alt="alt"/></p>
+<p class="normaltext6">在这些定义的基础上，容易验证交换律、结合律和分配律对复数成立．而且不仅两个复数相加和相乘，就是相减和相除，也仍然得出一个形如a＋bi的数，从而使得复数形成一个<b>域</b>（见<a href="part0013.xhtml#a14">此处</a>）：</p>
+<p class="picture"><img src="../Images/image00628.jpeg" alt="alt"/></p>
+<p class="normaltext6">（第二个等式当c＋di＝0＋0i时无意义，因为这时c<sup class="suptext">2</sup>＋d<sup class="suptext">2</sup>＝0，我们仍<b>必须排除用零</b>即<b>0＋0i作除数</b>．）例如</p>
+<p class="picture"><img src="../Images/image00629.jpeg" alt="alt"/></p>
+<p class="normaltext">复数域包含实数域为其子域．因为我们把复数a＋0i看成和实数a一样．另一方面，形如0＋bi＝bi的复数称为纯虚数．</p>
+<p class="normaltexta"><b>习题：</b>1）把<img src="../Images/image00630.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>表示为a＋bi的形式．</p>
+<p class="normaltext2">2）把<img src="../Images/image00631.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>表示为a＋bi的形式．</p>
+<p class="normaltext2">3）把<img src="../Images/image00632.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00633.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00634.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00635.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00636.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>表示为a＋bi的形式．</p>
+<p class="normaltextb">4）计算<img src="../Images/image00637.jpeg" class="tpzz1" alt="alt" style="height:1.1em"/>（提示：记<img src="../Images/image00637.jpeg" class="tpzz1" alt="alt" style="height:1.1em"/>＝x＋yi，平方，然后使实部等于实部，虚部等于虚部）．</p>
+<p class="normaltext" id="a18">通过引进符号i，我们把实数域扩充到符号a＋bi的域，在这域中，特殊的二次方程</p>
+<p class="normaltext5">x<sup class="suptext">2</sup>＝-1</p>
+<p class="normaltext6">有两个解x＝i，x＝-i．因为按定义i·i＝（-i）（-i）＝i<sup class="suptext">2</sup>＝-1．实际上，我们得到的比这更多．现在容易验证<b>每一个二次方程都有解</b>，这种方程可写成</p>
+<p class="picture"><img src="../Images/image00638.jpeg" alt="alt"/></p>
+<p class="normaltext6">的形式．从（6）我们有</p>
+<p class="picture"><img src="../Images/image00639.jpeg" alt="alt"/></p>
+<p class="normaltext6">现在如果b<sup class="suptext">2</sup>－4ac≥0，则<img src="../Images/image00640.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>是一个普通实数，而解（7）是实数，如果b<sup class="suptext">2</sup>－4ac＜0，则4ac－b<sup class="suptext">2</sup>＞0且有<img src="../Images/image00640.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＝<img src="../Images/image00641.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＝<img src="../Images/image00642.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，从而解（7）是复数．例如方程</p>
+<p class="normaltext5">x<sup class="suptext">2</sup>－5x＋6＝0</p>
+<p class="normaltext6">的解是</p>
+<p class="picture"><img src="../Images/image00643.jpeg" alt="alt"/></p>
+<p class="normaltext6">而方程</p>
+<p class="normaltext5">x<sup class="suptext">2</sup>－2x＋2＝0</p>
+<p class="normaltext6">的解是</p>
+<p class="picture"><img src="../Images/image00644.jpeg" alt="alt"/></p>
+<h4 class="title4" id="mllj25">2．复数的几何解释</h4>
+<p class="normaltext">为了解所有的二次和三次方程，早在16世纪数学家就不得不引进负数的平方根的表达式．但是他们对解释这些表达式的确切意义感到困惑不安，怀着迷信的敬畏感来看待它们．“虚数”这个词说明了这个表达式曾被认为是有某些虚构和不实际的东西．终于在十九世纪初，当这些数的重要性在许多数学分支中已变得明显时，复数运算有了一个简单的几何解释．这消除了人们对复数的合理性的长期疑虑．当然，从近代的观点来看并不是一定要有这样的解释．复数形式计算的合理性，可以由加法和乘法的形式定义直接推出．但是，大约同时由维赛尔（Wessel，1745～1818）、阿尔纲（Argand，1768～1822）和高斯给出的这个几何解释，使得这些运算从直观的角度来看似乎更为自然，这也是使复数在数学和物理中得到应用的极为重要的原因．</p>
+<p class="normaltext">这个几何解释就是把复数z＝x＋yi简单地用平面上带有直角坐标x，y的点来代表．z的实部是它的x坐标，虚部是它的y坐标．因而在复数和“数平面”上的点之间确立了一个对应，就像§2在直线，即数轴上的点和实数之间建立对应一样．数平面x轴上的点对应于实数z＝x＋0i，而y轴上的点对应于纯虚数z＝0＋yi．若</p>
+<p class="normaltext5">z＝x＋yi</p>
+<p class="normaltext6">为任一复数，则称复数</p>
+<p class="picture"><img src="../Images/image00645.jpeg" alt="alt"/></p>
+<p class="normaltext6">为z的<b>共轭</b>．在数平面上用点z关于x轴的镜面反射来表示<img src="../Images/image00646.jpeg" class="tpzz1" alt="alt" style="height:1em"/>．如果我们用ρ表示从原点到点z的距离，则由勾股定理得知</p>
+<p class="normaltext5">ρ<sup class="suptext">2</sup>＝x<sup class="suptext">2</sup>＋y<sup class="suptext">2</sup>＝（x＋yi）（x－yi）＝<img src="../Images/image00647.jpeg" class="tpzz1" alt="alt" style="height:1em"/></p>
+<p class="normaltext6">实数ρ＝<img src="../Images/image00648.jpeg" class="tpzz1" alt="alt" style="height:1.1em"/>称为z的<b>模</b>，记作</p>
+<p class="normaltext5">ρ＝｜z｜．</p>
+<p class="normaltext6">如果z在实轴上，它的模就是它通常的绝对值．模1的复数在以原点为圆心，1为半径的“单位圆”上．</p>
+<p class="normaltext" id="b38"><b>若｜z｜＝0</b>，<b>则z＝0．</b>这是因为｜z｜的定义就是z到原点的距离．再则，<b>两个复数的乘积的模等于它们模的乘积：</b></p>
+<p class="normaltext5">｜z<sub>1</sub>·z<sub>2</sub>｜＝｜z<sub>1</sub>｜·｜z<sup class="suptext">2</sup>｜．</p>
+<p class="normaltext6">这将由<a href="part0013.xhtml#b35">此处</a>要证明的一个更为一般的定理推出．</p>
+<p class="normaltexta"><b>习题：</b>1）从两个复数z<sub>1</sub>＝x<sub>1</sub>＋y<sub>1</sub>i，z<sub>2</sub>＝x<sub>2</sub>＋y<sub>2</sub>i的乘积定义直接证明上述定理．</p>
+<p class="normaltextb">2）从两个<b>实数</b>的乘积等于0必须而且只须有一个因子是0这个事实出发，对<b>复数</b>证明相应的定理（提示：用刚才叙述过的两个定理）．</p>
+<p class="normaltext">由z<sub>1</sub>＝x<sub>1</sub>＋y<sub>1</sub>i和z<sub>2</sub>＝x<sub>2</sub>＋y<sub>2</sub>i二复数相加的定义，我们有</p>
+<p class="normaltext5">z<sub>1</sub>＋z<sub>2</sub>＝（x<sub>1</sub>＋x<sub>2</sub>）＋（y<sub>1</sub>＋y<sub>2</sub>）i．</p>
+<p class="normaltext6">因此在数平面上点z<sub>1</sub>＋z<sub>2</sub>可以表示为以O，z<sub>1</sub>，z<sub>2</sub>为三个顶点的平行四边形的第四个顶点．两个复数的和的这个简单几何结构在许多应用中非常重要．由此我们可以推出一个重要结论：<b>两个复数的和的模不超过它们模的和</b>（和<a href="part0013.xhtml#b36">此处</a>比较）：</p>
+<p class="normaltext5">｜z<sub>1</sub>＋z<sub>2</sub>｜≤｜z<sub>1</sub>｜＋｜z<sub>2</sub>｜．</p>
+<p class="normaltext6">这是由三角形的任一边长不超过其他二边长之和这个事实推出来的．</p>
+<p class="normaltextc"><b>习题：</b>何时等式｜z<sub>1</sub>＋z<sub>2</sub>｜＝｜z<sub>1</sub>｜＋｜z<sub>2</sub>｜成立？</p>
+<p class="normaltext">x轴的正向和Oz直线间的交角称为z的<b>辐角</b>，记为φ（图22）．<img src="../Images/image00649.jpeg" class="tpzz1" alt="alt" style="height:1em"/>的模和z的模相等，</p>
+<p class="picture"><img src="../Images/image00650.jpeg" alt="alt"/></p>
+<p class="picture"><img src="../Images/image00651.jpeg" alt="alt"/></p>
+<p class="tz"><b>图22</b>　复数的几何表示点z的直角坐标为x，y</p>
+<p class="normaltext6">但是<img src="../Images/image00649.jpeg" class="tpzz1" alt="alt" style="height:1em"/>的辐角是z的辐角的负值，</p>
+<p class="picture"><img src="../Images/image00652.jpeg" alt="alt"/></p>
+<p class="picture"><img src="../Images/image00653.jpeg" alt="alt"/></p>
+<p class="tz"><b>图23</b>　复数加法的平行四边形法则</p>
+<p class="normaltext6">当然z的辐角不是唯一确定的，因为一个角加上或减去360°的任一整数倍，不影响它的终边的位置．因此</p>
+<p class="normaltext5">φ，φ＋360°，φ＋720°，φ＋1080°，…，</p>
+<p class="normaltext5">φ－360°，φ－720°，φ－1080°，…，</p>
+<p class="normaltext6">在图上都表示同样的角．借助模ρ和辐角φ，复数z可写成</p>
+<p class="picture"><img src="../Images/image00654.jpeg" alt="alt"/></p>
+<p class="normaltext6">的形式，因为按照正弦和余弦的定义（见<a href="part0018.xhtml#mllj4">此处</a>）有</p>
+<p class="normaltext5">x＝ρcosφ，y＝ρsinφ．</p>
+<p class="normaltext">例如，对z＝i，ρ＝1，φ＝90°，有i＝1（cos90°＋isin90°）；对z＝1＋i，ρ＝<img src="../Images/image00504.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，φ＝45°，有1＋i＝<img src="../Images/image00504.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>（cos45°＋isin45°）；对z＝1－i，ρ＝<img src="../Images/image00504.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，φ＝-45°，有1－i＝<img src="../Images/image00504.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>［cos（-45°）＋isin（-45°）］；对z＝-1＋<img src="../Images/image00509.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>i，ρ＝2，φ＝120°，有-1＋<img src="../Images/image00509.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>i＝2（cos120°＋isin120°）．读者应该代入三角函数的值来核实这些命题．</p>
+<p class="normaltext">当两个复数相乘时，三角表达式（8）有很大好处．如果</p>
+<p class="normaltext5">z＝ρ（cosφ＋isinφ），</p>
+<p class="normaltext6">而</p>
+<p class="normaltext5">z′＝ρ′（cosφ′＋isinφ′），</p>
+<p class="normaltext6">则</p>
+<p class="normaltext5">z·z′＝ρρ′［（cosφcosφ′－sinφsinφ′）＋i（cosφsinφ′＋sinφcosφ′）］．</p>
+<p class="normaltext6">现在用正弦和余弦的基本加法定理：</p>
+<p class="normaltext5">cosφcosφ′－sinφsinφ′＝cos（φ＋φ′），</p>
+<p class="normaltext5">cosφsinφ′＋sinφcosφ′＝sin（φ＋φ′），</p>
+<p class="normaltext6">有</p>
+<p class="picture"><img src="../Images/image00655.jpeg" alt="alt"/></p>
+<p class="normaltext6">这是模为ρρ′，辐角为φ＋φ′的复数的三角表示式．换句话说，<b>两个复数相乘，就是把它们的模相乘而把它们的辐角相加</b>（图24）．因此我们看到复数的乘法有时是通过<b>旋转</b>来实现的．为确切起见，我们把从原点指向点z的有向线段称为向量z，则ρ＝｜z｜是它的长度．设z′是单位圆上的一个数，则有ρ′＝1．这时用z′乘z就是简单地把向量z旋转一个角φ′．如果ρ′≠1，则在旋转之后，向量的长度要乘以ρ′．读者可以用z<sub>1</sub>＝i（旋转90°），z<sub>2</sub>＝-i（沿相反方向旋转90°），z<sub>3</sub>＝1＋i，z<sub>4</sub>＝1－i去乘各种数来说明这个事实．</p>
+<p class="picture"><img src="../Images/image00656.jpeg" alt="alt"/></p>
+<p class="tz"><b>图24</b>　两个复数相乘，辐角相加，模相乘</p>
+<p class="normaltext">当z＝z′时，公式（9）有一个特别重要的结果，因为这时我们有</p>
+<p class="normaltext5">z<sup class="suptext">2</sup>＝ρ<sup class="suptext">2</sup>（cos2φ＋isin2φ）．</p>
+<p class="normaltext6">再用z去乘这个结果，我们得到</p>
+<p class="normaltext5">z<sup class="suptext">3</sup>＝ρ<sup class="suptext">3</sup>（cos3φ＋isin3φ）．</p>
+<p class="normaltext6">照此一直进行下去得</p>
+<p class="picture"><img src="../Images/image00657.jpeg" alt="alt"/></p>
+<p class="normaltext6" id="a32">其中n为任意整数．特别如果z是<b>单位圆</b>上的点，即ρ＝1，我们得到为英国数学家棣莫弗（A. De Moivre，1667～1754）所发现的公式：</p>
+<p class="picture"><img src="../Images/image00658.jpeg" alt="alt"/></p>
+<p class="normaltext" id="a23">这个公式是初等数学中最引人注目并且最有用的关系式．可以举个例子来说明这一点．我们可以对n＝3应用这个公式，且按二项式公式</p>
+<p class="normaltext5">（u＋v）<sup class="suptext">3</sup>＝u<sup class="suptext">3</sup>＋3u<sup class="suptext">2</sup>v＋3uv<sup class="suptext">2</sup>＋v<sup class="suptext">3</sup>，</p>
+<p class="normaltext6">把左边展开，得到关系式</p>
+<p class="normaltext5">cos3φ＋isin3φ＝cos<sup class="suptext">3</sup>φ－3cosφsin<sup class="suptext">2</sup>φ＋i（3cos<sup class="suptext">2</sup>φsinφ－sin<sup class="suptext">3</sup>φ）．</p>
+<p class="normaltext" id="b35"><b>两个复数之间的这样一个等式相当于实数之间的一对等式．</b>因为当两个复数相等时，实部和虚部必须同时分别相等．因此我们有</p>
+<p class="normaltext5">cos3φ＝cos<sup class="suptext">3</sup>φ－3cosφsin<sup class="suptext">2</sup>φ，</p>
+<p class="normaltext5">sin3φ＝3cos<sup class="suptext">2</sup>φsinφ－sin<sup class="suptext">3</sup>φ．</p>
+<p class="normaltext6">利用关系式</p>
+<p class="normaltext5">cos<sup class="suptext">2</sup>φ＋sin<sup class="suptext">2</sup>φ＝1，</p>
+<p class="normaltext6">最后我们得到</p>
+<p class="picture"><img src="../Images/image00659.jpeg" alt="alt"/></p>
+<p class="normaltext6">对任意n容易得到用sinφ和cosφ的幂分别表示sinnφ和cosnφ的类似公式．</p>
+<p class="normaltexta"><b>习题：</b>1）找出sin4φ和cos4φ的相应公式．</p>
+<p class="normaltext2" id="b43">2）证明对单位圆上的点z＝cosφ＋isinφ，有<img src="../Images/image00660.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝cosφ－isinφ．</p>
+<p class="normaltext2">3）不经过计算而证明<img src="../Images/image00661.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的模总是1．</p>
+<p class="normaltext2">4）设z<sub>1</sub>，z<sub>2</sub>是二复数，证明z<sub>1</sub>－z<sub>2</sub>的辐角等于由z<sub>2</sub>到z<sub>1</sub>的向量与实轴的夹角．</p>
+<p class="normaltext2">5）在点z<sub>1</sub>，z<sub>2</sub>，z<sub>3</sub>做成的三角形中，标明复数<img src="../Images/image00662.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的辐角．</p>
+<p class="normaltext2">6）证明有相同辐角的两个复数的比是实数．</p>
+<p class="normaltext2">7）证明：对四个复数z<sub>1</sub>，z<sub>2</sub>，z<sub>3</sub>，z<sub>4</sub>来说，如果<img src="../Images/image00663.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>和<img src="../Images/image00664.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>有相同的辐角，则这四个数同在一个圆上或一条直线上．反之亦然．</p>
+<p class="normaltext2" id="b13">8）证明四个点z<sub>1</sub>，z<sub>2</sub>，z<sub>3</sub>，z<sub>4</sub>同在一个圆上或一条直线上必须而且只须</p>
+<p class="picture"><img src="../Images/image00665.jpeg" alt="alt"/></p>
+<p class="normaltext7">是实数．</p>
+<h4 class="title4" id="mllj26">3．棣莫弗公式和单位根</h4>
+<p class="normaltext">一个数a的n次方根是一个使得b<sup class="suptext">n</sup>＝a的数b．特别是数1有两个平方根1和-1，因为1<sup class="suptext">2</sup>＝（-1）<sup class="suptext">2</sup>＝1．数1只有一个实的立方根1，但它却有四个四次方根，实数1和-1，虚数i和-i．这些事实使我们想到，在复数域中可能还有1的两个立方根，从而合起来共有三个．从棣莫弗公式立刻可以说明确实如此．</p>
+<p class="normaltext">我们将看到在<b>复数域中，1恰有n个不同的n次方根，它们可以用单位圆的一个内接正n边形的顶点来表示，z＝1是其中之一．</b>这从图25几乎立刻就看清楚了（画的是n＝12的情形）．多边形的第一个顶点是1．下一个是</p>
+<p class="picture"><img src="../Images/image00666.jpeg" alt="alt"/></p>
+<p class="tz"><b>图25</b>　1的12次方根</p>
+<p class="picture"><img src="../Images/image00667.jpeg" alt="alt"/></p>
+<p class="normaltext6">因为它的辐角必须是周角360°的n分之一．再下一个顶点是α·α＝α<sup class="suptext">2</sup>，因为把向量α旋转<img src="../Images/image00668.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>角，我们就得到它．再下一个是α<sup class="suptext">3</sup>，等等．第n步后，我们最终回到顶点1，即我们有</p>
+<p class="normaltext5">α<sup class="suptext">n</sup>＝1．</p>
+<p class="normaltext6">这也可以由公式（11）导出，因为</p>
+<p class="picture"><img src="../Images/image00669.jpeg" alt="alt"/></p>
+<p class="normaltext6">可见α<sup class="suptext">1</sup>＝α是方程x<sup class="suptext">n</sup>＝1的一个根．对下一个顶点α<sup class="suptext">2</sup>＝<img src="../Images/image00670.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＋<img src="../Images/image00671.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，同样为真，这一点由</p>
+<p class="normaltext5">（α<sup class="suptext">2</sup>）<sup class="suptext">n</sup>＝α<sup class="suptext">2n</sup>＝（α<sup class="suptext">n</sup>）<sup class="suptext">2</sup>＝1<sup class="suptext">2</sup>＝1，</p>
+<p class="normaltext6">或由棣莫弗公式</p>
+<p class="picture"><img src="../Images/image00672.jpeg" alt="alt"/></p>
+<p class="normaltext6">可以看出．用同样的方法，我们看到所有这n个数</p>
+<p class="normaltext5">1，α，α<sup class="suptext">2</sup>，α<sup class="suptext">3</sup>，…，α<sup class="suptext">n－1</sup></p>
+<p class="normaltext6">都是1的n次方根．这指数序列再往后，或利用负指数，都不会产生新的根．因为α<sup class="suptext">-1</sup>＝<img src="../Images/image00673.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image00674.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝α<sup class="suptext">n－1</sup>，而α<sup class="suptext">n</sup>＝1，α<sup class="suptext">n＋1</sup>＝α<sup class="suptext">n</sup>·α＝1·α＝α，等等，从而只是简单重复以前的值．可以说明没有其他的n次方根，这一点留给读者做练习．</p>
+<p class="normaltext" id="a41">如果n是偶数，则n边形有一个顶点在点-1处，这同-1是1的n次方根这个代数事实相符．</p>
+<p class="normaltext">1的n次方根所满足的方程</p>
+<p class="picture"><img src="../Images/image00675.jpeg" alt="alt"/></p>
+<p class="normaltext6">是n次的，但它容易化为一个（n－1）次的方程．我们利用代数公式</p>
+<p class="picture"><img src="../Images/image00676.jpeg" alt="alt"/></p>
+<p class="normaltext6">由于两个数的积为零<b>必须而且只须</b>其中一个数是零，所以（14）的左边为零仅当右边两个因子中有一个为零，即或者x＝1，或者等式</p>
+<p class="picture"><img src="../Images/image00677.jpeg" alt="alt"/></p>
+<p class="normaltext6">成立．这时这个方程必然为α，α<sup class="suptext">2</sup>，…，α<sup class="suptext">n－1</sup>这些根所满足，它称为<b>分圆</b>（圆的分割）<b>方程</b>．例如1的三次复根</p>
+<p class="normaltext5">α＝cos120°＋isin120°＝<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>（-1＋i<img src="../Images/image00509.jpeg" class="tpzz1" alt="alt" style="height:1.1em"/>），</p>
+<p class="normaltext5">α<sup class="suptext">2</sup>＝cos240°＋isin240°＝<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>（-1－i<img src="../Images/image00509.jpeg" class="tpzz1" alt="alt" style="height:1.1em"/>），</p>
+<p class="normaltext6">是方程</p>
+<p class="normaltext5">x<sup class="suptext">2</sup>＋x＋1＝0</p>
+<p class="normaltext6">的根，读者通过直接代入容易看出这一点．同样地，1的五次方根，除1本身外，都满足方程</p>
+<p class="picture"><img src="../Images/image00678.jpeg" alt="alt"/></p>
+<p class="normaltext6">为了作一个正五边形，我们必须解这个四次方程．通过简单的代数方法，可以把它化为量ω＝x＋<img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的二次方程．我们用x<sup class="suptext">2</sup>去除（16）而且将各项重新排列，得</p>
+<p class="picture"><img src="../Images/image00680.jpeg" alt="alt"/></p>
+<p class="normaltext6">由于<img src="../Images/image00681.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝x<sup class="suptext">2</sup>＋<img src="../Images/image00682.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＋2，我们得到方程</p>
+<p class="normaltext5">ω<sup class="suptext">2</sup>＋ω－1＝0．</p>
+<p class="normaltext6">由第一小节公式（7）得知，这方程有根</p>
+<p class="normaltext5">ω<sub>1</sub>＝<img src="../Images/image00683.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，ω<sub>2</sub>＝<img src="../Images/image00684.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext6">因此，1的五次复根是下列两个二次方程的根，</p>
+<p class="normaltext5">x＋<img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝ω<sub>1</sub>或x<sup class="suptext">2</sup>＋<img src="../Images/image00685.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＋1＝0，</p>
+<p class="normaltext5">x＋<img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝ω<sub>2</sub>或x<sup class="suptext">2</sup>＋<img src="../Images/image00686.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＋1＝0．</p>
+<p class="normaltext6">读者利用上面已经用过的公式可以解出它们．</p>
+<p class="normaltexta"><b>习题：</b>1）求1的六次方根．</p>
+<p class="normaltext2">2）求（1＋i）<sup class="suptext">11</sup>．</p>
+<p class="normaltext2">3）求出<img src="../Images/image00687.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，<img src="../Images/image00688.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，<img src="../Images/image00689.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，<img src="../Images/image00690.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>的所有不同值．</p>
+<p class="normaltext2">4）计算<img src="../Images/image00691.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>（i<sup class="suptext">7</sup>－i<sup class="suptext">-7</sup>）．</p>
+<h4 class="title4" id="mllj27">*4．代数基本定理</h4>
+<p class="normaltext">不仅每一个形如ax<sup class="suptext">2</sup>＋bx＋c＝0或形如x<sup class="suptext">n－1</sup>＝0的方程在复数域中是可解的，而且下述事实也成立：<b>每一个带有实或复系数的任意n次代数方程</b></p>
+<p class="picture"><img src="../Images/image00692.jpeg" alt="alt"/></p>
+<p class="normaltext6"><b>在复数域中有解</b>．对三次、四次方程来说，这个结论是在十六世纪由塔尔塔利亚（Tartaglia）、卡尔坦（Cardan）和其他一些人得出的，他们用本质上类似于二次方程的求解公式（虽然远为复杂）来解这样的方程．对于五次和更高次的一般方程，进行了几乎二百年的深入研究，然而用同样方法求解的所有努力都失败了．年轻的高斯在他的博士论文中（1799年）成功地给出了解的<b>存在</b>的第一个完整的证明时，这是一个巨大的成就，尽管把用有理算式和根式来表示小于五次的方程的解的经典公式加以推广的问题，在当时仍然没有得到解答（见<a href="part0015.xhtml#a16">此处</a>）．</p>
+<p class="normaltext">高斯的定理断言，<b>对于任何一个形如（17）的代数方程，其中n是一正整数，而这些a是任意实数或复数，至少存在一复数α＝c＋di，使</b></p>
+<p class="normaltext5">f（α）＝0．</p>
+<p class="normaltext6">数α称为方程（17）的一个<b>根</b>．在<a href="part0017.xhtml#mllj19">此处</a>将给出这个定理的一个证明．现在假定它成立，则我们能够证明人所共知的<b>代数基本定理</b>（称它为复数系的基本定理更为合适）：<b>每一个n次多项式</b></p>
+<p class="picture"><img src="../Images/image00693.jpeg" alt="alt"/></p>
+<p class="normaltext6"><b>可以恰好分解为n个因式的乘积</b></p>
+<p class="picture"><img src="../Images/image00694.jpeg" alt="alt"/></p>
+<p class="normaltext6" id="b58"><b>其中α<sub>1</sub>，α<sub>2</sub>，α<sub>3</sub>，…，α<sub>n</sub>是复数，是方程f（x）＝0的根．</b>我们举一个例子来说明这个定理，多项式x<sup class="suptext">4</sup>－1可以分解为</p>
+<p class="normaltext5">f（x）＝（x－1）（x－i）（x＋i）（x＋1）．</p>
+<p class="normaltext6">这些α是方程f（x）＝0的根，这一点从因式分解（19）来看是显然的，因为对x＝α<sub>r</sub>，f（x）的一个因子等于零，从而f（x）本身等于零．</p>
+<p class="normaltext" id="a50">在某些情形，一个n次多项式f（x）的因子（x－α<sub>1</sub>），（x－α<sub>2</sub>），…不是各各不同的，例如</p>
+<p class="normaltext5">f（x）＝x<sup class="suptext">2</sup>－2x＋1＝（x－1）（x－1），</p>
+<p class="normaltext6">只有一个根x＝1，它“算作两次”或者说是“二重的”．在任何情况下，一个n次多项式的不同因子不能多于n个，而相应的方程的根不能多于n个．</p>
+<p class="normaltext">为证明因式分解定理，我们再次用代数等式</p>
+<p class="picture"><img src="../Images/image00695.jpeg" alt="alt"/></p>
+<p class="normaltext6">对α＝1来说，它就是等比级数公式．由于我们假定高斯定理是对的，我们可以假设α＝α<sub>1</sub>是方程（17）的一个根，所以有</p>
+<p class="picture"><img src="../Images/image00696.jpeg" alt="alt"/></p>
+<p class="normaltext6">从f（x）中减去它并将各项重新排列，我们得到等式：</p>
+<p class="picture"><img src="../Images/image00697.jpeg" alt="alt"/></p>
+<p class="normaltext6">现在，由（20），我们能从（21）的每一项中提出因子（x－α<sub>1</sub>），使得每一项剩下的因子的次数都降一次．因此，将各项重新排列，我们得到</p>
+<p class="normaltext5">f（x）＝（x－α<sub>1</sub>）g（x），</p>
+<p class="normaltext6">这里g（x）是n－1次多项式，</p>
+<p class="normaltext5">g（x）＝x<sup class="suptext">n－1</sup>＋b<sub>n－2</sub>x<sup class="suptext">n－2</sup>＋…＋b<sub>1</sub>x＋b<sub>0</sub>．</p>
+<p class="normaltext6">（对我们的目的来说，完全无需计算系数b<sub>k</sub>．）现在我们可以对g（x）施以同样的办法，根据高斯定理，存在方程g（x）＝0的一个根α<sub>2</sub>，使得</p>
+<p class="normaltext5">g（x）＝（x－α<sub>2</sub>）h（x），</p>
+<p class="normaltext6">这里h（x）是一个n－2次多项式．用同样的方式一共进行n－1次（当然这句话仅仅是用数学归纳法进行论证的代用语），我们最后得到完全的分解</p>
+<p class="picture"><img src="../Images/image00698.jpeg" alt="alt"/></p>
+<p class="normaltext">从（22）得知，不仅复数α<sub>1</sub>，α<sub>2</sub>，…，α<sub>n</sub>是方程（17）的根，而且它<b>再没有</b>其他的根，因为如果y是方程（17）的一个根，则由（22）有</p>
+<p class="normaltext5">f（y）＝（y－α<sub>1</sub>）（y－α<sub>2</sub>）…（y－α<sub>n</sub>）＝0．</p>
+<p class="normaltext6">我们从<a href="part0013.xhtml#b38">此处</a>已经看到，复数的乘积等于零必须而且<b>只须</b>其中一个因子等于零．因此必有一个因子（y－α<sub>r</sub>）等于零，即y必须等于α<sub>r</sub>，这正是要证明的．</p>
+<h3 class="title3" id="mllj28">*§6　代数数和超越数</h3>
+<h4 class="title4" id="mllj29">1．定义和存在性</h4>
+<p class="normaltext">任意一个数x，不论是实数还是复数，如果满足某个形如</p>
+<p class="picture"><img src="../Images/image00699.jpeg" alt="alt"/></p>
+<p class="normaltext6" id="a35">的代数方程，其中a<sub>k</sub>是整数，这个数就是一个<b>代数数</b>．例如<img src="../Images/image00504.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>是一个代数数，因为它满足方程</p>
+<p class="normaltext5">x<sup class="suptext">2</sup>－2＝0．</p>
+<p class="normaltext6">类似地，一个三次、四次、五次或任意高次的整系数方程的任意一个根是代数数，不论这个根能否用根式表示．代数数的概念是有理数的自然推广，有理数就是n＝1时的特殊情况．</p>
+<p class="normaltext">并不是每个实数都是代数数．康托证明了，全体代数数是<b>可数的</b>，又因为实数是不可数的，因此必定存在不是代数数的实数．</p>
+<p class="normaltext">说明代数数的集合为可数的方法如下：对每一个形如（1）的方程，指定正整数</p>
+<p class="normaltext5">h＝｜a<sub>n</sub>｜＋｜a<sub>n－1</sub>｜＋…＋｜a<sub>1</sub>｜＋｜a<sub>0</sub>｜＋n</p>
+<p class="normaltext6">为它的“高”．对每一个<b>固定的值</b>h，仅有<b>有限个</b>形如（1）的方程的高为h．这些方程中的每一个至多有n个不同的根，因此高为h的方程只能有有限个代数数．我们能把所有代数数排成一个序列，开始是那些高为1的，然后取高为2的，等等．</p>
+<p class="normaltext" id="a24">有了代数数是可数的这一证明，就保证了不是代数数的实数是存在的，这样的数称为<b>超越数</b>，因为，正如欧拉所说的，它们“超越了代数方法的能力之外”．</p>
+<p class="normaltext">康托关于超越数存在的证明，很难说是构造性的．在理论上，把代数方程的根的十进位小数表达式列成表，对它采用康托的对角线方法，就可以构造一个超越数．但是这个方法是很不实际的，以致我们不论用十进制或者其他形式的小数，都无法把那个数的表达式真正写出来．况且关于超越数，人们最感兴趣的问题是证明某些特定的数，例如π和e，确实是超越数（π和e将在<a href="part0018.xhtml#mllj14">此处</a>和<a href="part0018.xhtml#mllj13">此处</a>加以定义）．</p>
+<h4 class="title4" id="mllj30">**2．柳维尔定理和超越数的构造</h4>
+<p class="normaltext">柳维尔（J. Liouville，1809～1882）在康托之前给出了一个关于超越数存在的证明．柳维尔的证明实际上是可以<b>造出</b>这样的数来的．与康托的证明相比，有些地方它是更困难的，而且，同仅仅是存在性的证明来比较的话，它算最构造性的了．这里给出的证明仅仅是针对那些程度较高的读者的，虽然并不需要用到中学数学以外的知识．</p>
+<p class="normaltext">柳维尔说明了无理代数数是那些不能用有理数以很高的精确度来逼近的数，除非用以逼近的分数的分母很大．</p>
+<p class="normaltext">假设数z满足整系数代数方程</p>
+<p class="picture"><img src="../Images/image00700.jpeg" alt="alt"/></p>
+<p class="normaltext6">但不满足次数更低的整系数方程，这时就称z为一个<b>n次</b>代数数．例如<img src="../Images/image00504.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>是一个二次代数数，因为它满足方程x<sup class="suptext">2</sup>－2＝0，而不满足一次方程；z＝<img src="../Images/image00508.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>是三次的，因为它满足方程x<sup class="suptext">3</sup>－2＝0，而在第三章我们将看到它不满足次数更低的方程．任何次数为n＞1的代数数不可能是有理数，因为有理数<img src="../Images/image00505.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>满足一次方程qx－p＝0．现在每一个无理数z都能以我们所希望的任何精确度用一个有理数逼近；这意味着，我们能找出一系列分母越来越大的有理数列</p>
+<p class="picture"><img src="../Images/image00701.jpeg" alt="alt"/></p>
+<p class="normaltext6">使</p>
+<p class="picture"><img src="../Images/image00702.jpeg" alt="alt"/></p>
+<p class="normaltext6">柳维尔定理断言，对次数为n＞1的任意代数数z，这样一个逼近，其精确度必然达不到<img src="../Images/image00703.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，即不等式</p>
+<p class="picture"><img src="../Images/image00704.jpeg" alt="alt"/></p>
+<p class="normaltext6">对充分大的分母q，必然成立．</p>
+<p class="normaltext">现在我们来证明这个定理．但是，我们首先要说明如何应用这个定理来构造超越数．我们取数</p>
+<p class="picture"><img src="../Images/image00705.jpeg" alt="alt"/></p>
+<p class="normaltext6">（关于符号n!的定义见<a href="part0011.xhtml#b40">此处</a>）．这里a<sub>i</sub>是从1到9的任意数码（例如，我们可以取所有a<sub>i</sub>都等于1）．这样一个数，其特点是由单个的非零数码隔开着的一串数目增长很快的零．在z的展式中若只取到a<sub>m</sub>·10<sup class="suptext">-m!</sup>这一项为止，我们把这样取的有限十进位小数记为z<sub>m</sub>，则</p>
+<p class="picture"><img src="../Images/image00706.jpeg" alt="alt"/></p>
+<p class="normaltext6">假设z是n次代数数，则在（3）中令<img src="../Images/image00505.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝z<sub>m</sub>＝<img src="../Images/image00707.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，推出对充分大的m，有</p>
+<p class="picture"><img src="../Images/image00708.jpeg" alt="alt"/></p>
+<p class="normaltext6">把此式和（4）合在一起，我们有</p>
+<p class="picture"><img src="../Images/image00709.jpeg" alt="alt"/></p>
+<p class="normaltext6">所以（n＋1）m!＞（m＋1）!－1对充分大的m成立．但此式对于大于n的任意m值都是不对的（对此读者应详细加以证明）．这样，就产生了矛盾．因此z是超越数．</p>
+<p class="normaltext">剩下的问题是证明柳维尔定理．假设z是一个满足（1）的次数为n＞1的代数数，使得</p>
+<p class="picture"><img src="../Images/image00710.jpeg" alt="alt"/></p>
+<p class="normaltext6">设z<sub>m</sub>＝<img src="../Images/image00711.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>为一有理数序列且z<sub>m</sub>→z，则</p>
+<p class="picture"><img src="../Images/image00712.jpeg" alt="alt"/></p>
+<p class="normaltext6">用（z<sub>m</sub>－z）除这等式的两边，再利用代数公式</p>
+<p class="normaltext5"><img src="../Images/image00713.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝u<sup class="suptext">n－1</sup>＋u<sup class="suptext">n－2</sup>v＋u<sup class="suptext">n－3</sup>v<sup class="suptext">2</sup>＋…＋uv<sup class="suptext">n－2</sup>＋v<sup class="suptext">n－1</sup>，</p>
+<p class="normaltext6">我们得到</p>
+<p class="picture"><img src="../Images/image00714.jpeg" alt="alt"/></p>
+<p class="normaltext6">由于z<sub>m</sub>趋向于极限z，则对充分大的m，它和z的差将小于1．因此对充分大的m，我们能写出如下的粗略估计：</p>
+<p class="picture"><img src="../Images/image00715.jpeg" alt="alt"/></p>
+<p class="normaltext6">M是一个固定数，因为在我们的推理中z是固定的．如果我们现在把m取得如此之大，使得z<sub>m</sub>＝<img src="../Images/image00716.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>中的分母q<sub>m</sub>大于M，则</p>
+<p class="picture"><img src="../Images/image00717.jpeg" alt="alt"/></p>
+<p class="normaltext6">为简洁起见，我们用p表示p<sub>m</sub>，q表示q<sub>m</sub>，则有</p>
+<p class="picture"><img src="../Images/image00718.jpeg" alt="alt"/></p>
+<p class="normaltext6">现在，有理数z<sub>m</sub>＝<img src="../Images/image00505.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>不可能是f（x）＝0的根，因为如果它是的话，我们就能从f（x）中消去因子（x－z<sub>m</sub>），这时z将满足一个次数低于n的方程．因此有f（z<sub>m</sub>）≠0．但（9）的右端的分子是一个整数，所以它至少必须等于1．因而从（8）和（9），我们有</p>
+<p class="picture"><img src="../Images/image00719.jpeg" alt="alt"/></p>
+<p class="normaltext6">定理得证．</p>
+<p class="normaltext">近几十年间，研究用有理数逼近代数数的可能性的问题有了更进一步的发展．例如，挪威数学家图埃（A. Thue）（1863～1922）证明了在柳维尔不等式（3）中指数n＋1可以用<img src="../Images/image00720.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＋1代替．后来西格尔（C. L. Siegel）给出了一个更强的结果，对充分大的n来说，对指数<img src="../Images/image00721.jpeg" class="tpzz1" alt="alt" style="height:1.1em"/>，不等式成立．</p>
+<p class="normaltext">超越数的问题向来是使数学家着迷的．但直到最近，那些本身很有趣的数中，只有很少几个能被证明是超越数．（在第三章我们将讨论π的超越性质，由此导出用圆规和直尺作一个面积等于圆的正方形是不可能的．）1900年，在巴黎的国际数学会上，希尔伯特在一个著名的演讲中，提出了23个数学问题，它们都是易于叙述的，有些用初等和普通的语言就可以叙述，但是都还没有得到解决．而且看来用当时已有的数学方法一时还无法接近它们．这些“希尔伯特问题”为后期数学的发展提出了挑战．到目前为止，这些问题几乎全都解决了，而且它们的解决往往意味着数学在观点上和一般方法上获得了一定的进步．其中有一个似乎是最没有希望的问题，就是要证明</p>
+<p class="picture"><img src="../Images/image00722.jpeg" alt="alt"/></p>
+<p class="normaltext6">是超越数，或甚至于只要证明它是无理数．几乎三十年内，稍微有一点可望攻克这问题的想法都不存在．终于，西格尔和年轻的苏联人盖尔芳特（A. Gelfond）独立地发现了一些新方法来证明数学上许多重要的数的超越性质，其中包括希尔伯特数<img src="../Images/image00722.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>和更为一般的任意数a<sup class="suptext">b</sup>，这里a是0和1以外的代数数，而b是任意无理代数数．</p>
+
+<p class="note">注释</p>
+<p class="note1"><a id="zhushi1" href="part0013.xhtml#fhzs1">〔1〕</a>不熟悉这门学科的读者，可以在书后附录中找到一系列解析几何的基本练习．</p>
+<p class="note1"><a id="zhushi2" href="part0013.xhtml#fhzs2">〔2〕</a>本书中凡是提到“反证法”一词，直译应是“间接证法”（indirect proof）．——译注</p>
+<p class="note1"><a id="zhushi3" href="part0013.xhtml#fhzs3">〔3〕</a>由于英文和中文的不同，翻译时把原文字数二十改为“三十”．——译注</p>
+</body></html>

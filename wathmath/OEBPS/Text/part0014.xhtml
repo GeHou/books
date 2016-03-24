@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+		"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN"><head><meta name="generator" content="HTML Tidy，see www.w3.org"/>
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+<title>什么是数学：对思想和方法的基本研究（中文版第三版）</title>
+<link href="../Styles/style0001.css" rel="stylesheet" type="text/css"/>
+</head><body>
+<h1 class="title1">第2章补充　集合代数</h1>
+<h4 class="title4" id="mllj1">1．一般理论</h4>
+<p class="normaltext">由对象组成的<b>类</b>或<b>集</b>的概念是数学中最基本的概念之一．集是用任意一种性质或属性<img src="../Images/image00723.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>来定义的，这种属性对我们所考虑的每个对象来说，或者具备，或者不具备，二者必居其一．具备这个性质的对象形成了一个相应的集A．例如，我们若考虑整数，而性质<img src="../Images/image00723.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>指的是素数，则相应的集A是全体素数集2，3，5，7，…．</p>
+<p class="normaltext">集的数学研究是基于这样的事实：一些集通过某些运算可以形成另外的集，如同数可以通过加法和乘法形成另外的数一样．关于集的运算的研究形成了“集合代数”，它和数的代数在形式上有许多相似之处，同时也有所不同．代数方法能用于研究像集这样的非数值对象，这个事实说明了现代数学的概念具有很大的普遍性．近些年来，已清楚地显示了集合代数能用以阐明象测度论、概率论这样的许多数学分支；它也有助于系统地把数学概念归结到它们的逻辑基础上．</p>
+<p class="normaltext">下面，I表示具有任意性质的对象的一个固定集，称为全集或论述总体，而用A，B，C，…表示I的任意子集．如果I表示所有整数组成的集，A可以表示所有偶数组成的集，B表示所有奇数组成的集，C表示全体素数之集，等等．或者，I可以表示一个固定平面上所有点的集，A表示这平面上某个圆内的所有点的集，B表示这平面上另外某个圆内的所有点的集，等等．为方便起见，我们把集I本身和不包含任何对象的“空集”O也作为I的“子集”．这个人为的推广，其目的是为了保持这样的规则，即对每一个性质<img src="../Images/image00723.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，对应着I的一个子集A，使A的所有对象都具备这个性质．如果<img src="../Images/image00723.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>是某个普遍成立的性质，例如，人们用一个显然的等式x＝x来确定的性质，相应的I的子集将是I本身，因为每一个对象都满足这个等式．如果<img src="../Images/image00723.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>是某个自相矛盾的性质，如x≠x，相应的子集将不包含任何对象，可以用符号O来表示．</p>
+<p class="normaltext">如果集A的对象没有不属于集B的，就称集A是集B的<b>子集</b>，记作</p>
+<p class="normaltext5">A⊂B或B⊃A．</p>
+<p class="normaltext6">例如所有10的倍数的整数集A是所有5的倍数的整数集B的子集，因为每一个10的倍数的整数也是5的倍数．A⊂B这个论断并不排除B⊂A的可能性．如果两个关系都成立，我们说集A和集B是相等的，并写成</p>
+<p class="normaltext5">A＝B．</p>
+<p class="normaltext6">要使这个等式成立，A的每一个对象必须是B的一个对象，反之亦然，从而使集A和集B恰好包含着同样的对象．</p>
+<p class="normaltext">关系式A⊂B与实数之间的次序关系a≤b有许多类似之处．特别有以下命题成立：</p>
+<p class="normaltext">1）A⊂A．</p>
+<p class="normaltext">2）若A⊂B且B⊂A，则A＝B．</p>
+<p class="normaltext">3）若A⊂B且B⊂C，则A⊂C．</p>
+<p class="normaltext6">由于这个原因，我们也称A⊂B为“次序关系”．它与数的关系a≤b的主要区别在于，对每一对数a和b，关系式a≤b或b≤a至少总有一个成立，对集合则不然．例如，若A表示由整数1，2，3组成的集</p>
+<p class="normaltext5">A＝｛1，2，3｝，</p>
+<p class="normaltext6">B是整数2，3，4组成的集</p>
+<p class="normaltext5">B＝｛2，3，4｝，</p>
+<p class="normaltext6">则既没有A⊂B，也没有B⊂A．由此，我们说关系式A⊂B确定了集合之间的一个半序关系，而关系式a≤b确定了数之间的一个全序关系．</p>
+<p class="normaltext">其次，我们可以从关系式A⊂B的定义得到</p>
+<p class="normaltext">4）O⊂A，对任一集A成立，</p>
+<p class="normaltext">5）A⊂I，</p>
+<p class="normaltext6" id="a13">其中集A是全集I的任一子集．关系式（4）似乎有些不合理，但这是与符号⊂的定义的严格解释符合的．因为只有在空集包含一个不在A中的对象时，命题O⊂A才不成立，然而由于空集不包含任何对象，不论A是什么集，这事也不可能发生．</p>
+<p class="normaltext">现在我们要定义集的两个运算，它们具备数的普通加法和乘法的许多代数性质，虽然从概念上说它们和这些运算是很不同的．为此，设A和B为任意二集．A和B的“并”或“逻辑和”意味着由所有<b>或者</b>属于A<b>或者</b>属于B的对象（包括可能同时属于二者的任意对象）组成的集，我们用A＋B表示．A和B的“交”或“逻辑积”意味着仅仅由<b>共同</b>属于A和B的那些对象组成的集，我们用符号A·B或简单地用AB表示．为了说明这些运算，我们可以再次取A、B为</p>
+<p class="normaltext5">A＝｛1，2，3｝，B＝｛2，3，4｝，</p>
+<p class="normaltext6">则</p>
+<p class="normaltext5">A＋B＝｛1，2，3，4｝，AB＝｛2，3｝．</p>
+<p class="normaltext" id="b2">运算A＋B和AB的重要代数性质，我们列举如下．读者应在这些运算的定义基础上对它们加以验证．</p>
+<p class="normaltext">6）A＋B＝B＋A．</p>
+<p class="normaltext">7）AB＝BA．</p>
+<p class="normaltext">8）A＋（B＋C）＝（A＋B）＋C．</p>
+<p class="normaltext">9）A（BC）＝（AB）C．</p>
+<p class="normaltext">10）A＋A＝A．</p>
+<p class="normaltext">11）AA＝A．</p>
+<p class="normaltext">12）A（B＋C）＝AB＋AC．</p>
+<p class="normaltext">13）A＋（BC）＝（A＋B）（A＋C）．</p>
+<p class="normaltext">14）A＋O＝A．</p>
+<p class="normaltext">15）AI＝A．</p>
+<p class="normaltext">16）A＋I＝I．</p>
+<p class="normaltext">17）A·O＝O．</p>
+<p class="normaltext">18）关系式A⊂B等价于A＋B＝B，AB＝A两个关系中的任意一个．</p>
+<p class="normaltext">验证这些规律是初等逻辑的问题．例如10）是说，在A中或在A中的那些对象恰好组成A；而12）是说，那些在A中，且或在B中或在C中的对象组成的集，与那些或共同在A和B中，或共同在A和C中的对象组成的集是一样的．在这里或其他的讨论中所涉及的逻辑关系，可以用表示集A，B，C的平面图形来说明，但是必须谨慎地考虑到我们所讨论的集彼此之间有不同对象和公共对象的各种可能情况．</p>
+<p class="picture"><img src="../Images/image00724.jpeg" alt="alt"/></p>
+<p class="tz"><b>图26</b>　集合的并和交</p>
+<p class="normaltext">读者会看到规律6），7），8），9），12）和熟知的代数交换律、结合律、分配律是一致的．因此得知，关于数的所有通常的代数规律，即交换律、结合律和分配律的各种推论，对集的代数同样成立．但是规律10），11），13）在数的运算中不存在类似的性质，它使集合代数比起数的代数具有更简单的结构．例如普通代数中的二项式定理，在集合代数中就代之以等式</p>
+<p class="picture"><img src="../Images/image00725.jpeg" alt="alt"/></p>
+<p class="normaltext6">这是11）的一个推论．规律14），15），17）表明，O和I关于集的并和交的运算性质十分类似于数0和1关于普通加法和乘法的运算性质．在数的代数中没有类似于16）的规律．</p>
+<p class="normaltext">在集的代数中还需要定义一个进一步的运算．设A表示全集I的一个子集，则A在I中的<b>余集</b>就是由所有在I中而<b>不在</b>A中的对象组成的集．我们用符号A′表示它．因此如果I是全体自然数，A是素数集，则A′是由1和合数组成的集．在数的代数中没有恰好类似于A′的运算．它具有如下性质：</p>
+<p class="normaltext">19）A＋A′＝I．</p>
+<p class="normaltext">20）AA′＝O．</p>
+<p class="normaltext">21）O′＝I．</p>
+<p class="normaltext">22）I′＝O．</p>
+<p class="normaltext">23）（A′）′＝A．</p>
+<p class="normaltext">24）关系式A⊂B等价于关系式B′⊂A′．</p>
+<p class="normaltext">25）（A＋B）′＝A′B′．</p>
+<p class="normaltext">26）（AB）′＝A′＋B′．</p>
+<p class="normaltext6">这些规律仍留给读者去验证．</p>
+<p class="normaltext">从1）到26）的规律形成了集合代数的基础．它们在下述意义下具有引人注目的“对偶”性质：<b>如果在1）到26）的任一规律中，符号</b></p>
+<p class="normaltext5"><b>⊂和⊃</b></p>
+<p class="normaltext5"><b>O和I</b></p>
+<p class="normaltext5"><b>＋和·</b></p>
+<p class="normaltext6"><b>处处交换（只要它们出现），则其结果仍然是这些规律中的一个．</b>例如，规律6）变成7），12）变成13），17）变成16），等等．由此得知，<b>对任意能在规律1）到26）的基础上得到证明的定理，都相应存在另一个“对偶”定理，它通过作上面的交换而得到．</b>因为任何定理的证明，每一步都通过连续应用1）到26）的某些规律而实现，因此在每一步都应用对偶规律将给出其对偶定理的证明．（第四章提到了几何中一个类似的对偶性．）</p>
+<h4 class="title4" id="mllj2">2．在数理逻辑中的应用</h4>
+<p class="normaltext">验证集代数规律要依赖于对关系式A⊂B和运算A＋B，AB，A′的逻辑意义的分析．现在我们能够把这过程倒转过来，用规律1）到26）作为一个“逻辑代数”的基础．更确切地说，与集合（或等价地说，与对象的性质或<b>属性</b>）有关的那部分逻辑可以归结为基于1）至26）的一个形式代数系统．逻辑的“论述总体”确定一个集合I；<b>对象的每一个性质或属性<img src="../Images/image00726.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>确定I中具有这种属性的所有对象所组成的集A．</b>把普通逻辑术语翻译成集合语言的规则可以用下述例子来说明：</p>
+<table class="table1">
+  <tr>
+    <td>“或A或B”</td>
+    <td>A＋B．</td>
+  </tr>
+  <tr>
+    <td>“既A又B”</td>
+    <td>AB．</td>
+  </tr>
+    <tr>
+    <td>“非A”</td>
+    <td>A′．</td>
+  </tr>
+  <tr>
+    <td>“既非A又非B”</td>
+    <td>（A＋B）′，或等价地A′B′．</td>
+  </tr>
+   <tr>
+    <td>“非既A且B”</td>
+    <td>（AB）′，或等价地A′＋B′．</td>
+</tr>
+  <tr>
+    <td>“所有A是B”或“如果A，</td>
+    <td></td>
+  </tr>
+      <tr>
+    <td>则B”或“A蕴涵B”</td>
+    <td>A⊂B．</td>
+  </tr>
+  <tr>
+    <td>“有些A是B”</td>
+    <td>AB≠O．</td>
+  </tr>
+  <tr>
+    <td>“没有A是B”</td>
+    <td>AB＝O．</td>
+  </tr>
+  <tr>
+    <td>“有些A不是B”</td>
+    <td>AB′≠O．</td>
+  </tr>
+  <tr>
+    <td>“不存在A”</td>
+    <td>A＝O．</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+<p class="normaltext">用集合代数的术语，那么三段论式，即“若所有A是B且所有B是C，则所有A是C”，可简单地变成</p>
+<p class="normaltext">3）若A⊂B且B⊂C，则A⊂C．</p>
+<p class="normaltext">类似地，“矛盾律”，即“一个对象不能既具有一个属性又不具有这个属性”，成为</p>
+<p class="normaltext">20）AA′＝O．</p>
+<p class="normaltext">而“排中律”，即“一个对象必须或者具有一给定的属性或者不具有这个属性”，变成</p>
+<p class="normaltext">19）A＋A′＝I．</p>
+<p class="normaltext">因此能用符号⊂，＋，·，′表示的那部分逻辑，可以当作一个符合规律1）到26）的形式代数系统来处理．数学的逻辑分析和逻辑的数学分析的融合结果，创造了一门新的学科——<b>数理逻辑</b>．它现在正处于迅猛发展的过程中．</p>
+<p class="normaltext">从公理体系的观点来看，一个值得注意的事实是，命题1）到26）和集合代数的所有其他定理都能从下面三个等式推出：</p>
+<p class="normaltext5">A＋B＝B＋A，</p>
+<p class="normaltext">27）</p>
+<p class="normaltext5">（A＋B）＋C＝A＋（B＋C），</p>
+<p class="normaltext5">（A′＋B′）′＋（A′＋B）′＝A．</p>
+<p class="normaltext6">因此如果把这三个命题作为公理，集合代数就能像欧几里得几何那样，构成一个纯粹演绎理论．这样做后，运算AB和次序关系A⊂B就可以用A＋B和A′来<b>定义</b>：</p>
+<p class="normaltext5">AB意味着（A′＋B′）′，</p>
+<p class="normaltext5">A⊂B意味着A＋B＝B．</p>
+<p class="normaltext">在满足集合代数的所有形式规律的数学系统中，有一个别具一格的例子，它是由八个数1，2，3，5，6，10，15，30给出的．这里a＋b定义为a和b的最小公倍数，ab定义为a和b的最大公因子，a⊂b表示“a是b的一个因子”，而a′表示数<img src="../Images/image00727.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．由于这样的例子的存在，便产生了研究满足规律27）的一般代数系统．这种系统称为“布尔代数”，以纪念布尔（Boole，1815～1864），一个英国的数学家和逻辑学家，他的逻辑著作《思想规律的研究》（An Investigation of the Laws of Thought）在1854年出版．</p>
+<h4 class="title4" id="mllj3">3．在概率论中的一个应用</h4>
+<p class="normaltext2">集合代数可以很好地用来描述概率论．我们只考虑最简单的情形，设想一个有有限个可能结果的试验，所有的结果都假定是“等可能”的．例如，试验可以是从一付洗好了的52张牌中随机地抽出一张．如果用I表示由试验的可能结果组成的集合，而A表示I的任意子集，则试验结果属于子集A的概率定义为比值</p>
+<p class="picture"><img src="../Images/image00728.jpeg" alt="alt"/></p>
+<p class="normaltext7">如果用符号n（A）表示任意集合A的元素个数，则这个定义可以写成</p>
+<p class="picture"><img src="../Images/image00729.jpeg" alt="alt"/></p>
+<p class="normaltext7">的形式．在我们的例子中，如果A表示红桃花色的子集，则n（A）＝13，n（I）＝52，p（A）＝<img src="../Images/image00730.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image00532.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext2">当某些集合的概率为已知，而要求其他集合的概率时，就要用集合代数的思想来作概率的计算．例如，若p（A），p（B）和p（AB）的值为已知，我们能算出概率p（A＋B），</p>
+<p class="picture"><img src="../Images/image00731.jpeg" alt="alt"/></p>
+<p class="normaltext7">这证明很简单，我们有n（A＋B）＝n（A）＋n（B）－n（AB），因为A和B的公共元素，即AB的元素，在和n（A）＋n（B）中算了两遍，因此必须从中减去n（AB）才能得到n（A＋B）的正确值．用n（I）除这等式的每一项，我们得到等式（2）．</p>
+<p class="normaltext2">当我们考虑三个子集A，B，C时，得到一个更有趣的公式．从（2）我们有</p>
+<p class="picture"><img src="../Images/image00732.jpeg" alt="alt"/></p>
+<p class="normaltext7">从上一小节的12），我们知道（A＋B）C＝AC＋BC．因此</p>
+<p class="picture"><img src="../Images/image00733.jpeg" alt="alt"/></p>
+<p class="normaltext7">把p［（A＋B）C］的值代入上面等式，而p（A＋B）的值由2）给出，我们得到所希望的公式</p>
+<p class="picture"><img src="../Images/image00734.jpeg" alt="alt"/></p>
+<p class="normaltext2">作为一个例子，我们考虑如下试验．三个数码1，2，3，以随机的次序写下来，至少有一个数码出现在它本来的位置上的概率是多少？用A表示使数码1出现在第一个位置上的所有写法，B表示数码2出现在第二个位置上的所有写法，C表示数码3出现在第三个位置上的所有写法．于是我们要计算p（A＋B＋C）．显然，</p>
+<p class="normaltext8">p（A）＝p（B）＝p（C）＝<img src="../Images/image00735.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image00518.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，</p>
+<p class="normaltext7">因为当一个数码在它本来的位置上时，其余的数码有两种可能的次序，而三个数码的所有可能排列是3·2·1＝6种．再则</p>
+<p class="normaltext8">p（AB）＝p（AC）＝p（BC）＝<img src="../Images/image00560.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，</p>
+<p class="normaltext8">p（ABC）＝<img src="../Images/image00560.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，</p>
+<p class="normaltext7">因为以上每种情况只能以一种方式出现，由（3）得出</p>
+<p class="picture"><img src="../Images/image00736.jpeg" alt="alt"/></p>
+<p class="normaltexta"><b>习题：</b>求p（A＋B＋C＋D）的相应公式并应用于四个数码的情形．相应的概率为<img src="../Images/image00737.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝0.6250．</p>
+<p class="normaltext2">关于n个子集的并的一般公式是</p>
+<p class="picture"><img src="../Images/image00738.jpeg" alt="alt"/></p>
+<p class="normaltext7">这里符号<img src="../Images/image00739.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00740.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00741.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，…，<img src="../Images/image00742.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>表示在集A<sub>1</sub>，A<sub>2</sub>，…，A<sub>n</sub>中每次取一个，二个，三个，…，（n－1）个的所有可能组合的和．这公式可以用数学归纳法导出，正如我们由（2）推出（3）一样．由（4）容易看出，如果n个数码1，2，3，…，n以随机次序写出，至少有一个数码在它本来的位置上的概率是</p>
+<p class="picture"><img src="../Images/image00743.jpeg" alt="alt"/></p>
+<p class="normaltext7">这里最后一项取加号或减号取决于n是奇数还是偶数．特别对n＝5，概率为</p>
+<p class="picture"><img src="../Images/image00744.jpeg" alt="alt"/></p>
+<p class="normaltext7">在第八章我们将看到，当n趋于无穷时，表达式</p>
+<p class="picture"><img src="../Images/image00745.jpeg" alt="alt"/></p>
+<p class="normaltext7">趋于极限<img src="../Images/image00746.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，这十进位小数的前五位是0.36788．由此由（5）p<sub>n</sub>＝1－S<sub>n</sub>得知，n趋于无穷时，</p>
+<p class="picture"><img src="../Images/image00747.jpeg" alt="alt"/></p>
+</body></html>

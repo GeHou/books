@@ -1,0 +1,1971 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="zh-cn">
+<head>
+<meta content="3523425154" name="dtb:uid"/>
+<meta content="4" name="dtb:depth"/>
+<meta content="mobiunpack.py" name="dtb:generator"/>
+<meta content="0" name="dtb:totalPageCount"/>
+<meta content="0" name="dtb:maxPageNumber"/>
+</head>
+<docTitle>
+<text>什么是数学：对思想和方法的基本研究（中文版第三版）</text>
+</docTitle>
+<navMap>
+    <navPoint id="np_1" playOrder="1">
+    <navLabel>
+    <text>目录</text>
+    </navLabel>
+    <content src="Text/part0000.xhtml"/>
+    </navPoint>
+    <navPoint id="np_2" playOrder="2">
+    <navLabel>
+    <text>作者简介</text>
+    </navLabel>
+    <content src="Text/part0001.xhtml"/>
+    </navPoint>
+    <navPoint id="np_3" playOrder="3">
+    <navLabel>
+    <text>版权页</text>
+    </navLabel>
+    <content src="Text/part0002.xhtml"/>
+    </navPoint>
+    <navPoint id="np_4" playOrder="4">
+    <navLabel>
+    <text>插页</text>
+    </navLabel>
+    <content src="Text/part0003.xhtml"/>
+    </navPoint>
+    <navPoint id="np_5" playOrder="5">
+    <navLabel>
+    <text>译者的话</text>
+    </navLabel>
+    <content src="Text/part0004.xhtml"/>
+    </navPoint>
+    <navPoint id="np_6" playOrder="6">
+    <navLabel>
+    <text>前言</text>
+    </navLabel>
+    <content src="Text/part0005.xhtml"/>
+    </navPoint>
+    <navPoint id="np_7" playOrder="7">
+    <navLabel>
+    <text>第二版序言</text>
+    </navLabel>
+    <content src="Text/part0006.xhtml"/>
+    </navPoint>
+    <navPoint id="np_8" playOrder="8">
+    <navLabel>
+    <text>对第一版修正版的序言</text>
+    </navLabel>
+    <content src="Text/part0007.xhtml"/>
+    </navPoint>
+    <navPoint id="np_9" playOrder="9">
+    <navLabel>
+    <text>第一版序言</text>
+    </navLabel>
+    <content src="Text/part0008.xhtml"/>
+    </navPoint>
+    <navPoint id="np_10" playOrder="10">
+    <navLabel>
+    <text>本书的用法</text>
+    </navLabel>
+    <content src="Text/part0009.xhtml"/>
+    </navPoint>
+    <navPoint id="np_11" playOrder="11">
+    <navLabel>
+    <text>什么是数学</text>
+    </navLabel>
+    <content src="Text/part0010.xhtml"/>
+    </navPoint>
+    <navPoint id="np_12" playOrder="12">
+    <navLabel>
+    <text>第1章　自然数</text>
+    </navLabel>
+    <content src="Text/part0011.xhtml"/>
+      <navPoint id="np_13" playOrder="13">
+      <navLabel>
+      <text>引言</text>
+      </navLabel>
+      <content src="Text/part0011.xhtml#mllj1"/>
+      </navPoint>
+      <navPoint id="np_14" playOrder="14">
+      <navLabel>
+      <text>§1　整数的计算</text>
+      </navLabel>
+      <content src="Text/part0011.xhtml#mllj2"/>
+        <navPoint id="np_15" playOrder="15">
+        <navLabel>
+        <text>1．算术的规律</text>
+        </navLabel>
+        <content src="Text/part0011.xhtml#mllj3"/>
+        </navPoint>
+        <navPoint id="np_16" playOrder="16">
+        <navLabel>
+        <text>2．整数的表示</text>
+        </navLabel>
+        <content src="Text/part0011.xhtml#mllj4"/>
+        </navPoint>
+        <navPoint id="np_17" playOrder="17">
+        <navLabel>
+        <text>3．非十进位制中的计算</text>
+        </navLabel>
+        <content src="Text/part0011.xhtml#mllj5"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_18" playOrder="18">
+      <navLabel>
+      <text>*§2　数系的无限性　数学归纳法</text>
+      </navLabel>
+      <content src="Text/part0011.xhtml#mllj6"/>
+        <navPoint id="np_19" playOrder="19">
+        <navLabel>
+        <text>1．数学归纳法原理</text>
+        </navLabel>
+        <content src="Text/part0011.xhtml#mllj7"/>
+        </navPoint>
+        <navPoint id="np_20" playOrder="20">
+        <navLabel>
+        <text>2．等差级数</text>
+        </navLabel>
+        <content src="Text/part0011.xhtml#mllj8"/>
+        </navPoint>
+        <navPoint id="np_21" playOrder="21">
+        <navLabel>
+        <text>3．等比级数</text>
+        </navLabel>
+        <content src="Text/part0011.xhtml#mllj9"/>
+        </navPoint>
+        <navPoint id="np_22" playOrder="22">
+        <navLabel>
+        <text>4．前n项平方和</text>
+        </navLabel>
+        <content src="Text/part0011.xhtml#mllj10"/>
+        </navPoint>
+        <navPoint id="np_23" playOrder="23">
+        <navLabel>
+        <text>*5．一个重要的不等式</text>
+        </navLabel>
+        <content src="Text/part0011.xhtml#mllj11"/>
+        </navPoint>
+        <navPoint id="np_24" playOrder="24">
+        <navLabel>
+        <text>*6．二项式定理</text>
+        </navLabel>
+        <content src="Text/part0011.xhtml#mllj12"/>
+        </navPoint>
+        <navPoint id="np_25" playOrder="25">
+        <navLabel>
+        <text>*7．再谈数学归纳法</text>
+        </navLabel>
+        <content src="Text/part0011.xhtml#mllj13"/>
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint id="np_26" playOrder="26">
+    <navLabel>
+    <text>第1章补充　数论</text>
+    </navLabel>
+    <content src="Text/part0012.xhtml"/>
+      <navPoint id="np_27" playOrder="27">
+      <navLabel>
+      <text>引言</text>
+      </navLabel>
+      <content src="Text/part0012.xhtml#mllj1"/>
+      </navPoint>
+      <navPoint id="np_28" playOrder="28">
+      <navLabel>
+      <text>§1　素数</text>
+      </navLabel>
+      <content src="Text/part0012.xhtml#mllj2"/>
+        <navPoint id="np_29" playOrder="29">
+        <navLabel>
+        <text>1．基本事实</text>
+        </navLabel>
+        <content src="Text/part0012.xhtml#mllj3"/>
+        </navPoint>
+        <navPoint id="np_30" playOrder="30">
+        <navLabel>
+        <text>2．素数的分布</text>
+        </navLabel>
+        <content src="Text/part0012.xhtml#mllj4"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_31" playOrder="31">
+      <navLabel>
+      <text>§2　同余</text>
+      </navLabel>
+      <content src="Text/part0012.xhtml#mllj5"/>
+        <navPoint id="np_32" playOrder="32">
+        <navLabel>
+        <text>1．一般概念</text>
+        </navLabel>
+        <content src="Text/part0012.xhtml#mllj6"/>
+        </navPoint>
+        <navPoint id="np_33" playOrder="33">
+        <navLabel>
+        <text>2．费马定理</text>
+        </navLabel>
+        <content src="Text/part0012.xhtml#mllj7"/>
+        </navPoint>
+        <navPoint id="np_34" playOrder="34">
+        <navLabel>
+        <text>3．二次剩余</text>
+        </navLabel>
+        <content src="Text/part0012.xhtml#mllj8"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_35" playOrder="35">
+      <navLabel>
+      <text>§3　毕达哥拉斯数和费马大定理</text>
+      </navLabel>
+      <content src="Text/part0012.xhtml#mllj9"/>
+      </navPoint>
+      <navPoint id="np_36" playOrder="36">
+      <navLabel>
+      <text>§4　欧几里得辗转相除法</text>
+      </navLabel>
+      <content src="Text/part0012.xhtml#mllj10"/>
+        <navPoint id="np_37" playOrder="37">
+        <navLabel>
+        <text>1．一般理论</text>
+        </navLabel>
+        <content src="Text/part0012.xhtml#mllj11"/>
+        </navPoint>
+        <navPoint id="np_38" playOrder="38">
+        <navLabel>
+        <text>2．在算术基本定理上的应用</text>
+        </navLabel>
+        <content src="Text/part0012.xhtml#mllj12"/>
+        </navPoint>
+        <navPoint id="np_39" playOrder="39">
+        <navLabel>
+        <text>3．欧拉函数φ　再谈费马定理</text>
+        </navLabel>
+        <content src="Text/part0012.xhtml#mllj13"/>
+        </navPoint>
+        <navPoint id="np_40" playOrder="40">
+        <navLabel>
+        <text>4．连分数　丢番都方程</text>
+        </navLabel>
+        <content src="Text/part0012.xhtml#mllj14"/>
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint id="np_41" playOrder="41">
+    <navLabel>
+    <text>第2章　数学中的数系</text>
+    </navLabel>
+    <content src="Text/part0013.xhtml"/>
+      <navPoint id="np_42" playOrder="42">
+      <navLabel>
+      <text>引言</text>
+      </navLabel>
+      <content src="Text/part0013.xhtml#mllj1"/>
+      </navPoint>
+      <navPoint id="np_43" playOrder="43">
+      <navLabel>
+      <text>§1　有理数</text>
+      </navLabel>
+      <content src="Text/part0013.xhtml#mllj2"/>
+        <navPoint id="np_44" playOrder="44">
+        <navLabel>
+        <text>1．作为度量工具的有理数</text>
+        </navLabel>
+        <content src="Text/part0013.xhtml#mllj3"/>
+        </navPoint>
+        <navPoint id="np_45" playOrder="45">
+        <navLabel>
+        <text>2．数学内部对有理数的需要　推广的原则</text>
+        </navLabel>
+        <content src="Text/part0013.xhtml#mllj4"/>
+        </navPoint>
+        <navPoint id="np_46" playOrder="46">
+        <navLabel>
+        <text>3．有理数的几何解释</text>
+        </navLabel>
+        <content src="Text/part0013.xhtml#mllj5"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_47" playOrder="47">
+      <navLabel>
+      <text>§2　不可公度线段　无理数和极限概念</text>
+      </navLabel>
+      <content src="Text/part0013.xhtml#mllj6"/>
+        <navPoint id="np_48" playOrder="48">
+        <navLabel>
+        <text>1．引言</text>
+        </navLabel>
+        <content src="Text/part0013.xhtml#mllj7"/>
+        </navPoint>
+        <navPoint id="np_49" playOrder="49">
+        <navLabel>
+        <text>2．十进位小数　无限小数</text>
+        </navLabel>
+        <content src="Text/part0013.xhtml#mllj8"/>
+        </navPoint>
+        <navPoint id="np_50" playOrder="50">
+        <navLabel>
+        <text>3．极限　无穷等比级数</text>
+        </navLabel>
+        <content src="Text/part0013.xhtml#mllj9"/>
+        </navPoint>
+        <navPoint id="np_51" playOrder="51">
+        <navLabel>
+        <text>4．有理数和循环小数</text>
+        </navLabel>
+        <content src="Text/part0013.xhtml#mllj10"/>
+        </navPoint>
+        <navPoint id="np_52" playOrder="52">
+        <navLabel>
+        <text>5．用区间套给出无理数的一般定义</text>
+        </navLabel>
+        <content src="Text/part0013.xhtml#mllj11"/>
+        </navPoint>
+        <navPoint id="np_53" playOrder="53">
+        <navLabel>
+        <text>*6．定义无理数的另一个方法　戴特金分割</text>
+        </navLabel>
+        <content src="Text/part0013.xhtml#mllj12"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_54" playOrder="54">
+      <navLabel>
+      <text>§3　解析几何概述</text>
+      </navLabel>
+      <content src="Text/part0013.xhtml#mllj13"/>
+        <navPoint id="np_55" playOrder="55">
+        <navLabel>
+        <text>1．基本原理</text>
+        </navLabel>
+        <content src="Text/part0013.xhtml#mllj14"/>
+        </navPoint>
+        <navPoint id="np_56" playOrder="56">
+        <navLabel>
+        <text>*2．直线方程和曲线方程</text>
+        </navLabel>
+        <content src="Text/part0013.xhtml#mllj15"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_57" playOrder="57">
+      <navLabel>
+      <text>§4　无限的数学分析</text>
+      </navLabel>
+      <content src="Text/part0013.xhtml#mllj16"/>
+        <navPoint id="np_58" playOrder="58">
+        <navLabel>
+        <text>1．基本概念</text>
+        </navLabel>
+        <content src="Text/part0013.xhtml#mllj17"/>
+        </navPoint>
+        <navPoint id="np_59" playOrder="59">
+        <navLabel>
+        <text>2．有理数的可数性和连续统的不可数性</text>
+        </navLabel>
+        <content src="Text/part0013.xhtml#mllj18"/>
+        </navPoint>
+        <navPoint id="np_60" playOrder="60">
+        <navLabel>
+        <text>3．康托的“基数”</text>
+        </navLabel>
+        <content src="Text/part0013.xhtml#mllj19"/>
+        </navPoint>
+        <navPoint id="np_61" playOrder="61">
+        <navLabel>
+        <text>4．反证法</text>
+        </navLabel>
+        <content src="Text/part0013.xhtml#mllj20"/>
+        </navPoint>
+        <navPoint id="np_62" playOrder="62">
+        <navLabel>
+        <text>5．有关无限的悖论</text>
+        </navLabel>
+        <content src="Text/part0013.xhtml#mllj21"/>
+        </navPoint>
+        <navPoint id="np_63" playOrder="63">
+        <navLabel>
+        <text>6．数学的基础</text>
+        </navLabel>
+        <content src="Text/part0013.xhtml#mllj22"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_64" playOrder="64">
+      <navLabel>
+      <text>§5　复数</text>
+      </navLabel>
+      <content src="Text/part0013.xhtml#mllj23"/>
+        <navPoint id="np_65" playOrder="65">
+        <navLabel>
+        <text>1．复数的起源</text>
+        </navLabel>
+        <content src="Text/part0013.xhtml#mllj24"/>
+        </navPoint>
+        <navPoint id="np_66" playOrder="66">
+        <navLabel>
+        <text>2．复数的几何解释</text>
+        </navLabel>
+        <content src="Text/part0013.xhtml#mllj25"/>
+        </navPoint>
+        <navPoint id="np_67" playOrder="67">
+        <navLabel>
+        <text>3．棣莫弗公式和单位根</text>
+        </navLabel>
+        <content src="Text/part0013.xhtml#mllj26"/>
+        </navPoint>
+        <navPoint id="np_68" playOrder="68">
+        <navLabel>
+        <text>*4．代数基本定理</text>
+        </navLabel>
+        <content src="Text/part0013.xhtml#mllj27"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_69" playOrder="69">
+      <navLabel>
+      <text>*§6　代数数和超越数</text>
+      </navLabel>
+      <content src="Text/part0013.xhtml#mllj28"/>
+        <navPoint id="np_70" playOrder="70">
+        <navLabel>
+        <text>1．定义和存在性</text>
+        </navLabel>
+        <content src="Text/part0013.xhtml#mllj29"/>
+        </navPoint>
+        <navPoint id="np_71" playOrder="71">
+        <navLabel>
+        <text>**2．柳维尔定理和超越数的构造</text>
+        </navLabel>
+        <content src="Text/part0013.xhtml#mllj30"/>
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint id="np_72" playOrder="72">
+    <navLabel>
+    <text>第2章补充　集合代数</text>
+    </navLabel>
+    <content src="Text/part0014.xhtml"/>
+      <navPoint id="np_73" playOrder="73">
+      <navLabel>
+      <text>1．一般理论</text>
+      </navLabel>
+      <content src="Text/part0014.xhtml#mllj1"/>
+      </navPoint>
+      <navPoint id="np_74" playOrder="74">
+      <navLabel>
+      <text>2．在数理逻辑中的应用</text>
+      </navLabel>
+      <content src="Text/part0014.xhtml#mllj2"/>
+      </navPoint>
+      <navPoint id="np_75" playOrder="75">
+      <navLabel>
+      <text>3．在概率论中的一个应用</text>
+      </navLabel>
+      <content src="Text/part0014.xhtml#mllj3"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="np_76" playOrder="76">
+    <navLabel>
+    <text>第3章　几何作图　数域的代数</text>
+    </navLabel>
+    <content src="Text/part0015.xhtml"/>
+      <navPoint id="np_77" playOrder="77">
+      <navLabel>
+      <text>引言</text>
+      </navLabel>
+      <content src="Text/part0015.xhtml#mllj1"/>
+      </navPoint>
+      <navPoint id="np_78" playOrder="78">
+      <navLabel>
+      <text>第1部分　不可能性的证明和代数</text>
+      </navLabel>
+      <content src="Text/part0015.xhtml#mllj2"/>
+        <navPoint id="np_79" playOrder="79">
+        <navLabel>
+        <text>§1　基本几何作图</text>
+        </navLabel>
+        <content src="Text/part0015.xhtml#mllj3"/>
+          <navPoint id="np_80" playOrder="80">
+          <navLabel>
+          <text>1．域的构作和开平方根</text>
+          </navLabel>
+          <content src="Text/part0015.xhtml#mllj4"/>
+          </navPoint>
+          <navPoint id="np_81" playOrder="81">
+          <navLabel>
+          <text>2．正多边形</text>
+          </navLabel>
+          <content src="Text/part0015.xhtml#mllj5"/>
+          </navPoint>
+          <navPoint id="np_82" playOrder="82">
+          <navLabel>
+          <text>*3．阿波罗尼斯问题</text>
+          </navLabel>
+          <content src="Text/part0015.xhtml#mllj6"/>
+          </navPoint>
+        </navPoint>
+        <navPoint id="np_83" playOrder="83">
+        <navLabel>
+        <text>*§2　可作图的数和数域</text>
+        </navLabel>
+        <content src="Text/part0015.xhtml#mllj7"/>
+          <navPoint id="np_84" playOrder="84">
+          <navLabel>
+          <text>1．一般理论</text>
+          </navLabel>
+          <content src="Text/part0015.xhtml#mllj8"/>
+          </navPoint>
+          <navPoint id="np_85" playOrder="85">
+          <navLabel>
+          <text>2．可作图的数都是代数数</text>
+          </navLabel>
+          <content src="Text/part0015.xhtml#mllj9"/>
+          </navPoint>
+        </navPoint>
+        <navPoint id="np_86" playOrder="86">
+        <navLabel>
+        <text>*§3　三个不可解的希腊问题</text>
+        </navLabel>
+        <content src="Text/part0015.xhtml#mllj10"/>
+          <navPoint id="np_87" playOrder="87">
+          <navLabel>
+          <text>1．倍立方体问题</text>
+          </navLabel>
+          <content src="Text/part0015.xhtml#mllj11"/>
+          </navPoint>
+          <navPoint id="np_88" playOrder="88">
+          <navLabel>
+          <text>2．关于三次方程的一个定理</text>
+          </navLabel>
+          <content src="Text/part0015.xhtml#mllj12"/>
+          </navPoint>
+          <navPoint id="np_89" playOrder="89">
+          <navLabel>
+          <text>3．三等分任意角</text>
+          </navLabel>
+          <content src="Text/part0015.xhtml#mllj13"/>
+          </navPoint>
+          <navPoint id="np_90" playOrder="90">
+          <navLabel>
+          <text>4．正七边形</text>
+          </navLabel>
+          <content src="Text/part0015.xhtml#mllj14"/>
+          </navPoint>
+          <navPoint id="np_91" playOrder="91">
+          <navLabel>
+          <text>5．关于化圆为方的问题</text>
+          </navLabel>
+          <content src="Text/part0015.xhtml#mllj15"/>
+          </navPoint>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_92" playOrder="92">
+      <navLabel>
+      <text>第2部分　作图的各种方法</text>
+      </navLabel>
+      <content src="Text/part0015.xhtml#mllj16"/>
+        <navPoint id="np_93" playOrder="93">
+        <navLabel>
+        <text>§4　几何变换　反演</text>
+        </navLabel>
+        <content src="Text/part0015.xhtml#mllj17"/>
+          <navPoint id="np_94" playOrder="94">
+          <navLabel>
+          <text>1．一般说明</text>
+          </navLabel>
+          <content src="Text/part0015.xhtml#mllj18"/>
+          </navPoint>
+          <navPoint id="np_95" playOrder="95">
+          <navLabel>
+          <text>2．反演的性质</text>
+          </navLabel>
+          <content src="Text/part0015.xhtml#mllj19"/>
+          </navPoint>
+          <navPoint id="np_96" playOrder="96">
+          <navLabel>
+          <text>3．反演点的几何作图</text>
+          </navLabel>
+          <content src="Text/part0015.xhtml#mllj20"/>
+          </navPoint>
+          <navPoint id="np_97" playOrder="97">
+          <navLabel>
+          <text>4．只用圆规如何二等分一线段及求圆心</text>
+          </navLabel>
+          <content src="Text/part0015.xhtml#mllj21"/>
+          </navPoint>
+        </navPoint>
+        <navPoint id="np_98" playOrder="98">
+        <navLabel>
+        <text>§5　用其他工具作图　只用圆规的马歇罗尼作图</text>
+        </navLabel>
+        <content src="Text/part0015.xhtml#mllj22"/>
+          <navPoint id="np_99" playOrder="99">
+          <navLabel>
+          <text>*1．倍立方体的古典作图</text>
+          </navLabel>
+          <content src="Text/part0015.xhtml#mllj23"/>
+          </navPoint>
+          <navPoint id="np_100" playOrder="100">
+          <navLabel>
+          <text>2．只限于用圆规</text>
+          </navLabel>
+          <content src="Text/part0015.xhtml#mllj24"/>
+          </navPoint>
+          <navPoint id="np_101" playOrder="101">
+          <navLabel>
+          <text>3．用机械工具作图　机械曲线　旋轮线</text>
+          </navLabel>
+          <content src="Text/part0015.xhtml#mllj25"/>
+          </navPoint>
+          <navPoint id="np_102" playOrder="102">
+          <navLabel>
+          <text>*4．连杆　波西里叶和哈特的反演器</text>
+          </navLabel>
+          <content src="Text/part0015.xhtml#mllj26"/>
+          </navPoint>
+        </navPoint>
+        <navPoint id="np_103" playOrder="103">
+        <navLabel>
+        <text>§6　再谈反演及其应用</text>
+        </navLabel>
+        <content src="Text/part0015.xhtml#mllj27"/>
+          <navPoint id="np_104" playOrder="104">
+          <navLabel>
+          <text>1．角的不变性　圆族</text>
+          </navLabel>
+          <content src="Text/part0015.xhtml#mllj28"/>
+          </navPoint>
+          <navPoint id="np_105" playOrder="105">
+          <navLabel>
+          <text>2．在阿波罗尼斯问题上的应用</text>
+          </navLabel>
+          <content src="Text/part0015.xhtml#mllj29"/>
+          </navPoint>
+          <navPoint id="np_106" playOrder="106">
+          <navLabel>
+          <text>*3．重复反射</text>
+          </navLabel>
+          <content src="Text/part0015.xhtml#mllj30"/>
+          </navPoint>
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint id="np_107" playOrder="107">
+    <navLabel>
+    <text>第4章　射影几何　公理体系　非欧几里得几何</text>
+    </navLabel>
+    <content src="Text/part0016.xhtml"/>
+      <navPoint id="np_108" playOrder="108">
+      <navLabel>
+      <text>§1　引言</text>
+      </navLabel>
+      <content src="Text/part0016.xhtml#mllj1"/>
+        <navPoint id="np_109" playOrder="109">
+        <navLabel>
+        <text>1．几何性质的分类　变换下的不变性</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj2"/>
+        </navPoint>
+        <navPoint id="np_110" playOrder="110">
+        <navLabel>
+        <text>2．射影变换</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj3"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_111" playOrder="111">
+      <navLabel>
+      <text>§2　基本概念</text>
+      </navLabel>
+      <content src="Text/part0016.xhtml#mllj4"/>
+        <navPoint id="np_112" playOrder="112">
+        <navLabel>
+        <text>1．射影变换群</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj5"/>
+        </navPoint>
+        <navPoint id="np_113" playOrder="113">
+        <navLabel>
+        <text>2．笛沙格定理</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj6"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_114" playOrder="114">
+      <navLabel>
+      <text>§3　交比</text>
+      </navLabel>
+      <content src="Text/part0016.xhtml#mllj7"/>
+        <navPoint id="np_115" playOrder="115">
+        <navLabel>
+        <text>1．定义和不变性的证明</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj8"/>
+        </navPoint>
+        <navPoint id="np_116" playOrder="116">
+        <navLabel>
+        <text>2．在完全四边形上的应用</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj9"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_117" playOrder="117">
+      <navLabel>
+      <text>§4　平行性和无穷远</text>
+      </navLabel>
+      <content src="Text/part0016.xhtml#mllj10"/>
+        <navPoint id="np_118" playOrder="118">
+        <navLabel>
+        <text>1．作为“理想点”的无穷远点</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj11"/>
+        </navPoint>
+        <navPoint id="np_119" playOrder="119">
+        <navLabel>
+        <text>2．理想元素和射影</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj12"/>
+        </navPoint>
+        <navPoint id="np_120" playOrder="120">
+        <navLabel>
+        <text>3．含有无穷远元素的交比</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj13"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_121" playOrder="121">
+      <navLabel>
+      <text>§5　应用</text>
+      </navLabel>
+      <content src="Text/part0016.xhtml#mllj14"/>
+        <navPoint id="np_122" playOrder="122">
+        <navLabel>
+        <text>1．初步说明</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj15"/>
+        </navPoint>
+        <navPoint id="np_123" playOrder="123">
+        <navLabel>
+        <text>2．平面上笛沙格定理的证明</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj16"/>
+        </navPoint>
+        <navPoint id="np_124" playOrder="124">
+        <navLabel>
+        <text>3．巴斯嘉定理</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj17"/>
+        </navPoint>
+        <navPoint id="np_125" playOrder="125">
+        <navLabel>
+        <text>4．布利安桑定理</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj18"/>
+        </navPoint>
+        <navPoint id="np_126" playOrder="126">
+        <navLabel>
+        <text>5．对偶性简介</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj19"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_127" playOrder="127">
+      <navLabel>
+      <text>§6　解析表示</text>
+      </navLabel>
+      <content src="Text/part0016.xhtml#mllj20"/>
+        <navPoint id="np_128" playOrder="128">
+        <navLabel>
+        <text>1．初步说明</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj21"/>
+        </navPoint>
+        <navPoint id="np_129" playOrder="129">
+        <navLabel>
+        <text>*2．齐次坐标　对偶性的代数基础</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj22"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_130" playOrder="130">
+      <navLabel>
+      <text>§7　只用直尺的作图问题</text>
+      </navLabel>
+      <content src="Text/part0016.xhtml#mllj23"/>
+      </navPoint>
+      <navPoint id="np_131" playOrder="131">
+      <navLabel>
+      <text>§8　二次曲线和二次曲面</text>
+      </navLabel>
+      <content src="Text/part0016.xhtml#mllj24"/>
+        <navPoint id="np_132" playOrder="132">
+        <navLabel>
+        <text>1．二次曲线的初等度量几何</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj25"/>
+        </navPoint>
+        <navPoint id="np_133" playOrder="133">
+        <navLabel>
+        <text>2．二次曲线的射影性质</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj26"/>
+        </navPoint>
+        <navPoint id="np_134" playOrder="134">
+        <navLabel>
+        <text>3．二次曲线看作线曲线</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj27"/>
+        </navPoint>
+        <navPoint id="np_135" playOrder="135">
+        <navLabel>
+        <text>4．关于二次曲线的巴斯嘉和布利安桑的一般定理</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj28"/>
+        </navPoint>
+        <navPoint id="np_136" playOrder="136">
+        <navLabel>
+        <text>5．双曲面</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj29"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_137" playOrder="137">
+      <navLabel>
+      <text>§9　公理体系和非欧几何</text>
+      </navLabel>
+      <content src="Text/part0016.xhtml#mllj30"/>
+        <navPoint id="np_138" playOrder="138">
+        <navLabel>
+        <text>1．公理方法</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj31"/>
+        </navPoint>
+        <navPoint id="np_139" playOrder="139">
+        <navLabel>
+        <text>2．双曲非欧几里得几何</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj32"/>
+        </navPoint>
+        <navPoint id="np_140" playOrder="140">
+        <navLabel>
+        <text>3．几何与现实</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj33"/>
+        </navPoint>
+        <navPoint id="np_141" playOrder="141">
+        <navLabel>
+        <text>4．庞加莱的模型</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj34"/>
+        </navPoint>
+        <navPoint id="np_142" playOrder="142">
+        <navLabel>
+        <text>5．椭圆几何或黎曼几何</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj35"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_143" playOrder="143">
+      <navLabel>
+      <text>附录　*高维空间中的几何学</text>
+      </navLabel>
+      <content src="Text/part0016.xhtml#mllj36"/>
+        <navPoint id="np_144" playOrder="144">
+        <navLabel>
+        <text>1．引言</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj37"/>
+        </navPoint>
+        <navPoint id="np_145" playOrder="145">
+        <navLabel>
+        <text>2．解析的方法</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj38"/>
+        </navPoint>
+        <navPoint id="np_146" playOrder="146">
+        <navLabel>
+        <text>*3．几何的方法或组合的方法</text>
+        </navLabel>
+        <content src="Text/part0016.xhtml#mllj39"/>
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint id="np_147" playOrder="147">
+    <navLabel>
+    <text>第5章　拓扑学</text>
+    </navLabel>
+    <content src="Text/part0017.xhtml"/>
+      <navPoint id="np_148" playOrder="148">
+      <navLabel>
+      <text>引言</text>
+      </navLabel>
+      <content src="Text/part0017.xhtml#mllj1"/>
+      </navPoint>
+      <navPoint id="np_149" playOrder="149">
+      <navLabel>
+      <text>§1　多面体的欧拉公式</text>
+      </navLabel>
+      <content src="Text/part0017.xhtml#mllj2"/>
+      </navPoint>
+      <navPoint id="np_150" playOrder="150">
+      <navLabel>
+      <text>§2　图形的拓扑性质</text>
+      </navLabel>
+      <content src="Text/part0017.xhtml#mllj3"/>
+        <navPoint id="np_151" playOrder="151">
+        <navLabel>
+        <text>1．拓扑性质</text>
+        </navLabel>
+        <content src="Text/part0017.xhtml#mllj4"/>
+        </navPoint>
+        <navPoint id="np_152" playOrder="152">
+        <navLabel>
+        <text>2．连通性</text>
+        </navLabel>
+        <content src="Text/part0017.xhtml#mllj5"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_153" playOrder="153">
+      <navLabel>
+      <text>§3　拓扑定理的其他例子</text>
+      </navLabel>
+      <content src="Text/part0017.xhtml#mllj6"/>
+        <navPoint id="np_154" playOrder="154">
+        <navLabel>
+        <text>1．若当曲线定理</text>
+        </navLabel>
+        <content src="Text/part0017.xhtml#mllj7"/>
+        </navPoint>
+        <navPoint id="np_155" playOrder="155">
+        <navLabel>
+        <text>2．四色问题</text>
+        </navLabel>
+        <content src="Text/part0017.xhtml#mllj8"/>
+        </navPoint>
+        <navPoint id="np_156" playOrder="156">
+        <navLabel>
+        <text>*3．维的概念</text>
+        </navLabel>
+        <content src="Text/part0017.xhtml#mllj9"/>
+        </navPoint>
+        <navPoint id="np_157" playOrder="157">
+        <navLabel>
+        <text>*4．不动点定理</text>
+        </navLabel>
+        <content src="Text/part0017.xhtml#mllj10"/>
+        </navPoint>
+        <navPoint id="np_158" playOrder="158">
+        <navLabel>
+        <text>5．纽结</text>
+        </navLabel>
+        <content src="Text/part0017.xhtml#mllj11"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_159" playOrder="159">
+      <navLabel>
+      <text>§4　曲面的拓扑分类</text>
+      </navLabel>
+      <content src="Text/part0017.xhtml#mllj12"/>
+        <navPoint id="np_160" playOrder="160">
+        <navLabel>
+        <text>1．曲面的亏格</text>
+        </navLabel>
+        <content src="Text/part0017.xhtml#mllj13"/>
+        </navPoint>
+        <navPoint id="np_161" playOrder="161">
+        <navLabel>
+        <text>*2．曲面的欧拉示性数</text>
+        </navLabel>
+        <content src="Text/part0017.xhtml#mllj14"/>
+        </navPoint>
+        <navPoint id="np_162" playOrder="162">
+        <navLabel>
+        <text>3．单侧曲面</text>
+        </navLabel>
+        <content src="Text/part0017.xhtml#mllj15"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_163" playOrder="163">
+      <navLabel>
+      <text>附录</text>
+      </navLabel>
+      <content src="Text/part0017.xhtml#mllj16"/>
+        <navPoint id="np_164" playOrder="164">
+        <navLabel>
+        <text>*1．五色定理</text>
+        </navLabel>
+        <content src="Text/part0017.xhtml#mllj17"/>
+        </navPoint>
+        <navPoint id="np_165" playOrder="165">
+        <navLabel>
+        <text>2．多边形的若当曲线定理</text>
+        </navLabel>
+        <content src="Text/part0017.xhtml#mllj18"/>
+        </navPoint>
+        <navPoint id="np_166" playOrder="166">
+        <navLabel>
+        <text>**3．代数基本定理</text>
+        </navLabel>
+        <content src="Text/part0017.xhtml#mllj19"/>
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint id="np_167" playOrder="167">
+    <navLabel>
+    <text>第6章　函数和极限</text>
+    </navLabel>
+    <content src="Text/part0018.xhtml"/>
+      <navPoint id="np_168" playOrder="168">
+      <navLabel>
+      <text>引言</text>
+      </navLabel>
+      <content src="Text/part0018.xhtml#mllj1"/>
+      </navPoint>
+      <navPoint id="np_169" playOrder="169">
+      <navLabel>
+      <text>§1　变量和函数</text>
+      </navLabel>
+      <content src="Text/part0018.xhtml#mllj2"/>
+        <navPoint id="np_170" playOrder="170">
+        <navLabel>
+        <text>1．定义和例子</text>
+        </navLabel>
+        <content src="Text/part0018.xhtml#mllj3"/>
+        </navPoint>
+        <navPoint id="np_171" playOrder="171">
+        <navLabel>
+        <text>2．角的弧度制</text>
+        </navLabel>
+        <content src="Text/part0018.xhtml#mllj4"/>
+        </navPoint>
+        <navPoint id="np_172" playOrder="172">
+        <navLabel>
+        <text>3．函数的图像　反函数</text>
+        </navLabel>
+        <content src="Text/part0018.xhtml#mllj5"/>
+        </navPoint>
+        <navPoint id="np_173" playOrder="173">
+        <navLabel>
+        <text>4．复合函数</text>
+        </navLabel>
+        <content src="Text/part0018.xhtml#mllj6"/>
+        </navPoint>
+        <navPoint id="np_174" playOrder="174">
+        <navLabel>
+        <text>5．连续性</text>
+        </navLabel>
+        <content src="Text/part0018.xhtml#mllj7"/>
+        </navPoint>
+        <navPoint id="np_175" playOrder="175">
+        <navLabel>
+        <text>*6．多元函数</text>
+        </navLabel>
+        <content src="Text/part0018.xhtml#mllj8"/>
+        </navPoint>
+        <navPoint id="np_176" playOrder="176">
+        <navLabel>
+        <text>*7．函数和变换</text>
+        </navLabel>
+        <content src="Text/part0018.xhtml#mllj9"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_177" playOrder="177">
+      <navLabel>
+      <text>§2　极限</text>
+      </navLabel>
+      <content src="Text/part0018.xhtml#mllj10"/>
+        <navPoint id="np_178" playOrder="178">
+        <navLabel>
+        <text>1．序列an的极限</text>
+        </navLabel>
+        <content src="Text/part0018.xhtml#mllj11"/>
+        </navPoint>
+        <navPoint id="np_179" playOrder="179">
+        <navLabel>
+        <text>2．单调序列</text>
+        </navLabel>
+        <content src="Text/part0018.xhtml#mllj12"/>
+        </navPoint>
+        <navPoint id="np_180" playOrder="180">
+        <navLabel>
+        <text>3．欧拉数e</text>
+        </navLabel>
+        <content src="Text/part0018.xhtml#mllj13"/>
+        </navPoint>
+        <navPoint id="np_181" playOrder="181">
+        <navLabel>
+        <text>4．数π</text>
+        </navLabel>
+        <content src="Text/part0018.xhtml#mllj14"/>
+        </navPoint>
+        <navPoint id="np_182" playOrder="182">
+        <navLabel>
+        <text>*5．连分数</text>
+        </navLabel>
+        <content src="Text/part0018.xhtml#mllj15"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_183" playOrder="183">
+      <navLabel>
+      <text>§3　连续趋近的极限</text>
+      </navLabel>
+      <content src="Text/part0018.xhtml#mllj16"/>
+        <navPoint id="np_184" playOrder="184">
+        <navLabel>
+        <text>1．引言　一般定义</text>
+        </navLabel>
+        <content src="Text/part0018.xhtml#mllj17"/>
+        </navPoint>
+        <navPoint id="np_185" playOrder="185">
+        <navLabel>
+        <text>2．极限概念的评述</text>
+        </navLabel>
+        <content src="Text/part0018.xhtml#mllj18"/>
+        </navPoint>
+        <navPoint id="np_186" playOrder="186">
+        <navLabel>
+        <text>3．sinx／x的极限</text>
+        </navLabel>
+        <content src="Text/part0018.xhtml#mllj19"/>
+        </navPoint>
+        <navPoint id="np_187" playOrder="187">
+        <navLabel>
+        <text>4．当x→∞时的极限</text>
+        </navLabel>
+        <content src="Text/part0018.xhtml#mllj20"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_188" playOrder="188">
+      <navLabel>
+      <text>§4　连续性的精确定义</text>
+      </navLabel>
+      <content src="Text/part0018.xhtml#mllj21"/>
+      </navPoint>
+      <navPoint id="np_189" playOrder="189">
+      <navLabel>
+      <text>§5　有关连续函数的两个基本定理</text>
+      </navLabel>
+      <content src="Text/part0018.xhtml#mllj22"/>
+        <navPoint id="np_190" playOrder="190">
+        <navLabel>
+        <text>1．布尔查诺定理</text>
+        </navLabel>
+        <content src="Text/part0018.xhtml#mllj23"/>
+        </navPoint>
+        <navPoint id="np_191" playOrder="191">
+        <navLabel>
+        <text>*2．布尔查诺定理的证明</text>
+        </navLabel>
+        <content src="Text/part0018.xhtml#mllj24"/>
+        </navPoint>
+        <navPoint id="np_192" playOrder="192">
+        <navLabel>
+        <text>3．维尔斯特拉斯极值定理</text>
+        </navLabel>
+        <content src="Text/part0018.xhtml#mllj25"/>
+        </navPoint>
+        <navPoint id="np_193" playOrder="193">
+        <navLabel>
+        <text>*4．有关序列的一个定理　紧致集</text>
+        </navLabel>
+        <content src="Text/part0018.xhtml#mllj26"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_194" playOrder="194">
+      <navLabel>
+      <text>§6　布尔查诺定理的一些应用</text>
+      </navLabel>
+      <content src="Text/part0018.xhtml#mllj27"/>
+        <navPoint id="np_195" playOrder="195">
+        <navLabel>
+        <text>1．几何上的应用</text>
+        </navLabel>
+        <content src="Text/part0018.xhtml#mllj28"/>
+        </navPoint>
+        <navPoint id="np_196" playOrder="196">
+        <navLabel>
+        <text>*2．力学问题上的一个应用</text>
+        </navLabel>
+        <content src="Text/part0018.xhtml#mllj29"/>
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint id="np_197" playOrder="197">
+    <navLabel>
+    <text>第6章补充　极限和连续的一些例题</text>
+    </navLabel>
+    <content src="Text/part0019.xhtml"/>
+      <navPoint id="np_198" playOrder="198">
+      <navLabel>
+      <text>§1　极限的例题</text>
+      </navLabel>
+      <content src="Text/part0019.xhtml#mllj1"/>
+        <navPoint id="np_199" playOrder="199">
+        <navLabel>
+        <text>1．一般说明</text>
+        </navLabel>
+        <content src="Text/part0019.xhtml#mllj2"/>
+        </navPoint>
+        <navPoint id="np_200" playOrder="200">
+        <navLabel>
+        <text>2．q的n次方的极限</text>
+        </navLabel>
+        <content src="Text/part0019.xhtml#mllj3"/>
+        </navPoint>
+        <navPoint id="np_201" playOrder="201">
+        <navLabel>
+        <text>3．p开n次方根的极限</text>
+        </navLabel>
+        <content src="Text/part0019.xhtml#mllj4"/>
+        </navPoint>
+        <navPoint id="np_202" playOrder="202">
+        <navLabel>
+        <text>4．不连续函数当作连续函数的极限</text>
+        </navLabel>
+        <content src="Text/part0019.xhtml#mllj5"/>
+        </navPoint>
+        <navPoint id="np_203" playOrder="203">
+        <navLabel>
+        <text>*5．极限的叠代求法</text>
+        </navLabel>
+        <content src="Text/part0019.xhtml#mllj6"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_204" playOrder="204">
+      <navLabel>
+      <text>§2　连续性的例题</text>
+      </navLabel>
+      <content src="Text/part0019.xhtml#mllj7"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="np_205" playOrder="205">
+    <navLabel>
+    <text>第7章　极大与极小</text>
+    </navLabel>
+    <content src="Text/part0020.xhtml"/>
+      <navPoint id="np_206" playOrder="206">
+      <navLabel>
+      <text>引言</text>
+      </navLabel>
+      <content src="Text/part0020.xhtml#mllj1"/>
+      </navPoint>
+      <navPoint id="np_207" playOrder="207">
+      <navLabel>
+      <text>§1　初等几何中的问题</text>
+      </navLabel>
+      <content src="Text/part0020.xhtml#mllj2"/>
+        <navPoint id="np_208" playOrder="208">
+        <navLabel>
+        <text>1．两边给定求面积极大的三角形</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj3"/>
+        </navPoint>
+        <navPoint id="np_209" playOrder="209">
+        <navLabel>
+        <text>2．赫伦定理　光线的极值性质</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj4"/>
+        </navPoint>
+        <navPoint id="np_210" playOrder="210">
+        <navLabel>
+        <text>3．三角形问题上的应用</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj5"/>
+        </navPoint>
+        <navPoint id="np_211" playOrder="211">
+        <navLabel>
+        <text>4．椭圆和双曲线的切线性质　相应的极值性质</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj6"/>
+        </navPoint>
+        <navPoint id="np_212" playOrder="212">
+        <navLabel>
+        <text>*5．到给定曲线的距离的极值</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj7"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_213" playOrder="213">
+      <navLabel>
+      <text>§2　基本极值问题的一般原则</text>
+      </navLabel>
+      <content src="Text/part0020.xhtml#mllj8"/>
+        <navPoint id="np_214" playOrder="214">
+        <navLabel>
+        <text>1．原则</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj9"/>
+        </navPoint>
+        <navPoint id="np_215" playOrder="215">
+        <navLabel>
+        <text>2．例题</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj10"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_216" playOrder="216">
+      <navLabel>
+      <text>§3　驻点与微分学</text>
+      </navLabel>
+      <content src="Text/part0020.xhtml#mllj11"/>
+        <navPoint id="np_217" playOrder="217">
+        <navLabel>
+        <text>1．极值和驻点</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj12"/>
+        </navPoint>
+        <navPoint id="np_218" playOrder="218">
+        <navLabel>
+        <text>2．多元函数的极大和极小　鞍点</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj13"/>
+        </navPoint>
+        <navPoint id="np_219" playOrder="219">
+        <navLabel>
+        <text>3．极小极大点和拓扑学</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj14"/>
+        </navPoint>
+        <navPoint id="np_220" playOrder="220">
+        <navLabel>
+        <text>4．点到曲面的距离</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj15"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_221" playOrder="221">
+      <navLabel>
+      <text>§4　施瓦茨的三角形问题</text>
+      </navLabel>
+      <content src="Text/part0020.xhtml#mllj16"/>
+        <navPoint id="np_222" playOrder="222">
+        <navLabel>
+        <text>1．施瓦茨的证明</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj17"/>
+        </navPoint>
+        <navPoint id="np_223" playOrder="223">
+        <navLabel>
+        <text>2．另一种证法</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj18"/>
+        </navPoint>
+        <navPoint id="np_224" playOrder="224">
+        <navLabel>
+        <text>3．钝角三角形</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj19"/>
+        </navPoint>
+        <navPoint id="np_225" playOrder="225">
+        <navLabel>
+        <text>4．由光线形成的三角形</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj20"/>
+        </navPoint>
+        <navPoint id="np_226" playOrder="226">
+        <navLabel>
+        <text>*5．有关反射和遍历运动的说明</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj21"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_227" playOrder="227">
+      <navLabel>
+      <text>§5　施泰纳问题</text>
+      </navLabel>
+      <content src="Text/part0020.xhtml#mllj22"/>
+        <navPoint id="np_228" playOrder="228">
+        <navLabel>
+        <text>1．问题及解答</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj23"/>
+        </navPoint>
+        <navPoint id="np_229" playOrder="229">
+        <navLabel>
+        <text>2．两种不同情况的分析</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj24"/>
+        </navPoint>
+        <navPoint id="np_230" playOrder="230">
+        <navLabel>
+        <text>3．一个补充问题</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj25"/>
+        </navPoint>
+        <navPoint id="np_231" playOrder="231">
+        <navLabel>
+        <text>4．说明与习题</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj26"/>
+        </navPoint>
+        <navPoint id="np_232" playOrder="232">
+        <navLabel>
+        <text>5．推广到道路网问题</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj27"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_233" playOrder="233">
+      <navLabel>
+      <text>§6　极值与不等式</text>
+      </navLabel>
+      <content src="Text/part0020.xhtml#mllj28"/>
+        <navPoint id="np_234" playOrder="234">
+        <navLabel>
+        <text>1．两个正量的算术平均和几何平均</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj29"/>
+        </navPoint>
+        <navPoint id="np_235" playOrder="235">
+        <navLabel>
+        <text>2．推广到n个变量</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj30"/>
+        </navPoint>
+        <navPoint id="np_236" playOrder="236">
+        <navLabel>
+        <text>3．最小二乘法</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj31"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_237" playOrder="237">
+      <navLabel>
+      <text>§7　极值的存在性　狄里赫莱原理</text>
+      </navLabel>
+      <content src="Text/part0020.xhtml#mllj32"/>
+        <navPoint id="np_238" playOrder="238">
+        <navLabel>
+        <text>1．一般说明</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj33"/>
+        </navPoint>
+        <navPoint id="np_239" playOrder="239">
+        <navLabel>
+        <text>2．例题</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj34"/>
+        </navPoint>
+        <navPoint id="np_240" playOrder="240">
+        <navLabel>
+        <text>3．初等极值问题</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj35"/>
+        </navPoint>
+        <navPoint id="np_241" playOrder="241">
+        <navLabel>
+        <text>4．比较复杂情形中所存在的困难</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj36"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_242" playOrder="242">
+      <navLabel>
+      <text>§8　等周问题</text>
+      </navLabel>
+      <content src="Text/part0020.xhtml#mllj37"/>
+      </navPoint>
+      <navPoint id="np_243" playOrder="243">
+      <navLabel>
+      <text>*§9　带有边界条件的极值问题　施泰纳问题和等周问题之间的联系</text>
+      </navLabel>
+      <content src="Text/part0020.xhtml#mllj38"/>
+      </navPoint>
+      <navPoint id="np_244" playOrder="244">
+      <navLabel>
+      <text>§10　变分法</text>
+      </navLabel>
+      <content src="Text/part0020.xhtml#mllj39"/>
+        <navPoint id="np_245" playOrder="245">
+        <navLabel>
+        <text>1．引言</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj40"/>
+        </navPoint>
+        <navPoint id="np_246" playOrder="246">
+        <navLabel>
+        <text>2．变分法　费马光学原理</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj41"/>
+        </navPoint>
+        <navPoint id="np_247" playOrder="247">
+        <navLabel>
+        <text>3．贝努利对捷线问题的处理</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj42"/>
+        </navPoint>
+        <navPoint id="np_248" playOrder="248">
+        <navLabel>
+        <text>4．球面上的测地线与极大－极小</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj43"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_249" playOrder="249">
+      <navLabel>
+      <text>§11　极小问题的实验解法　肥皂膜实验</text>
+      </navLabel>
+      <content src="Text/part0020.xhtml#mllj44"/>
+        <navPoint id="np_250" playOrder="250">
+        <navLabel>
+        <text>1．引言</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj45"/>
+        </navPoint>
+        <navPoint id="np_251" playOrder="251">
+        <navLabel>
+        <text>2．肥皂膜实验</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj46"/>
+        </navPoint>
+        <navPoint id="np_252" playOrder="252">
+        <navLabel>
+        <text>3．普拉图问题的几种新实验</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj47"/>
+        </navPoint>
+        <navPoint id="np_253" playOrder="253">
+        <navLabel>
+        <text>4．其他数学问题的实验解法</text>
+        </navLabel>
+        <content src="Text/part0020.xhtml#mllj48"/>
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint id="np_254" playOrder="254">
+    <navLabel>
+    <text>第8章　微积分</text>
+    </navLabel>
+    <content src="Text/part0021.xhtml"/>
+      <navPoint id="np_255" playOrder="255">
+      <navLabel>
+      <text>引言</text>
+      </navLabel>
+      <content src="Text/part0021.xhtml#mllj1"/>
+      </navPoint>
+      <navPoint id="np_256" playOrder="256">
+      <navLabel>
+      <text>§1　积分</text>
+      </navLabel>
+      <content src="Text/part0021.xhtml#mllj2"/>
+        <navPoint id="np_257" playOrder="257">
+        <navLabel>
+        <text>1．面积看作是一个极限</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj3"/>
+        </navPoint>
+        <navPoint id="np_258" playOrder="258">
+        <navLabel>
+        <text>2．积分</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj4"/>
+        </navPoint>
+        <navPoint id="np_259" playOrder="259">
+        <navLabel>
+        <text>3．积分概念的一般说明　一般定义</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj5"/>
+        </navPoint>
+        <navPoint id="np_260" playOrder="260">
+        <navLabel>
+        <text>4．积分举例x的r次方的积分</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj6"/>
+        </navPoint>
+        <navPoint id="np_261" playOrder="261">
+        <navLabel>
+        <text>5．“积分运算”的法则</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj7"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_262" playOrder="262">
+      <navLabel>
+      <text>§2　导数</text>
+      </navLabel>
+      <content src="Text/part0021.xhtml#mllj8"/>
+        <navPoint id="np_263" playOrder="263">
+        <navLabel>
+        <text>1．把导数看作是斜率</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj9"/>
+        </navPoint>
+        <navPoint id="np_264" playOrder="264">
+        <navLabel>
+        <text>2．导数看作是一极限</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj10"/>
+        </navPoint>
+        <navPoint id="np_265" playOrder="265">
+        <navLabel>
+        <text>3．例题</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj11"/>
+        </navPoint>
+        <navPoint id="np_266" playOrder="266">
+        <navLabel>
+        <text>4．三角函数的导数</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj12"/>
+        </navPoint>
+        <navPoint id="np_267" playOrder="267">
+        <navLabel>
+        <text>*5．可微性和连续性</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj13"/>
+        </navPoint>
+        <navPoint id="np_268" playOrder="268">
+        <navLabel>
+        <text>6．导数和速度　二阶导数和加速度</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj14"/>
+        </navPoint>
+        <navPoint id="np_269" playOrder="269">
+        <navLabel>
+        <text>7．二阶导数的几何意义</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj15"/>
+        </navPoint>
+        <navPoint id="np_270" playOrder="270">
+        <navLabel>
+        <text>8．极大与极小</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj16"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_271" playOrder="271">
+      <navLabel>
+      <text>§3　微分法</text>
+      </navLabel>
+      <content src="Text/part0021.xhtml#mllj17"/>
+      </navPoint>
+      <navPoint id="np_272" playOrder="272">
+      <navLabel>
+      <text>§4　莱布尼茨的记号和“无穷小”</text>
+      </navLabel>
+      <content src="Text/part0021.xhtml#mllj18"/>
+      </navPoint>
+      <navPoint id="np_273" playOrder="273">
+      <navLabel>
+      <text>§5　微积分基本定理</text>
+      </navLabel>
+      <content src="Text/part0021.xhtml#mllj19"/>
+        <navPoint id="np_274" playOrder="274">
+        <navLabel>
+        <text>1．基本定理</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj20"/>
+        </navPoint>
+        <navPoint id="np_275" playOrder="275">
+        <navLabel>
+        <text>2．初步应用　x的r次方，cosx，sinx，arctanx的积分</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj21"/>
+        </navPoint>
+        <navPoint id="np_276" playOrder="276">
+        <navLabel>
+        <text>3．表示π的莱布尼茨公式</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj22"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_277" playOrder="277">
+      <navLabel>
+      <text>§6　指数函数与对数函数</text>
+      </navLabel>
+      <content src="Text/part0021.xhtml#mllj23"/>
+        <navPoint id="np_278" playOrder="278">
+        <navLabel>
+        <text>1．对数的定义和性质　欧拉数e</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj24"/>
+        </navPoint>
+        <navPoint id="np_279" playOrder="279">
+        <navLabel>
+        <text>2．指数函数</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj25"/>
+        </navPoint>
+        <navPoint id="np_280" playOrder="280">
+        <navLabel>
+        <text>3．ex，ax，xs的微分公式</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj26"/>
+        </navPoint>
+        <navPoint id="np_281" playOrder="281">
+        <navLabel>
+        <text>4．用极限表示e，ex和lnx的表达式</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj27"/>
+        </navPoint>
+        <navPoint id="np_282" playOrder="282">
+        <navLabel>
+        <text>5．对数的无穷级数展开式　数值计算</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj28"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_283" playOrder="283">
+      <navLabel>
+      <text>§7　微分方程</text>
+      </navLabel>
+      <content src="Text/part0021.xhtml#mllj29"/>
+        <navPoint id="np_284" playOrder="284">
+        <navLabel>
+        <text>1．定义</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj30"/>
+        </navPoint>
+        <navPoint id="np_285" playOrder="285">
+        <navLabel>
+        <text>2．指数函数的微分方程　放射性元素的蜕变　增长率　复利</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj31"/>
+        </navPoint>
+        <navPoint id="np_286" playOrder="286">
+        <navLabel>
+        <text>3．其他例题　简谐振动</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj32"/>
+        </navPoint>
+        <navPoint id="np_287" playOrder="287">
+        <navLabel>
+        <text>4．牛顿动力学定律</text>
+        </navLabel>
+        <content src="Text/part0021.xhtml#mllj33"/>
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint id="np_288" playOrder="288">
+    <navLabel>
+    <text>第8章补充</text>
+    </navLabel>
+    <content src="Text/part0022.xhtml"/>
+      <navPoint id="np_289" playOrder="289">
+      <navLabel>
+      <text>§1　原理方面的内容</text>
+      </navLabel>
+      <content src="Text/part0022.xhtml#mllj1"/>
+        <navPoint id="np_290" playOrder="290">
+        <navLabel>
+        <text>1．可微性</text>
+        </navLabel>
+        <content src="Text/part0022.xhtml#mllj2"/>
+        </navPoint>
+        <navPoint id="np_291" playOrder="291">
+        <navLabel>
+        <text>2．积分</text>
+        </navLabel>
+        <content src="Text/part0022.xhtml#mllj3"/>
+        </navPoint>
+        <navPoint id="np_292" playOrder="292">
+        <navLabel>
+        <text>3．积分概念的另一些应用　功　弧长</text>
+        </navLabel>
+        <content src="Text/part0022.xhtml#mllj4"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_293" playOrder="293">
+      <navLabel>
+      <text>§2　数量级</text>
+      </navLabel>
+      <content src="Text/part0022.xhtml#mllj5"/>
+        <navPoint id="np_294" playOrder="294">
+        <navLabel>
+        <text>1．指数函数和x的幂</text>
+        </navLabel>
+        <content src="Text/part0022.xhtml#mllj6"/>
+        </navPoint>
+        <navPoint id="np_295" playOrder="295">
+        <navLabel>
+        <text>2．ln（n!）的数量级</text>
+        </navLabel>
+        <content src="Text/part0022.xhtml#mllj7"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_296" playOrder="296">
+      <navLabel>
+      <text>§3　无穷级数和无穷乘积</text>
+      </navLabel>
+      <content src="Text/part0022.xhtml#mllj8"/>
+        <navPoint id="np_297" playOrder="297">
+        <navLabel>
+        <text>1．函数的无穷级数</text>
+        </navLabel>
+        <content src="Text/part0022.xhtml#mllj9"/>
+        </navPoint>
+        <navPoint id="np_298" playOrder="298">
+        <navLabel>
+        <text>2．欧拉公式　cosx＋isinx＝eix</text>
+        </navLabel>
+        <content src="Text/part0022.xhtml#mllj10"/>
+        </navPoint>
+        <navPoint id="np_299" playOrder="299">
+        <navLabel>
+        <text>3．调和级数和Zeta函数　正弦的欧拉乘积</text>
+        </navLabel>
+        <content src="Text/part0022.xhtml#mllj11"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="np_300" playOrder="300">
+      <navLabel>
+      <text>**§4　用统计方法得到素数定理</text>
+      </navLabel>
+      <content src="Text/part0022.xhtml#mllj12"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="np_301" playOrder="301">
+    <navLabel>
+    <text>第9章　最新进展</text>
+    </navLabel>
+    <content src="Text/part0023.xhtml"/>
+      <navPoint id="np_302" playOrder="302">
+      <navLabel>
+      <text>§1　产生素数的公式</text>
+      </navLabel>
+      <content src="Text/part0023.xhtml#mllj1"/>
+      </navPoint>
+      <navPoint id="np_303" playOrder="303">
+      <navLabel>
+      <text>§2　哥德巴赫猜想和孪生素数</text>
+      </navLabel>
+      <content src="Text/part0023.xhtml#mllj2"/>
+      </navPoint>
+      <navPoint id="np_304" playOrder="304">
+      <navLabel>
+      <text>§3　费马大定理</text>
+      </navLabel>
+      <content src="Text/part0023.xhtml#mllj3"/>
+      </navPoint>
+      <navPoint id="np_305" playOrder="305">
+      <navLabel>
+      <text>§4　连续统假设</text>
+      </navLabel>
+      <content src="Text/part0023.xhtml#mllj4"/>
+      </navPoint>
+      <navPoint id="np_306" playOrder="306">
+      <navLabel>
+      <text>§5　集合论中的符号</text>
+      </navLabel>
+      <content src="Text/part0023.xhtml#mllj5"/>
+      </navPoint>
+      <navPoint id="np_307" playOrder="307">
+      <navLabel>
+      <text>§6　四色定理</text>
+      </navLabel>
+      <content src="Text/part0023.xhtml#mllj6"/>
+      </navPoint>
+      <navPoint id="np_308" playOrder="308">
+      <navLabel>
+      <text>§7　豪斯道夫维数和分形</text>
+      </navLabel>
+      <content src="Text/part0023.xhtml#mllj7"/>
+      </navPoint>
+      <navPoint id="np_309" playOrder="309">
+      <navLabel>
+      <text>§8　纽结</text>
+      </navLabel>
+      <content src="Text/part0023.xhtml#mllj8"/>
+      </navPoint>
+      <navPoint id="np_310" playOrder="310">
+      <navLabel>
+      <text>§9　力学中的一个问题</text>
+      </navLabel>
+      <content src="Text/part0023.xhtml#mllj9"/>
+      </navPoint>
+      <navPoint id="np_311" playOrder="311">
+      <navLabel>
+      <text>§10　施泰纳问题</text>
+      </navLabel>
+      <content src="Text/part0023.xhtml#mllj10"/>
+      </navPoint>
+      <navPoint id="np_312" playOrder="312">
+      <navLabel>
+      <text>§11　肥皂膜和最小曲面</text>
+      </navLabel>
+      <content src="Text/part0023.xhtml#mllj11"/>
+      </navPoint>
+      <navPoint id="np_313" playOrder="313">
+      <navLabel>
+      <text>§12　非标准分析</text>
+      </navLabel>
+      <content src="Text/part0023.xhtml#mllj12"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="np_314" playOrder="314">
+    <navLabel>
+    <text>附录　补充说明　问题和习题</text>
+    </navLabel>
+    <content src="Text/part0024.xhtml"/>
+      <navPoint id="np_315" playOrder="315">
+      <navLabel>
+      <text>算术和代数</text>
+      </navLabel>
+      <content src="Text/part0024.xhtml#mllj1"/>
+      </navPoint>
+      <navPoint id="np_316" playOrder="316">
+      <navLabel>
+      <text>解析几何</text>
+      </navLabel>
+      <content src="Text/part0024.xhtml#mllj2"/>
+      </navPoint>
+      <navPoint id="np_317" playOrder="317">
+      <navLabel>
+      <text>几何作图</text>
+      </navLabel>
+      <content src="Text/part0024.xhtml#mllj3"/>
+      </navPoint>
+      <navPoint id="np_318" playOrder="318">
+      <navLabel>
+      <text>射影几何和非欧几何</text>
+      </navLabel>
+      <content src="Text/part0024.xhtml#mllj4"/>
+      </navPoint>
+      <navPoint id="np_319" playOrder="319">
+      <navLabel>
+      <text>拓扑学</text>
+      </navLabel>
+      <content src="Text/part0024.xhtml#mllj5"/>
+      </navPoint>
+      <navPoint id="np_320" playOrder="320">
+      <navLabel>
+      <text>函数、极限和连续性</text>
+      </navLabel>
+      <content src="Text/part0024.xhtml#mllj6"/>
+      </navPoint>
+      <navPoint id="np_321" playOrder="321">
+      <navLabel>
+      <text>极大与极小</text>
+      </navLabel>
+      <content src="Text/part0024.xhtml#mllj7"/>
+      </navPoint>
+      <navPoint id="np_322" playOrder="322">
+      <navLabel>
+      <text>微积分</text>
+      </navLabel>
+      <content src="Text/part0024.xhtml#mllj8"/>
+      </navPoint>
+      <navPoint id="np_323" playOrder="323">
+      <navLabel>
+      <text>积分法</text>
+      </navLabel>
+      <content src="Text/part0024.xhtml#mllj9"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="np_324" playOrder="324">
+    <navLabel>
+    <text>参考书目1</text>
+    </navLabel>
+    <content src="Text/part0025.xhtml"/>
+    </navPoint>
+    <navPoint id="np_325" playOrder="325">
+    <navLabel>
+    <text>参考书目2（推荐阅读）</text>
+    </navLabel>
+    <content src="Text/part0026.xhtml"/>
+    </navPoint>
+    <navPoint id="np_326" playOrder="326">
+    <navLabel>
+    <text>跋</text>
+    </navLabel>
+    <content src="Text/part0027.xhtml"/>
+    </navPoint>
+  </navMap>
+</ncx>

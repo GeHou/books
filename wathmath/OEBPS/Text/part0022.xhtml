@@ -1,0 +1,346 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+		"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN"><head><meta name="generator" content="HTML Tidy，see www.w3.org"/>
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+<title>什么是数学：对思想和方法的基本研究（中文版第三版）</title>
+<link href="../Styles/style0001.css" rel="stylesheet" type="text/css"/>
+</head><body>
+<h1 class="title1">第8章补充</h1>
+<h3 class="title3" id="mllj1">§1　原理方面的内容</h3>
+<h4 class="title4" id="mllj2">1．可微性</h4>
+<p class="normaltext">我们已经把函数的导数概念与函数图像的切线这样的直观观念结合起来了．由于函数的一般概念十分宽广，所以为了逻辑上的完整性，有必要摆脱对几何直观的依赖．因为我们并不能担保在研究圆或椭圆这些简单曲线时出现的那些熟知的直观事实对于较复杂的图形也必然存在．例如，考虑图282的函数，这个函数的图像有一棱角，该函数是由方程</p>
+<p class="normaltext5">y＝x＋｜x｜</p>
+<p class="picture"><img src="../Images/image01699.jpeg" alt="alt"/></p>
+<p class="tz"><b>图282</b>　y＝x＋｜x｜</p>
+<p class="normaltext6">定义的，其中｜x｜是x的绝对值，即</p>
+<p class="normaltext5">y＝x＋x＝2x，当x≥0，</p>
+<p class="normaltext5">y＝x－x＝0，当x＜0．</p>
+<p class="normaltext6">另一个这样的例子是函数y＝｜x｜，再一个是</p>
+<p class="normaltext5">y＝x＋｜x｜＋（x－1）＋｜x－1｜．</p>
+<p class="normaltext6">这些函数的图像在某些点没有确定的切线或方向；这就意味着这些函数在相应的那些x值上不存在导数．</p>
+<p class="picture"><img src="../Images/image01700.jpeg" alt="alt"/></p>
+<p class="tz"><b>图283</b>　y＝｜x｜</p>
+<p class="picture"><img src="../Images/image01701.jpeg" alt="alt"/></p>
+<p class="tz"><b>图284</b>　y＝x＋｜x｜＋（x－1）＋｜x－1｜</p>
+<p class="normaltexta"><b>习题</b>：1）作一函数f（x），使它的图像为正六边形的一半．</p>
+<p class="normaltext2">2）函数</p>
+<p class="picture"><img src="../Images/image01702.jpeg" alt="alt"/></p>
+<p class="normaltextd">的图像的棱角在什么地方？f′（x）的不连续点是怎样的？</p>
+<p class="normaltext">作为另一个不可微的简单例子，我们考虑函数</p>
+<p class="normaltext5">y＝f（x）＝xsin<img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，</p>
+<p class="normaltext6">这是函数sin<img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>（见<a href="part0018.xhtml#b61">此处</a>）乘以因子x而得到的；我们定义当x＝0时f（x）为0．这个函数在x为正值时的图像见图285，它是处处连续的．图像在x＝0的邻域是无限振荡的，当趋近于x＝0时，这些“波”变得很小．这些波的斜率由</p>
+<p class="picture"><img src="../Images/image01703.jpeg" alt="alt"/></p>
+<p class="tz"><b>图285</b>　y＝xsin<img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/></p>
+<p class="normaltext5">f′（x）＝sin<img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>－<img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>cos<img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/></p>
+<p class="normaltext6">给出（读者可作为练习来验证一下）；当x趋于0时，这个斜率在无限递增的正、负界之间振动．对于x＝0，我们可以按差商</p>
+<p class="picture"><img src="../Images/image01704.jpeg" alt="alt"/></p>
+<p class="normaltext6">当h→0时的极限来具体地求导数．但当h→0时，这个差商在-1和+1之间振动，且不趋于任何极限，因此函数在x＝0处是不可微的．</p>
+<p class="normaltext">这些例子指出了这种问题的固有困难．维尔斯特拉斯引人注目地指明了这一点，他构造了一个其图像处处没有切线的连续函数．显然可微性可以推导出连续性，而上述的这个例子说明连续性不能推出可微性，因为维尔斯特拉斯函数是连续的但处处不可微．在实际问题中，这样的问题是不会产生的．除了一些孤立点外，曲线将是光滑的，不仅可微而且导数也是连续的．那么为什么我们不简单地规定在我们研究的问题中不存在这些“病态的”现象呢？在微积分中我们正是这样做的，只研究可微函数．在第8章中，我们完成了很大一类函数的微分，因而证明了它们的可微性．</p>
+<p class="normaltext">因为函数的可微性在逻辑上不是理所当然的，因此必须或者假定它或者证明它．曲线的方向或说切线，这个概念原来是导数概念的基础，现在则是从导数的纯分析定义中导出来的．如果函数y＝f（x）有导数，即如果差商</p>
+<p class="picture"><img src="../Images/image01705.jpeg" alt="alt"/></p>
+<p class="normaltext6">当h不论从哪一边趋于0时，都有唯一的极限f′（x），那么就说对应的曲线有斜率为f′（x）的一条切线．这里为了在逻辑上使人信服，采取的方法与费马、莱布尼茨和牛顿的朴素观点正好相反．</p>
+<p class="normaltexta"><b>习题</b>：1）证明连续函数x<sup class="suptext">2</sup>sin<img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>在x＝0处有导数．</p>
+<p class="normaltext2">2）证明函数arctan（<img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>）在x＝0处不连续，xarctan（<img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>）在x＝0处连续，但没有导数，x<sup class="suptext">2</sup>arctan（<img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>）在x＝0处有导数．</p>
+<h4 class="title4" id="mllj3">2．积分</h4>
+<p class="normaltext">关于连续函数的积分，情况是类似的．我们不再把“曲线y＝f（x）下的面积”看作是明显存在且可以由和的极限表示出来的一个量．我们现在用这个极限来<b>定义</b>积分，并且把积分的概念看作是初始基础，而面积的一般概念是随后由它导出来的．我们被迫采取这种态度是由于几何直观应用到像连续函数那样一些一般的分析概念上时会出现含混的缘故．我们首先作和式</p>
+<p class="picture"><img src="../Images/image01706.jpeg" alt="alt"/></p>
+<p class="normaltext6">其中x<sub>0</sub>＝a，x<sub>1</sub>，…，x<sub>n</sub>＝b是积分区间的一个分割，</p>
+<p class="normaltext5">Δx<sub>j</sub>＝x<sub>j</sub>－x<sub>j－1</sub></p>
+<p class="normaltext6">是第j个小区间的长度或x值的差，而v<sub>j</sub>是x在这个小区间的任意一个值，即x<sub>j－1</sub>≤v<sub>j</sub>≤x<sub>j</sub>．（例如，我们可以取v<sub>j</sub>＝x<sub>j</sub>或v<sub>j</sub>＝x<sub>j－1</sub>．）现在我们作一系列这样的和式，它们所对应的小区间的个数n无限增加，而同时小区间的最大长度递减而趋于0．这时主要的事实是：对一个给定的连续函数f（x）来说，和式S<sub>n</sub>趋向于一个确定的极限A，它和区间的分法及点v<sub>j</sub>的选法无关．由定义，这个极限是积分</p>
+<p class="normaltext5">A＝<img src="../Images/image01434.jpeg" class="tpzz1" alt="alt" style="height:2.5em"/>．</p>
+<p class="normaltext6">当然，如果我们不希望依赖于面积的几何直观概念的话，这个极限的存在性就要求解析地加以证明．这个证明在任何一本严格的微积分教程中都有．</p>
+<p class="normaltext">比较微分和积分，我们遇到了下述的对偶性情况．从定义上说，可微性是对连续函数加了一定的限制条件，然而微分的实际运算（即微分的算法），却是在少数简单的法则的基础上的一个直接手续．另一方面，每一个连续函数在任意两个给定界限间都毫无例外地存在着积分，但这些积分的具体计算方法即使是对很简单的函数，一般说都是很困难的．在这点上，微积分基本定理在很多情况下成了进行积分运算的决定性工具．然而，对于许多函数，甚至是很初等的函数，其积分并没有明显的表达式，而且积分的数值计算要求更高级的计算方法．</p>
+<h4 class="title4" id="mllj4">3．积分概念的另一些应用　功　弧长</h4>
+<p class="normaltext">如果积分的解析概念脱离开原来的几何解释，我们会遇到其他一些同等重要的解释和应用．例如，在力学中积分可解释为功的概念的一种表示法．下述最简单的情况就足以说明这一点．假定一个物体在与x轴同方向的力的作用下沿x轴运动．设想物体的质量集中在一个其坐标为x的点上，作用力看成是位置的函数f（x），f（x）的符号表示力指向与x轴的正或负方向．如果力是常数并且物体从a运动到b，那么力所做的功由乘积（b－a）·f给出，即力的强度f和物体所经过的距离的乘积．但是如果力的强度随x而变化，我们就必须用极限来定义所做的功（正如我们定义速度那样）．为此目的，像以前一样我们用点x<sub>0</sub>＝a，x<sub>1</sub>，…，x<sub>n</sub>＝b把从a到b的区间分为许多小区间；然后设想在每个小区间内的力是相等的，是常量，比如说，是终点的实际值f（x<sub>r</sub>），然后计算相应于这个阶梯变动的力所做的功：</p>
+<p class="picture"><img src="../Images/image01707.jpeg" alt="alt"/></p>
+<p class="normaltext6">如果现在我们像以前那样缩小这些小区间并令n增大，可以看出这个和式趋向于积分</p>
+<p class="picture"><img src="../Images/image01708.jpeg" alt="alt"/></p>
+<p class="normaltext6">这样，连续变力所做的功由一个积分所定义．</p>
+<p class="normaltext">作为一个例子，让我们考虑质点m用一个弹簧定在原点x＝0处，如在<a href="part0021.xhtml#b62">此处</a>讨论的那样，力f（x）是与x成比例的，</p>
+<p class="normaltext5">f（x）＝-k<sup class="suptext">2</sup>x，</p>
+<p class="normaltext6">其中k<sup class="suptext">2</sup>是一个正的常数．那么如果质点从原点运动到位置x＝b，这个力所做的功是</p>
+<p class="picture"><img src="../Images/image01709.jpeg" alt="alt"/></p>
+<p class="normaltext6">如果我们要把弹簧拉到这个位置，我们必须克服此力而作功，这个功等于+k<sup class="suptext">2</sup><img src="../Images/image01710.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext">积分的一般概念的第二个应用是曲线弧长的概念．假定我们要考虑的那部分曲线可以用函数f（x）表示，它的导数</p>
+<p class="normaltext5">f′（x）＝<img src="../Images/image01464.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/></p>
+<p class="normaltext6">也是连续函数．为了确定长度我们可以这样来作：就像在实际中常不得不用直尺测量曲线那样，我们在AB弧中作一个有n个短边的内接多边形，测出这个多边形的总长度L<sub>n</sub>，把L<sub>n</sub>作为一个近似值；令n无限增大，且让多边形的最大边的边长趋于零，我们定义</p>
+<p class="normaltext5">L＝limL<sub>n</sub></p>
+<p class="normaltext6">是弧AB的长（在第6章，用这个方法得到的圆周长是把它看作内接正n边形的周长的极限）．可以证明，对充分光滑的曲线这个极限是存在的，并且与选取内接多边形序列的特定方式无关．满足这种条件的曲线叫作<b>可求长的</b>．在理论和应用中出现的任何“合理的”曲线都是可求长的，至于病态的情形我们将不作研究了．只要说明具有连续导数f′（x）的函数f（x）的弧AB在这个意义上有长度L并且L可以用积分表示就足够了．</p>
+<p class="picture"><img src="../Images/image01711.jpeg" alt="alt"/></p>
+<p class="tz"><b>图286</b>　弧长</p>
+<p class="normaltext">为此，我们分别用a和b表示A和B的横坐标，然后同以前一样，用点x<sub>0</sub>＝a，x<sub>1</sub>，…，x<sub>j</sub>，…，x<sub>n</sub>＝b把从a到b的区间分割为许多小区间，小区间长度为Δx<sub>j</sub>＝x<sub>j</sub>－x<sub>j－1</sub>，并且考察以上述这些点x<sub>j</sub>，y<sub>j</sub>＝f（x<sub>j</sub>）为顶点的折线．折线的每一小段的长度为</p>
+<p class="picture"><img src="../Images/image01712.jpeg" alt="alt"/></p>
+<p class="normaltext6">因此整个折线的长度是</p>
+<p class="picture"><img src="../Images/image01713.jpeg" alt="alt"/></p>
+<p class="normaltext6">如果现在让n趋于无穷，那么差商<img src="../Images/image01714.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>将趋于导数</p>
+<p class="normaltext5"><img src="../Images/image01464.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝f′（x），</p>
+<p class="normaltext6">并且我们得到长度L的积分表达式</p>
+<p class="picture"><img src="../Images/image01715.jpeg" alt="alt"/></p>
+<p class="normaltext">无须对此作进一步详细的理论探讨了，我们只作两点补充说明．第一，如果B被看作曲线上坐标为x的动点，那么L＝L（x）变为x的函数，由基本定理，我们有</p>
+<p class="picture"><img src="../Images/image01716.jpeg" alt="alt"/></p>
+<p class="normaltext6">这是一个经常用到的公式．第二，虽然公式（2）给出了问题的“一般”解，但难于给出在特定情况下弧长的明确表达式．因为，我们必须把特定的函数f（x），或干脆把f′（x）代入（2），然后对所得到的表达式实际进行积分．如果我们把自己限于本书所研究的初等函数的范围内，那么一般说来这里的困难是难以克服的．我们注意到只有很少的一些情形是可以积分的．函数</p>
+<p class="picture"><img src="../Images/image01717.jpeg" alt="alt"/></p>
+<p class="normaltext6">表示单位圆；我们有f′（x）＝<img src="../Images/image01464.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝-<img src="../Images/image01718.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，从而</p>
+<p class="picture"><img src="../Images/image01719.jpeg" alt="alt"/></p>
+<p class="normaltext6">所以圆弧的弧长就由积分</p>
+<p class="picture"><img src="../Images/image01720.jpeg" alt="alt"/></p>
+<p class="normaltext6">给出．对抛物线y＝x<sup class="suptext">2</sup>，我们有f′（x）＝2x，则从x＝0到x＝b的弧长是</p>
+<p class="picture"><img src="../Images/image01721.jpeg" alt="alt"/></p>
+<p class="normaltext6">对曲线y＝lnsinx，我们有f′（x）＝cotx，并且弧长由</p>
+<p class="picture"><img src="../Images/image01722.jpeg" alt="alt"/></p>
+<p class="normaltext6">表示．</p>
+<p class="normaltext">我们将满足于只写出这些积分表达式．就我们现在所掌握的方法来说，再稍微多一点技巧就能计算这些积分了，但在这方面我们不再下功夫了．</p>
+<h3 class="title3" id="mllj5">§2　数量级</h3>
+<h4 class="title4" id="mllj6">1．指数函数和x的幂</h4>
+<p class="normaltext">在数学中我们经常遇到趋于无穷的序列a<sub>n</sub>．有时我们需要把这个序列与另一个比它“快”一些然而也是趋于无穷的序列b<sub>n</sub>进行比较．为了把这个概念规定的确切些，我们作比值<img src="../Images/image01723.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，如果n无限增加时，比值<img src="../Images/image01723.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>（分子、分母同时趋于无穷）趋于零，就说b<sub>n</sub>较a<sub>n</sub>更快地趋于无穷，或者说b<sub>n</sub>有一个比a<sub>n</sub><b>更高的数量级</b>．例如，序列b<sub>n</sub>＝n<sup class="suptext">2</sup>比序列a<sub>n</sub>＝n更快地趋于无穷，而后者又比c<sub>n</sub>＝<img src="../Images/image01724.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>快，因为</p>
+<p class="picture"><img src="../Images/image01725.jpeg" alt="alt"/></p>
+<p class="normaltext6">显然，只要s>r>0，n<sup class="suptext">s</sup>就比n<sup class="suptext">r</sup>更快地趋于无穷，因为这时</p>
+<p class="picture"><img src="../Images/image01726.jpeg" alt="alt"/></p>
+<p class="normaltext">如果比<img src="../Images/image01723.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>趋于异于零的有限常数c，我们就说这两个序列a<sub>n</sub>和b<sub>n</sub>以同样的速率趋于无穷，或说有<b>同样的数量级</b>．例如a<sub>n</sub>＝n<sup class="suptext">2</sup>与b<sub>n</sub>＝2n<sup class="suptext">2</sup>＋n有同样的数量级，因为</p>
+<p class="picture"><img src="../Images/image01727.jpeg" alt="alt"/></p>
+<p class="normaltext6">人们可能以为，把n的幂当作尺码，可以对趋于无穷的任一序列a<sub>n</sub>度量出它趋于无穷的各种级别．要做到这一点，我们必须找到一个适当的幂n<sup class="suptext">s</sup>，使它与a<sub>n</sub>有同一数量级，即让<img src="../Images/image01728.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>趋于一异于零的有限常数．令人惊奇的是，这并不是总能办到的．因为<b>不论s选择得多么大，指数函数a<sup class="suptext">n</sup>，其中a＞1</b>，例如e<sup class="suptext">n</sup>，都比任何的n<sup class="suptext">s</sup>更快地趋于无穷，而<b>不论s是多么小的正指数，lnn比任何的n<sup class="suptext">s</sup>都更慢地趋于无穷，</b>换句话说，当n→∞时，我们有关系式</p>
+<p class="picture"><img src="../Images/image01729.jpeg" alt="alt"/></p>
+<p class="normaltext6">与</p>
+<p class="picture"><img src="../Images/image01730.jpeg" alt="alt"/></p>
+<p class="normaltext6">其中指数s不一定是整数，它可以是任意一个固定的正数．</p>
+<p class="normaltext">为证明（1），我们首先把命题加以简化，办法是取这个比的s次方根．如果这个根趋于0，那么原来的比式也趋于0，因此我们只需证明当n增加时</p>
+<p class="picture"><img src="../Images/image01731.jpeg" alt="alt"/></p>
+<p class="normaltext6">令b＝<img src="../Images/image01732.jpeg" class="tpzz1" alt="alt" style="height:1.9em"/>；因为a假定大于1，那么b和<img src="../Images/image01733.jpeg" class="tpzz1" alt="alt" style="height:1.9em"/>也大于1．我们可以记</p>
+<p class="picture"><img src="../Images/image01734.jpeg" alt="alt"/></p>
+<p class="normaltext6">其中q是正的．现在用<a href="part0011.xhtml#b30">此处</a>的不等式（6）</p>
+<p class="picture"><img src="../Images/image01735.jpeg" alt="alt"/></p>
+<p class="normaltext6">所以</p>
+<p class="picture"><img src="../Images/image01736.jpeg" alt="alt"/></p>
+<p class="normaltext6">且</p>
+<p class="picture"><img src="../Images/image01737.jpeg" alt="alt"/></p>
+<p class="normaltext6">因为后面的量当n增加时趋于0，命题得证．</p>
+<p class="normaltext">事实上，关系式</p>
+<p class="picture"><img src="../Images/image01738.jpeg" alt="alt"/></p>
+<p class="normaltext6">当x取遍任一序列x<sub>1</sub>，x<sub>2</sub>，…而趋于无穷时都成立，而序列x<sub>i</sub>无须与正整数序列1，2，3，…重合．因为如果</p>
+<p class="normaltext5">n－1≤x≤n，</p>
+<p class="normaltext6">那么</p>
+<p class="picture"><img src="../Images/image01739.jpeg" alt="alt"/></p>
+<p class="normaltext6">这个说明可以用来证明（2）．令x＝lnn，且e<sup class="suptext">s</sup>＝a，则e<sup class="suptext">x</sup>＝n且n<sup class="suptext">s</sup>＝（e<sup class="suptext">s</sup>）<sup class="suptext">x</sup>，关系式（2）中的比式变为</p>
+<p class="picture"><img src="../Images/image01740.jpeg" alt="alt"/></p>
+<p class="normaltext6">这就是（3）当s＝1时的特殊情形．</p>
+<p class="normaltexta"><b>习题</b>：1）证明当x→∞时函数lnlnx较lnx更慢地趋于无穷．</p>
+<p class="normaltext2">2）<img src="../Images/image01741.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的导数是<img src="../Images/image01742.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．证明对于足够大的x，这个导数是“渐近”等价于第一项的，即当x→∞时，它们的比趋于1．</p>
+<h4 class="title4" id="mllj7">2．ln（n!）的数量级</h4>
+<p class="normaltext">在很多的应用学科中，如概率论，重要的是要知道当n很大时，n!的数量级或n!的“渐近状态”．我们在这里将只研究n!的对数，即表达式</p>
+<p class="normaltext5">P<sub>n</sub>＝ln2＋ln3＋ln4＋…＋lnn．</p>
+<p class="picture"><img src="../Images/image01743.jpeg" alt="alt"/></p>
+<p class="tz"><b>图287</b>　ln（n!）的估算</p>
+<p class="normaltext6" id="b69">我们将证明P<sub>n</sub>的“渐近值”是由nlnn给出的，即</p>
+<p class="normaltext5"><img src="../Images/image01744.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>→1，当n→∞时．</p>
+<p class="normaltext">这个证明是把一个和式与一个积分进行比较，是一种常用的典型方法．在图287中，和式P<sub>n</sub>等于那些上边也是实线的矩形的面积之和，而这些面积合起来不超过对数曲线下由1到n＋1的面积（见<a href="part0021.xhtml#a48">此处</a>习题1）</p>
+<p class="picture"><img src="../Images/image01745.jpeg" alt="alt"/></p>
+<p class="normaltext6">但是和式P<sub>n</sub>同时也等于上边由虚线组成的矩形之和，它超过曲线下由1到n的面积</p>
+<p class="picture"><img src="../Images/image01746.jpeg" alt="alt"/></p>
+<p class="normaltext6">于是我们有</p>
+<p class="normaltext5">nlnn－n＋1＜P<sub>n</sub>＜（n＋1）ln（n＋1）－n，</p>
+<p class="normaltext6">除以nlnn，得</p>
+<p class="picture"><img src="../Images/image01747.jpeg" alt="alt"/></p>
+<p class="normaltext6">很明显，当n趋于无穷时两端的式子都趋于1，因此命题得证．</p>
+<p class="normaltexta"><b>习题</b>：证明两端的式子分别大于1－<img src="../Images/image00483.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>而小于1＋<img src="../Images/image00483.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<h3 class="title3" id="mllj8">§3　无穷级数和无穷乘积</h3>
+<h4 class="title4" id="mllj9">1．函数的无穷级数</h4>
+<p class="normaltext">正如我们早已阐述过的，把一个量s表示成一个无穷级数</p>
+<p class="picture"><img src="../Images/image01748.jpeg" alt="alt"/></p>
+<p class="normaltext6">只是下述说法的一个较方便的记法，并没有别的新东西，即当n增加时，s是有限“部分和”序列</p>
+<p class="normaltext5">s<sub>1</sub>，s<sub>2</sub>，s<sub>3</sub>，…</p>
+<p class="normaltext6">的极限，其中的s<sub>n</sub>为</p>
+<p class="picture"><img src="../Images/image01749.jpeg" alt="alt"/></p>
+<p class="normaltext6">因此等式（1）就相当于极限关系，当n→∞时，</p>
+<p class="picture"><img src="../Images/image01750.jpeg" alt="alt"/></p>
+<p class="normaltext6">这里的s<sub>n</sub>是由（2）定义的．当极限（3）存在时，我们就说级数（1）<b>收敛</b>于值s，而如果极限（3）不存在，就说这个级数<b>发散</b>．</p>
+<p class="normaltext">例如，级数</p>
+<p class="normaltext5">1－<img src="../Images/image00518.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＋<img src="../Images/image00608.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>－<img src="../Images/image00561.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＋…</p>
+<p class="normaltext6">收敛于值<img src="../Images/image01147.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，而级数</p>
+<p class="normaltext5">1－<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.1em"/>＋<img src="../Images/image00518.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>－<img src="../Images/image00532.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＋…</p>
+<p class="normaltext6">收敛于值ln2．另一方面，级数</p>
+<p class="normaltext5">1－1＋1－1＋…</p>
+<p class="normaltext6">是发散的（因为部分和交替变为0与1）．而级数</p>
+<p class="normaltext5">1＋1＋1＋1＋…</p>
+<p class="normaltext6">发散是因为部分和趋于无穷．</p>
+<p class="normaltext">我们曾经遇到过这样的级数，它的项b<sub>i</sub>为</p>
+<p class="normaltext5">b<sub>i</sub>＝c<sub>i</sub>x<sup class="suptext">i</sup>，</p>
+<p class="normaltext6">是x的函数，其中c<sub>i</sub>是常数因子．这样的级数叫作<b>幂级数</b>，它表示以多项式出现的部分和</p>
+<p class="normaltext5">S<sub>n</sub>＝c<sub>0</sub>＋c<sub>1</sub>x＋c<sub>2</sub>x<sup class="suptext">2</sup>＋…＋c<sub>n</sub>x<sup class="suptext">n</sup></p>
+<p class="normaltext6">的极限（加上常数项c<sub>0</sub>，需要对记法（2）作一个非实质性的改变）．因此一个函数f（x）的幂级数展开式</p>
+<p class="normaltext5">f（x）＝c<sub>0</sub>＋c<sub>1</sub>x＋c<sub>2</sub>x<sup class="suptext">2</sup>＋…</p>
+<p class="normaltext6">就是用最简单的函数即多项式近似表示f（x）的一种方法．总结并补充前面的结果，我们列出以下的幂级数展开式：</p>
+<p class="picture" id="b67"><img src="../Images/image01751.jpeg" alt="alt"/></p>
+<p class="normaltext6">我们还要加上以下重要的展开式：</p>
+<p class="picture"><img src="../Images/image01752.jpeg" alt="alt"/></p>
+<p class="normaltext6">这两个级数是公式（<a href="part0021.xhtml#b63">此处</a>）</p>
+<p class="picture"><img src="../Images/image01753.jpeg" alt="alt"/></p>
+<p class="normaltext6">的简单推论．我们从不等式</p>
+<p class="normaltext5">cosx≤1</p>
+<p class="normaltext6">开始，两端都由0到x积分，这里x是任意确定的正数．我们求得（见<a href="part0021.xhtml#b64">此处</a>公式（13））</p>
+<p class="normaltext5">sinx≤x；</p>
+<p class="normaltext6">再次积分，得</p>
+<p class="normaltext5">1－cosx≤<img src="../Images/image01754.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，</p>
+<p class="normaltext6">也就是</p>
+<p class="normaltext5">cosx≥1－<img src="../Images/image01754.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext6">再积分，我们得到</p>
+<p class="picture"><img src="../Images/image01755.jpeg" alt="alt"/></p>
+<p class="normaltext6">按此方式无限进行下去，就可得到两组不等式</p>
+<p class="picture"><img src="../Images/image01756.jpeg" alt="alt"/></p>
+<p class="normaltext6">现在当n→∞时，<img src="../Images/image01757.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>→0．为了证明这一点，我们选取一固定的整数m，使<img src="../Images/image01758.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＜<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，并且记c＝<img src="../Images/image01759.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．对于任意整数n＞m，令n＝m＋r，那么</p>
+<p class="picture"><img src="../Images/image01760.jpeg" alt="alt"/></p>
+<p class="normaltext6">且当n→∞时，r→∞，因而c（<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.1em"/>）<sup class="suptext">r</sup>→0．由此可知</p>
+<p class="picture"><img src="../Images/image01761.jpeg" alt="alt"/></p>
+<p class="normaltext6">因为这两个级数的各项交错变号且绝对值是递减的（至少对于｜x｜≤1是如此），可知<b>这两个级数无论从哪一项截断，其误差就绝对值来说都不超过被舍去部分的第一项</b>．</p>
+<p class="normaltext">说明：这些级数可以用来计算正弦、余弦函数表．例：sin1°是多少？1°是<img src="../Images/image01762.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>弧度；因而</p>
+<p class="picture"><img src="../Images/image01763.jpeg" alt="alt"/></p>
+<p class="normaltext6">截断后的误差不超过<img src="../Images/image01764.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，即小于0.00000000002．因此sin1°＝0.0174524064，精确到小数点后10位数．</p>
+<p class="normaltext" id="a11">最后，我们不加证明地叙述一下“二项式级数”</p>
+<p class="picture"><img src="../Images/image01765.jpeg" alt="alt"/></p>
+<p class="normaltext6">其中<img src="../Images/image01766.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>是“二项式系数”</p>
+<p class="picture"><img src="../Images/image01767.jpeg" alt="alt"/></p>
+<p class="normaltext6">如果a＝n是正整数，那么我们有<img src="../Images/image01768.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＝1，且若s>n，（11）中的所有系数<img src="../Images/image01766.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>都等于零，从而我们就回到普通二项式定理的有限公式．初等二项式定理可以从正整指数n扩展为任意正的、负的、有理的或无理的指数a，这是牛顿早年作出的伟大发现之一．当a不是正整数时，（11）右边就成为无穷级数，它对-1＜x＜1成立．当｜x｜＞1时，级数（11）发散，这时等号失去意义．</p>
+<p class="normaltext">特别是，把a＝<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.1em"/>代入（11），我们得到展开式</p>
+<p class="picture"><img src="../Images/image01769.jpeg" alt="alt"/></p>
+<p class="normaltext">像18世纪其他的数学家一样，牛顿对他的公式并没有给出一个真正的证明．这种无穷级数的收敛性以及这些无穷级数能成立的范围，直到19世纪才有了一个令人满意的分析．</p>
+<p class="normaltextc"><b>习题</b>：写出<img src="../Images/image01770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>和<img src="../Images/image01771.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的幂级数．</p>
+<p class="normaltext">展式（4）～（11）都是泰勒（B. Taylor）（1685～1731）一般公式的特殊情形．泰勒公式的目的，是对很大一类的函数，寻求用函数f及其导数来表示系数c<sub>i</sub>的规律，从而把其中任意一个f（x）展成幂级数</p>
+<p class="picture"><img src="../Images/image01772.jpeg" alt="alt"/></p>
+<p class="normaltext6" id="a60">这里不可能阐述和建立泰勒公式成立的条件，也无法证明泰勒公式．但下面大体合理的考虑可以解释有关数学事实之间的相互联系．</p>
+<p class="normaltext">我们事先假定展开式（13）成立，再假定f（x）可微，f′（x）可微，等等，即认为各阶导数</p>
+<p class="normaltext5">f′（x），f″（x），…，f<sup class="suptext">（n）</sup>（x），…</p>
+<p class="normaltext6">实际都存在．最后，就像有限多项式似的，我们假定无穷幂级数可以逐项微分．在这些假定下，我们可以根据f（x）在x＝0的邻域的状态来确定系数c<sub>n</sub>．首先以x＝0代入（13），我们得到</p>
+<p class="normaltext5">c<sub>0</sub>＝f（0），</p>
+<p class="normaltext6">因为级数（13）中含有x的项都消失了．现在我们微分（13），得到</p>
+<p class="picture"><img src="../Images/image01773.jpeg" alt="alt"/></p>
+<p class="normaltext6">再代入x＝0，但这次是代入（13′）中而不是（13），我们得到</p>
+<p class="normaltext5">c<sub>1</sub>＝f′（0）．</p>
+<p class="normaltext6">由微分（13′），我们得到</p>
+<p class="picture"><img src="../Images/image01774.jpeg" alt="alt"/></p>
+<p class="normaltext6">把x＝0代入（13″）中，求得</p>
+<p class="normaltext5">2!c<sub>2</sub>＝f″（0）．</p>
+<p class="normaltext">类似地，微分（13″）且代入x＝0，有</p>
+<p class="picture"><img src="../Images/image01775.jpeg" alt="alt"/></p>
+<p class="normaltext6">这样连续地作下去，我们得到一般公式</p>
+<p class="picture"><img src="../Images/image01776.jpeg" alt="alt"/></p>
+<p class="normaltext6">其中f<sup class="suptext">（n）</sup>（0）是f（x）的n阶导数在x＝0时的值．这个结果就是<b>泰勒级数</b></p>
+<p class="picture"><img src="../Images/image01777.jpeg" alt="alt"/></p>
+<p class="normaltext">作为微分的练习，读者可以验证，在（4）～（11）的各个级数中，泰勒级数的系数公式都是成立的．</p>
+<h4 class="title4" id="mllj10">2．欧拉公式　cosx＋isinx＝e<sup class="suptext">ix</sup></h4>
+<p class="normaltext">欧拉的形式主义的方法中最使人赞叹的结果之一，是在复数范围内正弦和余弦函数与指数函数之间的紧密联系．应该预先指出，欧拉的“证明”以及我们随后的讨论，严格说来都是没有意义的；它是典型的18世纪的形式处理方法．</p>
+<p class="normaltext" id="a61">让我们从第二章已经证明的棣莫弗公式开始</p>
+<p class="normaltext5">（cosnφ＋isinnφ）＝（cosφ＋isinφ）<sup class="suptext">n</sup>．</p>
+<p class="normaltext6">在此，我们代入φ＝<img src="../Images/image01778.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，得到公式</p>
+<p class="picture"><img src="../Images/image01779.jpeg" alt="alt"/></p>
+<p class="normaltext6">现在如果x是给定的，那么当n很大时，<img src="../Images/image01780.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>虽不同于</p>
+<p class="normaltext5">cos0＝1，</p>
+<p class="normaltext6">但它们相差很小；并且因为</p>
+<p class="normaltext5"><img src="../Images/image01781.jpeg" class="tpzz1" alt="alt" style="height:4em"/>→1，当<img src="../Images/image01778.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>→0时，</p>
+<p class="normaltext6">（见<a href="part0018.xhtml#b65">此处</a>）我们看到<img src="../Images/image01782.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>是渐近等于<img src="../Images/image01778.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的．因此我们可以得到一个看来合理的极限公式</p>
+<p class="picture"><img src="../Images/image01783.jpeg" alt="alt"/></p>
+<p class="normaltext6">把这个方程的右端和公式（<a href="part0021.xhtml#b66">此处</a>）</p>
+<p class="normaltext5"><img src="../Images/image01784.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，当n→∞时</p>
+<p class="normaltext6">比较，我们有</p>
+<p class="picture"><img src="../Images/image01785.jpeg" alt="alt"/></p>
+<p class="normaltext6">这就是欧拉的结果．</p>
+<p class="normaltext">从e<sup class="suptext">z</sup>的展开式出发，我们用另一种形式主义的方法可以得到同样的结果．把z＝ix（这里x是实数）代入</p>
+<p class="picture"><img src="../Images/image01786.jpeg" alt="alt"/></p>
+<p class="normaltext6">中，如果我们留意i的逐次幂是i，-1，-i，1，并且是周期性的，那么合并实部和虚部，得</p>
+<p class="picture"><img src="../Images/image01787.jpeg" alt="alt"/></p>
+<p class="normaltext6">此式右端与cosx及sinx的级数比较，我们再一次得到欧拉公式．这样的推理决不是关系式（15′）的严格证明．我们的第二个论证所以有问题是因为e<sup class="suptext">z</sup>的展开式是在z是实数的假定下导出的；因此作代换z＝ix需要说明其合理性．同样地，第一个论证的成立被下述的事实破坏了，即公式</p>
+<p class="normaltext5"><img src="../Images/image01788.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，当n→∞时</p>
+<p class="normaltext6">只是对z为实数的情况而言．</p>
+<p class="normaltext">为了使欧拉公式从仅仅是形式上成立变为严格的数学真理，需要发展复变函数理论．这个理论是十九世纪伟大数学成就之一．还有其他许多问题都促进了这个意义深远的发展．例如，我们已看到函数的幂级数展开式在不同的x的区间收敛．为什么某些展式总是收敛，即对一切的x都收敛，而另外一些展式对｜x｜＞1就失去意义呢？</p>
+<p class="normaltext">例如，考虑<a href="part0022.xhtml#b67">此处</a>等比级数（4），它对｜x｜＜1是收敛的．当x＝1时，这等式的左边是完全有意义的，它取值</p>
+<p class="picture"><img src="../Images/image01789.jpeg" alt="alt"/></p>
+<p class="normaltext6">然而右边级数的状态很奇怪，成为</p>
+<p class="normaltext5">1－1＋1－1＋…，</p>
+<p class="normaltext6">这个级数不收敛，因为它的部分和在1和0间摆动．这说明即使函数本身没有显出任何无规律性，也能产生一个发散级数．当然，函数<img src="../Images/image01790.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>当x→-1时变为无穷．由于容易说明一个幂级数在x＝a＞0是收敛的，则在-a＜x＜a时总是收敛的，所以我们似乎可以因为<img src="../Images/image01790.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>在x＝-1处的不连续性而为其展式的怪异现象找到一个“解释”．然而函数<img src="../Images/image01791.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>也可展为级数</p>
+<p class="normaltext5"><img src="../Images/image01790.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝1－x<sup class="suptext">2</sup>＋x<sup class="suptext">4</sup>－x<sup class="suptext">6</sup>＋…，</p>
+<p class="normaltext6">这只要在（4）中用x<sup class="suptext">2</sup>代替x就行了．这个级数当｜x｜＜1时也是收敛的，而当x＝1时，它又变成发散级数</p>
+<p class="normaltext5">1－1＋1－1＋…，</p>
+<p class="normaltext6">并且当｜x｜>1时，它爆炸性地发散，但函数本身到处都很正规．</p>
+<p class="normaltext">实际上这种现象的完善的解释只有当函数被看作是自变量的<b>复数</b>值时（同时也看作实数值）才是可能的．例如，级数<img src="../Images/image01791.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>当x＝i时必是发散的，因为这时分数的分母变为0．由此推出级数对于所有满足｜x｜>｜i｜＝1的x必然也发散，因为可以证明如果对任意这样一个x收敛的话，则对x＝i它也收敛．这个早期微积分中完全被忽视的级数收敛性问题，是开创复变函数理论的主要原因之一．</p>
+<h4 class="title4" id="mllj11">3．调和级数和Zeta函数　正弦的欧拉乘积</h4>
+<p class="normaltext">各项为整数的简单组合的级数是特别有趣的．作为一个例子，我们考虑“调和函数”</p>
+<p class="picture"><img src="../Images/image01792.jpeg" alt="alt"/></p>
+<p class="normaltext6">它与ln2的级数的区别只是偶数项的符号不同．</p>
+<p class="normaltext">要问这级数是否收敛，就是问序列</p>
+<p class="normaltext5">s<sub>1</sub>，s<sub>2</sub>，s<sub>3</sub>，…</p>
+<p class="normaltext6">是否趋于有限极限，其中</p>
+<p class="picture"><img src="../Images/image01793.jpeg" alt="alt"/></p>
+<p class="normaltext6">虽然级数（16）的项越往后越小并趋于0，但容易看到这个级数并不收敛．因为如果取足够多的项，我们就能超过任意事先给定的正数，使S<sub>n</sub>无限增大，因而级数（16）“发散到无穷”．为了看清这一点，我们观察</p>
+<p class="picture"><img src="../Images/image01794.jpeg" alt="alt"/></p>
+<p class="normaltext6">一般为</p>
+<p class="picture"><img src="../Images/image01795.jpeg" alt="alt"/></p>
+<p class="normaltext6">这样看来，例如只要m≥200，部分和就超过100．</p>
+<p class="normaltext">虽然调和级数不收敛，但可以证明级数</p>
+<p class="picture"><img src="../Images/image01796.jpeg" alt="alt"/></p>
+<p class="normaltext6">对大于1的任何s都是收敛的，因而对所有的s>1，定义以s为自变量的所谓Zeta函数</p>
+<p class="picture"><img src="../Images/image01797.jpeg" alt="alt"/></p>
+<p class="normaltext6">Zeta函数和素数之间有一个重要的关系，这个关系我们可以利用等比级数的知识把它推导出来．设p＝2，3，5，7，…是任意一个素数；那么对于s≥1，有</p>
+<p class="picture"><img src="../Images/image01798.jpeg" alt="alt"/></p>
+<p class="normaltext6">使得</p>
+<p class="picture"><img src="../Images/image01799.jpeg" alt="alt"/></p>
+<p class="normaltext6">我们把与所有素数p＝2，3，5，7，…相应的这些表达式乘在一起，而不考虑这样一个运算是否成立．在左端得到无穷“乘积”</p>
+<p class="picture"><img src="../Images/image01800.jpeg" alt="alt"/></p>
+<p class="normaltext6">而在另一端我们得到级数</p>
+<p class="picture"><img src="../Images/image01801.jpeg" alt="alt"/></p>
+<p class="normaltext6">这是因为大于1的每个整数都能唯一地表示为不同素数的幂的乘积．这样，Zeta函数就表示成一个乘积：</p>
+<p class="picture"><img src="../Images/image01802.jpeg" alt="alt"/></p>
+<p class="normaltext6">如果只有有限个不同的素数，设为p<sub>1</sub>，p<sub>2</sub>，…，p<sub>r</sub>，那么（21）的右端的乘积是一个普通的有限乘积，因此是一个有限值，甚至对s＝1也是如此．但正如我们已见过的，Zeta函数对s＝1，有</p>
+<p class="normaltext5">ζ（1）＝1＋<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.1em"/>＋<img src="../Images/image00518.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＋…</p>
+<p class="normaltext6">发散到无穷．这样的讨论（可以很容易作出严格的证明）表明素数有无限多个．这当然比欧几里得的证明（见<a href="part0012.xhtml#a49">此处</a>）要复杂得多，难理解得多．但从一条困难的道路攀登山峰是很使人神往的，虽然从另一条比较舒服的道路也能到达山峰．</p>
+<p class="normaltext">像用无穷级数表示函数那样，（21）这样的无穷乘积往往和无穷级数同样有用．另一个无穷乘积是关于三角函数sinx的，它是欧拉的又一个成就．要理解这个公式，我们先讨论多项式．如果f（x）＝a<sub>0</sub>＋a<sub>1</sub>x＋…＋a<sub>n</sub>x<sup class="suptext">n</sup>是一个n次多项式，且有n个不同的零点x<sub>1</sub>，…，x<sub>n</sub>，那么由代数可知f（x）可以分解为线性因子（见<a href="part0013.xhtml#a50">此处</a>）</p>
+<p class="normaltext5">f（x）＝a<sub>n</sub>（x－x<sub>1</sub>）…（x－x<sub>n</sub>）．</p>
+<p class="normaltext6">把乘积x<sub>1</sub>x<sub>2</sub>…x<sub>n</sub>作为因子提出，上式可写成</p>
+<p class="picture"><img src="../Images/image01803.jpeg" alt="alt"/></p>
+<p class="normaltext6">其中C是常数．若令x＝0，那么得到C＝a<sub>0</sub>．现在如果不考虑多项式而代之以较为复杂的函数f（x），于是产生一个问题，是否仍然可能利用f（x）的零点把它分解为因式乘积（一般是不可能的．例如指数函数根本没有零点，因为对所有的x都有e<sup class="suptext">x</sup>≠0）．欧拉发现对正弦函数这样的分解是可能的．为了用最简单的方式写出这个公式，我们不考虑sinx而考虑sinπx．因为sinπn＝0对所有的整数n成立，而对其他数都不成立，所以这个函数的零点是x＝0，±1，±2，±3，…．欧拉公式表述为</p>
+<p class="picture"><img src="../Images/image01804.jpeg" alt="alt"/></p>
+<p class="normaltext6">这个无限乘积对所有的x值都是收敛的，它是数学中最漂亮的公式之一．对x＝<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.1em"/>，它变为</p>
+<p class="picture"><img src="../Images/image01805.jpeg" alt="alt"/></p>
+<p class="normaltext6">因为</p>
+<p class="picture"><img src="../Images/image01806.jpeg" alt="alt"/></p>
+<p class="normaltext6" id="x2">我们得到<a href="part0018.xhtml#b68">此处</a>指出的威廉斯乘积</p>
+<p class="picture"><img src="../Images/image01807.jpeg" alt="alt"/></p>
+<p class="normaltext6">所有这些事实的证明，请读者参考微积分课本（可参见第572页）．</p>
+<h3 class="title3" id="mllj12">**§4　用统计方法得到素数定理</h3>
+<p class="normaltext" id="b26">当数学方法应用于研究自然现象时，人们常满足于这样的论证：即在一系列严密的逻辑推理中，或多或少加上一些合理的假设．甚至在纯数学中，也会遇到类似的推理，尽管没有提供严格的证明，但是它给出了正确的解，并提示了通往严格证明的方向．捷线问题的贝努利解（见<a href="part0020.xhtml#mllj42">此处</a>）就有这样的特点，分析中早期的大多数工作都是如此．</p>
+<p class="normaltext">利用应用数学特别是统计力学中的典型方法，我们在这里作一些论证，至少使素数分布律看来是对的（实验物理学家赫兹（G. Hertz）向作者建议了有关的方法）．在第一章的补充中，这个定理在经验的基础上曾经讨论过：不大于n的素数的个数A（n）渐近地等于量<img src="../Images/image01808.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext5">A（n）～<img src="../Images/image01808.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，</p>
+<p class="normaltext6">这意味着当n趋于无穷时，A（n）与<img src="../Images/image01808.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的比趋于极限1．</p>
+<p class="normaltext">首先我们假设，按下述意义描述素数分布的数学规律是<b>存在</b>的：对于充分大的n，函数A（n）近似地等于积分<img src="../Images/image01809.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，其中W（x）是一个度量素数的“密度”的函数（我们选取2为积分下限是由于当x＜2时显然有A（x）＝0）．确切些说，令x是一大数，而Δx为另一大数，但x的数量级大于Δx（例如我们令Δx＝<img src="../Images/image01539.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>）．然后假定素数的分布足够光滑，以使由x到x＋Δx的区间内的素数个数近似地等于W（x）Δx，并且W（x）作为x的函数变化得很慢，使得在不改变它的渐近值的情形下，能用一系列近似矩形来取代</p>
+<p class="normaltext5"><img src="../Images/image01809.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext6">在作了这些准备后，我们开始论证．</p>
+<p class="normaltext">我们已经证明了（<a href="part0022.xhtml#b69">此处</a>）对于充分大的整数，lnn!渐近地等于nlnn，</p>
+<p class="normaltext5">lnn!～nlnn．</p>
+<p class="normaltext6">现在我们要给出包含素数的lnn!的第二个公式，并且把两个式子加以比较．让我们计算一下，小于n的任意一个素数p，作为整数n!＝1·2·3·…·n的一个因子出现了多少次．我们用［a］<sub>p</sub>表示使p<sup class="suptext">k</sup>整除a的最大整数k．因为每个整数的素因子分解是唯一的，可见对于任意两个整数a和b，有［ab］<sub>p</sub>＝［a］<sub>p</sub>＋［b］<sub>p</sub>．所以</p>
+<p class="normaltext5">［n!］<sub>p</sub>＝［1］<sub>p</sub>＋［2］<sub>p</sub>＋［3］<sub>p</sub>＋…＋［n］<sub>p</sub>．</p>
+<p class="normaltext6">在序列1，2，3，…，n内可被p<sup class="suptext">k</sup>整除的各项是p<sup class="suptext">k</sup>，2p<sup class="suptext">k</sup>，3p<sup class="suptext">k</sup>，…，当n很大时，它们的个数N<sub>k</sub>近似等于<img src="../Images/image01810.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．可被p<sup class="suptext">k</sup>整除但不能被p的更高次幂整除的项的个数M<sub>k</sub>等于N<sub>k</sub>－N<sub>k＋1</sub>．因此</p>
+<p class="picture"><img src="../Images/image01811.jpeg" alt="alt"/></p>
+<p class="normaltext6">（当然，这等式只是近似的．）</p>
+<p class="normaltext">可见，当n很大时，对所有小于n的素数p，表达式<img src="../Images/image01812.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的乘积可以用来近似地给出数n!．这样，我们有公式</p>
+<p class="picture"><img src="../Images/image01813.jpeg" alt="alt"/></p>
+<p class="normaltext">把这个式子和我们以前的lnn!的渐近关系式比较，并且用x代替n，得到</p>
+<p class="picture"><img src="../Images/image01814.jpeg" alt="alt"/></p>
+<p class="normaltext">下一步是关键所在；我们要利用W（x）求（1）的右端的渐近表达式．当x很大时，我们选择点2＝ξ<sub>1</sub>，ξ<sub>2</sub>，…，ξ<sub>r</sub>，ξ<sub>r+1</sub>＝x，对应的增量为Δξ<sub>j</sub>＝ξ<sub>j+1</sub>－ξ<sub>j</sub>，从而把从2到x＝n的区间分割为许多（r个）小区间．在每个小区间内可能有素数，并且在第j个小区间内的所有素数的值都近似等于ξ<sub>j</sub>．由我们关于W（x）的假定，在第j个小区间内的素数个数近似等于W（ξ<sub>j</sub>）·Δξ<sub>j</sub>；因此（1）的右端的和近似等于</p>
+<p class="picture"><img src="../Images/image01815.jpeg" alt="alt"/></p>
+<p class="normaltext6">把这个有限和用它所逼近的积分来代替，我们得到（1）的一个看起来合理的推论，即关系式</p>
+<p class="picture"><img src="../Images/image01816.jpeg" alt="alt"/></p>
+<p class="normaltext6">我们要用它来确定未知函数W（x）．如果我们用普通的等式代替符号～，并且将两端都对x微分，那么根据微积分基本定理，有</p>
+<p class="picture"><img src="../Images/image01817.jpeg" alt="alt"/></p>
+<p class="normaltext">讨论一开始，我们已经假定了A（x）近似地等于</p>
+<p class="picture"><img src="../Images/image01818.jpeg" alt="alt"/></p>
+<p class="normaltext6">因此，A（x）可由积分</p>
+<p class="picture"><img src="../Images/image01819.jpeg" alt="alt"/></p>
+<p class="normaltext6">近似地给出．为了计算这个积分，我们注意到函数</p>
+<p class="picture"><img src="../Images/image01820.jpeg" alt="alt"/></p>
+<p class="normaltext6">有导数</p>
+<p class="picture"><img src="../Images/image01821.jpeg" alt="alt"/></p>
+<p class="normaltext6">当x的值充分大时，两个表达式</p>
+<p class="picture"><img src="../Images/image01822.jpeg" alt="alt"/></p>
+<p class="normaltext6">是近似相等的，因为对充分大的x来说，这两个表达式的第二项都远远小于第一项．于是积分（4）近似等于积分</p>
+<p class="picture"><img src="../Images/image01823.jpeg" alt="alt"/></p>
+<p class="normaltext6">这是因为被积函数在大部分积分区域内都几乎相等．又由于<img src="../Images/image01824.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>是一个常数，所以当x很大时可以略去，于是就得到最终结果</p>
+<p class="picture"><img src="../Images/image01825.jpeg" alt="alt"/></p>
+<p class="normaltext6">这就是素数定理．</p>
+<p class="normaltext">我们不能指望上面的论证中除启发性的价值外还具有更多的东西．但在做更深入的分析后却发现存在着如下的事实．我们大胆所做的一切步骤都是合理的，而其证明并不困难；特别是关于等式（1），关于这个和式与（2）中的积分之间的渐近相等，以及关于由（2）到（3）的过渡都是合理的．但是，要证明我们一开始所作的假定，即一个光滑密度函数W（x）的<b>存在</b>性，那就困难得多了．一旦承认了这一点，这个函数的<b>估值</b>是比较简单的事，就这个观点而言，这样一个函数的存在性的证明是这个素数问题的最为困难之处．</p>
+</body></html>

@@ -1,0 +1,423 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+		"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN"><head><meta name="generator" content="HTML Tidy，see www.w3.org"/>
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+<title>什么是数学：对思想和方法的基本研究（中文版第三版）</title>
+<link href="../Styles/style0001.css" rel="stylesheet" type="text/css"/>
+</head><body>
+<h1 class="title1">第1章补充　数论</h1>
+<h2 class="title2" id="mllj1">引言</h2>
+<p class="normaltext">自然数虽然逐渐失去了它和宗教迷信及神秘主义的联系，但是数学家对它的兴趣丝毫也没有减退．欧几里得（约公元前300年）大概是对数论作了最初贡献的人（他的出名是由于在他的<b>《原本》</b>中有一部分内容构成了中学课程几何学的基础，虽然他的几何学的大部分内容只不过是前人工作的一个总结）．亚历山大城的一个早期的代数学家丢番都（Diophantus）（约公元275年），留下了他关于数论的著作．费马（P. Fermat）（1601～1665），土伦的一个法官，他那时代最伟大的数学家之一，是近代数论的开创者．欧拉（Euler）（1707～1783），最多产的数学家，在他的研究中有相当多的是数论方面的工作．在数学杂志上很出名的勒让德（Legendre），狄里赫莱（Dirichlet）、黎曼（Riemann）也可以列入这个名单中．高斯（Gauss）（1777～1855），是近代第一流的数学家，在数学的许多不同分支都有他的贡献；据说他用下面的话表示他对数论的看法：“数学是科学的皇后，而数论是数学的皇后．”</p>
+<h3 class="title3" id="mllj2">§1　素数</h3>
+<h4 class="title4" id="mllj3">1．基本事实</h4>
+<p class="normaltext">数论中的多数命题（如同数学是一整体那样）不是涉及单个的对象（例如数5或数32），而是涉及某些有共同性质的一类对象，例如，全体偶数集，</p>
+<p class="normaltext5">2，4，6，8，…，</p>
+<p class="normaltext6">或全体能用3整除的整数集，</p>
+<p class="normaltext5">3，6，9，12，…，</p>
+<p class="normaltext6">或所有整数的平方的集，</p>
+<p class="normaltext5">1，4，9，16，…，</p>
+<p class="normaltext6">等等．</p>
+<p class="normaltext">在数论中，最基本的、最重要的一类数是<b>素数</b>．大多数整数能分解成较小因子：10＝2·5，111＝3·37，144＝3·3·2·2·2·2等等．人们都知道，不能这样分解的数就是素数．更确切地说，<b>一个大于1的正整数p，它除了1和它本身外没有因子，就称它是素数</b>（如果有某个<b>整数</b>c使得b＝ac，则称<b>整数a是整数b的因子或除数．</b>）．2，3，5，7，11，13，17，…这些数是素数，而，比如说，12就不是，因为12＝3·4．素数的重要性在于这一事实：<b>每一个</b>整数都能表示为<b>素数的乘积</b>．如果一个数本身不是素数，那么可以不断地对它进行因子分解，直到所有的因子都是素数为止．例如，360＝3·120＝3·30·4＝3·3·10·2·2＝3·3·5·2·2·2＝2<sup class="suptext">3</sup>·3<sup class="suptext">2</sup>·5．一个整数（除了0和1）如果不是素数，就称为是<b>合数</b>．</p>
+<p class="normaltext">对于素数，最初所产生的一个问题是：究竟只有有限个不同的素数，还是素数类包含无穷多个元素，如同全体正整数那样（虽然素数只是正整数的一部分）．回答是：<b>有无穷多个素数</b>．</p>
+<p class="normaltext" id="a49">关于素数有无穷多个的证明（它是由欧几里得给出的）至今仍然是数学推理的一个典范．这是用“反证法”来进行的．我们从一个尝试性的假定出发，即认为这定理是不对的．也就是说假定只有有限多个素数，也可能很多——十亿或更多——用一般的、非确定性的方式来表示，记为有n个．采用下标的写法，我们可以用p<sub>1</sub>，p<sub>2</sub>，…，p<sub>n</sub>来表示这些素数．其他任何一个数都是复合数，于是，素数p<sub>1</sub>，p<sub>2</sub>，…，p<sub>n</sub>中至少有一个能够整除它．我们现在构作一个数A，让它比p<sub>1</sub>，p<sub>2</sub>，…，p<sub>n</sub>中任一个都大，从而与它们中的任何一个都不同，又让它不能被p<sub>1</sub>，p<sub>2</sub>，…，p<sub>n</sub>中的任一个整除，因而产生矛盾．这数是</p>
+<p class="normaltext5">A＝p<sub>1</sub>p<sub>2</sub>…p<sub>n＋1</sub>．</p>
+<p class="normaltext6">即我们所假设的所有素数的乘积再加上1．A比这些p中的任一个都大，因而必须是合数．但用p<sub>1</sub>，p<sub>2</sub>等去除A总是余1，因此这些p不是A的因子．这是由我们当初的假设（仅有有限个素数）而导致的矛盾．因而这假设只能被看成是荒谬的，从而它的反面必然是正确的．定理证完．</p>
+<p class="normaltextc">虽然这个证明用的是反证法，但稍加修改一下，至少在理论上可给出一个能构造出无穷多个素数的方法．我们从任一素数开始，例如p<sub>1</sub>＝2，设已经构造出了n个素数p<sub>1</sub>，p<sub>2</sub>，…，p<sub>n</sub>．这时，我们看数p<sub>1</sub>p<sub>2</sub>…p<sub>n＋1</sub>，或者它本身是一素数，或者它有一个素数因子，而且这个素数因子不同于已造出的那些素数．由于这个因子总能通过直接试验来确立，因而我们保证在任何情形下都至少能找出一个新的素数p<sub>n＋1</sub>．照这个方法进行下去，我们看到可构造的素数序列决不会终止．</p>
+<p class="normaltextb"><b>习题：</b>从p<sub>1</sub>＝2，p<sub>2</sub>＝3开始，进行这种构造，找出5个以上的素数．</p>
+<p class="normaltext">当一个数已被表示成素数的乘积后，我们可以用任意的次序来排列这些素数因子．稍有一点经验就可知道，除了次序可任意排列外，一个数N的素因子分解是唯一的：<b>每一个比1大的整数N只能有一种方式分解成素数的乘积．</b>这命题初看起来似乎是如此明显，以至于人们一般都倾向于承认它．但它决不是不证自明的，而且这证明（虽然完全是初等的）要求某些细致的推理．由欧几里得给出的这个“算术基本定理”的古典证明，是建立在（找两个数的最大公因子的）欧几里得辗转相除法上的．这将在<a href="part0012.xhtml#b25">此处</a>讨论．而在这里，我们给出一个比较新的证明，它比较简短，但与欧几里得的相比可能有更多的推理．这是反证法的一个典型例子．我们将假设存在一个整数，它有两种根本不同的素数分解，然后从这假设出发导出一个矛盾．于是表明“存在一个有两种根本不同的素因子分解的整数”的假设是不对的．因此每一个整数的素数分解是唯一的．</p>
+<p class="normaltext" id="a10">如果存在一个能分解为两种根本不同的素数乘积的正整数，则这样的正整数中必有一个是<b>最小的</b>（见<a href="part0011.xhtml#a12">此处</a>）</p>
+<p class="picture"><img src="../Images/image00425.jpeg" alt="alt"/></p>
+<p class="normaltext6">这里的p，q等是素数．通过重新安排p及q的次序（如果需要的话），我们可以认为</p>
+<p class="normaltext5">p<sub>1</sub>≤p<sub>2</sub>≤…≤p<sub>r</sub>，q<sub>1</sub>≤q<sub>2</sub>≤…≤q<sub>s</sub>．</p>
+<p class="normaltext6">现在p<sub>1</sub>不能等于q<sub>1</sub>．因为如果相等，我们能从等式（1）的每一边消去第一个因子得到一个小于m有两个根本不同的素因子分解的正整数，这与m的选择（m为有这种可能的<b>最小</b>正整数）相矛盾．因此，或者p<sub>1</sub>＜q<sub>1</sub>，或者q<sub>1</sub>＜p<sub>1</sub>．假设p<sub>1</sub>＜q<sub>1</sub>（如果q<sub>1</sub>＜p<sub>1</sub>，我们只须简单地调换下面讨论中的字母即可），我们构造一整数</p>
+<p class="picture"><img src="../Images/image00426.jpeg" alt="alt"/></p>
+<p class="normaltext6">把（2）中的m用等式（1）中的两个表达式代入，我们可以把m′写成</p>
+<p class="picture"><img src="../Images/image00427.jpeg" alt="alt"/></p>
+<p class="normaltext6">和</p>
+<p class="picture"><img src="../Images/image00428.jpeg" alt="alt"/></p>
+<p class="normaltext6">由于p<sub>1</sub>＜q<sub>1</sub>，从（4）知m′是一个正整数，而从（2）知m′是小于m的．因此m′的素数分解，除了因子次序外，必须是<b>唯一的</b>．但从（3）知素数p<sub>1</sub>是m′的因子，因此由（4）知p<sub>1</sub>必须是（q<sub>1</sub>－p<sub>1</sub>）或（q<sub>2</sub>q<sub>3</sub>…q<sub>s</sub>）的因子（这从m′的素数分解的唯一性得出，见下一段的论证）．由于所有q都比p<sub>1</sub>大，这后一情形是不可能的．因此p<sub>1</sub>必须是q<sub>1</sub>－p<sub>1</sub>的因子，这样就有某个整数h使</p>
+<p class="normaltext5">q<sub>1</sub>－p<sub>1</sub>＝p<sub>1</sub>h或q<sub>1</sub>＝p<sub>1</sub>（h＋1）．</p>
+<p class="normaltext6">这表明p<sub>1</sub>是q<sub>1</sub>的一个因子，与q<sub>1</sub>是素数这事实矛盾．这矛盾表明我们最初的假设是站不住脚的，因而完全证明了这个算术基本定理．</p>
+<p class="normaltext" id="b27">这基本定理的一个重要推论是：<b>如果一个素数p是乘积ab的因子，则p必须或是a的因子，或是b的因子．</b>因为如果p既不是a的因子，也不是b的因子，那么把a和b素数分解后再相乘，得到整数ab的一种素数分解，其中<b>不包含</b>p．另一方面，由于p是ab的因子，故存在一整数t使</p>
+<p class="normaltext5">ab＝pt．</p>
+<p class="normaltext6">因此，p乘以t的素数分解，将是ab的一个<b>包含</b>p的素数分解，这与ab的素数分解是唯一的这个事实矛盾．</p>
+<p class="normaltext">例：如果人们证实了13是2652的一个因子，以及2652＝6·442，就可以得出13是442的因子这一结论．但另一方面，6是240的一个因子而且240＝15·16，但6既不是15，也不是16的因子．这表明p是<b>素数</b>这个假设是不可缺少的．</p>
+<p class="normaltexta"><b>习题：</b>为了找出任一数a的所有因子，我们只需把a分解为乘积</p>
+<p class="picture"><img src="../Images/image00429.jpeg" alt="alt"/></p>
+<p class="normaltext7">其中p是不同的素数，每一个有某次幂．a的<b>所有</b>因子是这样的数</p>
+<p class="picture"><img src="../Images/image00430.jpeg" alt="alt"/></p>
+<p class="normaltext7">其中β是满足下列不等式的任意整数：</p>
+<p class="normaltext8">0≤β<sub>1</sub>≤α<sub>1</sub>，0≤β<sub>2</sub>≤α<sub>2</sub>，…，0≤β<sub>r</sub>≤α<sub>r</sub>．</p>
+<p class="normaltext7">试证明这个命题．作为一个推论，再证明a的不同的因子（包括因子a和1）的个数由乘积</p>
+<p class="normaltext8">（α<sub>1</sub>＋1）（α<sub>2</sub>＋1）…（α<sub>r</sub>＋1）</p>
+<p class="normaltext7">给出．例如</p>
+<p class="normaltext8">144＝2<sup class="suptext">4</sup>·3<sup class="suptext">2</sup></p>
+<p class="normaltext7">有5·3个因子，它们是1，2，4，8，16，3，6，12，24，48，9，18，36，72，144．</p>
+<h4 class="title4" id="mllj4">2．素数的分布</h4>
+<p class="normaltext">对于任意给定的自然数N，N之前的素数表可以这样得到：按大小顺序把所有比N小的自然数列出，然后划掉所有是2的倍数的那些数，在剩下的里面再划掉所有那些3的倍数，一直这样做下去，直到所有的复合数都被划掉．这过程（就是人所熟知的“爱拉托塞姆（Eratosthems）筛法”）将留下N以前的素数．对上述方法加以改进后，所有小于10000000以前的素数表已逐渐地被计算出来了．这些表给我们提供了关于素数的分布和性质的大量经验数据．在这些表的基础上，我们能作出许多很可能是正确的猜想（好像数论是一门实验科学那样），但它们的证明通常十分困难．</p>
+<p class="subtitle3" id="a17">a．产生素数的公式</p>
+<p class="normaltext">人们一直想找出一个只产生素数的简单算术公式，即使它只能给出部分素数也可以．费马作了一个有名的猜测（但不是肯定的断言）：所有形如</p>
+<p class="normaltext5">F（n）＝2<sup class="suptext">2<sup class="suptext">n</sup></sup>＋1</p>
+<p class="normaltext6">的数是素数．实际上对n＝1，2，3，4，我们有</p>
+<p class="picture"><img src="../Images/image00431.jpeg" alt="alt"/></p>
+<p class="normaltext6">全是素数．但在1732年欧拉发现2<sup class="suptext">2<sup class="suptext">5</sup></sup>＋1＝641·6700417可以因子分解，因此F（5）不是素数．后来又发现不少这种“费马数”是合数；对每一种情形都要求用比较高深的数论上的方法，因为直接试验有难以超越的困难．甚至至今还没能证明n＞4时是否存在一个F（n）是素数．</p>
+<p class="normaltext">另一个能产生许多素数的有名的简单公式是</p>
+<p class="normaltext5">f（n）＝n<sup class="suptext">2</sup>－n＋41，</p>
+<p class="normaltext6">对n＝1，2，…，40，f（n）是一素数，但对n＝41，我们有f（n）＝41<sup class="suptext">2</sup>，这不再是一个素数．表达式</p>
+<p class="normaltext5">n<sup class="suptext">2</sup>－79n＋1601，</p>
+<p class="normaltext6">当n从1一直到79时都得出素数，但当n＝80时就不是素数了．总的来说，求出一个仅产生素数的简单表达式的努力一直徒劳无功．试图求出一个得出<b>所有</b>素数的代数表达式更是希望渺茫．</p>
+<p class="subtitle3">b．等差数列中的素数</p>
+<p class="normaltext">虽然证明全体自然数序列1，2，3，4，…中有无穷多个素数是简单的，但当我们把它推广到像1，4，7，10，13，…或3，7，11，15，19，…这样的序列，或更一般地，任意一个等差数列a，a＋d，a＋2d，…，a＋nd，…时（这里a和d没有公因子），问题就远为困难了．所有的观察都指出这一事实：<b>在每一个这样的数列中都有无穷多个素数</b>，恰如在最简单的情形1，2，3，…中那样．证明这个一般性的定理要付出极大的努力．19世纪第一流的数学家之一狄里赫莱（1805—1859），利用当时所知道的最先进的数学分析工具才取得完全的成功．他那篇关于这个问题的原著，即使到现在仍然是数学中最突出的成就之一．即使到了一百年后的今天，对于那些在微积分和函数论的技巧上没有足够训练的学生来说，这个定理还没简化到能使他们理解的程度．</p>
+<p class="normaltext">虽然，我们不能证明狄里赫莱的一般定理，但是可以很容易地把欧几里得关于有无穷多素数的证明推广到某些<b>特殊的</b>等差数列，例如4n＋3和6n＋5．为了证明前一种情形，我们注意任何大于2的素数都是奇数（否则它将能被2整除），因而素数必是或等于4n＋1或等于4n＋3的形式．其次，两个4n＋1形式的数的乘积仍是4n＋1的形式，这因为</p>
+<p class="picture"><img src="../Images/image00432.jpeg" alt="alt"/></p>
+<p class="normaltext6">现在假设只有有限个4n＋3形式的素数p<sub>1</sub>，p<sub>2</sub>，…，p<sub>n</sub>，考虑数</p>
+<p class="normaltext5">N＝4（p<sub>1</sub>p<sub>2</sub>…p<sub>n</sub>）－1＝4（p<sub>1</sub>p<sub>2</sub>…p<sub>n－1</sub>）＋3．</p>
+<p class="normaltext6">或者N本身是一素数，或者它能分解为一些素数的乘积，这时这些素数中没有一个是p<sub>1</sub>，p<sub>2</sub>，…，p<sub>n</sub>，因为用它们除N余-1．其次，N的所有素数因子不能都是4n＋1形式的，因为N不是这形式的，而我们已看到，4n＋1形式的数的乘积仍是这种形式．因此，至少有一素数因子必须是4n＋3的形式，而这是不可能的，因为我们假设<b>所有的</b>形如4n＋3的素数只是这些p<sub>i</sub>，而它们没有一个是N的因子．因此如果假设4n＋3形式的素数个数是有限的，将引出矛盾，所以这样的素数必须是无限个．</p>
+<p class="normaltextc"><b>习题：</b>对级数6n＋5证明相应的定理．</p>
+<p class="subtitle3">c．素数定理</p>
+<p class="normaltext">在研究素数分布所服从的规律时，数学家不再徒劳地试图去求一个产生所有素数的简单公式，或求前n个自然数中所有素数个数的简单公式，而是去寻求素数在自然数中<b>平均</b>分布的信息．</p>
+<p class="normaltext">对自然数n，让我们用A<sub>n</sub>表示整数1，2，3，…，n中素数的个数．如果我们在前面一些自然数中的素数下边划上线：1 <span class="underline">2</span> <span class="underline">3</span> 4 <span class="underline">5</span> 6 <span class="underline">7</span> 8 9 10 <span class="underline">11</span> 12 <span class="underline">13</span> 14 15 16 <span class="underline">17</span> 18 <span class="underline">19</span>…，则我们能算出A<sub>n</sub>的前几个值：</p>
+<p class="normaltext">A<sub>1</sub>＝0，A<sub>2</sub>＝1，A<sub>3</sub>＝A<sub>4</sub>＝2，A<sub>5</sub>＝A<sub>6</sub>＝3，</p>
+<p class="normaltext">A<sub>7</sub>＝A<sub>8</sub>＝A<sub>9</sub>＝A<sub>10</sub>＝4，A<sub>11</sub>＝A<sub>12</sub>＝5，</p>
+<p class="normaltext">A<sub>13</sub>＝A<sub>14</sub>＝A<sub>15</sub>＝A<sub>16</sub>＝6，A<sub>17</sub>＝A<sub>18</sub>＝7，</p>
+<p class="normaltext">A<sub>19</sub>＝8，等等．</p>
+<p class="normaltext">如果我们现在取n为某一个无限递增的序列，比如说</p>
+<p class="normaltext5">n＝10，10<sup class="suptext">2</sup>，10<sup class="suptext">3</sup>，10<sup class="suptext">4</sup>，…，</p>
+<p class="normaltext6">则其相应的A<sub>n</sub>的值是</p>
+<p class="normaltext5">A<sub>10</sub>，A<sub>10<sup class="suptext">2</sup></sub>，A<sub>10<sup class="suptext">3</sup></sub>，A<sub>10<sup class="suptext">4</sup></sub>，…，</p>
+<p class="normaltext6">它也无限增加（虽然比较慢）．由于我们知道有无穷多个素数，所以A<sub>n</sub>的值或早或晚将超过任何一个有限数．令比值A<sub>n</sub>／n表示前n个自然数中素数的“密度”．由素数表可以用试验的办法算出n相当大时A<sub>n</sub>／n的值</p>
+<p class="picture"><img src="../Images/image00433.jpeg" alt="alt"/></p>
+<p class="normaltext6">表中最后一个数可以看成是，由前10<sup class="suptext">9</sup>个自然数中随机地取一个自然数而它恰是素数的概率，这是因为有10<sup class="suptext">9</sup>种可能的选择，其中有A<sub>10<sup class="suptext">9</sup></sub>个是素数．</p>
+<p class="picture" id="a47"><img src="../Images/image00434.jpeg" alt="alt"/></p>
+<p class="tz"><b>图5</b>　lnn定义为双曲线下阴影部分的面积</p>
+<p class="normaltext">在自然数中单个的素数的分布是极不规则的．但如果我们把注意力集中于由比值A<sub>n</sub>／n给出的素数平均分布时，不规律性就消失了．这个比值所服从的简单规律，是整个数学中最著名的发现之一．为了叙述<b>素数定理</b>，我们必须定义自然数n的“自然对数”．为此，我们在平面上取两个垂直的坐标轴，考虑平面上到二轴的距离x，y的乘积等于1的点的轨迹．利用坐标x和y，可知这条轨迹是由方程xy＝1定义的等边双曲线．我们现在定义lnn<sup class="suptext"><a id="fhzs1" href="part0012.xhtml#zhushi1">〔1〕</a></sup>为图5中由双曲线、x轴及两条竖直线x＝1，x＝n所围的面积（在第八章将更细致地讨论对数）．通过对素数表的试验和观察，高斯看到比值A<sub>n</sub>／n近似等于1／lnn，而且n越大这个近似就越好．近似的好坏程度是用比值<img src="../Images/image00435.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>来衡量的．对n＝1000，1000000，1000000000，它的值在下表给出：</p>
+<p class="picture"><img src="../Images/image00436.jpeg" alt="alt"/></p>
+<p class="normaltext6">根据这个试验，高斯猜想：比值A<sub>n</sub>／n“渐近等于”1／lnn．就是说，如果我们把n的值取成一个越来越大的序列，比如像前面那样取n等于</p>
+<p class="normaltext5">10，10<sup class="suptext">2</sup>，10<sup class="suptext">3</sup>，10<sup class="suptext">4</sup>，…，</p>
+<p class="normaltext6">则A<sub>n</sub>／n和1／lnn的比</p>
+<p class="picture"><img src="../Images/image00437.jpeg" alt="alt"/></p>
+<p class="normaltext6">当逐次用n的值代入计算后，将越来越接近于1．而且只要n取得足够大，这比值与1的差，我们要它多小就能有多小．这结论在符号上用记号～来表示：</p>
+<p class="normaltext5"><img src="../Images/image00438.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>表示当n增加时<img src="../Images/image00435.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>趋于1．</p>
+<p class="normaltext6">这“～”不能用普通的等号“＝”来代替，这从下一点就能看清楚：A<sub>n</sub>总是一个整数，而n／lnn就不是．</p>
+<p class="normaltext">素数分布的平均状态能用对数函数来描述，这是一个很引人注目的发现．因为，两个似乎完全无关的数学概念在事实上竟有如此紧密的联系，这是很令人奇怪的．</p>
+<p class="normaltext">虽然叙述高斯猜想并不太难，但是要给出一个严格的数学证明，高斯所处时代的数学是远远不够的，这个定理虽然只涉及最基本的概念，但其证明必须用到近代数学中最有力的方法．数学分析发展了差不多一百年后，才使巴黎的阿达玛（Hadamard，1896）和卢汶的瓦莱·布桑（dela Valle Poussin，1896）给出素数定理一个完整的证明．曼高尔德（V. Mangoldt）和朗道（Landau）作了简化和重要的改进．早在阿达玛之前，黎曼（1826～1866）已作出了有决定意义的先驱性工作，他在一篇著名的文章中已经指出解决这个问题的主要思路．最近美国数学家维纳（N. Wiener）对证明作了一个改进，使得在证明推理的一个重要步骤上无须使用复数．但即使对一个高年级的大学生来说，素数定理的证明也不是一件容易的事情．在<a href="part0022.xhtml#b26">此处</a>之后，我们将再回到这个问题上来．</p>
+<p class="subtitle3" id="a3">d．两个尚未解决的素数问题</p>
+<p class="normaltext">虽然素数平均分布的问题已被满意地解决了，但还有其他许多被试验证实的猜想，迄今还不能证明它们是正确的．</p>
+<p class="normaltext" id="b24">其中有一个是有名的<b>哥德巴赫猜想</b>．哥德巴赫（Goldbach，1690～1764）（除了1742年他在一封给欧拉的信中提出这个问题外，他在数学史上没什么地位）．由试验观察到，任何一个偶数（除了2，它本身是一素数）都能表示为两个素数的和．例如，4＝2＋2，6＝3＋3，8＝5＋3，10＝5＋5，12＝5＋7，14＝7＋7，16＝13＋3，18＝11＋7，20＝13＋7，…，48＝29＋19，…，100＝97＋3，等等．</p>
+<p class="normaltext">哥德巴赫问欧拉：能不能证明这对于<b>所有</b>偶数都是对的，或者至少找出一个反例来否定它．欧拉没能给出回答，而且从那时以来没有一个人给出过回答．对于每一个偶数能表示为两个素数的和这一命题，试验的结果是完全令人信服的，任何一个人都可以用大量的例子来验证它．困难的原因是：素数是用<b>乘法</b>来定义的，而这问题涉及的是<b>加法</b>．一般来说，在自然数的乘法性质和加法性质之间建立联系是困难的．</p>
+<p class="normaltext" id="b1">直到不久以前，哥德巴赫猜想的证明似乎还是完全无法进行的．但今天看来不再是不能解决的了．1931年，当时一个不知名的苏联年轻数学家斯尼尔曼（Schnirelmann，1905～1938）取得一个完全没料想到的成就，它使所有的专家都感到吃惊．他证明了每一个<b>正整数能表示成不超过300000个素数之和．</b>虽然与证明哥德巴赫猜想当初的目标来比，这个结果是很可笑的，但它毕竟是迈向这个目标的第一步．这是一个直接的、构造性的证明，虽然对任意正整数的素数分解，它并没有提供任何实际方法．更近一些，苏联数学家维诺格拉托夫（Vinogradoff），用了哈代（Hardy）、利特伍德（Littlewood）和他俩的合作者印度人拉玛纽加（Ramanujan）的方法，成功地把个数由300000减为4．这比较地接近于哥德巴赫问题的解决．但在斯尼尔曼的结论和维诺格拉托夫的结论之间还存在着一个重大的差别，这可能比300000和4之间的差别更显著．维诺格拉托夫的定理只对“充分大”的自然数成立；更确切地说，他证明了，存在一个正整数N，对于任意n＞N的整数，都能表示为不超过4个素数的和．维诺格拉托夫的证明未能告诉我们怎样确定这个N，它与斯尼尔曼的定理相反，本质上是一个间接的、非构造性的证明．维诺格拉托夫实际上证明了：假设有无穷多个整数不能分解为最多4个素数之和，就会产生一个荒谬的结果．在这里，我们找到了一个很好的例子，表明两种证明方法（直接的方法和反证法）之间的深刻差别（一般的讨论见<a href="part0013.xhtml#a38">此处</a>）．</p>
+<p class="normaltext">另一个甚至比哥德巴赫问题更引人注目的问题，却还没有一点解决的途径．人们早就注意到，素数经常以p和p＋2的形式成对出现，例如，3和5，11和13，29和31，等等．人们相信“存在无穷多个这样的素数对”的命题是对的，但至今在解决这个问题的方向上，还根本谈不上有什么办法．</p>
+<h3 class="title3" id="mllj5">§2　同余</h3>
+<h4 class="title4" id="mllj6">1．一般概念</h4>
+<p class="normaltext">只要碰到用一个固定的整数d去除整数的问题，“同余”的概念和记法（高斯所创）将使推理简单而清楚．</p>
+<p class="normaltext">为了引进这个概念，让我们检查一下当整数被5除时剩下的余数．我们有</p>
+<p class="picture"><img src="../Images/image00439.jpeg" alt="alt"/></p>
+<p class="normaltext6">我们看到任一整数被5除时，剩下的余数是0，1，2，3，4这五个数中的一个．如果两个整数a和b被5除有<b>相同的余数</b>，我们称它们是“模5同余”的．例如2，7，12，17，22，…，-3，-8，-13，-18，…都是模5同余的，因为它们的余数是2．一般地说，如果整数a和b用d除有相同的余数，即如果有一整数n使a－b＝nd成立（这里d是一固定整数），我们就说a和b是<b>模d同余</b>的．例如27和15是模4同余的，因为</p>
+<p class="normaltext5">27＝6·4＋3，15＝3·4＋3．</p>
+<p class="normaltext">由于同余的概念很有用，因此人们希望对它给出一个简单的记法．我们用</p>
+<p class="normaltext5">a≡b（mod d）</p>
+<p class="normaltext6">来表示a和b是模d同余的这件事．如果对模数不存在疑问，公式中的“mod d”可以略去（如果a不是和b模d同余的，我们记ab（mod d））．</p>
+<p class="normaltext">在日常生活中，同余的概念是经常出现的．例如，一个钟的指针，它表示的小时数是模12同余的；一个汽车上的里程表，它给出的行程总里数是模100000同余的．</p>
+<p class="normaltext">在对同余进行细致讨论之前，读者应该认识到下面的命题都是等价的：</p>
+<p class="normaltext">（1）a和b是模d同余的．</p>
+<p class="normaltext">（2）存在某个整数n，使a＝b＋nd．</p>
+<p class="normaltext">（3）d整除a－b．</p>
+<p class="normaltext">高斯的同余记法所以有用是因为：对于一个固定的模来说，在形式上同余式包含有许多普通等式的性质．关系式a＝b在形式上最重要的性质如下：</p>
+<p class="normaltext">1）恒有a＝a．</p>
+<p class="normaltext">2）如果a＝b，则b＝a．</p>
+<p class="normaltext">3）如果a＝b，b＝c，则a＝c．</p>
+<p class="normaltext6">再有，如果a＝a′，b＝b′则</p>
+<p class="normaltext">4）a＋b＝a′＋b′．</p>
+<p class="normaltext">5）a－b＝a′－b′．</p>
+<p class="normaltext">6）ab＝a′b′．</p>
+<p class="normaltext6">当关系式a＝b用同余关系a≡b（mod d）代替时，这些性质仍成立．</p>
+<p class="normaltext6">因而</p>
+<p class="normaltext">1′）恒有a≡a（mod d）．</p>
+<p class="normaltext">2′）如果a≡b（mod d），则b≡a（mod d）．</p>
+<p class="normaltext">3′）如果a≡b（mod d），b≡c（mod d），则a≡c（mod d）．</p>
+<p class="normaltext6">这些事实的简单验证留给读者去做．</p>
+<p class="normaltext">其次，如果a≡a′（mod d），b≡b′（mod d），则</p>
+<p class="normaltext">4′）a＋b≡a′＋b′（mod d）．</p>
+<p class="normaltext">5′）a－b≡a′－b′（mod d）．</p>
+<p class="normaltext">6′）ab≡a′b′（mod d）．</p>
+<p class="normaltext6">因此<b>对于相同的模，同余式可以加、减、乘．</b>为了证明后三个命题，我们只须注意，如果</p>
+<p class="normaltext5">a＝a′＋rd，b＝b′＋sd，</p>
+<p class="normaltext6">则</p>
+<p class="normaltext5">a＋b＝a′＋b′＋（r＋s）d，</p>
+<p class="normaltext5">a－b＝a′－b′＋（r－s）d，</p>
+<p class="normaltext5">ab＝a′b′＋（a′s＋b′r＋srd）d，</p>
+<p class="normaltext6">从这即得出所需要的结论．</p>
+
+<p class="normaltext">同余的概念有一个很能说明问题的几何解释．通常，如果我们希望在几何上表示整数，我们就选择一个单位长线段并在这线段的两端以其倍数向外延伸．用这种办法，对于每一个整数，我们能在直线上找出一点，如图6．但当我们处理模d的整数时，若仅就其被d除后的性质而论，因为同余的数有相同的余数，所以我们把任意两个同余的数认为是相同的．为了在几何上说明这一点，我们利用一个圆并把它分成d等分．任一整数被d除时，剩下的余数是0，1，…，d－1这d个数中的一个．这d个数间隔相等地安置在这圆的圆周上．每一个整数都与这些数中的一个是模d同余的，因此在几何上用这些点中的一个来表示．如果两个数用同一个点表示，它们就是同余的．图7画出了d＝6的情形．钟的表盘就是日常生活中的一个例子．</p>
+<p class="picture"><img src="../Images/image00440.jpeg" alt="alt"/></p>
+<p class="tz"><b>图6</b>　整数的几何表示</p>
+<p class="picture"><img src="../Images/image00441.jpeg" alt="alt"/></p>
+<p class="tz"><b>图7</b>　模6的整数的几何表示</p>
+<p class="normaltext" id="b9">我们用一个例子来看看同余式乘积性质6′）的用处．当10的各阶幂被一给定素数除时，我们可以确定这个余数．例如，因为10＝-1＋11，所以</p>
+<p class="normaltext5">10≡-1（mod　11）．</p>
+<p class="normaltext6">连续地用这同余式乘它自己，我们得到</p>
+<p class="picture"><img src="../Images/image00442.jpeg" alt="alt"/></p>
+<p class="normaltext6">从这我们能表明，任何一个（在十进位系统中表示的）整数</p>
+<p class="normaltext5">z＝a<sub>0</sub>＋a<sub>1</sub>·10＋a<sub>2</sub>·10<sup class="suptext">2</sup>＋…＋a<sub>n</sub>·10<sup class="suptext">n</sup></p>
+<p class="normaltext6">被11除后的余数，与它的数码交替变号求和</p>
+<p class="normaltext5">t＝a<sub>0</sub>－a<sub>1</sub>＋a<sub>2</sub>－a<sub>3</sub>＋…</p>
+<p class="normaltext6">被11除后的余数是一样的．因为我们有</p>
+<p class="normaltext5">z－t＝a<sub>1</sub>·11＋a<sub>2</sub>·（10<sup class="suptext">2</sup>－1）＋a<sub>3</sub>·（10<sup class="suptext">3</sup>＋1）＋a<sub>4</sub>（10<sup class="suptext">4</sup>－1）＋…，</p>
+<p class="normaltext6">而11，10<sup class="suptext">2</sup>－1，10<sup class="suptext">3</sup>＋1，…所有这些数每一个和0都是模11同余的，因此z－t也是这样．所以z被11除与t被11除有相同的余数．特别地得知，一个数能被11整除（即余数是0）必须而且只须它的数码交替变号之和能被11整除．例如，由于3－1＋6－2＋8－1＋9＝22，数z＝3162819能被11整除．找一个被3或9整除的规律更简单，因为10≡1（mod 3或9），因此10<sup class="suptext">n</sup>≡1（mod 3或9）对任意的n都成立．故知一个数z被3或9整除必须而且只须它的数码之和</p>
+<p class="normaltext5">S＝a<sub>0</sub>＋a<sub>1</sub>＋a<sub>2</sub>＋…＋a<sub>n</sub></p>
+<p class="normaltext6">也同样相应地被3或9整除．</p>
+<p class="normaltext">对于模7同余，我们有</p>
+<p class="normaltext5">10≡3，10<sup class="suptext">2</sup>≡2，10<sup class="suptext">3</sup>≡-1，10<sup class="suptext">4</sup>≡-3，10<sup class="suptext">5</sup>≡-2，10<sup class="suptext">6</sup>≡1．</p>
+<p class="normaltext6">再接下去的余数是上面的重复，因此z被7整除必须而且只须表达式</p>
+<p class="normaltext5">r＝a<sub>0</sub>＋3a<sub>1</sub>＋2a<sub>2</sub>－a<sub>3</sub>－3a<sub>4</sub>－2a<sub>5</sub>＋a<sub>6</sub>＋3a<sub>7</sub>＋…</p>
+<p class="normaltext6">被7整除．</p>
+<p class="normaltextc"><b>习题：</b>找一个被13整除的类似规则．</p>
+<p class="normaltext">对一个固定的模，例如d＝5，当同余式进行加、乘时，对任一数a我们总可以从</p>
+<p class="normaltext5">0，1，2，3，4，</p>
+<p class="normaltext6">这集合中找出与它同余的数来代替它，因而使我们涉及的数不会太大．因此为了计算以5为模的整数的和与积，我们仅需要如下的加法表及乘法表</p>
+<p class="picture"><img src="../Images/image00443.jpeg" alt="alt"/></p>
+<p class="normaltext6">从这第二个表可以看出，只有当a或b是≡0（mod　5）时，乘积ab才与0同余（mod　5）．由此得出一般的规律：</p>
+<p class="normaltext">7）仅当a≡0或b≡0（mod d）时，有ab≡0（mod d）．它是整数的普遍规律：仅当a＝0或b＝0时，ab＝0这一命题的推广．注意，<b>只有当模d是一素数时，规律7）才成立．</b>因为同余式</p>
+<p class="normaltext5">ab≡0（mod d）</p>
+<p class="normaltext6">意味着d整除ab，而且我们已经看到，一个素数d只有当它整除a或b时，即仅当</p>
+<p class="normaltext5">a≡0（mod d）或b≡0（mod d），</p>
+<p class="normaltext6">它才整除乘积ab．</p>
+<p class="normaltext">如果d不是素数，这规律就不一定成立．因为这时我们能够记d＝r·s，这里r和s小于d，于是</p>
+<p class="normaltext5">r<img src="../Images/image00444.jpeg" class="tpzz" style="height:1.2em" alt="alt"/>0（mod d），s<img src="../Images/image00444.jpeg" class="tpzz" style="height:1.2em" alt="alt"/>0（mod d），</p>
+<p class="normaltext6">但</p>
+<p class="normaltext5">rs＝d≡0（mod d）．</p>
+<p class="normaltext6">例如2<img src="../Images/image00444.jpeg" class="tpzz" style="height:1.2em" alt="alt"/>0（mod 6），3<img src="../Images/image00444.jpeg" class="tpzz" style="height:1.2em" alt="alt"/>0（mod 6），但2·3＝6≡0（mod 6）．</p>
+<p class="normaltexta"><b>习题：</b>说明下面的消去律对素数的模的同余式成立：</p>
+<p class="normaltext2">如果ab≡ac，且a<img src="../Images/image00444.jpeg" class="tpzz" style="height:1.2em" alt="alt"/>0，则b≡c．</p>
+<p class="normaltexta"><b>习题：</b>1）0和6之间哪一个数和乘积11·18·2322·13·19模7同余？</p>
+<p class="normaltext2">2）0和12之间哪一个数和乘积3·7·11·17·19·23·29·113模13同余？</p>
+<p class="normaltext2">3）0和4之间哪一个数与1＋2＋2<sup class="suptext">2</sup>＋…＋2<sup class="suptext">19</sup>的和模5同余？</p>
+<h4 class="title4" id="mllj7">2．费马定理</h4>
+<p class="normaltext">在17世纪，近代数论的奠基者费马，发现了一个十分重要的定理：<b>如果p是任意一个不能整除整数a的素数，则</b></p>
+<p class="normaltext5">a<sup class="suptext">p－1</sup>≡1（mod p）．</p>
+<p class="normaltext6">这意味着a的（p－1）次幂被p除后余1．</p>
+<p class="normaltext">用我们前面的一些计算可以验证这个定理；例如我们已看到过10<sup class="suptext">6</sup>≡1（mod 7），10<sup class="suptext">2</sup>≡1（mod 3）和10<sup class="suptext">10</sup>≡1（mod 11）．同样地，我们可以表明2<sup class="suptext">12</sup>≡1（mod 13）以及5<sup class="suptext">10</sup>≡1（mod 11）．为了验证后面这两个同余式，我们不必去实际计算这么高阶的幂，因为我们可以利用同余式乘法性质带来的好处：</p>
+<p class="picture"><img src="../Images/image00445.jpeg" alt="alt"/></p>
+<p class="normaltext">为了证明费马定理，我们考虑a的倍数：</p>
+<p class="normaltext5">m<sub>1</sub>＝a，m<sub>2</sub>＝2a，m<sub>3</sub>＝3a，…，m<sub>p－1</sub>＝（p－1）a．</p>
+<p class="normaltext6">这些整数中任意两个都不能模p同余，否则存在某一对整数r，s，满足1≤r＜s≤（p－1），使p成为m<sub>s</sub>－m<sub>r</sub>＝（s－r）a的一个因子．但由规律7）知这是不可能的，因为s－r是小于p的，所以p不是s－r的因子，而由假设p又不是a的因子．同样地，这些数中没有一个能和0同余．因此数m<sub>1</sub>，m<sub>2</sub>，…，m<sub>p－1</sub>（如果将其次序重新排列）必须相应地同余于数1，2，3，…，p－1．故得出</p>
+<p class="picture"><img src="../Images/image00446.jpeg" alt="alt"/></p>
+<p class="normaltext6">或者，为了简单起见我们记1·2·3…（p－1）为K，则</p>
+<p class="normaltext5">K（a<sup class="suptext">p－1</sup>－1）≡0（mod p）．</p>
+<p class="normaltext6">但因为K的因子没有能被p整除的，所以K不能被p整除，因而由规律7），a<sup class="suptext">p－1</sup>－1必须被p整除，即</p>
+<p class="normaltext5">a<sup class="suptext">p－1</sup>－1≡0（mod p）．</p>
+<p class="normaltext6">这就是费马定理．</p>
+<p class="normaltext">让我们再来核对这定理：取p＝23而a＝5．这时我们有（所有的模都是23）5<sup class="suptext">2</sup>≡2，5<sup class="suptext">4</sup>≡4，5<sup class="suptext">8</sup>≡16≡-7，5<sup class="suptext">16</sup>≡49≡3，5<sup class="suptext">20</sup>≡12，5<sup class="suptext">22</sup>≡24≡1．如果a＝4而不是5，所有的模仍取23，我们得到4<sup class="suptext">2</sup>≡-7，4<sup class="suptext">3</sup>≡-28≡-5，4<sup class="suptext">4</sup>≡-20≡3，4<sup class="suptext">8</sup>≡9，4<sup class="suptext">11</sup>≡-45≡1，4<sup class="suptext">22</sup>≡1．</p>
+<p class="normaltext">在上面a＝4，p＝23的例子中，我们从另一方面看到不仅a的（p－1）次幂同余于1，而且还可以有一个更小的幂同余于1．最小的这样的幂（在这里是11）是（p－1）的一个因子，这命题总是真的（见下面习题3）．</p>
+<p class="normaltexta"><b>习题：</b>1）用类似的计算表明：2<sup class="suptext">8</sup>≡1（mod 17）；3<sup class="suptext">8</sup>≡-1（mod 17）；3<sup class="suptext">14</sup>≡-1（mod 29）；2<sup class="suptext">14</sup>≡-1（mod 29）；4<sup class="suptext">14</sup>≡1（mod 29）；5<sup class="suptext">14</sup>≡1（mod 29）．</p>
+<p class="normaltext2">2）对p＝5，7，11，17，23，用不同的a值来核对费马定理．</p>
+<p class="normaltext2">3）证明一个一般的定理：使a<sup class="suptext">e</sup>≡1（mod p）的最小正整数e必须是p－1的一个因子（提示：用e除p－1得到</p>
+<p class="normaltext8">p－1＝ke＋r，</p>
+<p class="normaltext7">这里0≤r＜e，并且用a<sup class="suptext">p－1</sup>≡a<sup class="suptext">e</sup>≡1（mod p）这一事实）．</p>
+<h4 class="title4" id="mllj8">3．二次剩余</h4>
+<p class="normaltext">参看一下关于费马定理的例子，我们发现不仅总有a<sup class="suptext">p－1</sup>≡1（mod p），而且（如果p是不等于2的素数，即p是奇数，有p＝2p′＋1的形式）对某些a有a<sup class="suptext">p′</sup>＝a<sup class="suptext">（p－1）／2</sup>≡1（mod p）．这事实引起一系列有趣的研讨．我们可以把这定理写为下述形式：</p>
+<p class="normaltext5">a<sup class="suptext">p－1</sup>－1＝a<sup class="suptext">2p′</sup>－1＝（a<sup class="suptext">p′</sup>－1）（a<sup class="suptext">p′</sup>＋1）≡0（mod p）．</p>
+<p class="normaltext6">由于一个乘积被p整除，仅当它有一个因子被p整除才成，这立刻说明或者a<sup class="suptext">p′</sup>－1或者a<sup class="suptext">p′</sup>＋1必须被p整除．所以对任一素数p＞2和任一不被p整除的数a，</p>
+<p class="normaltext5">或有a<sup class="suptext">（p－1）／2</sup>≡1或有a<sup class="suptext">（p－1）／2</sup>≡-1（mod p）．</p>
+<p class="normaltext">近代数论刚一出现，数学家就很感兴趣地去寻找什么样的数a使第一种情形成立，什么样的数a使第二种情形成立．假设a与某个数x的平方是模p同余的，即</p>
+<p class="normaltext5">a≡x<sup class="suptext">2</sup>（mod p），</p>
+<p class="normaltext6">则a<sup class="suptext">（p－1）／2</sup>≡x<sup class="suptext">p－1</sup>，而它按照费马定理是模p同余于1的．一个数a，如果不是p的倍数且模p同余于某个数的平方，则称a为p的<b>二次剩余</b>．而一个不是p的倍数的数b，不同余于任何数的平方，称它为p的<b>非二次剩余</b>．我们刚才看到每一个p的二次剩余a满足同余式a<sup class="suptext">（p－1）／2</sup>≡1（mod p）．不难证明对每一个非二次剩余b，我们有同余式b<sup class="suptext">（p－1）／2</sup>≡-1（mod p），更进一步，我们现在将表明在数1，2，3，…，p－1中恰有（p－1）／2个二次剩余和（p－1）／2个非二次剩余．</p>
+<p class="normaltext">虽然通过直接计算搜集了那么多的试验数据，但是最初发现二次剩余与非二次剩余分布所服从的一般规律是不容易的．这些剩余的第一个深刻性质是勒让德（1752～1833）发现的，而后被高斯称为<b>二次互反律．</b>这规律是有关两个不同素数p和q的，它断言：如果乘积<img src="../Images/image00447.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>是<b>偶数</b>，则q是p的二次剩余必须而且只须p是q的二次剩余．在乘积<img src="../Images/image00447.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>是<b>奇数</b>时，这情形相反，p是q的剩余必须而且只须q是p的<b>非剩余</b>．年轻的高斯的成就之一就是给出了这个著名定理的第一个严格证明，而这个定理很长时间曾是对数学家的一个挑战．高斯的第一个证明决不是简单的，而且即使到今天虽然已发表了大量的不同的证明，互反律也不是容易确立的．它的真正的意义，直到最近，在代数数论发展以后才显示出来．</p>
+<p class="normaltext">作为说明二次剩余分布的一个例子，让我们取p＝7，这时由于</p>
+<p class="normaltext5">0<sup class="suptext">2</sup>≡0，1<sup class="suptext">2</sup>≡1，2<sup class="suptext">2</sup>≡4，3<sup class="suptext">2</sup>≡2，</p>
+<p class="normaltext5">4<sup class="suptext">2</sup>≡2，5<sup class="suptext">2</sup>≡4，6<sup class="suptext">2</sup>≡1．</p>
+<p class="normaltext6">（全是模7）而且由于后面的平方重复这个序列，所以7的二次剩余是与1，2，4同余的数，而非剩余是和3，5，6同余的．在一般情形下，p的二次剩余组成了和1<sup class="suptext">2</sup>，2<sup class="suptext">2</sup>，…，（p－1）<sup class="suptext">2</sup>同余的数，但它们又是成对同余的，因为</p>
+<p class="normaltext5">x<sup class="suptext">2</sup>≡（p－x）<sup class="suptext">2</sup>（mod p）（例如2<sup class="suptext">2</sup>≡5<sup class="suptext">2</sup>（mod 7）），</p>
+<p class="normaltext6">这因为（p－x）<sup class="suptext">2</sup>＝p<sup class="suptext">2</sup>－2px＋x<sup class="suptext">2</sup>≡x<sup class="suptext">2</sup>（mod p）．因此数1，2，…，p－1中有一半是p的二次剩余，另一半是非二次剩余．</p>
+<p class="normaltext">为了说明二次互反律，让我们取p＝5，q＝11．由于11≡1<sup class="suptext">2</sup>（mod 5），11是二次剩余（mod 5）；由于乘积<img src="../Images/image00448.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>是偶数，互反律告诉我们5是二次剩余（mod 11）．为了证实这点，我们注意5≡4<sup class="suptext">2</sup>（mod 11）．另一方面，如果p＝7，q＝11．这时乘积<img src="../Images/image00449.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>是奇数，实际上11是二次剩余（mod 7）［因为11≡2<sup class="suptext">2</sup>（mod 7）］，而7是非二次剩余（mod 11）．</p>
+<p class="normaltexta"><b>习题：</b>1）6<sup class="suptext">2</sup>＝36≡13（mod 23），23是不是二次剩余（mod 13）？</p>
+<p class="normaltext2">2）我们已看到x<sup class="suptext">2</sup>≡（p－x）<sup class="suptext">2</sup>（mod p）．说明这是数1<sup class="suptext">2</sup>，2<sup class="suptext">2</sup>，3<sup class="suptext">2</sup>，…，（p－1）<sup class="suptext">2</sup>中间<b>仅有</b>的同余关系．</p>
+<h3 class="title3" id="mllj9">§3　毕达哥拉斯数和费马大定理</h3>
+<p class="normaltext">在数论中有一个涉及毕达哥拉斯（Pythagoras）定理<sup class="suptext"><a id="fhzs2" href="part0012.xhtml#zhushi2">〔2〕</a></sup>的有趣问题．希腊人早就知道边长为3，4，5的三角形是直角三角形．这产生了一个一般的问题：还有哪些直角三角形，它的各边长是某个单位长的整数倍数？在代数上勾股定理用方程</p>
+<p class="picture"><img src="../Images/image00450.jpeg" alt="alt"/></p>
+<p class="normaltext6">表示，这里a，b是直角三角形的直角边边长，而c是斜边的边长．因此找出<b>所有</b>各边长是整数的直角三角形的问题，等价于求出方程（1）的所有正整数解（a，b，c）．任何这样的三个数称为<b>毕达哥拉斯三元数</b>．</p>
+<p class="normaltext">找出所有的毕达哥拉斯三元数的问题是很简单的．如果a，b，c是毕达哥拉斯三元数，即a<sup class="suptext">2</sup>＋b<sup class="suptext">2</sup>＝c<sup class="suptext">2</sup>，我们记a／c＝x，b／c＝y，则x和y是使x<sup class="suptext">2</sup>＋y<sup class="suptext">2</sup>＝1的有理数．这时我们有y<sup class="suptext">2</sup>＝（1－x）（1＋x）或y／（1＋x）＝（1－x）／y．这等式的两边都等于一个共同的值t，它可以表示为两个整数的比u／v．现在我们可以记y＝t（1＋x）和（1－x）＝ty或</p>
+<p class="normaltext5">tx－y＝-t，x＋ty＝1．</p>
+<p class="normaltext6">解这联立方程我们有</p>
+<p class="picture"><img src="../Images/image00451.jpeg" alt="alt"/></p>
+<p class="normaltext6">对x，y和t作代换，我们得到</p>
+<p class="picture"><img src="../Images/image00452.jpeg" alt="alt"/></p>
+<p class="normaltext6">因此对某个（有理数）比例因子r，有</p>
+<p class="picture"><img src="../Images/image00453.jpeg" alt="alt"/></p>
+<p class="normaltext6">这说明如果（a，b，c）是毕达哥拉斯三元数，则a，b，c相应地和v<sup class="suptext">2</sup>－u<sup class="suptext">2</sup>，2uv，u<sup class="suptext">2</sup>＋v<sup class="suptext">2</sup>成比例．反过来容易看到，由（2）定义的任意三个数（a，b，c）是毕达哥拉斯三元数，因为由（2）我们有</p>
+<p class="picture"><img src="../Images/image00454.jpeg" alt="alt"/></p>
+<p class="normaltext6">所以a<sup class="suptext">2</sup>＋b<sup class="suptext">2</sup>＝c<sup class="suptext">2</sup>．</p>
+<p class="normaltext">对这结果可以作一些简化．对任意毕达哥拉斯三元数（a，b，c），任给正整数s，我们可以得到无穷多个其他的毕达哥拉斯三元数（sa，sb，sc）．例如从（3，4，5）我们得到（6，8，10），（9，12，15），等等．这样的三元数没有本质的不同，因为它们对应着相似的直角三角形．因此我们将定义一个<b>素</b>的毕达哥拉斯三元数，即没有公因子的毕达哥拉斯数a，b，c．立刻能看出：<b>对任意v＞u的正整数v和u，如果u和v没有公因子且不同时是奇数，则公式</b></p>
+<p class="picture"><img src="../Images/image00455.jpeg" alt="alt"/></p>
+<p class="normaltext6"><b>产生了全部的素毕达哥拉斯三元数．</b></p>
+<p class="normaltextc"><b>习题：</b>证明最后的命题．</p>
+<p class="normaltext">作为素毕达哥拉斯三元数的例子，我们有v＝2，u＝1：（3，4，5），v＝3，u＝2：（5，12，13），v＝4，u＝3：（7，24，25），…，v＝10，u＝7：（51，140，149），等等．</p>
+<p class="normaltext">关于毕达哥拉斯数的结果，自然地会引起这样一个问题：究竟有没有自然数a，b，c能满足a<sup class="suptext">3</sup>＋b<sup class="suptext">3</sup>＝c<sup class="suptext">3</sup>或a<sup class="suptext">4</sup>＋b<sup class="suptext">4</sup>＝c<sup class="suptext">4</sup>，或更一般地，对一给定的正整数指数n＞2，究竟方程</p>
+<p class="picture"><img src="../Images/image00456.jpeg" alt="alt"/></p>
+<p class="normaltext6">能否有正整数解a，b，c．费马曾以一种令人吃惊的方式给出一个回答．费马研究了古代数论家丢番都的著作，他习惯于在丢番都的手稿的空白边缘加上注解．在那里，他叙述了许多定理，并不因没有给出证明而感到不安．所有这些以后都被证明了，但有一个重大的例外．关于毕达哥拉斯数的评注，费马写道，<b>对任意的n＞2，方程（3）在自然数中是不可解的．</b>但他写道，纸的空白边缘太少，不能把他所发现的这个美妙证明写下来了．</p>
+<p class="normaltext">从他那时代以来，尽管一些最伟大的数学家曾为之努力，人们却一直不能证明费马的一般命题是真的，还是假的．实际上对许多n值这个定理已被证明了，特别是对所有n＜619．但不是对所有的n，虽然反例至今也没出现．这定理本身在数学上并不那么重要，但由于试图证明它却在数论中引出了许多重要的发现．这问题在数学领域之外也引起了很多兴趣，有一部分原因是，第一个解决这问题的人可从受委托的哥廷根皇家科学院处得十万马克的奖金．直到第一次世界大战后，德国的通货膨胀才使这笔奖金成为一堆废纸．在此以前，每年有大量错误的“解”被送到受托人那里．即使一些严肃的数学家有时也会被他们自己搞糊涂，写出了或发表了某些证明，这些证明后来都由于被人发现了某些明显的错误而失败．虽然，在报纸上常有报道说这问题已被某个迄今仍无名的天才解决了，但由于马克的贬值，一般人对这个问题的兴趣就不那么大了．</p>
+<h3 class="title3" id="mllj10">§4　欧几里得辗转相除法</h3>
+<h4 class="title4" id="mllj11">1．一般理论</h4>
+<p class="normaltext">读者是熟悉一个整数a被另一个整数b去长除的一般步骤的，而且知道在余数小于除数之前这个步骤能一直进行下去．例如如果a＝248，b＝7，我们有商q＝92和余数r＝4．</p>
+<p class="picture"><img src="../Images/image00457.jpeg" alt="alt"/></p>
+<p class="normaltext" id="b25">我们可以把这点叙述成一个一般的定理：<b>如果a是任一整数而b是任一大于零的整数，则我们总能找到一整数q，使</b></p>
+<p class="picture"><img src="../Images/image00458.jpeg" alt="alt"/></p>
+<p class="normaltext6"><b>这里r是满足不等式0≤r＜b的一个整数．</b></p>
+<p class="normaltexta">不必用除法来证明这个定理，我们只须注意，任一整数a，或它本身是b的一个倍数</p>
+<p class="normaltext8">a＝bq，</p>
+<p class="normaltext7">或它在b的两个相邻的倍数之间</p>
+<p class="normaltext8">bq＜a＜b（q＋1）＝bq＋b．</p>
+<p class="normaltext7">在第一种情形下，r＝0，等式（1）成立．在第二种情形下，从上面的第一个不等式我们有</p>
+<p class="normaltext8">a－bq＝r＞0，</p>
+<p class="normaltext7">由第二个不等式我们有</p>
+<p class="normaltext8">a－bq＝r＜b，</p>
+<p class="normaltextd">所以0＜r＜b，正如（1）所要求的那样．</p>
+<p class="normaltext">从这简单的事实出发，我们能推出许多重要的结论．其中第一个就是找两个整数的最大公因子的方法．</p>
+<p class="normaltext">设a和b是任意两个不全为零的整数，考虑能同时整除a和b的全体正整数集合，这集合肯定是有限的，因为如果，比如说，a≠0，那么不管b怎样，都不会有一个比a大的数能是a的因子．因此a和b只能有有限多个公因子，设d是其中最大的．整数d称为a和b的<b>最大公因子</b>，记作d＝（a，b）．对a＝8和b＝12，我们通过直接试验求出（8，12）＝4，而对a＝5，b＝9，我们有（5，9）＝1．当a和b是较大的数时，例如a＝1804，b＝328，试图通过试算和不断校正试算来求（a，b）这是很烦人的事．</p>
+<p class="normaltext"><b>辗转相除法</b>（一个算法是指一个系统的计算程序）提供了一个简短而确定的方法．它建立在如下事实上：从形如</p>
+<p class="picture"><img src="../Images/image00459.jpeg" alt="alt"/></p>
+<p class="normaltext6">的任意关系式中可以推出</p>
+<p class="picture"><img src="../Images/image00460.jpeg" alt="alt"/></p>
+<p class="normaltext6">因为对任意同时整除a和b的数u，有</p>
+<p class="normaltext5">a＝su，b＝tu，</p>
+<p class="normaltext6">它也整除r，因为r＝a－bq＝su－qtu＝（s－qt）u．反过来，每一个整除b和r的整数v有</p>
+<p class="normaltext5">b＝s′v，r＝t′v．</p>
+<p class="normaltext6">它也整除a，这是因为a＝bq＋r＝s′vq＋t′v＝（s′q＋t′）v．因此a和b的<b>每一个</b>公因子同时也是b和r的一个公因子，反之亦然．这样由于a和b的<b>全体</b>公因子集合与b和r的<b>全体</b>公因子集合相同，所以a和b的<b>最大</b>公因子必须等于b和r的<b>最大</b>公因子，这证明了（3）．下面立刻就会看到这个关系的用途．</p>
+<p class="normaltext">让我们回过头来找1804和328的最大公因子．按普通除法</p>
+<p class="picture"><img src="../Images/image00461.jpeg" alt="alt"/></p>
+<p class="normaltext6">我们有</p>
+<p class="normaltext5">1804＝5·328＋164，</p>
+<p class="normaltext6">因此由（3），我们得到</p>
+<p class="normaltext5">（1804，328）＝（328，164）．</p>
+<p class="normaltext6">我们看到找（1804，328）的问题，已被一个只涉及较小的数的问题代替了．我们可以继续进行上述的步骤，由于</p>
+<p class="picture"><img src="../Images/image00462.jpeg" alt="alt"/></p>
+<p class="normaltext6">我们有328＝2·164＋0，所以（328，164）＝（164，0）＝164．因此（1804，328）＝（328，164）＝（164，0）＝164，这就是所要的结果．</p>
+<p class="normaltext">找两个数的最大公因子的这个过程，在欧几里得的<b>原本</b>中是以几何形式给出的．对于任意两个不全为0的整数a和b，它可以用算术的形式如下描述．</p>
+<p class="normaltext">由于（a，0）＝a，我们可以假设b≠0．这样通过连除我们能写出</p>
+<p class="picture"><img src="../Images/image00463.jpeg" alt="alt"/></p>
+<p class="normaltext6">只要余数r<sub>1</sub>，r<sub>2</sub>，r<sub>3</sub>，…不是0就继续写下去．从右边的不等式，我们看出一连串的余数形成正整数的一个严格递减序列：</p>
+<p class="picture"><img src="../Images/image00464.jpeg" alt="alt"/></p>
+<p class="normaltext6">因此最多b步（经常是更少的，因为两个相继的r之间的差通常是大于1的），0这个余数必然出现</p>
+<p class="normaltext5">r<sub>n－2</sub>＝r<sub>n－1</sub>q<sub>n</sub>＋r<sub>n</sub>，</p>
+<p class="normaltext5">r<sub>n－1</sub>＝r<sub>n</sub>q<sub>n＋1</sub>＋0．</p>
+<p class="normaltext6">这时，我们知道</p>
+<p class="normaltext5">（a，b）＝r<sub>n</sub>；</p>
+<p class="normaltext6">换句话说，（a，b）是<b>序列（5）中最后的正整数</b>．这一点是对等式（4）连续用等式（3）而得到的，因为从（4）的这一连串式子，我们有</p>
+<p class="normaltext5">（a，b）＝（b，r<sub>1</sub>），（b，r<sub>1</sub>）＝（r<sub>1</sub>，r<sub>2</sub>），（r<sub>1</sub>，r<sub>2</sub>）＝（r<sub>2</sub>，r<sub>3</sub>），</p>
+<p class="normaltext5">（r<sub>2</sub>，r<sub>3</sub>）＝（r<sub>3</sub>，r<sub>4</sub>），…，（r<sub>n－1</sub>，r<sub>n</sub>）＝（r<sub>n</sub>，0）＝r<sub>n</sub>．</p>
+<p class="normaltextc"><b>习题：</b>用欧几里得辗转相除法求出下面的最大公因子：（a）187，77（b）105，385（c）245，193．</p>
+<p class="normaltext" id="x1">从等式（4）可以导出（a，b）的一个极为重要的性质．<b>如果d＝（a，b），则能找到正的或负的整数k和l，使</b></p>
+<p class="picture"><img src="../Images/image00465.jpeg" alt="alt"/></p>
+<p class="normaltext6">为了说明这点，让我们考虑连续的余数序列（5），从（4）中第一个等式有</p>
+<p class="normaltext5">r<sub>1</sub>＝a－q<sub>1</sub>b，</p>
+<p class="normaltext6">所以r<sub>1</sub>能写成k<sub>1</sub>a＋l<sub>1</sub>b的形式（这时k<sub>1</sub>＝1，l<sub>1</sub>＝-q<sub>1</sub>）．由第二个等式有</p>
+<p class="picture"><img src="../Images/image00466.jpeg" alt="alt"/></p>
+<p class="normaltext6">显然，这过程通过这一串余数r<sub>3</sub>，r<sub>4</sub>，…可以重复下去，直到得到一个表达式</p>
+<p class="normaltext5">r<sub>n</sub>＝ka＋lb．</p>
+<p class="normaltext6">这就是所要证明的．</p>
+<p class="normaltext">作为一个例子，考虑用辗转相除法求（61，24），这里最大公因子是1，而且对1所要求的上述表达式能由等式</p>
+<p class="normaltext5">61＝2·24＋13，24＝1·13＋11，13＝1·11＋2，</p>
+<p class="normaltext5">11＝5·2＋1，2＝2·1＋0</p>
+<p class="normaltext6">来计算．我们由这些等式的第一个知</p>
+<p class="normaltext5">13＝61－2·24，</p>
+<p class="normaltext6">由第二个知</p>
+<p class="picture"><img src="../Images/image00467.jpeg" alt="alt"/></p>
+<p class="normaltext6">由第三个知</p>
+<p class="picture"><img src="../Images/image00468.jpeg" alt="alt"/></p>
+<p class="normaltext6">由第四个知</p>
+<p class="picture"><img src="../Images/image00469.jpeg" alt="alt"/></p>
+<h4 class="title4" id="mllj12">2．在算术基本定理上的应用</h4>
+<p class="normaltext">d＝（a，b）总能写成d＝ka＋lb的形式，这一事实可以用来证明算术基本定理．这和<a href="part0012.xhtml#a49">此处</a>给出的证明彼此无关．首先我们证明<a href="part0012.xhtml#b27">此处</a>的推论，把它作为一个引理，然后从这引理出发推出基本定理，与先前证明的次序相反．</p>
+<p class="normaltext" id="b31">引理：<b>如果一素数p整除乘积ab，则p必整除a或b．</b></p>
+<p class="normaltext">因素数p仅有因子p和1，所以如果p不整除a，则（a，p）＝1．因此我们能找到整数k和l，使</p>
+<p class="normaltext5">1＝ka＋lp．</p>
+<p class="normaltext6">在这等式两边乘b，我们得到</p>
+<p class="normaltext5">b＝kab＋lpb．</p>
+<p class="normaltext6">现在如果p整除ab，我们有</p>
+<p class="normaltext5">ab＝pr，</p>
+<p class="normaltext6">因此</p>
+<p class="normaltext5">b＝kpr＋lpb＝p（kr＋lb），</p>
+<p class="normaltext6">由此知p显然整除b．这样我们就表明了，如果p整除ab但不整除a则它必整除b，所以不论在什么情形，如果p整除ab，则它必整除a或b．</p>
+<p class="normaltext">立刻可以把这结果推广到两个以上的整数的乘积上．例如，如果p整除abc，两次应用这引理我们能说明p至少整除a，b，c中的一个，因为如果p既不整除a，b，也不整除c，则它不能整除ab，因而不能整除（ab）c＝abc．</p>
+<p class="normaltextc"><b>习题：</b>如果把这个讨论推广到任意n个整数的乘积上去，就要求明确地或暗含地用数学归纳法原理．补充这讨论的细节．</p>
+<p class="normaltext">由这结果，立刻可以得出算术基本定理．让我们假设给出了一个正整数N的任意两种素数因子分解：</p>
+<p class="normaltext5">N＝p<sub>1</sub>p<sub>2</sub>…p<sub>r</sub>＝q<sub>1</sub>q<sub>2</sub>…q<sub>s</sub>，</p>
+<p class="normaltext6">由于p<sub>1</sub>整除这等式的左边，它必须也整除右边．因此从上面的习题可知，它必须整除这些因子中的一个q<sub>k</sub>．但q<sub>k</sub>是一个素数，因此p<sub>1</sub>必须等于这个q<sub>k</sub>．在把这两个相等的因子从这等式中消去后，得知p<sub>2</sub>必须整除剩下的因子之一q<sub>t</sub>，因而必须等于它．划掉p<sub>2</sub>和q<sub>t</sub>，再对p<sub>3</sub>，…，p<sub>r</sub>作同样推理．这过程结束时，所有的p都消去了，左边仅剩下1．由于所有的q都是大于1的，右边不能剩下q．因此这些p和q是以相等的对子消去的．这证明了（除了因子的次序外）两种分解是相同的．</p>
+<h4 class="title4" id="mllj13">3．欧拉函数φ　再谈费马定理</h4>
+<p class="normaltext">两个整数a和b，如果它们的最大公因子是1：</p>
+<p class="normaltext5">（a，b）＝1，</p>
+<p class="normaltext6">则称它们是<b>互素的</b>．例如，24和35是互素的，而12和18不是．<b>如果a和b是互素的，则可以选择正的或负的整数k和l，使</b></p>
+<p class="normaltext5">ka＋lb＝1．</p>
+<p class="normaltext6">这一点从<a href="part0012.xhtml#x1">此处</a>所讲的（a，b）的性质即知．</p>
+<p class="normaltexta" id="b29"><b>习题：</b>证明定理：<b>如果一整数r整除乘积ab且与a互素，则r必整除b</b>（提示：如果r是与a互素的，我们能求出整数k和l，使</p>
+<p class="normaltext8">kr＋la＝1，</p>
+<p class="normaltextb">这等式两边用b乘）．这定理把<a href="part0012.xhtml#b31">此处</a>的引理作为它的一个特殊情况，因为一个素数p与一整数a互素必须而且只须p不整除a．</p>
+<p class="normaltext6">对任意正整数n，命φ（n）表示<b>在1到n中与n互素的整数的个数．</b>这首先由欧拉引进的函数φ（n）是一个很重要的“数论函数”．对n的前几个值，φ（n）的值是容易算出来的：</p>
+<p class="normaltext">φ（1）＝1　因为1是和1互素的，</p>
+<p class="normaltext">φ（2）＝1　因为1是和2互素的，</p>
+<p class="normaltext">φ（3）＝2　因为1和2是和3互素的，</p>
+<p class="normaltext">φ（4）＝2　因为1和3是和4互素的，</p>
+<p class="normaltext">φ（5）＝4　因为1，2，3，4是和5互素的，</p>
+<p class="normaltext">φ（6）＝2　因为1，5是和6互素的，</p>
+<p class="normaltext">φ（7）＝6　因为1，2，3，4，5，6是和7互素的，</p>
+<p class="normaltext">φ（8）＝4　因为1，3，5，7是和8互素的，</p>
+<p class="normaltext">φ（9）＝6　因为1，2，4，5，7，8是和9互素的，</p>
+<p class="normaltext">φ（10）＝4　因为1，3，7，9是和10互素的，</p>
+<p class="normaltext">等等．</p>
+<p class="normaltext">我们看到如果p是素数，φ（p）＝p－1；因为一个素数除了它自身和1外没有其他因子，因此它和所有整数1，2，3，…，p－1互素．如果n是一合数，它的素数分解为</p>
+<p class="picture"><img src="../Images/image00470.jpeg" alt="alt"/></p>
+<p class="normaltext6">这里p<sub>i</sub>表示不同的素数，每一个有某个幂，则</p>
+<p class="picture"><img src="../Images/image00471.jpeg" alt="alt"/></p>
+<p class="normaltext6">例如，由于12＝2<sup class="suptext">2</sup>·3，则</p>
+<p class="picture"><img src="../Images/image00472.jpeg" alt="alt"/></p>
+<p class="normaltext6">而它确实是这个值．这个证明是很初等的，但在这里我们把它略去了．</p>
+<p class="normaltexta"><b>习题：</b>用欧拉函数φ，推广<a href="part0012.xhtml#mllj7">此处</a>上的费马定理．这个一般性的定理是：<b>如果n是任一整数且a是与n互素的，则</b></p>
+<p class="normaltext8">a<sup class="suptext">φ（n）</sup>≡1（mod　n）．</p>
+<h4 class="title4" id="mllj14">4．连分数　丢番都方程</h4>
+<p class="normaltext" id="b73">从求两个整数最大公因子的辗转相除法出发，立刻能得出一个把两个整数的比表示为一复合分数的重要方法．</p>
+<p class="normaltext">例如对于数840和611，辗转相除法产生了一系列等式</p>
+<p class="normaltext5">840＝1·611＋229，611＝2·229＋153，</p>
+<p class="normaltext5">229＝1·153＋76，153＝2·76＋1．</p>
+<p class="normaltext6">它附带表明（840，611）＝1，从这些等式，我们可以导出下面的表达式：</p>
+<p class="picture"><img src="../Images/image00473.jpeg" alt="alt"/></p>
+<p class="normaltext6">组合这些等式，我们可以把有理数<img src="../Images/image00474.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>写成</p>
+<p class="picture"><img src="../Images/image00475.jpeg" alt="alt"/></p>
+<p class="normaltext6">形如</p>
+<p class="picture"><img src="../Images/image00476.jpeg" alt="alt"/></p>
+<p class="normaltext6">的表达式（这里这些a是正整数）称为<b>连分数</b>．辗转相除法给出我们一个方法，把任一有理数表示为这形式．</p>
+<p class="normaltextc"><b>习题：</b>求<img src="../Images/image00477.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00478.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00479.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的连分数形式．</p>
+<p class="normaltext2"><sup class="suptext">*</sup>连分数在高等算术的分支中（称为丢番都分析）很重要．<b>丢番都方程</b>是具有一个或多个未知数的<b>整系数</b>代数方程，对它要求<b>整数</b>解．这样一个方程可以无解、有有限个解或有无穷多个解．最简单的情形是两个未知数的<b>线性</b>丢番都方程</p>
+<p class="picture"><img src="../Images/image00480.jpeg" alt="alt"/></p>
+<p class="normaltext7">这里a，b，c是给定的整数．要求的是整数解x和y．这种形式的方程的所有解可以用辗转相除法确立．</p>
+<p class="normaltext2">首先，让我们用辗转相除法求出d＝（a，b），则对适当选择的整数k和l，有</p>
+<p class="picture"><img src="../Images/image00481.jpeg" alt="alt"/></p>
+<p class="normaltext7">因此方程（8）对c＝d的情形有特解x＝k，y＝l．更一般地，如果c是d的任一倍数：</p>
+<p class="normaltext8">c＝dq，</p>
+<p class="normaltext7">则从（9）我们得到</p>
+<p class="normaltext8">a（kq）＋b（lq）＝dq＝c，</p>
+<p class="normaltext7">所以（8）有特解x＝x<sup class="suptext">*</sup>＝kq，y＝y<sup class="suptext">*</sup>＝lq．反之对给定的c，如果（8）有解x，y，则c必须是d＝（a，b）的倍数；这因为d整除a和b，所以必整除c．因此我们证明方程（8）有解必须而且只须c是（a，b）的一个倍数．</p>
+<p class="normaltext2">为了确定（8）的其他解，我们看到，如果x＝x′，y＝y′是任意一个不同于上面用辗转相除法得到的解x＝x<sup class="suptext">*</sup>，y＝y<sup class="suptext">*</sup>，则x＝x′－x<sup class="suptext">*</sup>，y＝y′－y<sup class="suptext">*</sup>是“齐次”方程：</p>
+<p class="picture"><img src="../Images/image00482.jpeg" alt="alt"/></p>
+<p class="normaltext7">的一个解．因为如果</p>
+<p class="normaltext8">ax′＋by′＝c，ax<sup class="suptext">*</sup>＋by<sup class="suptext">*</sup>＝c，</p>
+<p class="normaltext7">从第一个方程减去第二个方程，我们发现</p>
+<p class="normaltext8">a（x′－x<sup class="suptext">*</sup>）＋b（y′－y<sup class="suptext">*</sup>）＝0．</p>
+<p class="normaltext7">现在方程（10）的最一般解是x＝rb／（a，b），y＝-ra／（a，b），这里r是任一整数（我们把这证明留下作为一个练习．提示：用（a，b）除并用<a href="part0012.xhtml#b29">此处</a>的习题）．立刻得知</p>
+<p class="normaltext8">x＝x<sup class="suptext">*</sup>＋rb／（a，b），y＝y<sup class="suptext">*</sup>－ra／（a，b）．</p>
+<p class="normaltext2">总结一下：线性丢番都方程ax＋by＝c，这里a，b，c是整数，在整数中有解必须而且只须c是（a，b）的一个倍数．在这一情形之下，一个特解x＝x<sup class="suptext">*</sup>，y＝y<sup class="suptext">*</sup>可用辗转相除法得到，而最一般的解的形式是</p>
+<p class="normaltext8">x＝x<sup class="suptext">*</sup>＋rb／（a，b），y＝y<sup class="suptext">*</sup>－ra／（a，b），</p>
+<p class="normaltext7">这里r是任意整数．</p>
+<p class="normaltext2">例：方程3x＋6y＝22没有整数解，因为（3，6）＝3，不整除22．</p>
+<p class="normaltext2">方程7x＋11y＝13有特解x＝-39，y＝26，求法如下：</p>
+<p class="normaltext8">11＝1·7＋4，7＝1·4＋3，4＝1·3＋1，（7，11）＝1，</p>
+<p class="normaltext8">1＝4－3＝4－（7－4）＝2·4－7＝2（11－7）－7＝2·11－3·7．</p>
+<p class="normaltext7">因此</p>
+<p class="normaltext8">7·（-3）＋11·（2）＝1，</p>
+<p class="normaltext8">7·（-39）＋11·（26）＝13．</p>
+<p class="normaltext7">其他的解由</p>
+<p class="normaltext8">x＝-39＋11r，y＝26－7r</p>
+<p class="normaltext7">给出，这里r是任意整数．</p>
+<p class="normaltexta"><b>习题：</b>解丢番都方程（a）　3x－4y＝29．　（b）11x＋12y＝58．　（c）153x－34y＝51．</p>
+<p class="note">注释</p>
+<p class="note1"><a id="zhushi1" href="part0012.xhtml#fhzs1">〔1〕</a>原版书把自然对数记为logn，在本书中我们把它改为一般书上的记法lnn．——译注</p>
+<p class="note1"><a id="zhushi2" href="part0012.xhtml#fhzs2">〔2〕</a>即我国有名的勾股定理，最早见于“周髀算经”，比毕达哥拉斯早五、六百年．毕达哥拉斯数在我国也称为“商高数”．——译注</p>
+</body></html>

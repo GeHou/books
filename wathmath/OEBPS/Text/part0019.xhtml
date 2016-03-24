@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+		"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN"><head><meta name="generator" content="HTML Tidy，see www.w3.org"/>
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+<title>什么是数学：对思想和方法的基本研究（中文版第三版）</title>
+<link href="../Styles/style0001.css" rel="stylesheet" type="text/css"/>
+</head><body>
+<h1 class="title1">第6章补充　极限和连续的一些例题</h1>
+<h3 class="title3" id="mllj1">§1　极限的例题</h3>
+<h4 class="title4" id="mllj2">1．一般说明</h4>
+<p class="normaltext">在很多情形中，序列a<sub>n</sub>的收敛性能用下面一类推理证明．我们找另外两个序列b<sub>n</sub>和c<sub>n</sub>，它们的项的结构比原来的序列简单，且对每个n有</p>
+<p class="picture"><img src="../Images/image01213.jpeg" alt="alt"/></p>
+<p class="normaltext6"><b>这时，如果我们能证明序列b<sub>n</sub>和c<sub>n</sub>，都收敛于同一个极限α，那么a<sub>n</sub>也就收敛于极限α</b>，我们把这个命题的证明留给读者．</p>
+<p class="normaltext">很清楚，若要运用这个方法，就要用到不等式．所以最好复习一下不等式的算术运算应遵循的几个基本法则．</p>
+<p class="normaltext">1．如果a＞b，那么a＋c＞b＋c（不等式两边可以同时加上任意一个数）．</p>
+<p class="normaltext">2．如果a＞b且数c是<b>正的</b>，那么ac＞bc（一个不等式可以同乘以任意一个正数）．</p>
+<p class="normaltext">3．如果a＜b，那么-b＜-a（两端同乘以-1，则不等式反号）．例如2＜3，但-3＜-2．</p>
+<p class="normaltext" id="a15">4．如果a和b有同样的符号，并且a＜b，那么</p>
+<p class="picture"><img src="../Images/image01214.jpeg" alt="alt"/></p>
+<p class="normaltext">5．｜a＋b｜≤｜a｜＋｜b｜．</p>
+<h4 class="title4" id="mllj3">2．q<sup class="suptext">n</sup>的极限</h4>
+<p class="normaltext">如果q是大于1的数，那么q<sup class="suptext">n</sup>将无限增大，即能超过任意大的界限，像q＝2的序列2，2<sup class="suptext">2</sup>，2<sup class="suptext">3</sup>，…就是这样．这样的序列“趋于无穷大”（见<a href="part0018.xhtml#b77">此处</a>）．一般情况下的证明是根据一个重要的不等式（<a href="part0011.xhtml#b78">此处</a>已证过）</p>
+<p class="picture"><img src="../Images/image01215.jpeg" alt="alt"/></p>
+<p class="normaltext6">其中h是任意正数．我们令q＝1＋h，其中h＞0；那么</p>
+<p class="normaltext5">q<sup class="suptext">n</sup>＝（1＋h）<sup class="suptext">n</sup>＞nh．</p>
+<p class="normaltext6">如果k是任意一个正数，不论它多么大，那么对所有n＞<img src="../Images/image01216.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，就有</p>
+<p class="normaltext5">q<sup class="suptext">n</sup>＞nh＞k，</p>
+<p class="normaltext6">所以q<sup class="suptext">n</sup>→∞．</p>
+<p class="normaltext">如果q＝1，那么序列q<sup class="suptext">n</sup>的项都等于1，因此1是这个序列的极限．如果q是负的，那么q<sup class="suptext">n</sup>将交错变为正值和负值，并且如果q≤-1，它没有极限．</p>
+<p class="normaltextc"><b>习题</b>：对最后的一句话给出严格证明．</p>
+<p class="normaltext">在<a href="part0013.xhtml#b79">此处</a>我们已说明如果-1＜q＜1，那么q<sup class="suptext">n</sup>→0．我们可以对这个事实给出另一个非常简单的证明．首先考察0＜q＜1的情形．这时数q，q<sup class="suptext">2</sup>，q<sup class="suptext">3</sup>…组成一个以0为下界的单调减少的序列．所以，按照<a href="part0018.xhtml#b80">此处</a>，这个序列必趋于一个极限：q<sup class="suptext">n</sup>→a．这个关系式的两端同乘以q，得到q<sup class="suptext">n＋1</sup>→aq．</p>
+<p class="normaltext">但q<sup class="suptext">n＋1</sup>和q<sup class="suptext">n</sup>应有同一个极限，因为增加的指数用n或n＋1表示是没有关系的．所以aq＝a，或a（q－1）＝0．因为1－q≠0，这就推出a＝0．</p>
+<p class="normaltext">如果q＝0，命题q<sup class="suptext">n</sup>→0是显然的．如果-1＜q＜0，那么0＜｜q｜＜1；所以由前面的讨论，有｜q<sup class="suptext">n</sup>｜＝｜q｜<sup class="suptext">n</sup>→0．由此可见当｜q｜＜1，总有q<sup class="suptext">n</sup>→0．至此证明完毕．</p>
+<p class="normaltexta"><b>习题</b>：证明当n→∞时：</p>
+<p class="normaltext2">（1）<img src="../Images/image01217.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>→0；</p>
+<p class="normaltext2">（2）<img src="../Images/image01218.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>→0；</p>
+<p class="normaltext2">（3）<img src="../Images/image01219.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>当x＞2时趋于无穷，当｜x｜＜2时趋于0．</p>
+<h4 class="title4" id="mllj4">3．<img src="../Images/image01220.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>的极限</h4>
+<p class="normaltext">对任意固定的正数p，序列a<sub>n</sub>＝<img src="../Images/image01220.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，即序列p，<img src="../Images/image01221.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，<img src="../Images/image01222.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，<img src="../Images/image01223.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，…有极限1：</p>
+<p class="picture"><img src="../Images/image01224.jpeg" alt="alt"/></p>
+<p class="normaltext6">符号<img src="../Images/image01220.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>是指正n次根．对于负数p，当n是偶数时，没有实的n次根．</p>
+<p class="normaltext">要证明关系式（3），我们首先设p＞1：那么<img src="../Images/image01220.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>也将大于1．这样我们可以令</p>
+<p class="normaltext5"><img src="../Images/image01220.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＝1＋h<sub>n</sub>，</p>
+<p class="normaltext6">其中h<sub>n</sub>是依赖于n的正量．由不等式（2）知</p>
+<p class="normaltext5">p＝（1＋h<sub>n</sub>）<sup class="suptext">n</sup>＞nh<sub>n</sub>．</p>
+<p class="normaltext6">两边除以n，得</p>
+<p class="normaltext5">0＜h<sub>n</sub>＜<img src="../Images/image01225.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext6">又因为序列b<sub>n</sub>＝0和c<sub>n</sub>＝<img src="../Images/image01225.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>都以0为极限，由第一小节的讨论知道，当n增加时，h<sub>n</sub>也以0为极限．因此，当p＞1时，就证明了我们的论断．这里我们得到这样一个典型的例子，即：要了解一个极限关系，这里是h<sub>n</sub>→0，就把h<sub>n</sub>夹在两个界限之间，而这两个界限比h<sub>n</sub>更容易求得极限．</p>
+<p class="normaltext">附带地，我们已经导出了<img src="../Images/image01220.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>和1之间的差h<sub>n</sub>的一个估计值，这个差必定总小于<img src="../Images/image01225.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext">如果0＜p＜1，那么<img src="../Images/image01220.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＜1，我们可以令</p>
+<p class="picture"><img src="../Images/image01226.jpeg" alt="alt"/></p>
+<p class="normaltext6">其中h<sub>n</sub>仍是依赖于n的正数．由上面得到</p>
+<p class="picture"><img src="../Images/image01227.jpeg" alt="alt"/></p>
+<p class="normaltext6">从而</p>
+<p class="normaltext5">0＜h<sub>n</sub>＜<img src="../Images/image01228.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext6">从这里我们断定当n增加时，h<sub>n</sub>趋于0．所以，由</p>
+<p class="picture"><img src="../Images/image01229.jpeg" alt="alt"/></p>
+<p class="normaltext6">求得<img src="../Images/image01220.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>→1．</p>
+<p class="normaltext" id="a57">开n次方有等值化的效果．当n增加时，任一个正数开n次方趋于1，它的效果甚至更强，即如果被开方数不是一个常数，在某些情况下也能使极限是1．我们将证明序列</p>
+<p class="normaltext5">1，<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，<img src="../Images/image01230.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，<img src="../Images/image01231.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，<img src="../Images/image01232.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，…</p>
+<p class="normaltext6">趋于1，即当n增加时</p>
+<p class="normaltext5"><img src="../Images/image01233.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>→1．</p>
+<p class="normaltext6">用一点技巧，利用不等式（2）就可以证明这个事实．代替n的n次方根，我们来讨论<img src="../Images/image01234.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>的n次方根．如果我们令</p>
+<p class="normaltext5"><img src="../Images/image01235.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＝1＋k<sub>n</sub>，</p>
+<p class="normaltext6">其中k<sub>n</sub>是依赖于n的正数，那么由不等式得出</p>
+<p class="normaltext5"><img src="../Images/image01234.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＝（1＋k<sub>n</sub>）<sup class="suptext">n</sup>＞nk<sub>n</sub>，</p>
+<p class="normaltext">从而</p>
+<p class="picture"><img src="../Images/image01236.jpeg" alt="alt"/></p>
+<p class="normaltext">所以1＜<img src="../Images/image01237.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＝（1＋k<sub>n</sub>）<sup class="suptext">2</sup>＝1＋2k<sub>n</sub>＋<img src="../Images/image01238.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＜1＋<img src="../Images/image01239.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＋<img src="../Images/image00483.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext">不等式右端当n增加时趋于1，从而<img src="../Images/image01237.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>也必趋于1．</p>
+<h4 class="title4" id="mllj5">4．不连续函数当作连续函数的极限</h4>
+<p class="normaltext">我们可以考察这样一种序列a<sub>n</sub>的极限，其中a<sub>n</sub>不是固定数，而是依赖于变量x的函数：a<sub>n</sub>＝f<sub>n</sub>（x）．如果当n→∞时，这个序列收敛，那么它的极限也是x的函数，</p>
+<p class="normaltext5">f（x）＝limf<sub>n</sub>（x）．</p>
+<p class="normaltext6">这种把函数f（x）当作另一些函数的极限的表示方法，在把“高等”函数f（x）化为初等函数f<sub>n</sub>（x）时，常常是有用的．</p>
+<p class="normaltext">特别，在用显式表示不连续函数时就很有用．例如，让我们考察序列f<sub>n</sub>（x）＝<img src="../Images/image01240.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．当｜x｜＝1时，我们有x<sup class="suptext">2n</sup>＝1，因此对每个n，有</p>
+<p class="normaltext5">f<sub>n</sub>（x）＝<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.1em"/>，</p>
+<p class="normaltext6">从而</p>
+<p class="normaltext5">f<sub>n</sub>（x）→<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.1em"/>．</p>
+<p class="normaltext6">当｜x｜＜1，我们有x<sup class="suptext">2n</sup>→0，因此f<sub>n</sub>（x）→1；而当｜x｜＞1，我们有x<sup class="suptext">2n</sup>→∞，因此f<sub>n</sub>（x）→0．总的概括为</p>
+<p class="picture"><img src="../Images/image01241.jpeg" alt="alt"/></p>
+<p class="normaltext6">这里，不连续函数f（x）被表示为一列连续的有理函数的极限了．</p>
+<p class="normaltext">另一个有趣的有类似特点的例子由序列</p>
+<p class="picture"><img src="../Images/image01242.jpeg" alt="alt"/></p>
+<p class="normaltext6">给出．当x＝0时，f<sub>n</sub>（x）的值都是零，因此</p>
+<p class="normaltext5">f（0）＝limf<sub>n</sub>（0）＝0．</p>
+<p class="normaltext6">当x≠0时，表达式</p>
+<p class="picture"><img src="../Images/image01243.jpeg" alt="alt"/></p>
+<p class="normaltext6">是正的且小于1；利用等比级数的结果可以保证当n→∞时f<sub>n</sub>（x）是收敛的．它的极限，即无穷等比级数的和，是</p>
+<p class="picture"><img src="../Images/image01244.jpeg" alt="alt"/></p>
+<p class="normaltext6">等于1＋x<sup class="suptext">2</sup>．这样我们看出，当x≠0时，f<sub>n</sub>（x）趋于函数f（x）＝1＋x<sup class="suptext">2</sup>，而当x＝0时，f（x）＝0．这个函数在x＝0有一个可去的不连续点．</p>
+<h4 class="title4" id="mllj6">*5．极限的叠代求法</h4>
+<p class="normaltext">有的序列的项常常是以这样的方式得到的：由a<sub>n</sub>得到a<sub>n＋1</sub>和由a<sub>n－1</sub>得到a<sub>n</sub>的法则是一样的；按同样的法则，无限次的重复作下去，可从一个已知的首项开始，产生一个序列．这种情形我们叫作“叠代”求法．</p>
+<p class="normaltext">例如，序列</p>
+<p class="normaltext5">1，<img src="../Images/image01245.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，<img src="../Images/image01245.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，<img src="../Images/image01246.jpeg" class="tpzz1" alt="alt" style="height:1.5em"/>，…，</p>
+<p class="normaltext6">有这样一个形成的法则，第一次以后的每一项，都是1加上前一项后的平方根．这样，公式</p>
+<p class="normaltext5">a<sub>1</sub>＝1　a<sub>n＋1</sub>＝<img src="../Images/image01247.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/></p>
+<p class="normaltext6">确定了整个序列．让我们求它的极限，显然对n＞1，有a<sub>n</sub>＞1，并且a<sub>n</sub>是单调增加序列，因为</p>
+<p class="picture"><img src="../Images/image01248.jpeg" alt="alt"/></p>
+<p class="normaltext6">所以只要a<sub>n</sub>＞a<sub>n－1</sub>，就有a<sub>n＋1</sub>＞a<sub>n</sub>．但我们知道</p>
+<p class="normaltext5">a<sub>2</sub>－a<sub>1</sub>＝<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>－1＞0，</p>
+<p class="normaltext6">因此利用数学归纳法，可知对所有n，都有a<sub>n＋1</sub>＞a<sub>n</sub>，即序列是单调增加的．再者，它是有界的，因为由前面的结果我们有</p>
+<p class="picture"><img src="../Images/image01249.jpeg" alt="alt"/></p>
+<p class="normaltext6">由单调序列原理，知当n→∞时，a<sub>n</sub>→a，其中a是1与2之间的某个数．我们易知这个a是二次方程，x<sup class="suptext">2</sup>＝1＋x的正根．因为当n→∞时，方程<img src="../Images/image01250.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＝1＋a<sub>n</sub>成为a<sup class="suptext">2</sup>＝1＋a．解这个方程，我们求得正根是</p>
+<p class="normaltext5">a＝<img src="../Images/image01251.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext6">这样我们可以用一个叠代过程解这个二次方程，只要叠代过程继续足够长，它就能够以任意接近的程度给出根的值．</p>
+<p class="normaltext">用类似的方法，通过叠代法可以解很多其他的代数方程．例如，我们可以把三次方程x<sup class="suptext">3</sup>－3x＋1＝0改写为如下形式</p>
+<p class="normaltext5">x＝<img src="../Images/image01252.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext6">我们现在任意选择a<sub>1</sub>的值例如a<sub>1</sub>＝0，并且定义</p>
+<p class="normaltext5">a<sub>n＋1</sub>＝<img src="../Images/image01253.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext6">得到序列</p>
+<p class="normaltext5">a<sub>2</sub>＝<img src="../Images/image00518.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝0.3333…，a<sub>3</sub>＝<img src="../Images/image01254.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝0.3461…，</p>
+<p class="normaltext5">a<sub>4</sub>＝<img src="../Images/image01255.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝0.3472…，</p>
+<p class="normaltext6">等等．可以证明这种方式得到的序列a<sub>n</sub>收敛于极限</p>
+<p class="normaltext5">a＝0.3473…，</p>
+<p class="normaltext6">这就是给定的这个三次方程的一个解．像这样的叠代法在纯数学和应用数学中都很重要，在纯数学中，它能给出“存在性的证明”，而在应用数学中，它对许多类型问题的求解提供了近似方法．</p>
+<p class="normaltexta"><b>习题</b>：当n→∞时，</p>
+<p class="normaltext2">1）证明<img src="../Images/image01256.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>－<img src="../Images/image01257.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>→0．</p>
+<p class="normaltext2">［提示：把差改写为如下形式<img src="../Images/image01258.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>］．</p>
+<p class="normaltext2">2）求<img src="../Images/image01259.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>的极限．</p>
+<p class="normaltext2">3）求<img src="../Images/image01260.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>的极限．</p>
+<p class="normaltext2">4）求<img src="../Images/image01261.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的极限．</p>
+<p class="normaltext2">5）证明<img src="../Images/image01262.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>的极限是1．</p>
+<p class="normaltext2">6）如果a＞b＞0，<img src="../Images/image01263.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>的极限是什么？</p>
+<p class="normaltext2">7）如果a＞b＞c＞0，<img src="../Images/image01264.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>的极限是什么？</p>
+<p class="normaltext2">8）如果a＞b＞c＞0，<img src="../Images/image01265.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>的极限是什么？</p>
+<p class="normaltext2">9）我们在以后将见到（见<a href="part0021.xhtml#a40">此处</a>）e＝<img src="../Images/image01266.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，那么</p>
+<p class="normaltext8"><img src="../Images/image01266.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>是什么？</p>
+<h3 class="title3" id="mllj7">§2　连续性的例题</h3>
+<p class="normaltext">为了对函数的连续性作严格的证明需要对<a href="part0018.xhtml#mllj21">此处</a>的定义作确切的验证．有时这是一个很冗长的手续，然而幸运的是（我们在第八章中将见到），连续性是可微性的必然结果．因为以后我们将对所有的初等函数系统地证明其可微性，所以我们可以按通常的进程省去连续性的乏味的证明．但为进一步解释一般定义，我们将再分析一个例子，函数</p>
+<p class="normaltext5">f（x）＝<img src="../Images/image01267.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext6">我们可以限制x在一个固定区间｜x｜≤M内，其中M是任意选择的一个数．写下</p>
+<p class="picture"><img src="../Images/image01268.jpeg" alt="alt"/></p>
+<p class="normaltext6">对｜x｜≤M，｜x<sub>1</sub>｜≤M，我们有</p>
+<p class="normaltext5">｜f（x<sub>1</sub>）－f（x）｜≤｜x－x<sub>1</sub>｜｜x＋x<sub>1</sub>｜≤｜x－x<sub>1</sub>｜·2M．</p>
+<p class="normaltext6">因此，很清楚，只要｜x<sub>1</sub>－x｜＜δ＝<img src="../Images/image01269.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，左端的差将小于任意正数ε．</p>
+<p class="normaltext">应当指出，我们所作的估计是很宽裕的．对于x和x<sub>1</sub>的较大的值，读者很容易看到取一个更大的δ就行了．</p>
+</body></html>

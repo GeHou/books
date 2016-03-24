@@ -1,0 +1,964 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+		"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN"><head><meta name="generator" content="HTML Tidy，see www.w3.org"/>
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+<title>什么是数学：对思想和方法的基本研究（中文版第三版）</title>
+<link href="../Styles/style0001.css" rel="stylesheet" type="text/css"/>
+</head><body>
+<h1 class="title1">第8章　微积分</h1>
+<h2 class="title2" id="mllj1">引言</h2>
+<p class="normaltext">有时候人们过于简单地把微积分的“发明”归功于牛顿和莱布尼茨两人，这种看法很不妥当．事实上，微积分是长期演变的结果，既不是从牛顿和莱布尼茨开始的，也不是由他们完成的，但不可否认他们两人在其中起了决定性的作用．17世纪的欧洲，分散居住着许多有志的科学家，他们多数是在学院的外面，顽强地继续着伽利略和开普勒的数学工作．通过信件往来和旅行，这些人保持着密切的联系．有两个中心问题引起了他们的注意．第一个是<b>切线问题</b>：确定已知曲线的切线，这是微分学的基本问题．第二个是<b>求积问题</b>：确定已知曲线内部的面积，这是积分学的基本问题．牛顿和莱布尼茨的伟大功绩在于他们明确地认识到了<b>这两个问题之间的密切联系</b>．在他们手中，这个新的统一的方法变成了科学的强有力的工具．由于运用莱布尼茨创立的奇妙形式符号人们获得了很多成功，虽然这些符号牵涉了模糊的、站不住脚的观念（这些观念对那些认为神秘比清楚还好的人来说，是永远不会确切了解的）．但莱布尼茨的成就并不因此而减色．牛顿是一位更伟大的科学家，他似乎主要是受了他在剑桥大学的老师和前辈巴罗（Barrow，1630～1677）的影响．而莱布尼茨多少是外行，他是一位才华横溢的律师、外交官和哲学家，是他那时代最富活力和多才多艺的人物中的一个．他在因外交使命而访问巴黎时，在不可思议的短时间里，从物理学家惠更斯那里，学习了这种新数学．其后不久，他就发表了他的结果，其中已包含了近代微积分的核心．牛顿在这方面的发现要早得多，但他不愿意发表．并且，虽然在他的杰作<b>自然科学的哲学原理</b>中有许多原理是用微积分方法得到的结果，但他宁愿用古典几何的风格来表述几乎没有微积分的痕迹．只是到后来，他才发表了“流数”方法的论文．不久，他的那些崇拜者和莱布尼茨的朋友之间，开始了谁有“优先权”的激烈争吵．前者指责莱布尼茨抄袭；其实在这新理论的原理已很普遍的环境中，再没有比“同时”和“独立发现”这事更自然的了．这个争夺最先“发明”微积分的争吵，是一个过于强调先后和所有权的不好先例，这类争吵往往会窒息科学家互相交往的气氛．</p>
+<p class="normaltext">在17世纪和18世纪的大部分时间里，古希腊清晰和严格推理的方法在数学分析中几乎被抛弃了．“直观”和“本能”在许多重要内容中代替了推理．这助长了人们盲目相信新方法具有神奇的效果．当时普遍认为，明确地表示微积分的结果，不仅是不必要的而且也是不可能的．这种新科学，当时如果不是被少数有杰出才能的人所掌握，可能会产生严重的错误甚至可能遭到毁灭．这些先驱者，被强烈的本能感觉支配着，从而一直没有走上歧路．但是法国大革命开辟了极大地发展高级学术的道路，愿意参加科学研究活动的人大大增加，新分析的批判改造也就再也不能拖延了．这个任务在19世纪被成功地解决了．到了今天，微积分可以讲授得很严密，不带丝毫的神秘性．现在，没有任何理由说，这个科学的基本工具不能被每一个受教育的人所通晓了．</p>
+<p class="normaltext">这一章我们打算对微积分作一概括的介绍，着重在基本概念的理解上，而不在于形式的处理．到处要用到直观语言，但是，在方式上常常是和精确的概念以及确切的步骤相一致的．</p>
+<h3 class="title3" id="mllj2">§1　积分</h3>
+<h4 class="title4" id="mllj3">1．面积看作是一个极限</h4>
+<p class="normaltext">为了计算平面图形的面积，我们选择边长为单位长度的正方形作为<b>面积的单位</b>．如果单位长度是一英寸，则对应的面积单位将是一平方英寸，即边长为一英寸的正方形．由此很容易计算矩形的面积．如果用单位长度度量两个相邻边所得到的长度是p和q，那么矩形面积就是pq个单位，或者简单地说，面积等于乘积pq．对于任意的p和q，不论是有理数还是无理数，这个结论都是正确的．如果p和q是有理数，为了得到这个结论，我们把p和q表示为</p>
+<p class="picture"><img src="../Images/image01366.jpeg" alt="alt"/></p>
+<p class="normaltext6">其中m，n，m′，n′都是整数．然后，我们求两个边的公共度量<img src="../Images/image01367.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image01368.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，那么p＝mn′·<img src="../Images/image01367.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，q＝nm′·<img src="../Images/image01367.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．最后，把矩形分解成许多边长为<img src="../Images/image01367.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，面积为<img src="../Images/image01369.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的小正方形．这些正方形共有nm′·mn′个，并且总面积是</p>
+<p class="picture"><img src="../Images/image01370.jpeg" alt="alt"/></p>
+<p class="normaltext6">如果p和q是无理数，那么我们先用近似的有理数p<sub>r</sub>和q<sub>r</sub>分别替换p和q，然后令p<sub>r</sub>和q<sub>r</sub>趋于p和q，也得到同样的结果．</p>
+<p class="normaltext">三角形的面积等于有相同底b相同高h的矩形面积的一半，这在几何上是明显的；因而三角形的面积就由熟知的公式<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.1em"/>bh给出．平面上任何一个边界是由一条或几条折线组成的区域，都可以分解为若干三角形；因此，它的面积就是这些三角形的面积之和．</p>
+<p class="normaltext">当我们求边界不是折线而是<b>曲线</b>的图形的面积时，就必须有一个更为一般的计算面积的方法．例如，如何确定圆盘或抛物线弓形的面积呢？早在公元前3世纪，阿基米德就研究了这些困难的问题（这种问题是积分学的基础），他用“穷竭”的过程计算了这些面积．我们可以和阿基米德以及直到高斯时代的那些伟大数学家一样，采取一种“朴素”的态度，即把曲线围成的面积直观上看成是一个实在体，这样，问题就不是<b>定义</b>它们而只是<b>计算</b>它们（见<a href="part0022.xhtml#mllj3">此处</a>的讨论）．我们在这个区域中内接一个多边形，作成一个近似区域，这个近似区域有确定的面积．通过选择另一个多边形（它包含前一个多边形），我们得到这个区域的更佳近似值．继续按此方法进行，我们能逐渐“穷竭”整个面积，也就是适当选择区域的一系列内接多边形，当边数无限增加时，把它们面积的极限，作为给定区域的面积．半径为1的圆的面积，就可以用这个方法计算，所得数值，用符号π表示．</p>
+<p class="normaltext">阿基米德完成了求圆和抛物线弓形面积的一般方法．在17世纪，更多的问题也获得解决．但在每一种情形，极限的实际计算，都决定于只适合某特定问题的特殊技巧．微积分的一个主要成就，就是用一个一般的有效方法取代了这些特殊的有局限性的计算面积的办法．</p>
+<h4 class="title4" id="mllj4">2．积分</h4>
+<p class="normaltext">微积分的第一个基本概念是积分．这一节我们将把积分理解为用极限方法求得的曲线下的面积．如果已知一个正值连续函数y＝f（x），例如y＝x<sup class="suptext">2</sup>或y＝1＋cosx，我们考察这样一个区域，它下边的边界是x轴上由a到b的线段（这里b＞a），两边是过这两点垂直于x轴的直线，上面是曲线y＝f（x）．我们的目的是计算这个区域的面积A．</p>
+<p class="picture"><img src="../Images/image01371.jpeg" alt="alt"/></p>
+<p class="tz"><b>图259</b>　积分看作是面积</p>
+<p class="normaltext">一般来说，这样的区域不能分解为矩形或三角形，因而它的面积A就没有一个可以明显计算的直接表达式．但是，我们可以求A的近似值，并且按下面的方式把A描述为一个极限：我们把从x＝a到x＝b的区间分割为许多小区间，在每个分点上作垂线，并且把曲线下的每个小长条都用一个矩形代替，它的高是曲线在小长条中最大的和最小的高度之间的某个值．这些矩形面积的总和S给出了曲线下实际面积A的一个近似值．矩形的个数越多并且每个矩形的宽度越小，那么这个近似值就越接近A．这样我们就能用极限来刻划这个准确的面积：如果把（近似于曲线下的面积的）矩形的面积和组成一个序列：</p>
+<p class="picture"><img src="../Images/image01372.jpeg" alt="alt"/></p>
+<p class="normaltext6">使得当n无限增加、S<sub>n</sub>中最宽的矩形的宽度趋于零时，序列（1）趋于极限A，</p>
+<p class="picture"><img src="../Images/image01373.jpeg" alt="alt"/></p>
+<p class="normaltext6">而且这个极限A，即曲线下的面积，与序列（1）的选择方式无关（例如，S<sub>n</sub>可以由确定S<sub>n－1</sub>的分点再加上一个或多个分点而产生，也可以让S<sub>n</sub>的分点和S<sub>n－1</sub>的分点完全无关）．我们就把由这个极限过程表示的区域的面积A定义为<b>函数f（x）由a到b的积分</b>，用专门的“积分号”表示，可写成</p>
+<p class="picture"><img src="../Images/image01374.jpeg" alt="alt"/></p>
+<p class="normaltext6">符号∫，“dx”和名称“积分”，都是莱布尼茨为了提示获得极限的方式而创立的．为了解释这些符号，我们以后将更细致地重复近似值趋于面积A的过程．同时，在表示极限过程的这个解析式子中，可以去掉f（x）≥0和b＞a的假设．最后，还可以脱离最初的直观的面积概念（而在这里，面积却是我们定义积分的基础）．这后一点将在本章补充的§1中讲到．</p>
+<p class="normaltext">现在把从a到b的区间分割为n个小区间，为简单起见，我们假设这些区间的宽度都等于<img src="../Images/image01375.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．于是可令分点为</p>
+<p class="picture"><img src="../Images/image01376.jpeg" alt="alt"/></p>
+<p class="normaltext6">我们引进记号Δx来表示相邻两个x值的差<img src="../Images/image01375.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，</p>
+<p class="picture"><img src="../Images/image01377.jpeg" alt="alt"/></p>
+<p class="normaltext6">这里，符号Δ的意思就是指“差”（这是一个“运算”符号，而不能误解为数）．我们可以把y＝f（x）在小区间右端点的值选为每个近似矩形的高度．于是，这些矩形的面积之和是</p>
+<p class="picture"><img src="../Images/image01378.jpeg" alt="alt"/></p>
+<p class="normaltext6">这可简写为</p>
+<p class="picture"><img src="../Images/image01379.jpeg" alt="alt"/></p>
+<p class="normaltext6">这里符号<img src="../Images/image01380.jpeg" class="tpzz1" alt="alt" style="height:2.8em"/>是指j依次取遍1，2，3，…，n所得的所有的式子之和．</p>
+<p class="normaltexta">下面的例子说明符号∑是表示求和结果的简明形式：</p>
+<p class="picture"><img src="../Images/image01381.jpeg" alt="alt"/></p>
+<p class="normaltext">现在我们作一个近似值S<sub>n</sub>的序列，其中n是无限增大的，使得（5）中的每个和S<sub>n</sub>的项数随之增加，而每项f（x<sub>j</sub>）Δx，由于含有因子Δx＝<img src="../Images/image01375.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，趋于零．当n无限增加时，这个和趋于面积A，</p>
+<p class="picture"><img src="../Images/image01382.jpeg" alt="alt"/></p>
+<p class="normaltext" id="b7">莱布尼茨用∫代替求和符号∑，并且用符号d代替差的符号Δ，从而把近似的和式S<sub>n</sub>趋于A的极限过程符号化了（在莱布尼茨的时代，经常把求和符号∑写为S，而符号∫就是拉长的S）．但是我们必须注意，莱布尼茨的符号只是提示了获得积分的方式是有限和的极限，不要给它附带更多的意义，毕竟，这只是如何表示极限的一个约定．在微积分的早期，极限概念还未研究清楚，人们对它的印象肯定不深，当时用这样一种说法来解释积分的意义，即“无穷小量dx代替了有限差Δx，并且积分本身是无穷多个无穷小量f（x）dx的和”．虽然无穷小对于那些“纯理论家”有一定的吸引力，但它在近代数学中却没有地位，把明确的积分概念用没有意义的术语笼罩起来，不会引起好的效果．甚至莱布尼茨有时也被他的符号所引起的效用搞迷糊了．这些符号的作用，<b>好像</b>它们表示了“无穷小”的一个和，它们虽然是无穷小，但在一定范围内又可以像普通的量那样运算．事实上，造出积分这个词，就是为了表示全部（或整个）面积A是由“无穷小”的部分累积而成的．等到清楚地认识到只有极限（而不是别的）才是积分的真正基础时，这已经至少是牛顿和莱布尼茨以后约一百年的事了．只要坚定地站在这个基础上，我们就可以避免积分早期发展中的一切迷惑、困难和混乱．</p>
+<p class="picture"><img src="../Images/image01383.jpeg" alt="alt"/></p>
+<p class="tz"><b>图260</b>　用小矩形趋近面积</p>
+<h4 class="title4" id="mllj5">3．积分概念的一般说明　一般定义</h4>
+<p class="normaltext">在把积分看成是一个面积的这个几何定义中，我们显然假定f（x）在整个积分区间［a，b］内是非负的，就是说图像没有任何一部分是位于x轴的下方．但是在我们关于积分和S<sub>n</sub>的序列的极限的解析定义中，这个假定是多余的．简单地说，微小量f（x<sub>j</sub>）Δx组成它们的和，并且取极限；如果有一些或所有的f（x<sub>j</sub>）是负的，这个手续仍然完全有效．利用面积作几何解释时（图261），我们所求的f（x）的积分是图像和x轴所包围的那些面积的<b>代数和</b>，x轴下方的面积，计算时是负的，而其余的是正的．</p>
+<p class="picture"><img src="../Images/image01384.jpeg" alt="alt"/></p>
+<p class="tz"><b>图261</b>　正和负的面积</p>
+<p class="normaltext">在应用中，可能在得到的积分<img src="../Images/image01385.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>中，b是小于a的，这时<img src="../Images/image01375.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝Δx是负数．在解析定义中，即如果f（x<sub>j</sub>）是正的，而Δx是负的，那么f（x<sub>j</sub>）Δx是负的．换句话说，这个积分值是从b到a的积分值的相反数．这样，我们有简单的法则</p>
+<p class="picture" id="b91"><img src="../Images/image01386.jpeg" alt="alt"/></p>
+<p class="normaltext">必须指出，即使在不限定分点x<sub>j</sub>是等距离，也就是说不限定x的差Δx＝x<sub>j＋1</sub>－x<sub>j</sub>相等的情况下，积分值仍然是相同的．我们可以用另外的方式选择x<sub>j</sub>，使差Δx＝x<sub>j＋1</sub>－x<sub>j</sub>不相等（这时必须用不同的下标来区分），然后作和</p>
+<p class="normaltext5">S<sub>n</sub>＝f（x<sub>1</sub>）Δx<sub>0</sub>＋f（x<sub>2</sub>）Δx<sub>1</sub>＋…＋f（x<sub>n</sub>）Δx<sub>n－1</sub>，</p>
+<p class="normaltext6">以及</p>
+<p class="normaltext5">S′<sub>n</sub>＝f（x<sub>0</sub>）Δx<sub>0</sub>＋f（x<sub>1</sub>）Δx<sub>1</sub>＋…＋f（x<sub>n－1</sub>）Δx<sub>n－1</sub>，</p>
+<p class="normaltext6">只要对每一个给定的n，这些差Δx<sub>j</sub>＝x<sub>j＋1</sub>－x<sub>j</sub>中的最大值，当n增加时趋于零，那么所有的差Δx<sub>j</sub>＝x<sub>j＋1</sub>－x<sub>j</sub>当n增加时也趋于零，所以S<sub>n</sub>和S′<sub>n</sub>趋于同一个极限，这个极限就是积分<img src="../Images/image01385.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的值．</p>
+<p class="normaltext">由此，<b>积分的定义</b>最后可由下式给出</p>
+<p class="picture"><img src="../Images/image01387.jpeg" alt="alt"/></p>
+<p class="normaltext6">在这个极限中，v<sub>j</sub>可以是区间x<sub>j</sub>≤v<sub>j</sub>≤x<sub>j＋1</sub>中的任意一点，并且只要求任意分割的最大区间Δx<sub>j</sub>＝x<sub>j＋1</sub>－x<sub>j</sub>当n增加时必须趋于零．</p>
+<p class="normaltext">如果我们承认曲线下的面积这一观念，以及这个面积可以用矩形的和来趋近，那么极限（6a）的存在是不需要证明的．但是，如在后面（<a href="part0022.xhtml#mllj3">此处</a>）较详细的分析所表面的那样，为了对积分概念给出一个逻辑上完备的表示，不仅要求而且必须证明对任意连续函数，这极限是存在的，而不是利用面积的先验的几何概念．</p>
+<p class="picture"><img src="../Images/image01388.jpeg" alt="alt"/></p>
+<p class="tz"><b>图262</b>　积分一般定义中的任意分割</p>
+<h4 class="title4" id="mllj6">4．积分举例　x<sup class="suptext">r</sup>的积分</h4>
+<p class="normaltext">直到现在为止我们关于积分的讨论还只是理论性的．一个困难的问题是究竟有没有组成和式S<sub>n</sub>的一般范式，然后对于具体情况通过实际取极限得到结果．当然，对于适合于求积分的特定函数就要增加一些推理．两千年前，阿基米德在计算抛物线弓形的面积时，所用的极巧妙的方法，就是我们现在称为函数f（x）＝x<sup class="suptext">2</sup>的积分；在17世纪，近代微积分的先驱者成功的解决了如x<sup class="suptext">n</sup>那样的简单函数的积分问题，但用的仍是特殊的技巧．只是在有了许多由这些特殊情形获得的经验之后，才有了一个解决一般积分问题的微积分的系统方法，并且使可以解决的个别问题的范围大大扩大．在本节我们将讨论几个属于“早期微积分”阶段的有启发性的特例．并且没有别的例子能比它们更好地说明积分是一个极限过程．</p>
+<p class="normaltext">a）我们从一个极简单的例子开始．设y＝f（x）是常数，例如f（x）＝2，那么显然积分<img src="../Images/image01389.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>可以理解成一个面积，就是2（b－a），因为矩形的面积等于底乘高．我们把这个结果和用极限定义的积分（6）作比较．如果我们对于（5）中所有的j值都用f（x<sub>j</sub>）＝2代入，则对任意的n有</p>
+<p class="picture"><img src="../Images/image01390.jpeg" alt="alt"/></p>
+<p class="normaltext6">因为</p>
+<p class="picture"><img src="../Images/image01391.jpeg" alt="alt"/></p>
+<p class="normaltext">b）几乎同样简单的一个例子是f（x）＝x的积分．这里<img src="../Images/image01392.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>是梯形的面积（图263）．由初等几何，这个面积等于</p>
+<p class="picture"><img src="../Images/image01393.jpeg" alt="alt"/></p>
+<p class="picture"><img src="../Images/image01394.jpeg" alt="alt"/></p>
+<p class="tz"><b>图263</b>　梯形的面积</p>
+<p class="normaltext6">这个结果再次和定积分的定义（6）一致，这一点，不利用几何图形，通过实际取极限就可看出：如果把f（x）＝x代入（5），那么和式S<sub>n</sub>成为</p>
+<p class="picture"><img src="../Images/image01395.jpeg" alt="alt"/></p>
+<p class="picture"><img src="../Images/image01396.jpeg" alt="alt"/></p>
+<p class="tz"><b>图264</b>　抛物线下的面积</p>
+<p class="normaltext6">利用<a href="part0011.xhtml#b86">此处</a>等差级数1＋2＋3＋…＋n的公式（1）可得</p>
+<p class="picture"><img src="../Images/image01397.jpeg" alt="alt"/></p>
+<p class="normaltext6">因为</p>
+<p class="normaltext5">Δx＝<img src="../Images/image01375.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，</p>
+<p class="normaltext6">所以</p>
+<p class="picture"><img src="../Images/image01398.jpeg" alt="alt"/></p>
+<p class="normaltext6">令n趋于无穷，那么最后一项趋于零，求得</p>
+<p class="picture"><img src="../Images/image01399.jpeg" alt="alt"/></p>
+<p class="normaltext6">这与把面积看作是积分的几何解释一致．</p>
+<p class="normaltext">c）稍繁些的例子是函数f（x）＝x<sup class="suptext">2</sup>的积分．阿基米德用几何方法解决了与此相当的求抛物线y＝x<sup class="suptext">2</sup>的弓形面积的问题．我们将在定义（6a）的基础上进行分析．为了简化计算，我们把积分“下限”a取作零；因而Δx＝b／n．由于x<sub>j</sub>＝jΔx，且f（x<sub>j</sub>）＝j<sup class="suptext">2</sup>（Δx）<sup class="suptext">2</sup>，可以得到S<sub>n</sub>的表达式</p>
+<p class="picture"><img src="../Images/image01400.jpeg" alt="alt"/></p>
+<p class="normaltext6">现在，可以具体地计算这个极限．利用<a href="part0011.xhtml#b87">此处</a>建立的公式</p>
+<p class="picture"><img src="../Images/image01401.jpeg" alt="alt"/></p>
+<p class="normaltext6">并且作代换Δx＝b／n，我们得到</p>
+<p class="picture"><img src="../Images/image01402.jpeg" alt="alt"/></p>
+<p class="normaltext6">作了这个初步变形后，取极限就是很容易的事了．因为当n无限增加时，1／n趋于零．这样简单地得到极限</p>
+<p class="picture"><img src="../Images/image01403.jpeg" alt="alt"/></p>
+<p class="normaltext6">因而得到结果</p>
+<p class="picture"><img src="../Images/image01404.jpeg" alt="alt"/></p>
+<p class="normaltext6">将这个结果应用于从0到a的面积，则有</p>
+<p class="picture"><img src="../Images/image01405.jpeg" alt="alt"/></p>
+<p class="normaltext6">这两个面积相减，得到</p>
+<p class="picture"><img src="../Images/image01406.jpeg" alt="alt"/></p>
+<p class="normaltextc"><b>习题</b>：利用<a href="part0011.xhtml#b88">此处</a>公式（5），用同样的方法证明</p>
+<p class="picture"><img src="../Images/image01407.jpeg" alt="alt"/></p>
+<p class="normaltext2">利用从1到n的整数的k次幂的和1<sup class="suptext">k</sup>＋2<sup class="suptext">k</sup>＋…＋n<sup class="suptext">k</sup>的一般公式，可以得到下面的结果：对任意正整数k，有</p>
+<p class="picture"><img src="../Images/image01408.jpeg" alt="alt"/></p>
+<p class="normaltext7"><sup class="suptext">*</sup>不按这个方法进行，利用前面的说明（即，可以用不等距的分点来计算积分），可以得到更简单甚至更一般的结果．我们将证明公式（7）不仅对任意正整数k成立，而且对任意正或负的有理数</p>
+<p class="normaltext8">k＝<img src="../Images/image00966.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/></p>
+<p class="normaltext7">也成立，这里u是正整数而v是正或负的整数．应排除k＝-1的情形，因为这时公式（7）没意义．我们还假定0＜a＜b．</p>
+<p class="normaltext2">为了得到公式（7），我们按<b>等比级数</b>来选择分点x<sub>0</sub>＝a，x<sub>1</sub>，x<sub>2</sub>，…，x<sub>n</sub>＝b，由此组成S<sub>n</sub>．令</p>
+<p class="normaltext8"><img src="../Images/image01409.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝q，则<img src="../Images/image00494.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝q<sup class="suptext">n</sup>．</p>
+<p class="normaltext7">我们规定x<sub>0</sub>＝a，x<sub>1</sub>＝aq，x<sub>2</sub>＝aq<sup class="suptext">2</sup>，…，x<sub>n</sub>＝aq<sup class="suptext">n</sup>＝b．利用这个技巧，我们将看到取极限变得十分容易．因为f（x<sub>j</sub>）＝<img src="../Images/image01410.jpeg" class="tpzz1" alt="alt" style="height:1.5em"/>＝a<sup class="suptext">k</sup>q<sup class="suptext">jk</sup>，而且Δx<sub>j</sub>＝x<sub>j＋1</sub>－x<sub>j</sub>＝aq<sup class="suptext">j＋1</sup>－aq<sup class="suptext">j</sup>，所以“矩形和”S<sub>n</sub>是</p>
+<p class="normaltext8">S<sub>n</sub>＝a<sup class="suptext">k</sup>（aq－a）＋a<sup class="suptext">k</sup>q<sup class="suptext">k</sup>（aq<sup class="suptext">2</sup>－aq）＋a<sup class="suptext">k</sup>q<sup class="suptext">2k</sup>（aq<sup class="suptext">3</sup>－aq<sup class="suptext">2</sup>）＋…</p>
+<p class="normaltext8">＋a<sup class="suptext">k</sup>q<sup class="suptext">（n－1）</sup>k（aq<sup class="suptext">n</sup>－aq<sup class="suptext">n－1</sup>）．</p>
+<p class="normaltext7">因为每一项都有因子a<sup class="suptext">k</sup>（aq－a），所以</p>
+<p class="normaltext8">S<sub>n</sub>＝a<sup class="suptext">k＋1</sup>（q－1）｛1＋q<sup class="suptext">k＋1</sup>＋q<sup class="suptext">2（k＋1）</sup>＋…＋q<sup class="suptext">（n－1）（k＋1）</sup>｝．</p>
+<p class="normaltext7">用t代换q<sup class="suptext">k＋1</sup>，我们看到花括号中的表达式是等比级数</p>
+<p class="normaltext8">1＋t＋t<sup class="suptext">2</sup>＋…＋t<sup class="suptext">n－1</sup>，</p>
+<p class="normaltext7">它的和如<a href="part0011.xhtml#b89">此处</a>所证明的是<img src="../Images/image01411.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．但</p>
+<p class="picture"><img src="../Images/image01412.jpeg" alt="alt"/></p>
+<p class="normaltext7">因此</p>
+<p class="picture"><img src="../Images/image01413.jpeg" alt="alt"/></p>
+<p class="normaltext7">这里</p>
+<p class="picture"><img src="../Images/image01414.jpeg" alt="alt"/></p>
+<p class="normaltext7">以上是当n为固定数时的情形．现在我们令n增加，以确定N的极限．当n增加时，n次根<img src="../Images/image01415.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝q趋于1（见<a href="part0019.xhtml#mllj4">此处</a>），因而N的分子分母同时趋于零，这是必须注意的地方．先假定k是正整数，那么可以用q－1去除，得到（见<a href="part0011.xhtml#mllj9">此处</a>）N＝q<sup class="suptext">k</sup>＋q<sup class="suptext">k－1</sup>＋…＋q＋1．今若n增加，q趋于1，因此q<sup class="suptext">2</sup>，q<sup class="suptext">3</sup>，…，q<sup class="suptext">k</sup>都趋于1，故N趋于k＋1，于是显示了S<sub>n</sub>趋于<img src="../Images/image01416.jpeg" class="tpzz1" alt="alt" style="height:2.5em"/>．这就是我们要证明的．</p>
+<p class="normaltextc"><b>习题：</b>证明对于任意有理数k≠-1有同样的极限公式N→k＋1，因而公式（7）仍然成立．按照我们的范例，首先给出负整数k的证明．然后如果</p>
+<p class="normaltext8">k＝<img src="../Images/image00966.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，记q<sup class="suptext">1／v</sup>＝s，</p>
+<p class="normaltext7">则</p>
+<p class="picture"><img src="../Images/image01417.jpeg" alt="alt"/></p>
+<p class="normaltext2">如果n增加，s和q同时趋于1，因而右端两个比值分别趋于u＋v和v，这就再次得到N的极限为</p>
+<p class="picture"><img src="../Images/image01418.jpeg" alt="alt"/></p>
+<p class="normaltext2">在§5中我们将看到，这个冗长而不太自然的讨论可以用微积分中更简单而有效的方法代替．</p>
+<p class="normaltexta"><b>习题：</b>1）当k＝<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.1em"/>，-<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.1em"/>，2，-2，3，-3时，逐个验证x<sup class="suptext">k</sup>的积分．</p>
+<p class="normaltext2">2）求下列积分值：</p>
+<p class="normaltext2">a）<img src="../Images/image01419.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>；b）<img src="../Images/image01420.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>；c）<img src="../Images/image01421.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>；d）<img src="../Images/image01422.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>；e）<img src="../Images/image01423.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext2">3）求下列积分值：</p>
+<p class="normaltext2">a）<img src="../Images/image01424.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>；b）<img src="../Images/image01425.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>；</p>
+<p class="normaltext2">c）<img src="../Images/image01426.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>；d）<img src="../Images/image01427.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext2">（提示：考察积分号下的函数图像，注意它们关于x＝0的对称性，并且把积分解释成面积．）</p>
+<p class="normaltext2"><sup class="suptext">*</sup>4）利用代换Δx＝h和<a href="part0021.xhtml#b90">此处</a>的公式，求sinx和cosx从0到b的积分．</p>
+<p class="normaltext2">5）将区间等分，并令公式（6a）中的</p>
+<p class="normaltext8">v<sub>j</sub>＝<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.1em"/>（x<sub>j</sub>＋x<sub>j＋1</sub>），</p>
+<p class="normaltext7">求f（x）＝x和f（x）＝x<sup class="suptext">2</sup>从0到b的积分．</p>
+<p class="normaltext2"><sup class="suptext">*</sup>6）利用公式（7）和Δx相等时的积分定义，证明极限关系式</p>
+<p class="picture"><img src="../Images/image01428.jpeg" alt="alt"/></p>
+<p class="normaltext2">（提示：令<img src="../Images/image00483.jpeg" class="tpzz1" alt="alt" style="height:2.1em"/>＝Δx，并且证明这个极限等于<img src="../Images/image01429.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．）</p>
+<p class="normaltext2"><sup class="suptext">*</sup>7）证明当n→∞时，</p>
+<p class="picture"><img src="../Images/image01430.jpeg" alt="alt"/></p>
+<p class="normaltext2">（提示：改写这个和，使得它的极限是一个积分．）</p>
+<p class="normaltext2">8）计算边界由抛物线y＝ax<sup class="suptext">2</sup>的弧P<sub>1</sub>P<sub>2</sub>和弦P<sub>1</sub>P<sub>2</sub>组成的抛物线弓形的面积，并用两个点的坐标x<sub>1</sub>和x<sub>2</sub>表示出来．</p>
+<h4 class="title4" id="mllj7">5．“积分运算”的法则</h4>
+<p class="normaltext">确立了某些一般法则是微积分发展过程中一个重要步骤，这些法则使许多问题可以化简，因而可以用几乎是机械的办法加以解决．莱布尼茨的符号特别强调了这种算法的特点．然而，过分集中于问题的机械解法上，会把微积分的教学变为空洞的解题训练．</p>
+<p class="normaltext">有些简单的积分法则，可由定义（6）或由积分是面积的几何解释中立刻得到．</p>
+<p class="normaltext"><b>两个函数的和的积分等于这两个函数的积分的和．一个常数c和函数f（x）乘积的积分等于常数c和函数f（x）的积分的乘积．</b>这两个法则可以合并为下面一个公式</p>
+<p class="picture"><img src="../Images/image01431.jpeg" alt="alt"/></p>
+<p class="normaltext6">由积分看作有限和（5）的极限这一定义，可以立刻得到上式的证明，这是因为和S<sub>n</sub>的相应公式显然是对的．这个法则马上可以推广到两个以上的函数的和的情形．</p>
+<p class="normaltext">作为运用这些法则的例子，我们考虑一个多项式</p>
+<p class="normaltext5">f（x）＝a<sub>0</sub>＋a<sub>1</sub>x＋a<sub>2</sub>x<sup class="suptext">2</sup>＋…＋a<sub>n</sub>x<sup class="suptext">n</sup>，</p>
+<p class="normaltext6">其中系数a<sub>0</sub>，a<sub>1</sub>，…，a<sub>n</sub>都是常数．要求f（x）从a到b的积分．按照法则我们可以逐项进行．用公式（7），求得</p>
+<p class="picture"><img src="../Images/image01432.jpeg" alt="alt"/></p>
+<p class="normaltext6">另一个由解析定义和几何解释看都是显然的法则，可由下式给出：</p>
+<p class="picture"><img src="../Images/image01433.jpeg" alt="alt"/></p>
+<p class="normaltext6">显然当a＝b时，<img src="../Images/image01434.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>等于零．<a href="part0021.xhtml#b91">此处</a>的法则</p>
+<p class="picture"><img src="../Images/image01435.jpeg" alt="alt"/></p>
+<p class="normaltext6">是与上面后两个法则一致的，因为它相当于c＝a时的公式（10）．</p>
+<p class="normaltext" id="a46">积分的值与f（x）中自变量所选的特殊名称x无关．这个事实有时用起来是很方便的，例如</p>
+<p class="normaltext5"><img src="../Images/image01436.jpeg" class="tpzz1" alt="alt" style="height:3em"/>，等等．</p>
+<p class="normaltext6">因为这只改变了（函数图像所参照的）坐标系的轴的名称，曲线下的面积并无变化．甚至坐标系本身作一定的变化，仍然可以得到同样的结论．例如，我们把原点从O向右移动一个单位，到O′，如图265，那么x就被新坐标x′代替，即</p>
+<p class="picture"><img src="../Images/image01437.jpeg" alt="alt"/></p>
+<p class="tz"><b>图265</b>　y轴的平移</p>
+<p class="normaltext5">x＝1＋x′．</p>
+<p class="normaltext6">方程为y＝f（x）的曲线，在新坐标系中的方程将是</p>
+<p class="normaltext5">y＝f（1＋x′）．（例如y＝<img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image01438.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．）</p>
+<p class="normaltext6">这样，这条曲线在x＝1，x＝b之间确定的面积A，在新坐标系中就是这曲线在x′＝0，x′＝b－1之间的面积．因此，我们有</p>
+<p class="picture" id="b109"><img src="../Images/image01439.jpeg" alt="alt"/></p>
+<p class="normaltext6">或将x′改为u，</p>
+<p class="picture"><img src="../Images/image01440.jpeg" alt="alt"/></p>
+<p class="normaltext6">例如</p>
+<p class="picture"><img src="../Images/image01441.jpeg" alt="alt"/></p>
+<p class="normaltext6">并且关于函数f（x）＝x<sup class="suptext">k</sup>，有</p>
+<p class="picture"><img src="../Images/image01442.jpeg" alt="alt"/></p>
+<p class="normaltext6">类似地，有</p>
+<p class="picture"><img src="../Images/image01443.jpeg" alt="alt"/></p>
+<p class="normaltext6">因为（12c）的左端等于<img src="../Images/image01444.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，所以得到</p>
+<p class="picture"><img src="../Images/image01445.jpeg" alt="alt"/></p>
+<p class="normaltexta"><b>习题：</b>1）计算1＋x＋x<sup class="suptext">2</sup>＋…＋x<sup class="suptext">n</sup>从0到b的积分．</p>
+<p class="normaltext2">2）若n＞0，证明（1＋x）<sup class="suptext">n</sup>从-1到z的积分等于<img src="../Images/image01446.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext2">3）证明x<sup class="suptext">n</sup>sinx从0到1的积分小于<img src="../Images/image00553.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext2">（提示：后一个值是x<sup class="suptext">n</sup>的积分．）</p>
+<p class="normaltext2">4）用二项式定理直接证明<img src="../Images/image01447.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>从-1到z的积分是</p>
+<p class="picture"><img src="../Images/image01448.jpeg" alt="alt"/></p>
+<p class="normaltext">最后，我们指出两个用不等式表示的重要法则．这些法则可能粗略一些，但在积分值的估计上很有用．</p>
+<p class="normaltext" id="b64">我们假定b＞a，并且在区间内f（x）处处都不超过另一函数g（x），那么有</p>
+<p class="picture"><img src="../Images/image01449.jpeg" alt="alt"/></p>
+<p class="picture"><img src="../Images/image01450.jpeg" alt="alt"/></p>
+<p class="tz"><b>图266</b>　积分的比较</p>
+<p class="normaltext6">从图266或者从积分的解析定义出发，都可以立刻明白这个法则．特别，若g（x）＝M是一常数，而f（x）的值不超过它，我们有</p>
+<p class="picture"><img src="../Images/image01451.jpeg" alt="alt"/></p>
+<p class="normaltext6">可得到</p>
+<p class="picture"><img src="../Images/image01452.jpeg" alt="alt"/></p>
+<p class="normaltext">如果f（x）非负，那么f（x）＝｜f（x）｜．如果f（x）＜0，那么｜f（x）｜＞f（x）．因此，式（13）中，令g（x）＝｜f（x）｜，我们得到一个很有用的公式</p>
+<p class="picture"><img src="../Images/image01453.jpeg" alt="alt"/></p>
+<p class="normaltext6">因为｜-f（x）｜＝｜f（x）｜，我们也有</p>
+<p class="picture"><img src="../Images/image01454.jpeg" alt="alt"/></p>
+<p class="normaltext6">这个公式与（15）合并在一起，得到一个更强的不等式</p>
+<p class="picture"><img src="../Images/image01455.jpeg" alt="alt"/></p>
+<h3 class="title3" id="mllj8">§2　导数</h3>
+<h4 class="title4" id="mllj9">1．把导数看作是斜率</h4>
+<p class="normaltext">虽然积分概念早在古代就已经打下基础，但微积分的另一个基本概念——导数，则是在17世纪才由费马及其他人建立起来的．由于牛顿和莱布尼茨发现了这两个表面上是相反的概念之间的内在联系，从而使数学科学开始了空前的发展．</p>
+<p class="normaltext">费马对确定函数y＝f（x）的极大与极小的问题很感兴趣．在函数的图像中，极大对应一个峰顶，它比相邻的其他一切点都高，而极小对应谷底，它比相邻的其他一切点都低．在<a href="part0020.xhtml#b93">此处</a>图191，B点是极大值，C点是极小值．为了刻划极大点和极小点的特征，很自然的要用曲线的<b>切线</b>概念．我们假定图像没有尖角或其他奇点，并且曲线在每一点的方向，都由切线给出．在极大和极小点，图像y＝f（x）的切线必然平行于x轴，因为否则曲线在这些点必定上升或下降．这个说明，使我们产生如下的想法：要在图像y＝f（x）的任意一点，一般的考察曲线的切线方向．</p>
+<p class="normaltext">要刻画x，y-平面上一条直线的方向，习惯上都是给出它的<b>斜率</b>．所谓斜率，是指从x轴的正方向到直线之间的夹角α的正切．如果取直线L上的任一点P，然后继续往右到点R，再上升或下降到直线上的点Q；那么L的斜率＝tanα＝<img src="../Images/image01456.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．线长PR取为正的，而RQ可能是正的，也可能是负的，这要看R到Q是向上还是往下而定．这样，如果我们沿直线从左到右，那么斜率给出的是沿水平方向每经过单位长度，直线上升或下降的值．在图267第一条直线的斜率是2／3，而第二条直线的斜率是-1．</p>
+<p class="picture"><img src="../Images/image01457.jpeg" alt="alt"/></p>
+<p class="tz"><b>图267</b>　直线的斜率</p>
+<p class="normaltext">至于<b>曲线</b>在点P的斜率，指的是曲线在点P的切线的斜率．只要我们把曲线的切线，当作是一个直观给出的数学观念，那么剩下的问题就是<b>找出计算斜率的方法</b>．我们暂时接受这个看法，而把其中涉及的问题的严密分析，留待本章后面的补充中去解决．</p>
+<h4 class="title4" id="mllj10">2．导数看作是一极限</h4>
+<p class="normaltext">曲线y＝f（x）在点P（x，y）的斜率，若只考虑点P处的曲线，是不能计算出来的．实际上，如同计算曲线下的面积那样，计算曲线斜率也必须用一个极限过程．这个极限过程是微分学的基础．我们取曲线上点P邻近的另外一点P<sub>1</sub>，它的坐标是x<sub>1</sub>，y<sub>1</sub>．连接P和P<sub>1</sub>，得一直线，记为t<sub>1</sub>，它是曲线的割线．当P<sub>1</sub>趋近于P时，这割线就近似于点P的切线．自x轴到t<sub>1</sub>的夹角，称为α<sub>1</sub>．现在如果令x<sub>1</sub>趋于x，那么P<sub>1</sub>将沿曲线向P移动，而且割线t<sub>1</sub>将逼近极限位置——曲线在P点的切线t．如果α表示自x轴到t的角，那么，当x<sub>1</sub>→x时<sup class="suptext"><a id="fhzs1" href="part0021.xhtml#zhushi1">〔1〕</a></sup>，便有</p>
+<p class="picture"><img src="../Images/image01458.jpeg" alt="alt"/></p>
+<p class="tz"><b>图268</b>　导数看作是一极限</p>
+<p class="normaltext5">y<sub>1</sub>→y，P<sub>1</sub>→P，t<sub>1</sub>→t，及α<sub>1</sub>→α．</p>
+<p class="normaltext6" id="b6"><b>这个切线是割线的极限，同时切线的斜率是割线斜率的极限．</b></p>
+<p class="normaltext">虽然切线t本身的斜率没有明显的表达式，但是割线t<sub>1</sub>的斜率由下面的公式给出</p>
+<p class="normaltext5">t<sub>1</sub>的斜率＝<img src="../Images/image01459.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image01460.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext6">或者，如果我们再次用符号Δ记作求差的运算，</p>
+<p class="normaltext5">t<sub>1</sub>的斜率＝<img src="../Images/image01461.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image01462.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext6">割线t<sub>1</sub>的斜率是一个“差商”——函数值的差Δy，除以自变量的差Δx．所以</p>
+<p class="normaltext5">t的斜率＝t<sub>1</sub>的斜率的极限＝lim<img src="../Images/image01460.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝lim<img src="../Images/image01461.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，</p>
+<p class="normaltext6">这里是对x<sub>1</sub>→x，即Δx＝x<sub>1</sub>－x→0时计算极限．<b>曲线的切线t的斜率是当Δx＝x<sub>1</sub>－x趋于零时差商Δy／Δx的极限</b>．</p>
+<p class="normaltext">原来的函数f（x），给出了曲线y＝f（x）在x处的<b>高度</b>．现在我们可以考察曲线在坐标为x，y（＝f（x））的变动点P处的<b>斜率</b>，把它看作是x的一个新的函数，记作f′（x），并且叫作函数f（x）的<b>导数</b>．求导数的极限过程叫作对f（x）<b>微分</b>．这个过程是按照一个确定法则，由给定的函数f（x）得到另一个函数f′（x）的一个运算，恰像按一定的法则给定一个函数f（x），是指由变量x的任何值得到f（x）的值的情形一样：</p>
+<p class="normaltext5">f（x）是曲线y＝f（x）在点x的高度，</p>
+<p class="normaltext5">f′（x）是曲线y＝f（x）在点x的斜率．</p>
+<p class="normaltext6">“微分”这个词，来源于f′（x）是差f（x<sub>1</sub>）－f（x）除以差x<sub>1</sub>－x的极限这个事实：</p>
+<p class="picture"><img src="../Images/image01463.jpeg" alt="alt"/></p>
+<p class="normaltext6">另一个常用的记法是</p>
+<p class="normaltext5">f′（x）＝Df（x），</p>
+<p class="normaltext6">这个D是“……的导数”的简写；莱布尼茨对y＝f（x）的导数用另一种不同的记法：</p>
+<p class="normaltext5"><img src="../Images/image01464.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>或<img src="../Images/image01465.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，</p>
+<p class="normaltext6">这些记法指出了导数是差商</p>
+<p class="normaltext5"><img src="../Images/image01461.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>或<img src="../Images/image01462.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/></p>
+<p class="normaltext6">的极限这个特性，这一点我们将在§4讨论．</p>
+<p class="normaltext">当x的值增加时，我们来描述曲线y＝f（x）的变化．这时，在一个点有<b>正的导数</b>，即f′（x）>0，就表示该点<b>曲线上升</b>（y增加），<b>负的导数</b>，f′（x）＜0，就表示<b>曲线下降</b>，而f′（x）＝0，就表示曲线在x处是水平方向．在极大或极小处，斜率必然是零（图269）．因此，对于x，解方程</p>
+<p class="normaltext5">f′（x）＝0，</p>
+<p class="picture"><img src="../Images/image01466.jpeg" alt="alt"/></p>
+<p class="tz"><b>图269</b>　导数的符号</p>
+<p class="normaltext6">可以找到极大和极小的位置，这便是费马首先提出的方法．</p>
+<h4 class="title4" id="mllj11">3．例题</h4>
+<p class="normaltext">乍看起来，引入定义（1）似乎没有什么实用价值．一个问题被另一个问题代替了：本来是求曲线y＝f（x）在点P处的切线问题，现在却是计算极限（1）的问题，这个极限表面上看起来是同样困难的．但是，一旦离开普遍的领域，只考虑各种个别函数，我们就能获得确切的结果．</p>
+<p class="normaltext">最简单的函数是f（x）＝c，其中c是常数．函数y＝f（x）＝c的图像是一水平线，它与一切点的切线重合，那么，显然对于x的一切值，有</p>
+<p class="normaltext5">f′（x）＝0．</p>
+<p class="normaltext6">这也可从定义（1）推出，因为</p>
+<p class="picture"><img src="../Images/image01467.jpeg" alt="alt"/></p>
+<p class="normaltext6">所以，显然，</p>
+<p class="normaltext5">lim<img src="../Images/image01460.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝0，当x<sub>1</sub>→x时．</p>
+<p class="normaltext">其次，我们考察简单的函数y＝f（x）＝x，它的图像是过原点平分第一象限的直线．从几何上可清楚知道，对于x的任意值</p>
+<p class="normaltext5">f′（x）＝1．</p>
+<p class="normaltext6">而从解析定义（1），也可得到</p>
+<p class="picture"><img src="../Images/image01468.jpeg" alt="alt"/></p>
+<p class="normaltext6">所以</p>
+<p class="normaltext5">lim<img src="../Images/image01460.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝1，当x<sub>1</sub>→x时．</p>
+<p class="normaltext">一个很简单但又不是显然的例子，是对函数</p>
+<p class="normaltext5">y＝f（x）＝x<sup class="suptext">2</sup></p>
+<p class="normaltext6" id="a59">微分．这相当于找抛物线的斜率．这是一个（当结果初看起来并不明显时）教我们如何取极限的最简单的例子．我们有</p>
+<p class="picture"><img src="../Images/image01469.jpeg" alt="alt"/></p>
+<p class="normaltext6">如果试图直接取分子分母的极限，那么将得到没有意义的表达式<img src="../Images/image01095.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．但是<b>在取极限前</b>，可把差商改写，使得能消去捣乱的因子x<sub>1</sub>－x，从而避开这个困难（在计算差商的极限时，我们只考虑x<sub>1</sub>≠x的值，因此这种作法是允许的）．这样得到表达式：</p>
+<p class="picture"><img src="../Images/image01470.jpeg" alt="alt"/></p>
+<p class="normaltext">现在，在消去x<sub>1</sub>－x<b>后</b>，x<sub>1</sub>→x取极限就没有任何困难了．这个极限用“代入法”就可得到；因为差商的新形式x<sub>1</sub>＋x是连续的，而连续函数当x<sub>1</sub>→x的极限，就是函数在x<sub>1</sub>＝x处的值，在这个例子中，是x＋x＝2x，于是对f（x）＝x<sup class="suptext">2</sup>，有</p>
+<p class="normaltext5">f′（x）＝2x．</p>
+<p class="normaltext">用类似的方法能证明对f（x）＝x<sup class="suptext">3</sup>，有f′（x）＝3x<sup class="suptext">2</sup>．因为这时差商是</p>
+<p class="picture"><img src="../Images/image01471.jpeg" alt="alt"/></p>
+<p class="normaltext6">利用公式<img src="../Images/image01472.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>－x<sup class="suptext">3</sup>＝（x<sub>1</sub>－x）（<img src="../Images/image01473.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＋x<sub>1</sub>x＋x<sup class="suptext">2</sup>）化简．消去分母的Δx＝x<sub>1</sub>－x，便得到表达式</p>
+<p class="picture"><img src="../Images/image01474.jpeg" alt="alt"/></p>
+<p class="normaltext6">它是连续函数．现在如果令x<sub>1</sub>趋于x，这个式子就简单地变成x<sup class="suptext">2</sup>＋x<sup class="suptext">2</sup>＋x<sup class="suptext">2</sup>，从而得到极限</p>
+<p class="normaltext5">f′（x）＝3x<sup class="suptext">2</sup>．</p>
+<p class="normaltext" id="b100">一般情况，如果</p>
+<p class="normaltext5">f（x）＝x<sup class="suptext">n</sup>，</p>
+<p class="normaltext6">其中n是任何正整数，则得到导数</p>
+<p class="normaltext5">f′（x）＝nx<sup class="suptext">n－1</sup>．</p>
+<p class="normaltexta"><b>习题</b>：证明上述结果．（用代数公式</p>
+<p class="picture"><img src="../Images/image01475.jpeg" alt="alt"/></p>
+<p class="normaltext">作为用简单技巧可以确定导数的又一例子，我们考察函数</p>
+<p class="normaltext5">y＝f（x）＝<img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext6">我们有</p>
+<p class="picture"><img src="../Images/image01476.jpeg" alt="alt"/></p>
+<p class="normaltext6">仍然可以消去x<sub>1</sub>－x，求得</p>
+<p class="picture"><img src="../Images/image01477.jpeg" alt="alt"/></p>
+<p class="normaltext6">它在x<sub>1</sub>＝x处是连续的，因此有极限</p>
+<p class="picture"><img src="../Images/image01478.jpeg" alt="alt"/></p>
+<p class="normaltext6">当然，在x＝0处不论是导数还是函数本身都没定义．</p>
+<p class="normaltextc"><b>习题</b>：用类似的方法，证明f（x）＝<img src="../Images/image01479.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的导数是f′（x）＝<img src="../Images/image01480.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，对于f（x）＝<img src="../Images/image01481.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，f′（x）＝-<img src="../Images/image01482.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，对f（x）＝（1＋x）<sup class="suptext">n</sup>，f′（x）＝n（1＋x）<sup class="suptext">n－1</sup>．</p>
+<p class="normaltext" id="b99">现在，试微分</p>
+<p class="normaltext5">y＝f（x）＝<img src="../Images/image01483.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>．</p>
+<p class="normaltext6">关于差商，我们有</p>
+<p class="picture"><img src="../Images/image01484.jpeg" alt="alt"/></p>
+<p class="normaltext6">利用公式</p>
+<p class="picture"><img src="../Images/image01485.jpeg" alt="alt"/></p>
+<p class="normaltext6">可以消去一个因子，从而得到连续函数</p>
+<p class="picture"><img src="../Images/image01486.jpeg" alt="alt"/></p>
+<p class="normaltext6">取极限，便得</p>
+<p class="picture"><img src="../Images/image01487.jpeg" alt="alt"/></p>
+<p class="normaltexta" id="b97"><b>习题</b>：证明：对于</p>
+<p class="picture"><img src="../Images/image01488.jpeg" alt="alt"/></p>
+<p class="normaltext7">对于</p>
+<p class="picture"><img src="../Images/image01489.jpeg" alt="alt"/></p>
+<p class="normaltext7">对于</p>
+<p class="picture"><img src="../Images/image01490.jpeg" alt="alt"/></p>
+<p class="normaltext7">对于</p>
+<p class="picture"><img src="../Images/image01491.jpeg" alt="alt"/></p>
+<h4 class="title4" id="mllj12">4．三角函数的导数</h4>
+<p class="normaltext">我们现在考察很重要的<b>三角函数的微分</b>问题．这里无例外地采用角的弧度制．</p>
+<p class="normaltext" id="b90">微分函数y＝f（x）＝sinx时，令x<sub>1</sub>－x＝h，即</p>
+<p class="normaltext5">x<sub>1</sub>＝x＋h，</p>
+<p class="normaltext6">且f（x<sub>1</sub>）＝sinx<sub>1</sub>＝sin（x＋h）．用关于sin（A＋B）的三角公式</p>
+<p class="normaltext5">f（x<sub>1</sub>）＝sin（x＋h）＝sinxcosh＋cosxsinh．</p>
+<p class="normaltext6">因此</p>
+<p class="picture"><img src="../Images/image01492.jpeg" alt="alt"/></p>
+<p class="normaltext6">今令x<sub>1</sub>趋于x，那么h趋于0，sinh趋于0，cosh趋于1．并且由<a href="part0018.xhtml#b94">此处</a>的结果</p>
+<p class="normaltext5"><img src="../Images/image01493.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>及<img src="../Images/image01494.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，</p>
+<p class="normaltext6">知（2）的右边变为cosx，从而得到结果：</p>
+<p class="normaltext"><b>函数</b>f（x）＝sinx有导数f′（x）＝cosx，或简单地表示为</p>
+<p class="normaltext5">Dsinx＝cosx．</p>
+<p class="normaltextc"><b>习题</b>：证明Dcosx＝-sinx．</p>
+<p class="normaltext">为了微分函数f（x）＝tanx，可写为tanx＝<img src="../Images/image01495.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，得</p>
+<p class="picture"><img src="../Images/image01496.jpeg" alt="alt"/></p>
+<p class="normaltext6">（最后的等式是从公式</p>
+<p class="normaltext5">sin（A－B）＝sinAcosB－cosAsinB</p>
+<p class="normaltext6">中令A＝x＋h及B＝x而得来的．）如果现在令h趋于零，那么<img src="../Images/image01497.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>趋于1，cos（x＋h）趋于cosx，从而断定：</p>
+<p class="normaltext" id="a45"><b>函数</b>f（x）＝tanx的导数是f′（x）＝<img src="../Images/image01498.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>或</p>
+<p class="normaltext5">Dtanx＝<img src="../Images/image01498.jpeg" class="tpzz1" alt="alt" style="height:2.4em"/>．</p>
+<p class="normaltexta"><b>习题</b>：证明Dcotx＝-<img src="../Images/image01499.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<h2 class="title2" id="mllj13">*5．可微性和连续性</h2>
+<p class="normaltext">函数的<b>可微性蕴涵着函数的连续性．</b>因为如果当Δx→0时，<img src="../Images/image01461.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的极限存在，那么很容易看到当差Δx趋于零时函数的改变量Δy必然是任意小．所以，函数只要可微分，那么它的连续性就自然得到保证．因此，除非有特殊理由，本章出现的可微函数的连续性，将不再指出或加以证明．</p>
+<h4 class="title4" id="mllj14">6．导数和速度　二阶导数和加速度</h4>
+<p class="normaltext">上面对导数的讨论，是和函数图像的几何观念相联系的．但是，导数概念的意义决不只是求曲线切线的斜率的问题．自然科学中，更重要的问题是计算随时间t而变化的某个量f（t）的变化率．牛顿正是从这个方面研究了微分学的．牛顿特别分析了速度的现象，他把时间和动点的位置都看成是变量，并把它们称为“流量”．</p>
+<p class="normaltext">如果一个质点沿直线（例如沿x轴）运动，那么这个运动可用一个函数x＝f（t）完全描述出来，它给出任何时间t时这个质点的位置x．一个沿x轴以常速度b运动的“匀速运动”由线性函数x＝a＋bt表示，其中a是质点在t＝0时的坐标．</p>
+<p class="normaltext">平面上的质点运动由两个函数</p>
+<p class="normaltext5">x＝f（t），y＝g（t）</p>
+<p class="normaltext6">描述，这两个坐标都被表示成时间的函数．特别，匀速运动对应一对线性函数：</p>
+<p class="normaltext5">x＝a＋bt，y＝c＋dt，</p>
+<p class="normaltext6">其中b和d是常速度的两个“分量”，而a和c是质点在t＝0那个瞬时的坐标．质点的运动路径是方程为</p>
+<p class="normaltext5">（x－a）d－（y－c）b＝0</p>
+<p class="normaltext6">的直线，这个方程是从上面两个关系式中消去t后得到的．</p>
+<p class="normaltext">如果质点只受重力作用而在铅垂的x，y-平面上运动，那么，由初等物理学知道，运动由两个方程</p>
+<p class="normaltext5">x＝a＋bt，y＝c＋dt－<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.1em"/>gt<sup class="suptext">2</sup></p>
+<p class="normaltext6">表示，其中a，b，c，d是依赖于质点初始位置的常数，而g是在重力作用下的加速度，如果时间单位是秒而距离单位是米，那么它近似等于9.8<sup class="suptext"><a id="fhzs2" href="part0021.xhtml#zhushi2">〔2〕</a></sup>．这个质点运动的轨迹，可以从两个方程中消去t得到，它是抛物线</p>
+<p class="picture"><img src="../Images/image01500.jpeg" alt="alt"/></p>
+<p class="normaltext6">其中b≠0，否则它是竖直轴的一部分．</p>
+<p class="normaltext">如果一个质点限制在平面上一条给定的曲线上运动（如火车沿铁轨运动）；那么它的运动可由弧的长度s来描述，这个弧长是从某个固定的初始点P<sub>0</sub>开始，沿曲线一直度量到质点在时间t的位置P而得到的，它是t的函数s＝f（t）．例如在单位圆x<sup class="suptext">2</sup>＋y<sup class="suptext">2</sup>＝1上，函数s＝ct表示一个速度为c沿圆周的匀速旋转．</p>
+<p class="normaltexta"><b>习题</b>：<sup class="suptext">*</sup>绘出下列各式表示的平面运动的轨迹．</p>
+<p class="normaltext2">1）x＝sint，y＝cost；2）x＝sin2t，y＝sin3t；</p>
+<p class="normaltext2">3）x＝sin2t，y＝2sin3t；</p>
+<p class="normaltextb">4）在上面所述的抛物线运动中，假定当t＝0时质点在原点，且b>0，d>0，求轨迹最高点的坐标．求轨迹第二次与x轴相交的时间t和x值．</p>
+<p class="normaltext">牛顿最初的目的是要确定变速运动的速度．为简单起见，假定我们考察的质点运动是由函数x＝f（t）给定的直线运动．如果是匀速运动，那么这个速度可按以下方法求得：取时间的两个值t和t<sub>1</sub>，对应的位置是值x＝f（t）和x<sub>1</sub>＝f（t<sub>1</sub>），然后作商</p>
+<p class="picture"><img src="../Images/image01501.jpeg" alt="alt"/></p>
+<p class="normaltext6">便得到速度．例如t的单位是小时，x的单位是里，那么，若t<sub>1</sub>－t＝1，x<sub>1</sub>－x就是1小时经过的里数，而v就是每小时若干里的速度．运动的速度是常数的说法，就是简单的指对所有的t和t<sub>1</sub>，差商</p>
+<p class="picture"><img src="../Images/image01502.jpeg" alt="alt"/></p>
+<p class="normaltext6">都是一样的．但是，当运动是非均匀的时候，例如对于速度随下落而增加的自由落体运动，商（3）就不能给出<b>在瞬时</b>t的速度，它只是从t到t<sub>1</sub>的时间间隔内的<b>平均</b>速度．为了得到恰好在瞬时t的速度，必须求平均速度当t<sub>1</sub>趋于t时的极限．这样，照牛顿的方法，我们定义</p>
+<p class="picture"><img src="../Images/image01503.jpeg" alt="alt"/></p>
+<p class="normaltext6">换句话说，瞬时速度是距离对于时间的导数，或距离对于时间的“瞬时变化率”（区别于由公式（3）给出的<b>平均</b>变化率）．</p>
+<p class="normaltext"><b>速度</b>本身<b>的变化率</b>称为<b>加速度</b>．简单地说，就是导数的导数，通常记作f″（t），或称作f（t）的<b>二阶导数</b>．</p>
+<p class="normaltext">伽利略（Galileo）观察到，经过时间t，自由落体经过的铅直距离x由公式</p>
+<p class="picture"><img src="../Images/image01504.jpeg" alt="alt"/></p>
+<p class="normaltext6">给出，其中g是重力加速度，是一个常数．将（5）式微分，可得落体在时间t的速度为</p>
+<p class="picture"><img src="../Images/image01505.jpeg" alt="alt"/></p>
+<p class="normaltext6">而且加速度是</p>
+<p class="normaltext5">a＝f″（t）＝g，</p>
+<p class="normaltext6">它是常数．</p>
+<p class="normaltext">假设需求落体在下落后2秒时的速度．在从t＝2到t＝2.1的时间间隔内的<b>平均</b>速度是</p>
+<p class="picture"><img src="../Images/image01506.jpeg" alt="alt"/></p>
+<p class="normaltext">在（6）式中代入t＝2，求得2秒末的瞬时速度是</p>
+<p class="normaltext5">v＝19.6．</p>
+<p class="normaltextc"><b>习题</b>：落体在从t＝2到t＝2.01的时间间隔内的平均速度是多少？从t＝2到t＝2.001呢？</p>
+<p class="normaltext">对于平面运动，两个函数x＝f（t）和y＝g（t）的导数f′（t）和g′（t）定义为速度的分量．沿固定曲线运动的速度由函数s＝f（t）的导数定义，这里s是弧的长度．</p>
+<h4 class="title4" id="mllj15">7．二阶导数的几何意义</h4>
+<p class="normaltext">二阶导数在分析和几何中都是重要的，因为表示（曲线y＝f（x）的斜率）f′（x）的变化率的f″（x），给出了曲线弯曲程度的表示方法．如果f″（x）在一个区间是正的，那么f′（x）的变化率是正的．一个函数的变化率是正的是指函数值随x的增加而增加．因此，f″（x）＞0是指当x增加时斜率f′（x）增加，于是在f′（x）是正的地方函数变陡峭，而在f′（x）是负的地方函数变平缓，此时就说曲线是<b>凸</b>的（图270）．</p>
+<p class="picture"><img src="../Images/image01507.jpeg" alt="alt"/></p>
+<p class="tz"><b>图270</b></p>
+<p class="normaltext">同样道理，如果f″（x）＜0，那么曲线y＝f（x）是<b>向下凹</b>的（图271）．</p>
+<p class="picture"><img src="../Images/image01508.jpeg" alt="alt"/></p>
+<p class="tz"><b>图271</b></p>
+<p class="normaltext">抛物线y＝f（x）＝x<sup class="suptext">2</sup>是处处凸的，因为f″（x）＝2总是正的．而对于曲线y＝f（x）＝x<sup class="suptext">3</sup>，当x＞0时是凸的，而当x＜0时是凹的（图153），由f″（x）＝6x，读者很易证明这些．顺便指出，当x＝0时，我们有</p>
+<p class="normaltext5">f′（x）＝3x<sup class="suptext">2</sup>＝0，</p>
+<p class="normaltext6">（但不是极大和极小！）同时f″（x）＝0．这个点称为<b>拐点</b>．这个点的切线（在这个例子中是x轴）与曲线相交．</p>
+<p class="normaltext">如果s表示沿曲线的弧长，而α是沿曲线的斜角，那么α＝h（s）是s的函数．当沿曲线移动时，α＝h（s）将变化．变化率h′（s）叫作曲线在弧长是s的那个点的<b>曲率</b>．我们不加证明而写下由曲线y＝f（x）的一阶和二阶导数表示的曲率κ的公式：</p>
+<p class="picture"><img src="../Images/image01509.jpeg" alt="alt"/></p>
+<h4 class="title4" id="mllj16">8．极大与极小</h4>
+<p class="normaltext">我们可以求出已知函数f（x）的极大与极小．方法是首先求f′（x），然后求导数等于零的x值，最后讨论在这些值中，哪些值造成极大，哪些值造成极小．如果我们已有二阶导数f″（x），后面这个问题是可以确定的，因为二阶导数的符号表示了图像的凹凸，而它若为零，通常表示一个不出现极值的拐点．观察f′（x）和f″（x）的符号，不仅能确定极值，而且还能看出函数图像的形状．这个方法能给出具有极值的x值，把这些x值代入f（x）就能求得对应的y＝f（x）的值．</p>
+<p class="normaltext">作为一个例子，我们考察多项式</p>
+<p class="normaltext5">f（x）＝2x<sup class="suptext">3</sup>－9x<sup class="suptext">2</sup>＋12x＋1，</p>
+<p class="normaltext6">求得　f′（x）＝6x<sup class="suptext">2</sup>－18x＋12，f″（x）＝12x－18．</p>
+<p class="normaltext6">二次方程f′（x）＝0的根是x<sub>1</sub>＝1，x<sub>2</sub>＝2，并且</p>
+<p class="normaltext5">f″（x<sub>1</sub>）＝-6＜0，f″（x<sub>2</sub>）＝6＞0．</p>
+<p class="normaltext6">因此，f（x）有极大值f（x<sub>1</sub>）＝6，以及极小值f（x<sub>2</sub>）＝5．</p>
+<p class="normaltexta"><b>习题</b>：1）作上面所说的函数的草图．</p>
+<p class="normaltext2">2）讨论并作f（x）＝（x<sup class="suptext">2</sup>－1）（x<sup class="suptext">2</sup>－4）的草图．</p>
+<p class="normaltext2">3）求<img src="../Images/image01510.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image01511.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image01512.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>（其中p和q是正的）的极小值．这些函数有极大值吗？</p>
+<p class="normaltext2">4）求sinx和sin（x<sup class="suptext">2</sup>）的极大值和极小值．</p>
+<h3 class="title3" id="mllj17">§3　微分法</h3>
+<p class="normaltext">直到现在为止，我们所作的各种特殊函数的微分，都是先将差商变形，然后再取极限．经过牛顿和莱布尼茨以及他们后继者的工作，这些处理个别问题的技巧，被有效的一般的方法所取代，而这是有决定意义的一步．只要掌握了少数几条简单的法则，以及知道这些法则如何应用，就能用这些方法几乎是毫不费力地微分数学中经常出现的各种函数．这样，微分法就有了计算中“算法”的特性，“微积分”（Calculus<sup class="suptext"><a id="fhzs3" href="part0021.xhtml#zhushi3">〔3〕</a></sup>）这个词表示的就是理论的这一方面．</p>
+<p class="normaltext">我们在这里不能很详尽地阐述这套方法，只指出几个简单的法则如下．</p>
+<p class="normaltext">（a）<b>和的微分</b>．如果a和b是常数，并且</p>
+<p class="normaltext5">k（x）＝af（x）＋bg（x），</p>
+<p class="normaltext6">那么读者很容易验证</p>
+<p class="normaltext5">k′（x）＝af′（x）＋bg′（x）．</p>
+<p class="normaltext6">对于任意多项的和，类似的法则也成立．</p>
+<p class="normaltext" id="a63">（b）<b>乘积的微分</b>　乘积p（x）＝f（x）g（x）的导数是</p>
+<p class="normaltext5">p′（x）＝f（x）g′（x）＋g（x）f′（x）．</p>
+<p class="normaltext6">这一点按照下面的方法是很易证明的：我们加上或减去同一个项，</p>
+<p class="picture"><img src="../Images/image01513.jpeg" alt="alt"/></p>
+<p class="normaltext6">合并前两项和后两项，得到</p>
+<p class="picture"><img src="../Images/image01514.jpeg" alt="alt"/></p>
+<p class="normaltext6">现在令h趋于零；因为f（x＋h）趋于f（x），所以立即证明了命题．</p>
+<p class="normaltextc"><b>习题</b>：证明函数P（x）＝x<sup class="suptext">n</sup>有导数P′（x）＝nx<sup class="suptext">n－1</sup>．（提示：x<sup class="suptext">n</sup>写成x<sup class="suptext">n</sup>＝xx<sup class="suptext">n－1</sup>，并利用数学归纳法．）</p>
+<p class="normaltext">利用法则（a）和（b），我们可以微分任意多项式</p>
+<p class="normaltext5">f（x）＝a<sub>0</sub>＋a<sub>1</sub>x＋…＋a<sub>n</sub>x<sup class="suptext">n</sup>；</p>
+<p class="normaltext6">其导数是</p>
+<p class="normaltext5">f′（x）＝a<sub>1</sub>＋2a<sub>2</sub>x＋3a<sub>3</sub>x<sup class="suptext">2</sup>＋…＋na<sub>n</sub>x<sup class="suptext">n－1</sup>．</p>
+<p class="normaltext">作为一个应用，我们可以验证<b>二项式定理</b>（比较<a href="part0011.xhtml#b96">此处</a>），这只要把式（1＋x）<sup class="suptext">n</sup>看成多项式就可以了．</p>
+<p class="normaltext">（1）f（x）＝（1＋x）<sup class="suptext">n</sup>＝1＋a<sub>1</sub>x＋a<sub>2</sub>x<sup class="suptext">2</sup>＋a<sub></sub>x<sup class="suptext">3</sup>＋…＋a<sub>n</sub>x<sup class="suptext">n</sup>，式子中的系数由公式</p>
+<p class="normaltext">（2）a<sub>k</sub>＝<img src="../Images/image01515.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/></p>
+<p class="normaltext6">给定，当然a<sub>n</sub>＝1．</p>
+<p class="normaltext">我们已经知道（<a href="part0021.xhtml#b97">此处</a>的习题）从微分（1）的左端可得到n（1＋x）<sup class="suptext">n－1</sup>．这样，由前一节我们得到</p>
+<p class="normaltext">（3）n（1＋x）<sup class="suptext">n－1</sup>＝a<sub>1</sub>＋2a<sub>2</sub>x＋3a<sub>3</sub>x<sup class="suptext">2</sup>＋…＋na<sub>n</sub>x<sup class="suptext">n－1</sup>．</p>
+<p class="normaltext6">在此式中，令x＝0，求得n＝a<sub>1</sub>，这也就是（2）式当k＝1时的情形．然后我们再微分（3），得到</p>
+<p class="normaltext5">n（n－1）（1＋x）<sup class="suptext">n－2</sup>＝2a<sub>2</sub>＋3·2a<sub>3</sub>x＋…＋n（n－1）a<sub>n</sub>x<sup class="suptext">n－2</sup>．</p>
+<p class="normaltext6">代入x＝0，得n（n－1）＝2a<sub>2</sub>，这与式（2）当k＝2时的情形一样．</p>
+<p class="normaltextc"><b>习题</b>：证明（2）式对k＝3，4成立，并用数学归纳法证明对一般的k都成立．</p>
+<p class="normaltext">（c）<b>商的微分</b>　如果q（x）＝<img src="../Images/image01516.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，</p>
+<p class="normaltext6">那么</p>
+<p class="picture"><img src="../Images/image01517.jpeg" alt="alt"/></p>
+<p class="normaltext6">请读者作为练习自己证明（当然，我们必须假定g（x）≠0）．</p>
+<p class="normaltexta"><b>习题</b>：利用这个法则，由sinx和cosx的导数，推出tanx和cotx的导数（<a href="part0021.xhtml#a45">此处</a>）．证明</p>
+<p class="normaltext8">secx＝<img src="../Images/image01518.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>和cosecx＝<img src="../Images/image01519.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/></p>
+<p class="normaltext7">的导数分别是</p>
+<p class="normaltext8"><img src="../Images/image01520.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>和-<img src="../Images/image01521.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext">我们现在已能微分那些可以表示为两个多项式的商的任意函数．例如</p>
+<p class="picture"><img src="../Images/image01522.jpeg" alt="alt"/></p>
+<p class="normaltext6">有导数</p>
+<p class="picture"><img src="../Images/image01523.jpeg" alt="alt"/></p>
+<p class="normaltexta"><b>习题</b>：微分</p>
+<p class="normaltext8">f（x）＝<img src="../Images/image01524.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝x<sup class="suptext">-m</sup>．其中m是正整数．</p>
+<p class="normaltext2">结果是</p>
+<p class="normaltext8">f′（x）＝-mx<sup class="suptext">-m－1</sup>．</p>
+<p class="normaltext" id="b104">（d）<b>反函数的微分</b></p>
+<p class="normaltext">如果y＝f（x）和x＝g（y）互为反函数（例如g＝x<sup class="suptext">2</sup>和x＝<img src="../Images/image01525.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>），那么它们的导数互为倒数：</p>
+<p class="normaltext5">g′（y）＝<img src="../Images/image01526.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>或Dg（y）·Df（x）＝1．</p>
+<p class="normaltext6">如果我们分别回到相应的差商<img src="../Images/image01461.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>和<img src="../Images/image01527.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，那么这个事实是很容易证明的；它也可从<a href="part0018.xhtml#b98">此处</a>给出的反函数的几何解释中见到，这时只要用切线和y轴的夹角来代替切线与x轴的夹角就可以了．</p>
+<p class="normaltext" id="b101">作为一个例子，我们微分函数</p>
+<p class="picture"><img src="../Images/image01528.jpeg" alt="alt"/></p>
+<p class="normaltext6">它是x＝y<sup class="suptext">m</sup>的反函数（对于m＝<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.1em"/>的情形，一个较为直接的处理见<a href="part0021.xhtml#b99">此处</a>）．因为后一个函数有导数my<sup class="suptext">m－1</sup>，所以</p>
+<p class="picture"><img src="../Images/image01529.jpeg" alt="alt"/></p>
+<p class="normaltext6">作代换y＝<img src="../Images/image01530.jpeg" class="tpzz1" alt="alt" style="height:2.1em"/>和y<sup class="suptext">-m</sup>＝x<sup class="suptext">-1</sup>后，有f′（x）＝<img src="../Images/image01531.jpeg" class="tpzz1" alt="alt" style="height:2.5em"/>，或</p>
+<p class="picture"><img src="../Images/image01532.jpeg" alt="alt"/></p>
+<p class="normaltext">进一步的例子是微分<b>反三角函数</b>（见<a href="part0018.xhtml#a44">此处</a>）：</p>
+<p class="normaltext5">y＝arctanx，</p>
+<p class="normaltext6">它和x＝tany的意义是一样的．这里自变量是y，用弧度表示，并被限制在区间</p>
+<p class="picture"><img src="../Images/image01533.jpeg" alt="alt"/></p>
+<p class="normaltext6">这就保证反函数是唯一确定的．</p>
+<p class="normaltext">因为我们有（见<a href="part0021.xhtml#a45">此处</a>）Dtany＝<img src="../Images/image01534.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>且由于</p>
+<p class="picture"><img src="../Images/image01535.jpeg" alt="alt"/></p>
+<p class="normaltext6">所以</p>
+<p class="picture"><img src="../Images/image01536.jpeg" alt="alt"/></p>
+<p class="normaltext6">用同样的方法，读者可以导出以下的公式：</p>
+<p class="picture"><img src="../Images/image01537.jpeg" alt="alt"/></p>
+<p class="normaltext">最后我们转向重要的关于复合函数的微分法则．</p>
+<p class="normaltext">（e）<b>复合函数的微分</b>　复合函数是两个（或更多的）较简单的函数复合而成的函数（见<a href="part0018.xhtml#mllj6">此处</a>）．例如，</p>
+<p class="picture"><img src="../Images/image01538.jpeg" alt="alt"/></p>
+<p class="normaltext6">是由z＝siny和y＝<img src="../Images/image01539.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>复合而成；函数</p>
+<p class="picture"><img src="../Images/image01540.jpeg" alt="alt"/></p>
+<p class="normaltext6">是由z＝y＋y<sup class="suptext">5</sup>和y＝<img src="../Images/image01539.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>复合而成；z＝sin（x<sup class="suptext">2</sup>）是</p>
+<p class="normaltext5">z＝siny和y＝x<sup class="suptext">2</sup></p>
+<p class="normaltext6">的复合函数；z＝sin<img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>是z＝siny和y＝<img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的复合函数．</p>
+<p class="picture"><img src="../Images/image01541.jpeg" alt="alt"/></p>
+<p class="tz"><b>图272</b>　y＝sin（<img src="../Images/image01539.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>）</p>
+<p class="picture"><img src="../Images/image01542.jpeg" alt="alt"/></p>
+<p class="tz"><b>图273</b>　y＝sin（x<sup class="suptext">2</sup>）</p>
+<p class="normaltext" id="b105">如果两个函数</p>
+<p class="normaltext5">z＝g（y）和y＝f（x）</p>
+<p class="normaltext6">已给定，把后一个函数代入到前一个函数中，我们就得到复合函数</p>
+<p class="normaltext5">z＝k（x）＝g［f（x）］，</p>
+<p class="normaltext6">我们确定它的导数是</p>
+<p class="picture"><img src="../Images/image01543.jpeg" alt="alt"/></p>
+<p class="normaltext">如果我们写成</p>
+<p class="picture"><img src="../Images/image01544.jpeg" alt="alt"/></p>
+<p class="normaltext6">其中y<sub>1</sub>＝f（x<sub>1</sub>），且z<sub>1</sub>＝g（y<sub>1</sub>）＝k（x<sub>1</sub>），然后令x<sub>1</sub>趋于x，左端趋于k′（x），而右端的两个因子分别趋于g′（y）和f′（x），这就证明了（4）．</p>
+<p class="normaltext">在这个证明中，条件y<sub>1</sub>－y≠0是必须的．因为我们要除以Δy＝y<sub>1</sub>－y，所以使y<sub>1</sub>－y＝0的值x<sub>1</sub>不能利用．但即使在包含x的一个区间上Δy都等于零，公式（4）仍然成立；此时y是常数，f′（x）＝0，k（x）＝g（y）关于x也是常数（因为y在x变化时没有变化），因此k′（x）＝0，如（4）中所述．</p>
+<p class="normaltext">读者可验证以下各例：</p>
+<p class="picture"><img src="../Images/image01545.jpeg" alt="alt"/></p>
+<p class="normaltexta"><b>习题</b>：结合<a href="part0021.xhtml#b100">此处</a>和<a href="part0021.xhtml#b101">此处</a>的结果，证明函数</p>
+<p class="picture"><img src="../Images/image01546.jpeg" alt="alt"/></p>
+<p class="normaltext7">有导数</p>
+<p class="picture"><img src="../Images/image01547.jpeg" alt="alt"/></p>
+<p class="normaltext7">应该注意，所有关于x的幂的公式可以归结为如下的一个公式：</p>
+<p class="normaltext7">如果r是任意的正或负的有理数，那么函数</p>
+<p class="normaltext8">f（x）＝x<sup class="suptext">r</sup></p>
+<p class="normaltext7"><b>有导数</b></p>
+<p class="normaltext8">f′（x）＝rx<sup class="suptext">r－1</sup>．</p>
+<p class="normaltext2"><b>习题</b>：1）用本节的法则作<a href="part0021.xhtml#b97">此处</a>习题的微分运算．</p>
+<p class="normaltext2">2）微分下列函数：xsinx，<img src="../Images/image01548.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，（x<sup class="suptext">3</sup>－3x<sup class="suptext">2</sup>－x＋1）<sup class="suptext">3</sup>，</p>
+<p class="picture"><img src="../Images/image01549.jpeg" alt="alt"/></p>
+<p class="normaltext2">3）求上面的某些函数的二阶导数以及求</p>
+<p class="normaltext8"><img src="../Images/image01550.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，arctanx，sin<sup class="suptext">2</sup>x，tanx</p>
+<p class="normaltext7">的二阶导数．</p>
+<p class="normaltext2">4）微分c<sub>1</sub>（x－x<sub>1</sub>）<sup class="suptext">2</sup>＋y<sup class="suptext">2</sup><sub>1</sub>＋c<sub>2</sub>（x－x<sub>2</sub>）<sup class="suptext">2</sup>＋y<sup class="suptext">2</sup><sub>2</sub>，<sup class="suptext">*</sup>并且证明第七章<a href="part0020.xhtml#b102">此处</a>和<a href="part0020.xhtml#b103">此处</a>阐述的光线反射和折射的极小性质．反射或折射是对于x轴而言，并且路径端点的坐标分别为x<sub>1</sub>，y<sub>1</sub>和x<sub>2</sub>，y<sub>2</sub>．（注：函数只有一个使导数为零的点，由于显然有极小无极大，所以不必研究二阶导数．）更多的极大与极小问题：</p>
+<p class="normaltext2">5）求下述函数的极值，并绘它们的图像，确定增减及凹凸区间：</p>
+<p class="normaltext8">x<sup class="suptext">3</sup>－6x＋2，<img src="../Images/image01551.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image01552.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，cos<sup class="suptext">2</sup>x．</p>
+<p class="normaltext2">6）讨论函数x<sup class="suptext">3</sup>＋3ax＋1的极大、极小与a的依赖关系．</p>
+<p class="normaltext2">7）双曲线2y<sup class="suptext">2</sup>－x<sup class="suptext">2</sup>＝2的哪个点最接近点x＝0，y＝3？</p>
+<p class="normaltext2">8）求具有给定面积的所有矩形中对角线为最小的一个．</p>
+<p class="normaltext2">9）求椭圆<img src="../Images/image01553.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>内具有最大面积的内接矩形．</p>
+<p class="normaltext2">10）求具有给定体积的所有圆柱中表面积为最小的一个．</p>
+<h3 class="title3" id="mllj18">§4　莱布尼茨的记号和“无穷小”</h3>
+<p class="normaltext">牛顿和莱布尼茨已经懂得如何把积分和导数作为极限来求．但是由于不愿意承认只有极限概念才是这个新方法的根源，致使微积分的真正基础长期被弄得含糊不清．如今极限概念已搞得十分清楚，我们现在看来当然很简单，然而不论是牛顿还是莱布尼茨都未能有如此明确的认识．他们的方法支配了一百多年的数学发展，在此期间，问题被“无穷小量”“微分”“最终比”等等说法掩盖着．这些概念的最终放弃是很勉强的，因为它们在当时的哲学观点以及人们天性中是根深蒂固的．有的人可能争辩说：“积分和导数自然可以看作是极限，也能通过极限来计算．但是，如果抛开用极限过程来描述它们的特殊方式的话，那么这些对象本身究竟<b>是</b>什么呢？像面积和曲线的斜率这种直观的概念，本身就有着绝对的含义，而无需乎内接多边形、割线以及它们的极限这样的辅助概念，这似乎是显然的”．确实，把面积和斜率当作“自在之物”而寻求它们的适当定义，这在人们心理上是很自然的．但是，放弃这种愿望，而宁可在极限过程中考察它们在科学上唯一适当的定义，这通常是清除前进中的障碍的一种成熟的态度，而在17世纪还不具备能够容纳这种哲学上的激进主义的明智的传统．</p>
+<p class="normaltext">莱布尼茨以完全正确的方法试图从函数的差商出发来“解释”导数．函数y＝f（x）的差商是</p>
+<p class="picture"><img src="../Images/image01554.jpeg" alt="alt"/></p>
+<p class="normaltext6">它的极限我们称之为导数f′（x）（沿用后来拉格朗日引进的符号），而莱布尼茨的写法是</p>
+<p class="normaltext5"><img src="../Images/image01464.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，</p>
+<p class="normaltext6">用“微分符号”d代替了差的符号Δ．只要我们把这符号理解为只是指Δx→0导致Δy→0的极限过程，那就不存在什么困难也没有什么玄妙了．在取极限<b>以前</b>，商<img src="../Images/image01461.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的分母Δx已被消去或已变成使极限过程能顺利完成的形式．这一点是微分的实际过程中的关键所在．我们如果试图不预先作这样的简化而取极限的话，得到的将是毫无意义的关系式<img src="../Images/image01461.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image01095.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，而对此我们是根本不感兴趣的．只有当我们如同莱布尼茨及其许多后继者一样说出如下的话来时，才会引起神秘感和混乱：“Δx没有达到零，Δx的‘最终值’不是零而是一个‘无穷小量’，即被称为‘微分’的dx；并且类似地Δy也有‘最终’无穷小值dy．然而这两个无穷小微分的真正的商又是一个普通的数，f′（x）＝<img src="../Images/image01464.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>”．莱布尼茨相应地称导数为<b>“微商”</b>．这样的无穷小量被看作是新型的数，它不是零，然而小于实数系中的任意正数．只有那些具有真正数学才能的人，才能把握这个概念．而微积分所以被认为非常难懂，正是由于不是人人都能具有这种数学才能或被训练成有这种数学才能．同样的，积分被看成无穷多个“无穷小量”f（x）dx的和．这个和，人们仿佛觉得<b>就是</b>积分或面积．而它的数值的计算，即<b>有限个普通的数</b>f（x<sub>j</sub>）Δx<b>的和的极限</b>，多少像是附加上去的．今天，我们已经放弃了“直接”解释的愿望，而把积分<b>定义为</b>有限和的极限．通过这样的途径，我们就克服了困难，并使微积分得以建立在坚实的基础上．</p>
+<p class="normaltext" id="a62">尽管如此，莱布尼茨的记法，即用<img src="../Images/image01464.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>表示f′（x），用</p>
+<p class="normaltext5">∫f（x）dx</p>
+<p class="normaltext6">表示积分，仍然被保留下来了，并且证明是非常有用的．如果我们把符号d看作只是取极限的记号，它并没有什么害处．莱布尼茨的记法的优越性在于对商或和的极限能以某种方式“如同”它们是真正的商或和那样来处理．由于这种记号富有启发性，它历来诱使人们赋予这些符号以非数学的意义．如果我们拒绝这种诱惑，那么莱布尼茨的记法至少是表示极限过程的那种繁冗记法的巧妙的简写；事实上，莱布尼茨的记号在较高等的微积分理论中几乎是不可缺少的．</p>
+<p class="normaltext">例如，<a href="part0021.xhtml#b104">此处</a>对y＝f（x）的反函数x＝g（y）的微分法则（d）是g′（y）f′（y）＝1，按照莱布尼茨的记号，它简单地记作</p>
+<p class="picture"><img src="../Images/image01555.jpeg" alt="alt"/></p>
+<p class="normaltext6">“如同”“微分”可以像普通分数那样约分似的．而<a href="part0021.xhtml#b105">此处</a>对复合函数z＝k（x）（其中z＝g（y），y＝f（x））的微分法则（e），现在写作</p>
+<p class="picture"><img src="../Images/image01556.jpeg" alt="alt"/></p>
+<p class="normaltext">莱布尼茨的记法的优越性还表现在它强调了<b>量x，y，z本身</b>，而不是它们的函数关系．函数关系表示一种<b>程序</b>，即从量x得到另一个量y的一种<b>运算</b>．例如，由函数</p>
+<p class="normaltext5">y＝f（x）＝x<sup class="suptext">2</sup></p>
+<p class="normaltext6">得到的量y等于量x的平方．这个运算（平方）是数学家注意的对象．但是物理学家和工程师，总的来说，最感兴趣的是这些量本身．因此，强调量本身的莱布尼茨记法，对从事应用数学的人们便具有特殊的吸引力．</p>
+<p class="normaltext" id="b4">此外有一点可以再提一下．作为无穷小量的“微分”，现在是肯定地而且不光彩地被抛弃了，然而同一个词“微分”，又从后门悄悄溜了进来——这时它表示一个完全合理而有用的概念．当Δx相对于出现的其他的量是很小的时候，微分可以简单地看作是这个差Δx．在这里，我们不能讨论这个概念在近似计算中的价值，也不能讨论采用“微分”这个名字的其他一些合理的数学概念，其中有些概念在微积分及其在几何学的应用中已被证明是很有用的．</p>
+<h3 class="title3" id="mllj19">§5　微积分基本定理</h3>
+<h4 class="title4" id="mllj20">1．基本定理</h4>
+<p class="normaltext">在牛顿和莱布尼茨的工作之前，积分的概念已经相当成形了，在某种程度上微分的概念也是如此．要使这种新的数学分析有一个极大的发展，仅仅需要再有一个比较简单的发现．在函数的积分和微分中所涉及的两个极限过程，表面上看来没有什么联系，而实际上却是密切相关的．事实上，它们是彼此互逆的，就如同加法和减法，乘法和除法一样．没有截然分开的微分学和积分学，而只有一个<b>微积分</b>学．</p>
+<p class="normaltext">莱布尼茨和牛顿的巨大功绩，就在于他们首先明确地认识到并应用了这个<b>微积分基本定理</b>．当然他们的发现已处在科学发展的前进道路上，因而有几个人能够几乎在同时独立地清楚地意识到这种状况，这是很自然的．</p>
+<p class="normaltext">为了建立这个基本定理，我们考虑函数y＝f（x）从固定下限a到变动上限x的积分．为避免积分上限x和出现在符号f（x）中的变量x相混淆，我们把这个积分写成（见<a href="part0021.xhtml#a46">此处</a>）</p>
+<p class="picture"><img src="../Images/image01557.jpeg" alt="alt"/></p>
+<p class="picture"><img src="../Images/image01558.jpeg" alt="alt"/></p>
+<p class="tz"><b>图274</b>　积分作为上限的函数</p>
+<p class="normaltext6">它表示我们希望把积分作为上限x的一个函数F（x）来研究（图274）．这个函数F（x）是曲线y＝f（u）下面由点u＝a到点u＝x的面积．有时这个具有可变上限的积分F（x）称为“不定积分”．</p>
+<p class="normaltext">现在，微积分基本定理可以表述为<b>作为x的函数的不定积分（1），其导数等于f（u）在x点的值</b>：</p>
+<p class="normaltext5">F′（x）＝f（x）．</p>
+<p class="normaltext6"><b>换句话说，由f（x）导致F（x）的积分过程，可以通过对F（x）的微分过程，使之还原或倒回．</b></p>
+<p class="normaltext">在直观的基础上，证明这个定理是很容易的．办法是把积分F（x）作为面积来解释．如果试图用曲线来表示F（x），而用曲线的斜率来表示导数F′（x），就会搞得含糊不清．我们不用原来关于导数的几何解释，而保留F（x）的积分几何解释，但是用分析的方法来求F（x）的导数．差</p>
+<p class="normaltext5">F（x<sub>1</sub>）－F（x），</p>
+<p class="normaltext6">在图275中就是x和x<sub>1</sub>之间的面积．可以看出这个面积介于值（x<sub>1</sub>－x）m和（x<sub>1</sub>－x）M之间，即</p>
+<p class="normaltext5">（x<sub>1</sub>－x）m≤F（x<sub>1</sub>）－F（x）≤（x<sub>1</sub>－x）M，</p>
+<p class="picture"><img src="../Images/image01559.jpeg" alt="alt"/></p>
+<p class="tz"><b>图275</b>　基本定理的证明</p>
+<p class="normaltext6">其中M和m分别为函数f（u）在x和x<sub>1</sub>之间的最大值和最小值．这两个乘积分别是包含着曲线面积的矩形面积与包含于曲线面积的矩形面积，因此，</p>
+<p class="picture"><img src="../Images/image01560.jpeg" alt="alt"/></p>
+<p class="normaltext6">我们将假定函数f（u）是连续的，以使若x<sub>1</sub>趋向于x，则M和m同时趋向于f（x）．因而我们有如上所述的</p>
+<p class="picture"><img src="../Images/image01561.jpeg" alt="alt"/></p>
+<p class="normaltext6">直观上，这个式子说明了这样的事实：当x增大时，曲线y＝f（x）下的面积的变化率，等于曲线在点x的高度．</p>
+<p class="normaltext" id="b21">在有些课本中，由于专用术语选择得不好，把基本定理的要点搞得模糊了．许多作者首先引进导数，然后简单地定义“不定积分”为导数的逆运算，即如果</p>
+<p class="normaltext5">G′（x）＝f（x），</p>
+<p class="normaltext6">称G（x）是f（x）的不定积分．这样，他们的做法是把微分过程直接和“积分”这个词结合起来．只是后来才引进作为面积或者和的极限的“定积分”的概念，而且没有强调这时候的“积分”这个词指的是完全不同的东西．这个方法是把理论中的主要事实从后门偷偷输入，因而大大有碍于学生的真正理解．我们宁愿把满足G′（x）＝f（x）的G（x）叫做f（x）的<b>原函数</b>而不叫做“不定积分”．因此，基本定理可简述如下：</p>
+<p class="normaltext"><b>若F（x）是f（u）由固定下限到可变上限x的积分，则F（x）是f（x）的一个原函数．</b></p>
+<p class="normaltext" id="b107">我们说的是“一个”原函数，而不是原函数，因为很显然，如果G（x）是f（x）的一个原函数，那么</p>
+<p class="normaltext5">H（x）＝G（x）＋C　（C为任意常数）</p>
+<p class="normaltext6">也是一个原函数，因为H′（x）＝G′（x）．反过来，<b>两个原函数G（x）和H（x）只差一个常数</b>这命题也成立．原因是差</p>
+<p class="normaltext5">U（x）＝G（x）－H（x）</p>
+<p class="normaltext6">有导数</p>
+<p class="normaltext5">U′（x）＝G′（x）－H′（x）＝f（x）－f（x）＝0，</p>
+<p class="normaltext6">所以是常数，因为处处可以由水平直线表示的函数必然是常数．</p>
+<p class="normaltext">由此可以推出在已知f（x）的某一个原函数G（x）的条件下，求a到b之间的积分值的一条至为重要的法则．根据我们的基本定理，</p>
+<p class="picture"><img src="../Images/image01562.jpeg" alt="alt"/></p>
+<p class="normaltext6">也是f（x）的一个原函数．因此F（x）＝G（x）＋C，其中C是常数．如果我们记得</p>
+<p class="picture"><img src="../Images/image01563.jpeg" alt="alt"/></p>
+<p class="normaltext6">那么这个常数就可以确定出来．由此给出0＝G（a）＋C，使得C＝-G（a）．那么由a到x的定积分是</p>
+<p class="picture"><img src="../Images/image01564.jpeg" alt="alt"/></p>
+<p class="normaltext6">或者如果以b代替x，则</p>
+<p class="picture"><img src="../Images/image01565.jpeg" alt="alt"/></p>
+<p class="normaltext6">它与我们选择的原函数无关，换句话说，</p>
+<p class="normaltext" id="b20"><b>为了计算定积分<img src="../Images/image01434.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，我们只需要求一个使得</b></p>
+<p class="normaltext5"><b>G′（x）＝f（x）</b></p>
+<p class="normaltext6"><b>的函数G（x），然后取差G（b）－G（a）即可．</b></p>
+<h4 class="title4" id="mllj21">2．初步应用　x<sup class="suptext">r</sup>，cosx，sinx，arctanx的积分</h4>
+<p class="normaltext">关于基本定理的应用范围，这里还不可能给出一个完整的概念，但是从下面的解释中我们可以得到一些启示．在力学、物理学或纯数学遇到的问题中，经常需要求一个定积分的值．直接由和的极限求积分往往是困难的．但另一方面，正如在§3中所见到的，作各种微分运算则比较容易，并且在这个领域内积累了丰富的知识．把每个微分公式反过来看，都可以给出f（x）的一个原函数G（x）．借助公式（3），就可用来计算f（x）在任意两点之间的积分了．</p>
+<p class="normaltext">例如，要求x<sup class="suptext">2</sup>或x<sup class="suptext">3</sup>或x<sup class="suptext">n</sup>的积分，现在的方法要比§1中的简单得多．由x<sup class="suptext">n</sup>的微分公式，我们知道x<sup class="suptext">n</sup>的导数是nx<sup class="suptext">n－1</sup>，所以</p>
+<p class="picture"><img src="../Images/image01566.jpeg" alt="alt"/></p>
+<p class="normaltext6">的导数是</p>
+<p class="picture"><img src="../Images/image01567.jpeg" alt="alt"/></p>
+<p class="normaltext6">因而<img src="../Images/image01568.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>是函数f（x）＝x<sup class="suptext">n</sup>的一个原函数，因此立即有</p>
+<p class="picture"><img src="../Images/image01569.jpeg" alt="alt"/></p>
+<p class="normaltext6">比起直接由和的极限来求积分的繁难手续来，这个过程要简单得多．</p>
+<p class="normaltext">更一般地，我们在§3中已经得到，对于任意有理数s，不论是正的或是负的，函数x<sup class="suptext">s</sup>都有导数sx<sup class="suptext">s－1</sup>，因此，对</p>
+<p class="normaltext5">s＝r＋1，</p>
+<p class="normaltext6">函数</p>
+<p class="picture"><img src="../Images/image01570.jpeg" alt="alt"/></p>
+<p class="normaltext6">有导数f（x）＝G′（x）＝x<sup class="suptext">r</sup>（我们假定r≠-1，即s≠0）．因而<img src="../Images/image01571.jpeg" class="tpzz1" alt="alt" style="height:2.5em"/>是x<sup class="suptext">r</sup>的一个原函数或“不定积分”，而且有（假定a，b为正，且r≠-1）</p>
+<p class="picture" id="b106"><img src="../Images/image01572.jpeg" alt="alt"/></p>
+<p class="normaltextc">在（4）中，我们假定，被积函数x<sup class="suptext">r</sup>在积分区间上有定义且连续，即若r＜0要除去x＝0．因此在这里要假定a和b是正的．</p>
+<p class="normaltext" id="b63">若G（x）＝-cosx，有G′（x）＝sinx．因而</p>
+<p class="picture"><img src="../Images/image01573.jpeg" alt="alt"/></p>
+<p class="normaltext6">同样，由于若G（x）＝sinx有G′（x）＝cosx，得</p>
+<p class="picture"><img src="../Images/image01574.jpeg" alt="alt"/></p>
+<p class="normaltext">由反正切的微分公式Darctanx＝<img src="../Images/image01575.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，可以得到一个特别有趣的结果．由这个公式可知函数arctanx是函数<img src="../Images/image01575.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的一个原函数，并且由公式（3）得到结果</p>
+<p class="picture"><img src="../Images/image01576.jpeg" alt="alt"/></p>
+<p class="normaltext6">现在我们有arctan0＝0，因为使正切值为0的角度的值是0．因而得出</p>
+<p class="picture"><img src="../Images/image01577.jpeg" alt="alt"/></p>
+<p class="normaltext6">对于特殊的b＝1，arctanb等于<img src="../Images/image01147.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，因为对应于正切值为1的角度是45°，或<img src="../Images/image01147.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>弧度．这样我们便得到一个值得注意的公式</p>
+<p class="picture"><img src="../Images/image01578.jpeg" alt="alt"/></p>
+<p class="picture"><img src="../Images/image01579.jpeg" alt="alt"/></p>
+<p class="tz"><b>图276</b>　y＝<img src="../Images/image01575.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>下边由0到1的面积是<img src="../Images/image01147.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/></p>
+<p class="normaltext6">这表明在函数</p>
+<p class="picture"><img src="../Images/image01580.jpeg" alt="alt"/></p>
+<p class="normaltext6">的图像下边，由x＝0到x＝1的面积等于半径为1的圆面积的<img src="../Images/image00532.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<h4 class="title4" id="mllj22">3．表示π的莱布尼茨公式</h4>
+<p class="normaltext" id="b19">上面的最末结果导致了17世纪最精彩的数学发现之一——π的莱布尼茨交错级数</p>
+<p class="picture"><img src="../Images/image01581.jpeg" alt="alt"/></p>
+<p class="normaltext6">其中符号＋…的意思是指由右边式子中前n项作成的有限“部分和”的序列，当n增大时，收敛于极限<img src="../Images/image01147.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext">要证明这个著名的公式，只需回忆有限项等比级数</p>
+<p class="picture"><img src="../Images/image01582.jpeg" alt="alt"/></p>
+<p class="normaltext6">或</p>
+<p class="picture" id="b110"><img src="../Images/image01583.jpeg" alt="alt"/></p>
+<p class="normaltext6">在这个代数恒等式中，代入q＝-x<sup class="suptext">2</sup>，得</p>
+<p class="picture"><img src="../Images/image01584.jpeg" alt="alt"/></p>
+<p class="normaltext6">其中“余项”R<sub>n</sub>是</p>
+<p class="picture"><img src="../Images/image01585.jpeg" alt="alt"/></p>
+<p class="normaltext6">等式（8）可以由0到1积分．由§3法则（a），我们在右边取各项积分的和．由（4），</p>
+<p class="picture"><img src="../Images/image01586.jpeg" alt="alt"/></p>
+<p class="normaltext6">我们得到</p>
+<p class="picture"><img src="../Images/image01587.jpeg" alt="alt"/></p>
+<p class="normaltext6">因而</p>
+<p class="picture"><img src="../Images/image01588.jpeg" alt="alt"/></p>
+<p class="normaltext6">其中</p>
+<p class="picture"><img src="../Images/image01589.jpeg" alt="alt"/></p>
+<p class="normaltext">按照（5）式，（9）式左端等于<img src="../Images/image01147.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．<img src="../Images/image01147.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>与部分和</p>
+<p class="picture"><img src="../Images/image01590.jpeg" alt="alt"/></p>
+<p class="normaltext6">的差是<img src="../Images/image01147.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>－S<sub>n</sub>＝T<sub>n</sub>．剩下要证明的是当n增大时，T<sub>n</sub>趋于0．现在</p>
+<p class="normaltext5"><img src="../Images/image01591.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，当0≤x≤1．</p>
+<p class="normaltext6">回顾§1公式（13），那里指出，如果f（x）≤g（x），且a＜b，那么<img src="../Images/image01434.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>≤<img src="../Images/image01592.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，由此可见</p>
+<p class="picture"><img src="../Images/image01593.jpeg" alt="alt"/></p>
+<p class="normaltext6">因为如我们以前所知（公式（4））右端等于<img src="../Images/image01594.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，得</p>
+<p class="normaltext5">｜T<sub>n</sub>｜＜<img src="../Images/image01594.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，</p>
+<p class="normaltext6">因此</p>
+<p class="picture"><img src="../Images/image01595.jpeg" alt="alt"/></p>
+<p class="normaltext6">因为<img src="../Images/image01594.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>趋于零，所以当n增大时S<sub>n</sub>趋于<img src="../Images/image01147.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．于是莱布尼茨公式得证．</p>
+<h3 class="title3" id="mllj23">§6　指数函数与对数函数</h3>
+<p class="normaltext">在中学里的数学教材中，用“初等”的办法得到了指数函数和对数函数，而微积分学的基本概念，对此提供了圆满得多的理论．在中学教材里，通常由任意有理数a的整数幂a<sup class="suptext">n</sup>开始，然后定义</p>
+<p class="picture"><img src="../Images/image01596.jpeg" alt="alt"/></p>
+<p class="normaltext6">从而对任意有理数r＝<img src="../Images/image01597.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>得到a<sup class="suptext">r</sup>的值．接着定义任意无理数x的a<sup class="suptext">x</sup>的值，使a<sup class="suptext">x</sup>成为x的连续函数．这一微妙的地方，在初等数学中被省略了．最后y以a为底的对数</p>
+<p class="picture"><img src="../Images/image01598.jpeg" alt="alt"/></p>
+<p class="normaltext6">定义为y＝a<sup class="suptext">x</sup>的反函数．</p>
+<p class="normaltext">下面我们把这些函数的理论建立在微积分学的基础上，讨论的次序，恰与上面相反．我们先从对数函数开始，然后得到指数函数．</p>
+<h4 class="title4" id="mllj24">1．对数的定义和性质　欧拉数e</h4>
+<p class="normaltext">我们把对数，或更特殊的“自然对数”F（x）＝lnx（它和以10为底的常用对数的关系将在第二小节说明）定义为曲线y＝<img src="../Images/image01599.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>下面由u＝1到u＝x之间的面积，数量上相当于积分</p>
+<p class="picture"><img src="../Images/image01600.jpeg" alt="alt"/></p>
+<p class="normaltext6">（见<a href="part0012.xhtml#a47">此处</a>图5）．变量x可以是任意正数，但是不包括0，因为u趋向于0时，被积函数<img src="../Images/image01599.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>趋于无穷．</p>
+<p class="normaltext">研究函数F（x）是很自然的．因为我们知道，除了n＝-1之外，任意的幂x<sup class="suptext">n</sup>的原函数是同一类型的函数<img src="../Images/image01601.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．当n＝-1时，分母n＋1变为零，从而<a href="part0021.xhtml#b106">此处</a>的公式（4）失去意义．这样我们可以期望<img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>或<img src="../Images/image01599.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的积分会引出一种新型的有趣的函数．</p>
+<p class="normaltext">虽然我们把（1）作为函数lnx的定义，但在推导出它的性质，并找到它的数值计算的方法之前，我们是不“知道”这个函数的．我们以面积和积分的一般概念作出发点，在此基础上建立像（1）这样的一些定义，然后推导出所定义的对象的性质，只是在最后，才得到用以数值计算的明显表达式，这是现代很典型的研究方法．</p>
+<p class="normaltext">lnx的第一个重要性质，是§5的基本定理的直接推论．由这个定理得到等式</p>
+<p class="picture"><img src="../Images/image01602.jpeg" alt="alt"/></p>
+<p class="normaltext6">由（2）可见导数总是正的，于是肯定了这样的事实，当x按递增方向变化时函数lnx是单调递增的．</p>
+<p class="normaltext" id="a29">对数的主要性质，可由公式</p>
+<p class="picture"><img src="../Images/image01603.jpeg" alt="alt"/></p>
+<p class="normaltext6">表示．这个公式在对数实际应用于数值计算时的重要性，是众所周知的．直观上，把3个量lna，lnb和ln（ab）看作三个面积，就可以得到公式（3）．但是我们宁愿用典型的微积分的推理方法来得到它：与函数F（x）＝lnx一起，我们考察第二个函数</p>
+<p class="normaltext5">K（x）＝ln（ax）＝lnw＝F（w），</p>
+<p class="normaltext6">其中w＝f（x）＝ax，a为任一正的常数．运用§3的法则（e），微分K（x）：K′（x）＝F′（w）f′（x）．由（2），且因为f′（x）＝a，得</p>
+<p class="picture"><img src="../Images/image01604.jpeg" alt="alt"/></p>
+<p class="normaltext6">因而K（x）与F（x）有相同的导数．根据<a href="part0021.xhtml#b107">此处</a>，我们有</p>
+<p class="normaltext5">ln（ax）＝K（x）＝F（x）＋C，</p>
+<p class="normaltext6">其中C是与x的特定值无关的常数．只要把特定的数1代入x，就可以确定常数C．由定义（1）可知</p>
+<p class="normaltext5">F（1）＝ln1＝0，</p>
+<p class="normaltext6">这是由于所定义的积分，在x＝1时上、下限相等．因而有</p>
+<p class="normaltext5">K（1）＝ln（a·1）＝lna＝ln1＋C＝C，</p>
+<p class="normaltext6">由此得C＝lna，所以对任何x，有公式</p>
+<p class="picture"><img src="../Images/image01605.jpeg" alt="alt"/></p>
+<p class="normaltext6">令x＝b，便得到我们所希望的公式（3）．</p>
+<p class="normaltext">特别（对于a＝x），现在可依次得到</p>
+<p class="picture"><img src="../Images/image01606.jpeg" alt="alt"/></p>
+<p class="normaltext6">等式（4）说明当x的值递增时，lnx的值趋于无穷．因为对数是单调递增函数，我们有，例如，</p>
+<p class="normaltext5">ln（2<sup class="suptext">n</sup>）＝nln2，</p>
+<p class="normaltext6">当n趋于无穷时，它也趋于无穷．我们进而有</p>
+<p class="picture"><img src="../Images/image01607.jpeg" alt="alt"/></p>
+<p class="normaltext6">由此</p>
+<p class="picture"><img src="../Images/image01608.jpeg" alt="alt"/></p>
+<p class="normaltext6">最后，对于任何有理数r＝<img src="../Images/image00484.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，有</p>
+<p class="picture" id="a6"><img src="../Images/image01609.jpeg" alt="alt"/></p>
+<p class="normaltext6">因为，令x<sup class="suptext">r</sup>＝u，我们有</p>
+<p class="picture"><img src="../Images/image01610.jpeg" alt="alt"/></p>
+<p class="normaltext6">由此</p>
+<p class="picture"><img src="../Images/image01611.jpeg" alt="alt"/></p>
+<p class="normaltext">因为lnx是x的单调连续函数，当x＝1时值为0，并且x增大时趋于无穷，这样必然存在一个大于1的数，当x取此值时lnx＝1．</p>
+<p class="normaltext">按照欧拉的作法，我们称这个数为e（以后将看到与<a href="part0018.xhtml#b108">此处</a>的定义等价）．这样，e由方程</p>
+<p class="picture"><img src="../Images/image01612.jpeg" alt="alt"/></p>
+<p class="normaltext6">定义．我们根据e必然<b>存在</b>这一内在性质引进了数e．下面我们即将作进一步的分析，以便得到以任意精确程度趋于数e的明显公式．</p>
+<h4 class="title4" id="mllj25">2．指数函数</h4>
+<p class="normaltext">扼要地叙述一下我们前面的结果．我们看到函数F（x）＝lnx当x＝1时值为0，并且单调递增趋于无穷，而其斜率<img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>则是递减的．对于小于1的正值x，lnx由ln<img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的负值给定，所以当x→0时，lnx变为负无穷．</p>
+<p class="normaltext">由于y＝lnx的单调性，我们可以考虑反函数</p>
+<p class="normaltext5">x＝E（y），</p>
+<p class="normaltext6">通常按照的方式，它的图像（图278）是由y＝lnx的图像（图277）得到的，并且对介于-∞和+∞之间的一切y值都有定义．当y→-∞时，E（y）的值趋于0，当y→+∞时，E（y）趋于+∞．</p>
+<p class="picture"><img src="../Images/image01613.jpeg" alt="alt"/></p>
+<p class="tz"><b>图277</b></p>
+<p class="picture"><img src="../Images/image01614.jpeg" alt="alt"/></p>
+<p class="tz"><b>图278</b></p>
+<p class="normaltext">这个E函数，有如下的基本性质：对任意的一对数a，b有</p>
+<p class="picture"><img src="../Images/image01615.jpeg" alt="alt"/></p>
+<p class="normaltext6">这个法则仅仅是对数法则（3）的另一形式．因为如果我们令</p>
+<p class="normaltext5">E（b）＝x，E（a）＝z（即b＝lnx，a＝lnz），</p>
+<p class="normaltext6">我们有</p>
+<p class="normaltext5">lnxz＝lnx＋lnz＝b＋a，</p>
+<p class="normaltext6">所以</p>
+<p class="normaltext5">E（b＋a）＝xz＝E（b）·E（a），</p>
+<p class="normaltext6">这就是所要证明的．</p>
+<p class="normaltext">因为由定义lne＝1，我们有</p>
+<p class="normaltext5">E（1）＝e，</p>
+<p class="normaltext6">并且由（8）可知e<sup class="suptext">2</sup>＝E（1）·E（1）＝E（2），等等．一般说来，对任意整数n，有</p>
+<p class="normaltext5">E（n）＝e<sup class="suptext">n</sup>．</p>
+<p class="normaltext6">同理</p>
+<p class="picture"><img src="../Images/image01616.jpeg" alt="alt"/></p>
+<p class="normaltext6">所以</p>
+<p class="picture"><img src="../Images/image01617.jpeg" alt="alt"/></p>
+<p class="normaltext6">因此，令</p>
+<p class="normaltext5"><img src="../Images/image01618.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝r，</p>
+<p class="normaltext6">对于任意有理数r，我们有</p>
+<p class="normaltext5">E（r）＝e<sup class="suptext">r</sup>．</p>
+<p class="normaltext6">可见，对于任意实数y，令e<sup class="suptext">y</sup>＝E（y），以此<b>规定</b>数e的无理数幂的运算是适宜的．因为E函数对于y的所有值是连续的，并且当y为有理数时，它和e<sup class="suptext">y</sup>的值是一致的．E函数（通常叫做<b>指数函数</b>）的基本法则（8）现在可以表示为等式</p>
+<p class="picture"><img src="../Images/image01619.jpeg" alt="alt"/></p>
+<p class="normaltext6">而且它对任意有理数或无理数a和b都是成立的．</p>
+<p class="normaltext">在所有这些讨论中，对数函数和指数函数都是以数e为“底”，即e是对数的“自然底”．由底数e到任意正数的变换是容易作出的．我们首先考虑（自然）对数</p>
+<p class="normaltext5">α＝lna，</p>
+<p class="normaltext6">则</p>
+<p class="normaltext5">a＝e<sup class="suptext">α</sup>＝e<sup class="suptext">lnα</sup>．</p>
+<p class="normaltext6">现在，我们用复合表达式</p>
+<p class="picture"><img src="../Images/image01620.jpeg" alt="alt"/></p>
+<p class="normaltext6">来定义a<sup class="suptext">x</sup>．例如</p>
+<p class="normaltext5">10<sup class="suptext">x</sup>＝e<sup class="suptext">xln10</sup>．</p>
+<p class="normaltext6">我们称a<sup class="suptext">x</sup>的反函数为<b>以a为底的对数</b>．并且我们立即看到z的<b>自然对数</b>是a的自然对数的x倍．换句话说，以a为底的z的对数可由z的自然对数除以定数a的自然对数而得到，对于a＝10，这个固定的自然对数为（取四位有效数字）</p>
+<p class="normaltext5">ln10＝2.303．</p>
+<h4 class="title4" id="mllj26">3．e<sup class="suptext">x</sup>，a<sup class="suptext">x</sup>，x<sup class="suptext">s</sup>的微分公式</h4>
+<p class="normaltext">因为已经定义了指数函数E（y）为y＝lnx的反函数，由反函数的微分法则（§3）得</p>
+<p class="picture"><img src="../Images/image01621.jpeg" alt="alt"/></p>
+<p class="normaltext6">即</p>
+<p class="picture"><img src="../Images/image01622.jpeg" alt="alt"/></p>
+<p class="normaltext6"><b>自然指数函数与它的导数恒等．</b></p>
+<p class="normaltext">这实际上是指数函数所有性质的来源，并且是它在应用上之所以重要的基本原因，这一点在下几节中将表现得较为明显．利用第二节引入的记号，我们可以把（11）写成</p>
+<p class="picture"><img src="../Images/image01623.jpeg" alt="alt"/></p>
+<p class="normaltext6">比较一般地是微分复合函数</p>
+<p class="normaltext5">f（x）＝e<sup class="suptext">αx</sup>．</p>
+<p class="normaltext6">由§3的法则我们得到</p>
+<p class="normaltext5">f′（x）＝αe<sup class="suptext">αx</sup>＝αf（x）．</p>
+<p class="normaltext6">因此，对于α＝lna，我们可知函数</p>
+<p class="normaltext5">f（x）＝a<sup class="suptext">x</sup></p>
+<p class="normaltext6">的导数为</p>
+<p class="normaltext5">f′（x）＝a<sup class="suptext">x</sup>lna．</p>
+<p class="normaltext">现在，对于任意实指数s和正变量x，我们令</p>
+<p class="normaltext5">x<sup class="suptext">s</sup>＝e<sup class="suptext">slnx</sup>，</p>
+<p class="normaltext6">用它来定义函数</p>
+<p class="normaltext5">f（x）＝x<sup class="suptext">s</sup>．</p>
+<p class="normaltext6">再对f（x）＝e<sup class="suptext">sz</sup>，z＝lnx应用复合函数微分法则，求得</p>
+<p class="normaltext5">f′（x）＝se<sup class="suptext">sz</sup>·<img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.1em"/>＝sx<sup class="suptext">s</sup><img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.1em"/>，</p>
+<p class="normaltext6">因此</p>
+<p class="normaltext5">f′（x）＝sx<sup class="suptext">s－1</sup>．</p>
+<p class="normaltext6">这同以前s为有理数时的结果是一致的．</p>
+<h4 class="title4" id="mllj27">4．用极限表示e，e<sup class="suptext">x</sup>和lnx的表达式</h4>
+<p class="normaltext">我们将利用指数和对数的微分公式来求这些函数的明显表达式．因为函数lnx的导数是<img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，由导数的定义我们得到关系式</p>
+<p class="normaltext5"><img src="../Images/image01624.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，当x<sub>1</sub>→x时．</p>
+<p class="normaltext6">如果我们令x<sub>1</sub>＝x＋h，并且令h历经序列</p>
+<p class="normaltext5">h＝<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.1em"/>，<img src="../Images/image00518.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00532.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，…，<img src="../Images/image00483.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，…</p>
+<p class="normaltext6">而趋于零，那么应用对数的法则，得到</p>
+<p class="picture"><img src="../Images/image01625.jpeg" alt="alt"/></p>
+<p class="normaltext6">令z＝<img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，并且再一次利用对数的法则，得到</p>
+<p class="normaltext5"><img src="../Images/image01626.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，当n→∞时，</p>
+<p class="normaltext6" id="b66">利用指数函数，则当n→∞时，</p>
+<p class="picture"><img src="../Images/image01627.jpeg" alt="alt"/></p>
+<p class="normaltext6" id="a40">这就是用简单极限定义指数函数的著名公式．特别，当z＝1时，我们有</p>
+<p class="picture"><img src="../Images/image01628.jpeg" alt="alt"/></p>
+<p class="normaltext6">并且当z＝-1时，</p>
+<p class="picture"><img src="../Images/image01629.jpeg" alt="alt"/></p>
+<p class="normaltext">由这些式子立即导致无穷级数形式的展式．由二项式定理我们求得</p>
+<p class="picture"><img src="../Images/image01630.jpeg" alt="alt"/></p>
+<p class="normaltext6">或</p>
+<p class="picture"><img src="../Images/image01631.jpeg" alt="alt"/></p>
+<p class="normaltext6">在完成当n→∞取极限的过程中，以上每一项中的<img src="../Images/image00483.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>都可以用0代换，这一点可以使人信服并且也不难证明它是完全合理的（细节从略）．这就得到了著名的e<sup class="suptext">x</sup>的无穷级数展式</p>
+<p class="picture"><img src="../Images/image01632.jpeg" alt="alt"/></p>
+<p class="normaltext6">作为特例，e的级数为</p>
+<p class="picture"><img src="../Images/image01633.jpeg" alt="alt"/></p>
+<p class="normaltext6">这证明是与<a href="part0018.xhtml#b108">此处</a>所定义的数完全相同．当x＝-1时，我们得到级数</p>
+<p class="picture"><img src="../Images/image01634.jpeg" alt="alt"/></p>
+<p class="normaltext6">这个级数只需很少几项就能给出一个极好的近似值，而如果级数从第n项截断后所产生的总误差是小于第（n＋1）项的数值的．</p>
+<p class="normaltext">利用指数函数的微分公式我们可以得到一个有趣的对数的表达式．当h趋于0时，我们有</p>
+<p class="picture"><img src="../Images/image01635.jpeg" alt="alt"/></p>
+<p class="normaltext6">因为这个极限是e<sup class="suptext">y</sup>在y＝0处的导数值，并且等于e<sup class="suptext">0</sup>＝1．在这个式子中，我们用<img src="../Images/image01636.jpeg" class="tpzz1" alt="alt" style="height:2.1em"/>代替h，其中z是一个任意的数而n取遍正整数序列．于是得到</p>
+<p class="picture"><img src="../Images/image01637.jpeg" alt="alt"/></p>
+<p class="normaltext6">或</p>
+<p class="picture"><img src="../Images/image01638.jpeg" alt="alt"/></p>
+<p class="normaltext6">令z＝lnx或e<sup class="suptext">z</sup>＝x，因为当n→∞时，</p>
+<p class="picture"><img src="../Images/image01639.jpeg" alt="alt"/></p>
+<p class="normaltext6">我们最后得到，当n→∞时，</p>
+<p class="picture"><img src="../Images/image01640.jpeg" alt="alt"/></p>
+<p class="normaltext6">这个式子把对数表示成两个因子的乘积的极限，其中一个因子趋于0，而另一个趋于无穷．</p>
+<p class="normaltexta"><b>习题</b>：现在我们已掌握了一大类函数，其中包括指数函数和对数函数，并且应用的途径也增多了．</p>
+<p class="normaltext2" id="a48">微分：1）x（lnx－1），2）ln（lnx），3）<img src="../Images/image01641.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，4）<img src="../Images/image01642.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，5）e<sup class="suptext">-x<sup class="suptext">2</sup></sup>，6）e<sup class="suptext">e<sup class="suptext">x</sup></sup>（是e<sup class="suptext">z</sup>和z＝e<sup class="suptext">x</sup>的复合函数），7）x<sup class="suptext">x</sup>（提示：x<sup class="suptext">x</sup>＝e<sup class="suptext">xlnx</sup>），8）lntanx，9）lnsinx；lncosx，10）<img src="../Images/image01643.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<p class="normaltext2">求11）xe<sup class="suptext">-x</sup>，12）x<sup class="suptext">2</sup>e<sup class="suptext">-x</sup>，13）xe<sup class="suptext">-ax</sup>的极大和极小．</p>
+<p class="normaltext2"><sup class="suptext">*</sup>14）求曲线y＝xe<sup class="suptext">-ax</sup>当a变动时的极大点的轨迹．</p>
+<p class="normaltext2">15）证明e<sup class="suptext">-x<sup class="suptext">2</sup></sup>的所有逐阶导数，其形式都是e<sup class="suptext">-x<sup class="suptext">2</sup></sup>和x的多项式的乘积．</p>
+<p class="normaltext2"><sup class="suptext">*</sup>16）证明<img src="../Images/image01644.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的n阶导数，其形式是<img src="../Images/image01645.jpeg" class="tpzz1" alt="alt" style="height:3em"/>和一个2n－2次多项式的乘积．</p>
+<p class="normaltext2"><sup class="suptext">*</sup>17）<b>对数微分法</b>．利用对数的基本性质，有时能以简单的方式来求乘积的微分．对形如</p>
+<p class="normaltext8">P（x）＝f<sub>1</sub>（x）f<sub>2</sub>（x）…f<sub>n</sub>（x）</p>
+<p class="normaltext7">的乘积，我们有</p>
+<p class="normaltext8">D（lnP（x））＝D（lnf<sub>1</sub>（x））＋D（lnf<sub>2</sub>（x））＋…＋D（lnf<sub>n</sub>（x）），</p>
+<p class="normaltext7">从而由复合函数微分法则，有</p>
+<p class="picture"><img src="../Images/image01646.jpeg" alt="alt"/></p>
+<p class="normaltext7">利用这个公式微分</p>
+<p class="normaltext2">a）x（x＋1）（x＋2）…（x＋n），b）xe<sup class="suptext">-ax<sup class="suptext">2</sup></sup>．</p>
+<h4 class="title4" id="mllj28">5．对数的无穷级数展开式　数值计算</h4>
+<p class="normaltext">（15）式并不能作为对数的数值计算的基础．对数函数有一个更适于数值计算的完全不同的且更为有用的表达式．而且这个表达式在理论上也极为重要．我们将利用<a href="part0021.xhtml#mllj22">此处</a>求π的方法以及按照公式（1）给出的对数定义来求这个式子．需要先作一个简单的准备．我们不直接讨论lnx，而是考虑</p>
+<p class="normaltext5">y＝ln（1＋x），</p>
+<p class="normaltext6">这是由函数y＝lnz和z＝1＋x组成的复合函数．我们有</p>
+<p class="picture"><img src="../Images/image01647.jpeg" alt="alt"/></p>
+<p class="normaltext6">因而ln（1＋x）是<img src="../Images/image01648.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的原函数，并且根据基本定理，可知<img src="../Images/image01649.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>由0到x的积分等于</p>
+<p class="normaltext5">ln（1＋x）－ln1＝ln（1＋x），</p>
+<p class="normaltext6">用符号可表示为</p>
+<p class="picture"><img src="../Images/image01650.jpeg" alt="alt"/></p>
+<p class="normaltext6">（当然，这个公式也可由把对数看作是面积的几何解释中直观地得到，与<a href="part0021.xhtml#b109">此处</a>作比较．）</p>
+<p class="normaltext">在公式（16）中，对于（1＋u）<sup class="suptext">-1</sup>，像<a href="part0021.xhtml#b110">此处</a>中一样，我们可把它展为几何级数，</p>
+<p class="picture"><img src="../Images/image01651.jpeg" alt="alt"/></p>
+<p class="normaltext6">注意，这里不是无穷级数，而是带有余项为</p>
+<p class="picture"><img src="../Images/image01652.jpeg" alt="alt"/></p>
+<p class="normaltext6">的有限级数．把这个级数代入（16），我们可以利用有限项和的逐项积分法则．因为u<sup class="suptext">s</sup>由0到x的积分是<img src="../Images/image01653.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，所以我们立即得到</p>
+<p class="picture"><img src="../Images/image01654.jpeg" alt="alt"/></p>
+<p class="normaltext6">其中余项由</p>
+<p class="picture"><img src="../Images/image01655.jpeg" alt="alt"/></p>
+<p class="normaltext6">给出．现在我们将看到，只要x选为大于-1但不超过+1的数，换句话说，-1＜x≤1，这里x＝+1包括在内而x＝-1未包括，那么T<sub>n</sub>当n递增时趋于零．根据我们的假定，在积分区间内，u大于某一数-α，这个数可以任意接近-1，但至少要大于-1，使得0＜1－α＜1＋u．因此在0到x的区间中有</p>
+<p class="picture"><img src="../Images/image01656.jpeg" alt="alt"/></p>
+<p class="normaltext6">于是</p>
+<p class="picture"><img src="../Images/image01657.jpeg" alt="alt"/></p>
+<p class="normaltext6">或</p>
+<p class="picture"><img src="../Images/image01658.jpeg" alt="alt"/></p>
+<p class="normaltext6">因为1－α是固定的，可见当n递增时上面右式趋于0，从而由</p>
+<p class="picture"><img src="../Images/image01659.jpeg" alt="alt"/></p>
+<p class="normaltext6">得到在-1＜x≤1上成立的无穷级数</p>
+<p class="picture"><img src="../Images/image01660.jpeg" alt="alt"/></p>
+<p class="normaltext6">特别，如果取x＝1我们得到一个有趣的结果</p>
+<p class="picture"><img src="../Images/image01661.jpeg" alt="alt"/></p>
+<p class="normaltext6">这个式子与<img src="../Images/image01147.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的级数在结构上相似．</p>
+<p class="normaltext">公式（18）对于计算对数的数值没有多大的实际意义，因为它的范围，即1＋x仅在0与2之间，它的收敛又是如此之慢，以至要获得一个适当的精确程度的结果必须包含很多项．一个更为便利的表达式可以由下面的方法得到．在（18）中，用-x代替x，则</p>
+<p class="picture"><img src="../Images/image01662.jpeg" alt="alt"/></p>
+<p class="normaltext6">从（18）中减去（20）并且利用</p>
+<p class="picture"><img src="../Images/image01663.jpeg" alt="alt"/></p>
+<p class="normaltext6">的关系，我们得到</p>
+<p class="picture"><img src="../Images/image01664.jpeg" alt="alt"/></p>
+<p class="normaltext6">这个级数不仅收敛得快得多，而且现在左端可表示为一个正数z的对数，因为<img src="../Images/image01665.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝z总有一个在-1与+1间的解x．例如，我们要计算ln3的值，可令x＝<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.1em"/>，则</p>
+<p class="picture"><img src="../Images/image01666.jpeg" alt="alt"/></p>
+<p class="normaltext6">只取前六项，取到<img src="../Images/image01667.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，我们求得</p>
+<p class="normaltext5">ln3＝1.0986，</p>
+<p class="normaltext6">它精确到5位数．</p>
+<h3 class="title3" id="mllj29">§7　微分方程</h3>
+<h4 class="title4" id="mllj30">1．定义</h4>
+<p class="normaltext">指数函数和三角函数在数学分析及其在物理问题的应用中所以能起着重要的作用，是因为这些函数能解决最简单的“微分方程”的问题．</p>
+<p class="normaltext">一个关于未知函数u＝f（x）及其导数u′＝f′（x）（只要u和它对于x的依赖关系即函数f（x），没有必要特别加以区分时，记号u′就是f′（x）很方便的略写法）的微分方程是一个含有u，u′，并且可能还含有自变量x的方程，例如</p>
+<p class="normaltext5">u′＝u＋sin（xu），</p>
+<p class="normaltext6">或</p>
+<p class="normaltext5">u′＋3u＝x<sup class="suptext">2</sup>．</p>
+<p class="normaltext6">更一般地，一个微分方程可以含有二阶导数u″＝f″（x）或更高阶的导数，如</p>
+<p class="normaltext5">u″＋2u′－3u＝0．</p>
+<p class="normaltext6">无论是哪种情况，问题都是求满足给定方程的函数u＝f（x）．因为求给定函数g（x）的原函数相当于解简单的微分方程</p>
+<p class="normaltext5">u′＝g（x）．</p>
+<p class="normaltext6">例如，微分方程</p>
+<p class="normaltext5">u′＝x<sup class="suptext">2</sup></p>
+<p class="normaltext6">的解是函数<img src="../Images/image01668.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，其中C是任意常数．就这意义上说，解微分方程是积分问题的一个广义的推广．</p>
+<h4 class="title4" id="mllj31">2．指数函数的微分方程　放射性元素的蜕变　增长率　复利</h4>
+<p class="normaltext">微分方程</p>
+<p class="picture"><img src="../Images/image01669.jpeg" alt="alt"/></p>
+<p class="normaltext6">有一个解是指数函数u＝e<sup class="suptext">x</sup>，因为指数函数的导数是它自身．更一般地，函数u＝ce<sup class="suptext">x</sup>（c是任一常数）是（1）的解．类似地，函数</p>
+<p class="picture"><img src="../Images/image01670.jpeg" alt="alt"/></p>
+<p class="normaltext6">（c，k为任意两个常数）是微分方程</p>
+<p class="picture"><img src="../Images/image01671.jpeg" alt="alt"/></p>
+<p class="normaltext6">的一个解．</p>
+<p class="normaltext">反之，任何满足方程（3）的函数u＝f（x）必是ce<sup class="suptext">kx</sup>的形式．因为如果x＝h（u）是u＝f（x）的反函数，那么根据反函数求导法则有</p>
+<p class="picture"><img src="../Images/image01672.jpeg" alt="alt"/></p>
+<p class="normaltext6">但<img src="../Images/image01673.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>是<img src="../Images/image01674.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的一个原函数，所以</p>
+<p class="picture"><img src="../Images/image01675.jpeg" alt="alt"/></p>
+<p class="normaltext6">其中b是某个常数．因此</p>
+<p class="normaltext5">lnu＝kx－bk，</p>
+<p class="normaltext6">即</p>
+<p class="normaltext5">u＝e<sup class="suptext">kx</sup>·e<sup class="suptext">-bk</sup>．</p>
+<p class="normaltext6">令e<sup class="suptext">-bk</sup>（这是一个常数）等于c，则</p>
+<p class="normaltext5">u＝ce<sup class="suptext">kx</sup>，</p>
+<p class="normaltext6">此即所证．</p>
+<p class="normaltext">微分方程（3）的重大意义在于它刻画了下述类型的物理过程，在这类物理过程中，某种物质的量u是时间t的函数</p>
+<p class="normaltext5">u＝f（t），</p>
+<p class="normaltext6">并且量u在每一瞬时的变化率与该瞬时的u的数值成比例．在这种情况下，在瞬时t的<b>变化率</b></p>
+<p class="picture"><img src="../Images/image01676.jpeg" alt="alt"/></p>
+<p class="normaltext6">等于ku，其中k是常数；如果u递增，则k为正，如果u递减，则k为负，无论是哪种情况，u都满足微分方程（3），因此</p>
+<p class="normaltext5">u＝ce<sup class="suptext">kt</sup>．</p>
+<p class="normaltext6">如果我们知道了t＝0时的量u<sub>0</sub>，那么常数c就被确定了．令t＝0，就必然得到了这个量</p>
+<p class="normaltext5">u<sub>0</sub>＝ce<sup class="suptext">0</sup>＝c，</p>
+<p class="normaltext6">所以</p>
+<p class="picture"><img src="../Images/image01677.jpeg" alt="alt"/></p>
+<p class="normaltext6">注意，我们是由已知u的<b>变化率</b>开始，然后导出了规律（4），它给出u在任意时刻t的<b>实际的量</b>．这恰好是求函数的导数的逆问题．</p>
+<p class="picture"><img src="../Images/image01678.jpeg" alt="alt"/></p>
+<p class="tz"><b>图279</b>　指数衰变u＝u<sub>0</sub>e<sup class="suptext">kt</sup>，k＜0</p>
+<p class="normaltext">放射性蜕变是一个典型的例子．设u＝f（t）是某放射性物质在t时的量：假设该物质的每一质点在给定时刻都以一定的概率蜕变，并且别的这种质点的状况并不影响这个概率，那么蜕变中的u在给定时刻的变化率与u成比例，即与该时刻的总量成比例．因此u满足（3），其中k是负常数，这个k反映了衰变过程的速度的大小，因此</p>
+<p class="normaltext5">u＝u<sub>0</sub>e<sup class="suptext">kt</sup>．</p>
+<p class="normaltext6">由此可知，u在两个相等的时间间隔内蜕变掉的量的比值是相同的．因为如果u<sub>1</sub>是在t<sub>1</sub>时的量，而u<sub>2</sub>是随后某个时刻t<sub>2</sub>时的量，那么</p>
+<p class="picture"><img src="../Images/image01679.jpeg" alt="alt"/></p>
+<p class="normaltext6">它只依赖于t<sub>2</sub>－t<sub>1</sub>．若要求一定量的物质在衰变得只剩原来的一半所需的时间，我们只须求这样的s＝t<sub>2</sub>－t<sub>1</sub>，使得</p>
+<p class="picture"><img src="../Images/image01680.jpeg" alt="alt"/></p>
+<p class="normaltext6">由此我们得到</p>
+<p class="picture"><img src="../Images/image01681.jpeg" alt="alt"/></p>
+<p class="normaltext6">对于任何放射性物质，s的值都称为半衰期，并且s或类似的值（如使<img src="../Images/image01682.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的r）可以由实验确定．对于镭，半衰期大约是1550年，且</p>
+<p class="picture"><img src="../Images/image01683.jpeg" alt="alt"/></p>
+<p class="normaltext6">由此知，u＝u<sub>0</sub>e<sup class="suptext">-0.0000447t</sup>．</p>
+<p class="normaltext">复利问题可作为增长规律近似于指数的一个例子．已知货币的数量为u<sub>0</sub>元，年利息是3％．一年后的货币量将是</p>
+<p class="normaltext5">u<sub>1</sub>＝u<sub>0</sub>（1＋0.03），</p>
+<p class="normaltext6">两年后它将是</p>
+<p class="normaltext5">u<sub>2</sub>＝u<sub>1</sub>（1＋0.03）＝u<sub>0</sub>（1＋0.03）<sup class="suptext">2</sup>，</p>
+<p class="normaltext6">t年后将是</p>
+<p class="picture"><img src="../Images/image01684.jpeg" alt="alt"/></p>
+<p class="normaltext6">现在如果利息不是以年为复算间隔，而是以月或一年的几分之一为复算间隔的话，那么t年后的货币量将是</p>
+<p class="picture"><img src="../Images/image01685.jpeg" alt="alt"/></p>
+<p class="normaltext6">如果n取得很大，使利息以每天甚至每小时复算，则当n趋于无穷时，根据§6，方括弧中的量趋于e<sup class="suptext">0.03</sup>，而t年后的量将是</p>
+<p class="picture"><img src="../Images/image01686.jpeg" alt="alt"/></p>
+<p class="normaltext6">这相当于复利的连续过程．我们也可以计算出按3％的复利达到原来资本的2倍所需的时间s．我们有</p>
+<p class="normaltext5"><img src="../Images/image01687.jpeg" class="tpzz1" alt="alt" style="height:2.5em"/>，即s＝<img src="../Images/image01688.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝23.10．</p>
+<p class="normaltext6">这样大约在23年后货币可增长为原来的2倍．</p>
+<p class="normaltext">我们可以用一个简单的方法来导出公式（7），而不必像上述那样一步步地推导然后再取极限．我们说资本的增长率u′是与u成正比的，比例因子k＝0.03，即</p>
+<p class="normaltext5">u′＝ku，其中k＝0.3．</p>
+<p class="normaltext6">于是由一般的结果（4）中可得出公式（7）．</p>
+<h4 class="title4" id="mllj32">3．其他例题　简谐振动</h4>
+<p class="normaltext">指数函数还经常出现在更为复杂的情形中．例如函数</p>
+<p class="picture"><img src="../Images/image01689.jpeg" alt="alt"/></p>
+<p class="normaltext6">（其中k是大于零的常数）是微分方程</p>
+<p class="normaltext5">u′＝-2kxu</p>
+<p class="normaltext6">的一个解．函数（8）在概率和统计中有着根本的重要性，因为它确定了“正态”分布密度．</p>
+<p class="normaltext">三角函数u＝cost，v＝sint也满足很简单的微分方程．首先我们有</p>
+<p class="normaltext5">u′＝-sint＝-v，</p>
+<p class="normaltext5">v′＝cost＝u．</p>
+<p class="normaltext6">这是“两个未知函数两个方程的微分方程组”，它再微分，得</p>
+<p class="normaltext5">u″＝-v′＝-u，</p>
+<p class="normaltext5">v″＝u′＝-v；</p>
+<p class="normaltext6">这就表明两个时间变量t的函数u和v可认为是同一个微分方程</p>
+<p class="picture"><img src="../Images/image01690.jpeg" alt="alt"/></p>
+<p class="normaltext6">的解．上述方程是一个很简单的“二阶”微分方程，即它是包含z的二阶导数的方程．这个方程及其带有一个正数k<sup class="suptext">2</sup>的一般情形</p>
+<p class="picture"><img src="../Images/image01691.jpeg" alt="alt"/></p>
+<p class="normaltext6">（z＝coskt和z＝sinkt是它的解）是在研究振动问题中出现的．这就是为什么振动曲线u＝sinkt和u＝coskt（图280）成为振动力学的根基的原因．应当指出，微分方程（10）表示的是没有摩擦力和阻力的理想情形．在振动力学的微分方程中，阻力可以由另一项rz′表示</p>
+<p class="picture"><img src="../Images/image01692.jpeg" alt="alt"/></p>
+<p class="picture"><img src="../Images/image01693.jpeg" alt="alt"/></p>
+<p class="tz"><b>图280</b></p>
+<p class="normaltext6">而现在的解是“阻尼”振动，数学上用公式</p>
+<p class="picture"><img src="../Images/image01694.jpeg" alt="alt"/></p>
+<p class="normaltext6">表示，还可以用图281来图示（作为一个练习，读者可以通过微分来验证这些解）．这里的振动和纯正弦以及纯余弦是同样类型的，但它们的强度由于乘一个指数因子而下降，而这个指数因子又按照摩擦系数r的大小而或快或慢地减少．</p>
+<p class="picture"><img src="../Images/image01695.jpeg" alt="alt"/></p>
+<p class="tz"><b>图281</b>　阻尼振动</p>
+<h4 class="title4" id="mllj33">4．牛顿动力学定律</h4>
+<p class="normaltext">虽然关于这些事实更为详细的分析已经超出本书的范围，我们仍希望把它们放在牛顿用以革新力学和物理的一般基本概念上来考察．考虑了一个质量为m，空间坐标为t的函数x（t），y（t），z（t）的质点的运动，这样加速度的分量是二阶导数，x″（t），y″（t），z″（t）．牛顿所作的最重要的一步是把mx″，my″，mz″看成是作用在质点上的力的分量．乍看起来，这可能只是物理学上的“力”的这个词的形式定义．牛顿的伟大功绩就是按照自然界的实际现象建立了这个定义，因为自然界通常提到的那些力的力场我们预先知道，而关于我们要研究的质点运动却什么都不知道．牛顿在动力学上的伟大成就，即对开普勒（Kepler）天体运动的证实，清楚地表明他的数学概念与自然界是和谐的．牛顿首先假定重力吸引力是与距离的平方成反比例．如果我们把太阳放在坐标系的原点，那么若已知行星的坐标为x，y，z，则力在x，y，z方向上的分量分别等于</p>
+<p class="picture"><img src="../Images/image01696.jpeg" alt="alt"/></p>
+<p class="normaltext6">其中k是不依赖于时间的引力常数，而</p>
+<p class="picture"><img src="../Images/image01697.jpeg" alt="alt"/></p>
+<p class="normaltext6">是从太阳到行星的距离．这些表达式决定了局部力场，而与此力场内质点的运动无关．现在这个力场的知识是和牛顿一般动力学定律（即他借助运动表示力的表达式）结合在一起的．令两个不同的表达式相等，便得到如下方程：</p>
+<p class="picture"><img src="../Images/image01698.jpeg" alt="alt"/></p>
+<p class="normaltext6">这是含有三个未知函数x（t），y（t），z（t），包括三个方程的微分方程组．这个方程组可以求解，其结果与开普勒的实际观察是一致的．它表明：行星轨道是以太阳为一焦点的圆锥曲线．连接太阳与行星的直线在相等时间间隔内扫过的面积是相等的．并且两个行星旋转一周的周期的平方与它们到太阳的距离的立方成比例．我们略去证明．</p>
+<p class="normaltext" id="b62">振动问题给牛顿的方法提供了一个更为初等的解释．假定有一个质点沿着一条直线（设为x轴）运动，用一个弹性力（例如弹簧或橡皮筋）使质点确定在原点．如果质点从原点这个平衡位置运动到坐标为x的位置，那么这个力将把它拉回来．这个力的大小假定与延伸距离x成比例．因为力的方向是指向原点的，它可以用-k<sup class="suptext">2x</sup>表示，其中-k<sup class="suptext">2</sup>是一个负的比例因子，它表示弹簧或橡皮筋的强度．再则我们假定有一个摩擦力阻碍着运动，这个摩擦力与质点的速度x′成比例，比例因子为-r．那么在任意瞬间的合力由-k<sup class="suptext">2</sup>x－rx′给出，按照牛顿的一般原理，我们有</p>
+<p class="normaltext5">mx″＝-k<sup class="suptext">2</sup>x－rx′，</p>
+<p class="normaltext6">或</p>
+<p class="normaltext5">mx″＋rx′＋k<sup class="suptext">2</sup>x＝0．</p>
+<p class="normaltext6">这恰好是上面提到的阻尼振动的微分方程（11）．</p>
+<p class="normaltext">这些简单的例子是很重要的，因为振动力学和电学的很多问题在数学上恰好都能用这个微分方程描述．这里我们得到了一个典型的例子，即很多表面上极不相同并互不联系的个别现象可以统一用一个抽象的数学式子来表示．从一个给定现象的特殊性质中抽象出一个适合整个这类现象的一般公式，这种抽象是用数学来处理物理问题的一个特点．</p>
+
+<p class="note">注释</p>
+<p class="note1"><a id="zhushi1" href="part0021.xhtml#fhzs1">〔1〕</a>这里的记法和第六章那里有些不同，那里有x→x<sub>1</sub>，而后面的值是固定的．为了不产生混淆，把符号互相对换了．</p>
+<p class="note1"><a id="zhushi2" href="part0021.xhtml#fhzs2">〔2〕</a>原书用英尺为单位，g≈32英尺／秒<sup class="suptext">2</sup>，我们在这里和后面都把它改为我国常用的公制g＝9.8米／秒<sup class="suptext">2</sup>——译注．</p>
+<p class="note1"><a id="zhushi3" href="part0021.xhtml#fhzs3">〔3〕</a>“Calculus”是“计算”的意思．——译注</p>
+
+</body></html>

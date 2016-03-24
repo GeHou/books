@@ -1,0 +1,412 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+		"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN"><head><meta name="generator" content="HTML Tidy，see www.w3.org"/>
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+<title>什么是数学：对思想和方法的基本研究（中文版第三版）</title>
+<link href="../Styles/style0001.css" rel="stylesheet" type="text/css"/>
+</head><body>
+<h1 class="title1">第3章　几何作图　数域的代数</h1>
+<h2 class="title2" id="mllj1">引言</h2>
+<p class="normaltext">在几何学中，作图问题是人们喜欢的一个课题．只用圆规和直尺就可以完成许多作图问题，例如，读者记得中学时学过的，二等分一线段或一个角，过一点作一给定直线的垂线，作圆内接正六边形，等等．在所有这些问题中，直尺仅仅当作一直边，一个画直线的工具，而不能用以测量或标示距离．只限于用圆规和直尺的传统要回溯到古代，虽然希腊人自己毫不犹豫地使用其他工具．</p>
+<p class="normaltext">经典作图问题中，最有名的一个是所谓阿波罗尼斯（Apollonious，约公元前200年）的切圆问题．这个问题是，在平面上给定任意三个圆，求作和这三个圆相切的第四个圆．另外还允许在这些给定的圆中，有一个或几个退化为一个点或一条直线（相应于半径为零或“无穷大”的“圆”）．例如，可以求作一个圆过一给定点和给定的两条直线相切．这些特殊情形是比较容易处理的，而一般问题考虑起来就有些困难．</p>
+<p class="normaltext">在所有作图问题中，最有趣的大概是用圆规和直尺作一个正n边形．对n的某些值，例如n＝3，4，5，6，其解法在古代就知道了，而且现在它们成了中学几何的一个重要部分．已经证明正七边形（n＝7）的作图是不可能的．另外还有三个经典希腊问题，人们一直徒劳地寻求它们的解，这是指：三等分任意一给定角，倍立方体（即求一立方体的边长，使它的体积二倍于一边长给定的立方体的体积），化圆为方（即求作一正方形，使它与一给定圆有相同的面积）．在所有这些问题中，只允许用圆规和直尺．</p>
+<p class="normaltext">历时若干世纪，人们毫无所获地寻求着这些问题的解法，后来逐渐怀疑这些问题可能根本就不可解．这种不可解问题，在数学上引起了一个极重要而有价值的发展．数学家面临着这样的挑战：<b>怎样才能证明某种问题是不可解的？</b></p>
+<p class="normaltext" id="a16">在代数中，解五次和更高次方程的问题引出了这种新的思想方法．在16世纪，数学家就已经知道三次和四次代数方程能用一个类似于解二次方程的初等方法来解．所有这些方法都有下述共同特点：方程的解或“根”，可以写成一个代数表达式，这个代数表达式是由方程的系数通过一系列运算而得到的，其中每一个运算，或是有理运算——加、减、乘、除——或是开平方根、立方根、四次方根．我们说直到四次的代数方程都能“用根式”来解．利用更高次的方根，把这种做法推广到五次和更高次的方程中去，这似乎是再自然不过的了．但是，所有这样的尝试都失败了．甚至18世纪一些杰出的数学家也欺骗了他们自己，自以为找到了这样的解法．直到19世纪初，意大利的茹菲尼（Ruffini，1762～1822）和挪威的天才阿贝尔（N. Abel，1802～1829）才表明了一个在当时很革命的想法，他们证明了<b>不可能利用根式的方法解一般n次代数方程．</b>人们必须理解清楚，问题并不是任意n次代数方程是否<b>有</b>根．这个事实在1799年首先为高斯在他的博士论文中所证明．所以关于一个方程的根的<b>存在性</b>问题是无可怀疑的，尤其因为这些根的值能用适当的办法以任意精确度计算出来．方程的数值解法的技巧当然是十分重要的，而且有了很高的发展．但是，阿贝尔和茹菲尼所说的问题完全是另一个问题：<b>只用有理运算和根式运算</b>是否能够求解？由于要求彻底搞清这个问题，促成了由茹菲尼、阿贝尔和伽罗华（Galois，1811～1832）开创的近世代数和群论的重大发展．</p>
+<p class="normaltext">在代数的这个研究方向中，证明某个几何作图为不可能的问题是其中最简单的例子之一．在这一章，我们利用代数的概念能够证明，只用圆规和直尺三等分角、作正七边形和倍立方体是不可能的（化圆为方是一个处理起来更加困难的问题，见<a href="part0015.xhtml#mllj15">此处</a>）．我们的着眼点将不再是某些作图为不可能这样的反面问题，而是正面的问题：怎样才能完全刻划出所有可作图的问题的特性？我们回答了这个问题之后，说明上述问题不属于这个范围就容易了．</p>
+<p class="normaltext">高斯在17岁时发现了正p边形（p为素数）可作图的条件．当时只对p＝3和p＝5知道其作图的方法．高斯发现正p边形可作图必须而且只须p是一素“费马数”</p>
+<p class="normaltext5">p＝2<sup class="suptext">2<sup class="suptext">n</sup></sup>＋1．</p>
+<p class="normaltext6">前几个费马数是3，5，17，257，65537（见<a href="part0012.xhtml#a17">此处</a>）．年轻的高斯被他自己的发现所激动，以至于立刻放弃了他打算成为哲学家的念头，而决心献身于数学和它的应用．他经常以特别自豪的心情回顾他这第一个伟大的功绩．在他死后，在哥廷根为他树立了一个铜像，铜像的底座是正十七边形的，以此来象征他的荣誉那是再合适不过的了．</p>
+<p class="normaltext">处理几何作图时，我们不应当忘记，问题并不是要求以一定的精确度实际把图画出来，而是从理论上说明只用圆规和直尺（假设我们的这些仪器完全准确）能否找出画图的方法来．高斯所证明的是，他的作图从原理上讲是能够实现的．他的理论没有涉及实际作图的最简便的方式，以及如何简化与削减所需要的步骤的方法．这是一个理论上不太重要的问题．从实际的观点来看，任何一个作图方法，其效果都不如用好的半圆仪那样令人满意．由于没有能够正确理解几何作图问题的理论特点，又顽固地拒绝接受那些已经很好确立的科学事实，使得一些人无休止地一味去寻找三等分角和倍立方体的方法．对他们当中那些能理解初等数学的人来说，学习这一章是有益的．</p>
+<p class="normaltext">必须再次强调，我们的几何作图概念在某种意义下似乎是人为的．圆规和直尺肯定是作图的最简单的工具，但是在几何中从来就没有只限于用这些仪器．希腊数学家很早以前就认识到，如果，比如允许用直角三角板的话，某些问题——例如倍立方体问题——是能够解决的．同样也容易造出圆规以外的仪器，用以画椭圆、双曲线和更复杂的曲线，从而大大扩充了可作图的图形的范围．但在下几节中，我们将坚持只许用圆规和直尺，仍采用这种标准的几何作图观念．</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<h2 class="title2" id="mllj2">第1部分　不可能性的证明和代数</h2>
+<h3 class="title3" id="mllj3">§1　基本几何作图</h3>
+<h4 class="title4" id="mllj4">1．域的构作和开平方根</h4>
+<p class="normaltext">为了建立我们的一般思想，我们从检验一些古典作图开始．要理解得更深刻，关键在于把几何问题“翻译”成代数语言．任何一个几何作图问题都是这种类型的：给定某些线段如a，b，c，…，求一个或多个其他线段x，y，…．任何一个问题总可以用这种方式来表述，虽然初看起来表面上与此很不相同．我们所求的线段可以是，一个要作图的三角形的边、圆的半径、某个点的直角坐标（例如见<a href="part0015.xhtml#mllj13">此处</a>）等．为简单起见，我们假设只需求作一个线段x．于是几何作图就归结为解一个代数问题：首先，我们必须找出所求的量x和给定的量a，b，c，…之间的关系（方程）；其次，我们必须解这方程来求未知量x；最后，我们必须确定，通过相应于用圆规和直尺来作图的代数过程能否得到这个问题的解．解析几何的原理就是在引进实数连续统的基础上，用实数刻划几何对象的量的特征．它为整个理论提供了基础．</p>
+<p class="normaltext">首先，我们来看相应于初等几何作图的一些最简单的代数运算．如果给定两个长为a和b的线段（用一个给定“单位”线段来测量），很容易作出a＋b，a－b，ra（这里r是任意的有理数），<img src="../Images/image00602.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>和ab．</p>
+<p class="normaltext">为了作出a＋b（图27），我们画一条直线，在上面用圆规标出距离OA＝a，AB＝b，则OB＝a＋b．类似地对a－b，我们标出OA＝a，AB＝b，但这次AB和OA方向相反，则OB＝a－b．为了画3a，我们简单地作加法a＋a＋a．同样，我们能作出pa，这里p是任意一个正整数．我们用下述办法画<img src="../Images/image00748.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>（图28），在一直线上标出OA＝a，过O任意作第二条直线，在这直线上我们标出任一线段OC＝c，再作OD＝3c．</p>
+<p class="picture"><img src="../Images/image00749.jpeg" alt="alt"/></p>
+<p class="tz"><b>图27</b>　a＋b和a－b的作图</p>
+<p class="picture"><img src="../Images/image00750.jpeg" alt="alt"/></p>
+<p class="tz"><b>图28</b>　<img src="../Images/image00748.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的作图</p>
+<p class="normaltext">连接A和D且过C画一直线平行于AD，交OA于B．三角形OBC和三角形OAD相似，因此有<img src="../Images/image00751.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image00752.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image00753.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image00518.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，即OB＝<img src="../Images/image00748.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．用同样的方法我们能画出<img src="../Images/image00754.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，这里q是任一正整数．将此作法施于线段pa，我们就能作出ra，这里r＝<img src="../Images/image00505.jpeg" class="tpzz1" alt="alt" style="height:2.4em"/>为任意一个有理数．</p>
+<p class="normaltext">为了作<img src="../Images/image00602.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>（图29），我们在任意一个角O的两边上标出OB＝b，OA＝a，且在OB上标出OD＝1，过D作一平行于AB的直线交OA于C，则OC长为<img src="../Images/image00602.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．图30表明了ab的作法，其中AD是过A平行于BC的线．</p>
+<p class="picture"><img src="../Images/image00755.jpeg" alt="alt"/></p>
+<p class="tz"><b>图29</b>　<img src="../Images/image00602.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的作图</p>
+<p class="picture"><img src="../Images/image00756.jpeg" alt="alt"/></p>
+<p class="tz"><b>图30</b>　ab的作图</p>
+<p class="normaltext">由这些考虑得知，<b>“有理”代数</b>过程——已知量的加、减、乘、除——<b>能用几何作图来实现</b>．从长度为实数a，b，c，…的任意给定线段出发，连续应用这些简单作图，我们能作出用a，b，c，…的有理式（即重复地应用加、减、乘、除）来表示的任意量．由a，b，c，…以这种方式得到的所有量构成了一个叫做<b>数域</b>的集合，使得这集合中两个或多个数经过任意的有理运算后仍然是这个集合中的一个数．我们回顾一下，有理数，实数，复数都是一个域．对于现在这种情形，我们称这个域是由给定的数a，b，c，…<b>构成的</b>．</p>
+<p class="normaltext">有决定性意义的新作图方法是求平方根，它使我们超出了刚才得到的域．如果给定一个线段a，则只用圆规和直尺能作出<img src="../Images/image00757.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>．在直线上我们标出OA＝a和AB＝1（图31）．我们以线段OB为直径画一圆，而且过A作OB的垂线交这个圆于C．利用初等几何的定理，即半圆的圆周角是直角，我们得知，三角形OBC在C点是一直角．因此∠OCA＝∠ABC，直角三角形OAC和CAB相似．设x＝AC，我们有</p>
+<p class="picture"><img src="../Images/image00758.jpeg" alt="alt"/></p>
+<p class="tz"><b>图31</b>　<img src="../Images/image00757.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>的作图</p>
+<p class="picture"><img src="../Images/image00759.jpeg" alt="alt"/></p>
+<h4 class="title4" id="mllj5">2．正多边形</h4>
+<p class="normaltext">现在考虑几个稍复杂的作图问题．我们从<b>正十边形</b>开始．假设在半径为1的圆内有一内接正十边形（图32），把它的边长记为x．由于它对着一个36°的圆心角，这三角形的其余二角各为72°．因此角A的平分线（虚线）分三角形OAB为两个等腰三角形，每一个的腰长都为x．这圆的半径分成两个线段，长为x和1－x．由于OAB和较小的等腰三角形相似，我们有<img src="../Images/image00679.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image00760.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．从这比例我们得到二次方程x<sup class="suptext">2</sup>＋x－1＝0，它的解是x＝<img src="../Images/image00761.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>（由于这方程的另一个解是负的，可不必考虑）．由此可知x能用几何方法作出．有了长度x，现在我们在圆上标出十个这么长的弦，可以作成正十边形．在正十边形中每隔一个顶点连接起来可作成正五边形．</p>
+<p class="picture"><img src="../Images/image00762.jpeg" alt="alt"/></p>
+<p class="tz"><b>图32</b>　正十边形</p>
+<p class="normaltextc" id="b17">我们也可以把<img src="../Images/image00763.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>作为一个直角三角形的斜边，而不用图31的方法来画<img src="../Images/image00763.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>．两个直角边的边长为1和2．然后从<img src="../Images/image00763.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>减去单位长再二等分，即得x．</p>
+<p class="normaltext" id="b74">上一问题中的比值OB∶AB称为黄金分割，因为希腊数学家认为矩形的两个边取成这个比值从审美观点来看是最好的．附带说一下，它的值大约是1.62．</p>
+<p class="normaltext">在所有这些正多边形中，正六边形的作图方法是最简单的．我们从一个半径为r的圆出发，内接于这个圆的正六边形的边长等于r．从这个圆上任意一点开始连续标出长为r的弦直到六个顶点都标出来为止，即能作出正六边形．</p>
+<p class="picture"><img src="../Images/image00764.jpeg" alt="alt"/></p>
+<p class="tz"><b>图33</b>　正六边形</p>
+<p class="normaltext" id="a21">由正n边形我们能得到正2n边形：把n个边的每一个所对应的圆弧二等分，把这些新添的点和原来的顶点合在一起就得到了所求的正2n边形．因此从圆的直径出发（看成一个“二边形”），我们能作正4，8，16，…，2<sup class="suptext">n</sup>边形．类似地，从正六边形我们能作正12，24，48边形等等．从正十边形能作正20，40边形等等．</p>
+<p class="normaltexta">如果用s<sub>n</sub>表示内接于单位圆（半径为1的圆）的正n边形的边长，则正2n边形的边长是</p>
+<p class="picture"><img src="../Images/image00765.jpeg" alt="alt"/></p>
+<p class="picture"><img src="../Images/image00766.jpeg" alt="alt"/></p>
+<p class="tz"><b>图34</b></p>
+<p class="normaltext7">这可以证明如下：在图34中s<sub>n</sub>等于DE＝2DC，s<sub>2n</sub>等于DB，而AB等于2．直角三角形ABD的面积是由<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>BD·AD和<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>AB·CD给出的．因为AD＝<img src="../Images/image00767.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，将AB＝2，BD＝s<sub>2n</sub>，CD＝<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>s<sub>n</sub>代入，并且令两个面积表达式相等，得</p>
+<p class="picture"><img src="../Images/image00768.jpeg" alt="alt"/></p>
+<p class="normaltext7">对x＝<img src="../Images/image00769.jpeg" class="tpzz1" alt="alt" style="height:1.4em"/>解这二次方程，再注意x必须小于2，就容易求出上面给出的公式．</p>
+<p class="normaltext2" id="a56">由这公式和s<sub>4</sub>（正方形的边长）等于<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>这一事实得知</p>
+<p class="picture"><img src="../Images/image00771.jpeg" alt="alt"/></p>
+<p class="normaltext7">对n＞2，我们得到一般公式</p>
+<p class="picture"><img src="../Images/image00772.jpeg" alt="alt"/></p>
+<p class="normaltext7">它有n－1个平方根号．圆中正2<sup class="suptext">n</sup>边形的周长是2<sup class="suptext">n</sup>S<sub>2<sup class="suptext">n</sup></sub>．当n趋于无穷时，正2<sup class="suptext">n</sup>边形趋于这个圆．因此2<sup class="suptext">n</sup>S<sub>2<sup class="suptext">n</sup></sub>趋近于这单位圆的周长，而它按定义等于2π．因此用m代替n－1并消去一个因子2，我们就得到π的极限公式</p>
+<p class="picture"><img src="../Images/image00773.jpeg" alt="alt"/></p>
+<p class="normaltexta"><b>习题：</b>因为2<sup class="suptext">m</sup>→∞，作为一个推论，证明</p>
+<p class="picture" id="b71"><img src="../Images/image00774.jpeg" alt="alt"/></p>
+<p class="normaltext">上述所得到的结果有如下特点：<b>正2<sup class="suptext">n</sup>边形、正5·2<sup class="suptext">n</sup>边形和正3·2<sup class="suptext">n</sup>边形的边，都可以完全用加减乘除和开平方根的运算来求．</b></p>
+<h4 class="title4" id="mllj6">*3．阿波罗尼斯问题</h4>
+<p class="normaltext">从代数的观点来看，另一个变得十分简单的作图问题是已经叙述过的有名的阿波罗尼斯切圆问题．在这小节，我们没有必要去找一个特别巧妙的作图方法．这里重要的是，在原则上这个问题只用圆规和直尺就能解决．我们将对其证明给予一个简单说明，而把有关作图的巧妙方法留到<a href="part0015.xhtml#mllj29">此处</a>．</p>
+<p class="normaltext">设这三个给定圆的圆心的坐标分别为（x<sub>1</sub>，y<sub>1</sub>），（x<sub>2</sub>，y<sub>2</sub>），（x<sub>3</sub>，y<sub>3</sub>），相应的半径为r<sub>1</sub>，r<sub>2</sub>，r<sub>3</sub>．用（x，y）和r表示所求圆的圆心和半径．所求圆与三个给定的圆相切的条件可以这样得到：两个相切的圆的圆心之间的距离等于它们半径之和或差（视两个圆是外切还是内切而定）．由此得到方程</p>
+<p class="picture"><img src="../Images/image00775.jpeg" alt="alt"/></p>
+<p class="normaltext6">或</p>
+<p class="picture"><img src="../Images/image00776.jpeg" alt="alt"/></p>
+<p class="normaltext6">等等．在这些方程中按两个圆外切或内切来选取正号或负号（图35）．方程（1），（2），（3）是有三个未知数x，y，r的三个二次方程，而且每个方程二次项都相同（这从展开式（1a）能看到）．因此用（1）减（2），我们可得到x，y，r的一个线性方程</p>
+<p class="picture"><img src="../Images/image00777.jpeg" alt="alt"/></p>
+<p class="picture"><img src="../Images/image00778.jpeg" alt="alt"/></p>
+<p class="tz"><b>图35</b>　阿波罗尼斯圆</p>
+<p class="normaltext6">其中a＝2（x<sub>2</sub>－x<sub>1</sub>）等等．类似地从（1）减（3）我们得到另一个线性方程</p>
+<p class="picture"><img src="../Images/image00779.jpeg" alt="alt"/></p>
+<p class="normaltext6">解（4）和（5），得到用r表示的x，y，然后代入（1），我们得到一个r的二次方程．它可以通过有理运算和开平方根求解（见<a href="part0013.xhtml#a18">此处</a>）．这方程一般有两个解，而且只有一个是正的．从方程求出r后，我们从两个线性方程（4）和（5）得到x，y．（x，y）为圆心，r为半径的圆将和给定的三个圆相切．在整个过程中我们只用了有理运算和开平方根，可见r，x，y可以只用圆规和直尺作出．</p>
+<p class="normaltext">阿波罗尼斯问题一般有八个解，对应于方程（1），（2），（3）中＋号、－号的2·2·2＝8种可能组合．这些选择相应于所求的圆和给定的每一个圆是内切还是外切．我们的代数运算可能出现x，y，r不是实数的情形，例如，如果三个给定的圆是同心圆，就属于这种情形，这时这几何问题的解不存在．同样地，我们必须想到这解可能会“退化”，例如这三个圆退化成同一条直线上的三个点的情形，这时阿波罗尼斯圆退化成这条直线．我们不准备详细地讨论这些可能性．读者如果有一些代数基础，将能完成这个分析．</p>
+<h3 class="title3" id="mllj7">*§2　可作图的数和数域</h3>
+<h4 class="title4" id="mllj8">1．一般理论</h4>
+<p class="normaltext">我们上面的讨论说明了几何作图的一般代数背景．每一个圆规直尺作图都由一系列步骤组成，而每一步骤是下述作法之一：1）用一条直线连接两个点；2）求两条直线的交点；3）以一点为中心，定长为半径画一个圆；4）求一个圆和另一个圆或一条直线的交点．我们所考虑的元素（点、直线或圆）如果在一开始就给定了，或者在前几步已经作出来了，我们就认为它是已知的．为了作理论分析，我们可以把整个作图过程归到一个坐标系x，y中来看（见<a href="part0013.xhtml#a19">此处</a>）．这时给定的元素将用x，y平面上的点或线来表示．如果在开始时只给定一个线段，我们可以把它取作单位长，它确定了点x＝1，y＝0．有时会出现“任意”的元素：画任意一条直线，选任意一点或半径（求线段的中点时就出现了任意元素的例子，我们以线段的每一端点为圆心以任意长为半径画两个等圆．然后，连接这两个圆的交点）．在这种情况下，我们可以选取这些元素为有理数；即以有理数x，y为坐标的任意点，以有理数a，b，c为系数的任意直线ax＋by＋c＝0，圆心具有有理数坐标、半径为有理数的任意圆．我们将始终选取任意的有理数的元素，如果元素真正是任意的，这个限制将不影响作图的结果．</p>
+<p class="normaltext">为简单起见，在下面的讨论中我们将假设最初只给定了一个元素，即单位长1，则按照§1，我们用圆规和直尺能作出由单位长通过有理运算加减乘除而得到的所有数，即所有有理数<img src="../Images/image00780.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，这里r和s为整数．有理数系关于有理运算是“封闭”的，即任意两个有理数的和、差、积、商——除数永远不能为0——仍然是一个有理数．任何数集，如果关于这四种有理运算封闭，称为一个<b>数域</b>（<a href="part0013.xhtml#a14">此处</a>）．</p>
+<p class="normaltextc"><b>习题：</b>证明每一个数域至少包含全体有理数．（提示：如果a≠0是域F的一个数，则<img src="../Images/image00781.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝1属于F，而由1我们通过有理运算得到任意的有理数．）</p>
+<p class="normaltext">从这个单位出发，我们能作出整个有理数域，因而作出x，y平面上的所有有理点（即坐标为两个有理数的点）．利用圆规，我们能作出新的无理数，例如<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>（从第二章§2我们知道它不属于有理数域）．作出<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>后，通过§1的“有理”作图，我们能求出所有形如</p>
+<p class="picture"><img src="../Images/image00782.jpeg" alt="alt"/></p>
+<p class="normaltext6">的数，这里a，b是有理数，因而它们是可作图的．同样地，我们可以作出所有形如</p>
+<p class="normaltext5"><img src="../Images/image00783.jpeg" class="tpzz1" alt="alt" style="height:2.6em"/>或<img src="../Images/image00784.jpeg" class="tpzz1" alt="alt" style="height:1.4em"/></p>
+<p class="normaltext6">的数，这里a，b，c，d是有理数．但是这些数总可以写成（1）的形式，因为我们有</p>
+<p class="picture"><img src="../Images/image00785.jpeg" alt="alt"/></p>
+<p class="normaltext6">这里p，q是有理数．（分母c<sup class="suptext">2</sup>－2d<sup class="suptext">2</sup>不可能是零，因为若c<sup class="suptext">2</sup>－2d<sup class="suptext">2</sup>＝0，则<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＝<img src="../Images/image00786.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，这和<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>是无理数这个事实矛盾．）同样</p>
+<p class="picture"><img src="../Images/image00787.jpeg" alt="alt"/></p>
+<p class="normaltext6">这里r和s是有理数．因此由<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>的作图，我们产生了全部形如（1）的数集，其中a，b是任意有理数．</p>
+<p class="normaltextc"><b>习题：</b>设p＝1＋<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，q＝2－<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，r＝-3＋<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，把<img src="../Images/image00505.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，p＋p<sup class="suptext">2</sup>，<img src="../Images/image00788.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00789.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00790.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>表示为（1）的形式．</p>
+<p class="normaltext">如上面的讨论所表明的那样，这些数（1）仍然形成一个域（形如（1）的两个数的和与差也是（1）的形式，这是显然的）．这个域比有理数域大，有理数域是它的一部分或是它的<b>子域</b>．但是，它显然小于<b>全体</b>实数域．让我们称有理数域为F<sub>0</sub>，形如（1）的新数域为F<sub>1</sub>．在肯定了“扩充的域”F<sub>1</sub>中的每一个数都是可作图的之后，现在我们可以继续扩充作图的范围，比如用F<sub>1</sub>中的一个数，例如取k＝1＋<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，求它的平方根而得到可作图的数</p>
+<p class="picture"><img src="../Images/image00791.jpeg" alt="alt"/></p>
+<p class="normaltext6">按照§1，用它可以得到由所有数</p>
+<p class="picture"><img src="../Images/image00792.jpeg" alt="alt"/></p>
+<p class="normaltext6">组成的域，如今这里的p，q可以是F<sub>1</sub>中的任意数，即p，q形如a＋b<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，而a，b属于F<sub>0</sub>，为有理数．</p>
+<p class="normaltexta"><b>习题：</b>把<img src="../Images/image00793.jpeg" class="tpzz1" alt="alt" style="height:1.8em"/>，<img src="../Images/image00794.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，<img src="../Images/image00795.jpeg" class="tpzz1" alt="alt" style="height:4em"/>，<img src="../Images/image00796.jpeg" class="tpzz1" alt="alt" style="height:5em"/>用（2）的形式表示出来．</p>
+<p class="normaltext2">以上这些数是在假设最初只给定一个线段的基础上作出的．如果给定了两个线段，我们可以取其中一个为单位长．设用此单位表示的另一线段的长为α，则我们能作出所有形如</p>
+<p class="picture"><img src="../Images/image00797.jpeg" alt="alt"/></p>
+<p class="normaltext7">的数组成的域G，其中a<sub>0</sub>，…，a<sub>m</sub>和b<sub>0</sub>，…，b<sub>n</sub>是有理数而m，n是任意正整数．</p>
+<p class="normaltextc"><b>习题：</b>如果给定两个线段长是1和α，给出1＋α＋α<sup class="suptext">2</sup>，<img src="../Images/image00798.jpeg" class="tpzz1" alt="alt" style="height:2.5em"/>，α<sup class="suptext">3</sup>的实际作图方法．</p>
+<p class="normaltext" id="b42">现在，更一般地假设我们可以作出某个数域F的所有数．下面要说明<b>只用直尺决不能使我们超出域F的范围．</b>经过以域F中的数a<sub>1</sub>，b<sub>1</sub>和a<sub>2</sub>，b<sub>2</sub>为坐标的两个点的直线的方程是（b<sub>1</sub>－b<sub>2</sub>）x＋（a<sub>2</sub>－a<sub>1</sub>）y＋（a<sub>1</sub>b<sub>2</sub>－a<sub>2</sub>b<sub>1</sub>）＝0（见<a href="part0024.xhtml#a20">此处</a>）．它的系数是由F中的数作成的有理式，因此按域的定义，它们本身也在F中．另外，如果有两条以F中的数为系数的直线αx＋βy＋γ＝0和α′x＋β′y＋γ′＝0，那么，只要解这两个联立方程，就得到它们的交点的坐标x＝<img src="../Images/image00799.jpeg" class="tpzz1" alt="alt" style="height:2.5em"/>，y＝<img src="../Images/image00800.jpeg" class="tpzz1" alt="alt" style="height:2.5em"/>．由于它们都是F中的数，显然，只用直尺不能使我们超出域F范围之外．</p>
+<p class="normaltextc"><b>习题：</b>直线x＋<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>y－1＝0，2x－y＋<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＝0的系数在域（1）中．计算它们的交点的坐标并验证它的形式为（1）．用一条直线ax＋by＋c＝0连接点（1，<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>）和（<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，1－<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>）且验证系数的形式为（1）．关于域（2），分别对直线<img src="../Images/image00801.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>x＋<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>y＝1，（1＋<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>）x－y＝1－<img src="../Images/image00801.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，点（<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，-1），（1＋<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，<img src="../Images/image00801.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>）作同样的处理．</p>
+<p class="normaltext">我们只有用圆规才能冲破F的界限．为此，我们选取F的一个元素k，使得<img src="../Images/image00802.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>不在F中．然后我们能作出<img src="../Images/image00802.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，因而作出所有数</p>
+<p class="picture"><img src="../Images/image00803.jpeg" alt="alt"/></p>
+<p class="normaltext6">其中a，b是有理数，也可以是F的任意元素．两个数a＋b<img src="../Images/image00802.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，c＋d<img src="../Images/image00802.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>的和、差，以及它们的积（a＋b<img src="../Images/image00802.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>）·（c＋d<img src="../Images/image00802.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>）＝（ac＋kbd）＋（ad＋bc）<img src="../Images/image00802.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>和它们的商<img src="../Images/image00804.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image00805.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image00806.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，仍然是p＋q<img src="../Images/image00802.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>的形式，其中p和q属于F（分母c<sup class="suptext">2</sup>－kd<sup class="suptext">2</sup>不可能为零，除非c，d同时为零．因为否则<img src="../Images/image00802.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＝<img src="../Images/image00807.jpeg" class="tpzz1" alt="alt" style="height:2.1em"/>将是F中的一个数，这和<img src="../Images/image00802.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>不属于F的假设矛盾）．因此形如a＋b<img src="../Images/image00802.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>的数集形成一个域F′．因为我们可以特殊地选取b＝0，所以域F′包含原来的域F．F′称为F的<b>扩域</b>，而F称为F′的<b>子域</b>．</p>
+<p class="normaltext">例如，设F是域a＋b<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，其中a，b是有理数，且取k＝<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>．则其扩域F′的数用p＋q<img src="../Images/image00808.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>表示，其中p，q属于F，p＝a＋b<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，q＝a′＋b′<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，a，b，a′，b′为有理数．F′中的任意数都能化成这种形式．例如</p>
+<p class="picture"><img src="../Images/image00809.jpeg" alt="alt"/></p>
+<p class="normaltextc"><b>习题：</b>设F是域p＋q<img src="../Images/image00810.jpeg" class="tpzz1" alt="alt" style="height:1.4em"/>．其中p，q是a＋b<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>的形式，a，b是有理数．试将<img src="../Images/image00811.jpeg" class="tpzz1" alt="alt" style="height:2.6em"/>表示为这种形式．</p>
+<p class="normaltext">我们已经看到，如果我们从任意一个包含数k的可作图的数域F出发，则只用圆规和直尺就能作出<img src="../Images/image00802.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，因而能作出形如a＋b<img src="../Images/image00802.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>的任意数，这里a，b属于F．</p>
+<p class="normaltext">现在我们反过来说明若仅用圆规就<b>只能</b>得到这种形式的数．因为圆规在作图中所起的作用只是确定一个圆与一条直线或另一个圆的交点（或它们的坐标）．一个以ξ，η为中心，以r为半径的圆的方程为（x－ξ）<sup class="suptext">2</sup>＋（y－η）<sup class="suptext">2</sup>＝r<sup class="suptext">2</sup>，因此如ξ，η，r都属F，则圆的方程能写成</p>
+<p class="normaltext5">x<sup class="suptext">2</sup>＋y<sup class="suptext">2</sup>＋2αx＋2βy＋γ＝0</p>
+<p class="normaltext6">的形式，其中系数α，β，γ属于F．我们已在<a href="part0015.xhtml#b42">此处</a>看到，连接坐标属于F的任意两点的直线其方程为</p>
+<p class="normaltext5">ax＋by＋c＝0，</p>
+<p class="normaltext6">其系数a，b，c属于F．从这联立方程中消去y，我们得到圆和直线的交点的x坐标所满足的一个二次方程</p>
+<p class="normaltext5">Ax<sup class="suptext">2</sup>＋Bx＋C＝0，</p>
+<p class="normaltext6">其中系数A，B，C属于F［确切地写，A＝a<sup class="suptext">2</sup>＋b<sup class="suptext">2</sup>，B＝2（ac＋b<sup class="suptext">2</sup>α－abβ），C＝c<sup class="suptext">2</sup>－2bcβ＋b<sup class="suptext">2</sup>γ］．方程的解由公式</p>
+<p class="picture"><img src="../Images/image00812.jpeg" alt="alt"/></p>
+<p class="normaltext6">给出，它的形式是p＋q<img src="../Images/image00802.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，其中p，q，k属于F．对交点的y坐标，类似的公式也成立．</p>
+<p class="normaltext">其次，如果我们有两个圆</p>
+<p class="normaltext5">x<sup class="suptext">2</sup>＋y<sup class="suptext">2</sup>＋2αx＋2βy＋γ＝0，</p>
+<p class="normaltext5">x<sup class="suptext">2</sup>＋y<sup class="suptext">2</sup>＋2α′x＋2β′y＋γ′＝0．</p>
+<p class="normaltext6">从第一个方程减去第二个，我们得到线性方程</p>
+<p class="normaltext5">2（α－α′）x＋2（β－β′）y＋（γ－γ′）＝0．</p>
+<p class="normaltext6">它可以像前面那样与第一个圆的方程联立起来解．无论是哪一种情形，作图所产生的一个或两个新点的x坐标和y坐标其量的形式都是p＋q<img src="../Images/image00802.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，其中p，q，k属于F．在特殊情况下，当然<img src="../Images/image00802.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>本身也可以属于F，例如k＝4．这时作图没有产生任何本质上的新东西，而仍然在F的范围之内．但一般来说，情况将不是如此．</p>
+<p class="normaltextc"><b>习题：</b>考虑以原点为中心，2<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>为半径的圆和连接（<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，0），（4<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>）的直线，求出圆和直线的交点的坐标所确定的域F′．对这给定圆与以（0，2<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>）为圆心，<img src="../Images/image00813.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>为半径的圆的交点作同样的处理．</p>
+<p class="normaltext">再总结一下：如果一开始就给定一些量，那么，只用直尺我们能作出从这些给定量出发，经过有理运算而生成的域F中的所有量．然后，用圆规我们能把可作图的量的域F扩充到一个更大的扩域上，即通过选择F中任意数k，求k的平方根且作出由数a＋b<img src="../Images/image00802.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>组成的域F′，其中a，b属于F．F称为F′的子域，F中的所有量也属于F′，因为在表达式a＋b<img src="../Images/image00802.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>中我们可以取b＝0（这里假设<img src="../Images/image00802.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>是不属于F的一个新数．否则添加<img src="../Images/image00802.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>的过程将不产生任何新的数，F′和F将是相同的）．我们说明了，几何作图中的任意一步（过二已知点画一直线、已知圆心和半径画一圆、求两个已知直线或圆的交点），或者是在一个由可作图的量组成的已知域中作一个新的量，或者是通过作一平方根，生成可作图的量的一个新的扩域．</p>
+<p class="normaltext">所有可作图的量的全体，现在能够确切地描述了．不论最初给定了一些什么量，我们从由它们确定的一个给定域F<sub>0</sub>出发．例如，如果只给定一个线段作为单位长，那么，它所确定的是有理数域．然后添加<img src="../Images/image00814.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，这里k<sub>0</sub>属于F<sub>0</sub>，但<img src="../Images/image00814.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>不属于F<sub>0</sub>，我们能作出可作图量的一个扩域F<sub>1</sub>，它由所有形如a<sub>0</sub>＋b<sub>0</sub><img src="../Images/image00814.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>的数组成，其中a<sub>0</sub>，b<sub>0</sub>可以是F<sub>0</sub>中的任意数．进一步作F<sub>1</sub>的一个新的扩域F<sub>2</sub>，它由形如a<sub>1</sub>＋b<sub>1</sub><img src="../Images/image00815.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>的数组成，其中a<sub>1</sub>，b<sub>1</sub>是F<sub>1</sub>中的任意数，而k<sub>1</sub>是F<sub>1</sub>中的某个数，它的平方根不属于F<sub>1</sub>．重复这个过程，在n次加进平方根以后，我们能得到一个域F<sub>n</sub>．<b>可作图量是而且仅仅是那些能用这样一系列扩域达到的数（即属于上述类型的域F<sub>n</sub>）</b>．扩充的个数n取多大这是无关紧要的，在某种意义上它标志着问题的复杂程度．</p>
+<p class="normaltext">下面的例子可以说明这个过程．我们要作出数</p>
+<p class="picture"><img src="../Images/image00816.jpeg" alt="alt"/></p>
+<p class="normaltext6">设F<sub>0</sub>表示有理数域．取k<sub>0</sub>＝2，我们得到域F<sub>1</sub>，它包含数1＋<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>．现在我们取k<sub>1</sub>＝1＋<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，k<sub>2</sub>＝3．事实上，因为3属于原来的域F<sub>0</sub>，它当然也属于域F<sub>2</sub>，从而完全允许取k<sub>2</sub>＝3．然后取k<sub>3</sub>＝<img src="../Images/image00817.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>．最后取k<sub>4</sub>＝<img src="../Images/image00818.jpeg" class="tpzz1" alt="alt" style="height:1.5em"/>＋5．由于<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>和<img src="../Images/image00819.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>从而其乘积属于F<sub>3</sub>，所以也属于F<sub>5</sub>，即<img src="../Images/image00820.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>属于F<sub>5</sub>．这样一来我们所作出的域F<sub>5</sub>就包含了所要求的数．</p>
+<p class="normaltexta"><b>习题：</b>验证从有理数域开始，正2<sup class="suptext">m</sup>多边形的边（见<a href="part0015.xhtml#a21">此处</a>）是一个扩充次数为n＝m－1的可作图量．确定扩域的序列．对于数</p>
+<p class="picture"><img src="../Images/image00821.jpeg" alt="alt"/></p>
+<p class="normaltext7">作同样的处理．</p>
+<h4 class="title4" id="mllj9">2．可作图的数都是代数数</h4>
+<p class="normaltext2">如果最初的域F<sub>0</sub>是由一个线段生成的有理数域，则所有可作图的数都是代数数（代数数的定义见<a href="part0013.xhtml#mllj29">此处</a>）．域F<sub>1</sub>的数是有理系数二次方程的根，F<sub>2</sub>的数是有理系数四次方程的根，而一般F<sub>k</sub>的数是有理系数2<sup class="suptext">k</sup>次方程的根．为了就域F<sub>2</sub>说明这一点，我们可首先把x＝<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＋<img src="../Images/image00822.jpeg" class="tpzz1" alt="alt" style="height:1.5em"/>作为一个例子来考虑．我们有（x－<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>）<sup class="suptext">2</sup>＝3＋<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，x<sup class="suptext">2</sup>＋2－2<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>x＝3＋<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>或x<sup class="suptext">2</sup>－1＝<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>（2x＋1），这是一个系数属于F<sub>1</sub>的二次方程．两端平方，我们最后得到</p>
+<p class="normaltext8">（x<sup class="suptext">2</sup>－1）<sup class="suptext">2</sup>＝2（2x＋1）<sup class="suptext">2</sup>，</p>
+<p class="normaltext7">它是一个有理系数的四次方程．</p>
+<p class="normaltext2">一般地说，域F<sub>2</sub>中的任意数形如</p>
+<p class="picture"><img src="../Images/image00823.jpeg" alt="alt"/></p>
+<p class="normaltext7">其中p，q，w属于域F<sub>1</sub>，因而有p＝a＋b<img src="../Images/image00824.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，q＝c＋d<img src="../Images/image00824.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，w＝e＋f<img src="../Images/image00824.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>的形式，其中a，b，c，d，e，f，s是有理数．由（4）我们有</p>
+<p class="normaltext8">x<sup class="suptext">2</sup>－2px＋p<sup class="suptext">2</sup>＝qw<sup class="suptext">2</sup>，</p>
+<p class="normaltext7">所有系数都属于由<img src="../Images/image00824.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>产生的域F<sub>1</sub>．因此这方程可以写成</p>
+<p class="normaltext8">x<sup class="suptext">2</sup>＋ux＋v＝<img src="../Images/image00824.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>（rx＋t）</p>
+<p class="normaltext7">的形式，其中s，t，u，v是有理数．两端平方我们得到一个四次方程</p>
+<p class="picture"><img src="../Images/image00825.jpeg" alt="alt"/></p>
+<p class="normaltext7">如上所述带有有理系数．</p>
+<p class="normaltexta"><b>习题：</b>1）对a）x＝<img src="../Images/image00826.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>；b）x＝<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＋<img src="../Images/image00819.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>；c）x＝<img src="../Images/image00827.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．求出有理系数方程．</p>
+<p class="normaltextb">2）对a）x＝<img src="../Images/image00828.jpeg" class="tpzz1" alt="alt" style="height:1.5em"/>；b）x＝<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＋<img src="../Images/image00829.jpeg" class="tpzz1" alt="alt" style="height:1.4em"/>；c）x＝<img src="../Images/image00830.jpeg" class="tpzz1" alt="alt" style="height:1.6em"/>用类似的方法求出其八次方程．</p>
+<p class="normaltext2">为了一般地对域F<sub>k</sub>（k任意）中的x证明这个定理，我们用上面用过的办法说明x满足一个系数属于F<sub>k－1</sub>的二次方程．重复这个过程，我们找出x满足一个系数属于F<sub>k－2</sub>中的2<sup class="suptext">2</sup>＝4次方程，等等．</p>
+<p class="normaltexta"><b>习题：</b>用数学归纳法完成一般的证明：说明x满足系数属于F<sub>k－l</sub>的一个2<sup class="suptext">l</sup>次方程，0＜l≤k．l＝k时的命题就是所要证明的定理．</p>
+<h3 class="title3" id="mllj10">*§3　三个不可解的希腊问题</h3>
+<h4 class="title4" id="mllj11">1．倍立方体问题</h4>
+<p class="normaltext">有了上面的准备，现在我们来研究三等分角、倍立方体和求作正七边形这些古老的问题．我们首先考虑倍立方体问题．如果给定的立方体的边是单位长，则它的体积是一立方单位．如今要找出一个体积是它二倍的立方体的边长x．于是所求的边长x满足一个简单的三次方程</p>
+<p class="picture"><img src="../Images/image00831.jpeg" alt="alt"/></p>
+<p class="normaltext6">我们用反证法来证明这个数x只用圆规和直尺是不能作出的．我们作尝试性的假定：这样的作图是可能的．按照上面的讨论，这意味着x属于某个域F<sub>k</sub>．这域F<sub>k</sub>，如上所述是从有理数域通过连续加进平方根而得到的．我们要表明，这个假定将引出一个荒谬的结果．</p>
+<p class="normaltext">我们已经知道x不能属于有理数域F<sub>0</sub>，因为<img src="../Images/image00832.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>是一无理数（见<a href="part0013.xhtml#a22">此处</a>习题1）．因此x只能属于某个扩域F<sub>k</sub>，其中k是一个正整数．我们同时可以假设k是使得扩域F<sub>k</sub>包含x的<b>最小</b>正整数．故知x能写成</p>
+<p class="normaltext5">x＝p＋q<img src="../Images/image00833.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/></p>
+<p class="normaltext6">的形式，其中p，q，w属于F<sub>k－1</sub>，但<img src="../Images/image00833.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>不在其中．现在我们用一个简单然而重要的代数推理方式来说明，如果x＝p＋q<img src="../Images/image00833.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>是三次方程（1）的一个根，则y＝p－q<img src="../Images/image00833.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>也是（1）的一个根．因为x在域F<sub>k</sub>中，则x<sup class="suptext">3</sup>和x<sup class="suptext">3</sup>－2也在F<sub>k</sub>中，因此我们有</p>
+<p class="picture"><img src="../Images/image00834.jpeg" alt="alt"/></p>
+<p class="normaltext6">其中a，b在F<sub>k－1</sub>中．通过简单计算，我们得出a＝p<sup class="suptext">3</sup>＋3pq<sup class="suptext">2</sup>w－2，b＝3p<sup class="suptext">2</sup>q＋q<sup class="suptext">3</sup>w．如果令</p>
+<p class="normaltext5">y＝p－q<img src="../Images/image00833.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>，</p>
+<p class="normaltext6">然后在a，b的表达式中以-q代替q，就得到</p>
+<p class="picture"><img src="../Images/image00835.jpeg" alt="alt"/></p>
+<p class="normaltext6">由于我们已经假设x是x<sup class="suptext">3</sup>－2＝0的根，因此</p>
+<p class="picture"><img src="../Images/image00836.jpeg" alt="alt"/></p>
+<p class="normaltext6">这意味着——这里是讨论的关键——a和b必须同时为零．因为如果b不为零，我们将由（3）知道<img src="../Images/image00833.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＝-<img src="../Images/image00602.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，则<img src="../Images/image00833.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>将是a，b所在的域F<sub>k－1</sub>中的一个数，和我们的假设矛盾．因此b＝0，而且从（3）立刻得出a＝0．</p>
+<p class="normaltext">一旦说明了a＝b＝0，我们从（2′）立刻就能知道y＝p－q<img src="../Images/image00833.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>也是三次方程（1）的一个根，因为y<sup class="suptext">3</sup>－2等于零．另外我们有y≠x，即x－y≠0，因为x－y＝2q<img src="../Images/image00833.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>只有在q＝0时才为零．但是如果这样，则x＝p将属于F<sub>k－1</sub>，与我们的假设矛盾．</p>
+<p class="normaltext">因此我们得出，如果x＝p＋q<img src="../Images/image00833.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>是三次方程（1）的一个根，则y＝p－q<img src="../Images/image00833.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>是该方程的另一个根，这立刻引出了矛盾．因为只有一个实数x是2的立方根，2的其余两个立方根是虚数（见<a href="part0013.xhtml#mllj26">此处</a>）．y＝p－q<img src="../Images/image00833.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>显然是实数，因为p，q，<img src="../Images/image00833.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>都是实数．</p>
+<p class="normaltext">这样，我们的基本假定引出了一个荒谬结果，因而表明它是错误的；（1）的根不能在域F<sub>k</sub>中，所以用直尺和圆规倍立方体是不可能的．</p>
+<h4 class="title4" id="mllj12">2．关于三次方程的一个定理</h4>
+<p class="normaltext">我们用以导出上述结论的代数推理方法，是专门针对我们手边的那个特殊问题的．如果我们要处理另外两个希腊问题，那么就希望能在一个更为一般的基础上来进行．所有这三个问题在代数上都依赖于三次方程．三次方程</p>
+<p class="picture"><img src="../Images/image00837.jpeg" alt="alt"/></p>
+<p class="normaltext6">有一个基本事实，即如果x<sub>1</sub>，x<sub>2</sub>，x<sub>3</sub>是这方程的三个根，则</p>
+<p class="picture"><img src="../Images/image00838.jpeg" alt="alt"/></p>
+<p class="normaltext2">①　多项式z<sup class="suptext">3</sup>＋az<sup class="suptext">2</sup>＋bz＋c可以分解为乘积（z－x<sub>1</sub>）（z－x<sub>2</sub>）（z－x<sub>3</sub>），其中x<sub>1</sub>，x<sub>2</sub>，x<sub>3</sub>是方程（4）的三个根（见<a href="part0013.xhtml#mllj27">此处</a>）．因此</p>
+<p class="normaltext8">z<sup class="suptext">3</sup>＋az<sup class="suptext">2</sup>＋bz＋c＝z<sup class="suptext">3</sup>－（x<sub>1</sub>＋x<sub>2</sub>＋x<sub>3</sub>）z<sup class="suptext">2</sup>＋（x<sub>1</sub>x<sub>2</sub>＋x<sub>1</sub>x<sub>3</sub>＋x<sub>2</sub>x<sub>3</sub>）z－x<sub>1</sub>x<sub>2</sub>x<sub>3</sub>．</p>
+<p class="normaltext7">由于等式两边z的每一个幂的系数必须相同，因此有</p>
+<p class="normaltext8">-a＝x<sub>1</sub>＋x<sub>2</sub>＋x<sub>3</sub>，b＝x<sub>1</sub>x<sub>2</sub>＋x<sub>1</sub>x<sub>3</sub>＋x<sub>2</sub>x<sub>3</sub>，c＝-x<sub>1</sub>x<sub>2</sub>x<sub>3</sub>．</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext6">我们考虑任意一个系数a，b，c为有理数的三次方程（4）．这个方程可能有一个根是有理数，例如x<sup class="suptext">3</sup>－1＝0有有理根1，而另外两个根由二次方程x<sup class="suptext">2</sup>＋x＋1＝0给出，必然是复数．我们容易证明一般的定理：<b>如果一个有理系数的三次方程没有有理根，则它的根没有一个是由有理数域F<sub>0</sub>出发的可作图的数．</b></p>
+<p class="normaltext">我们还是用反证法来证明．假设x是（4）的一个可作图的根．则x将属于上面所说的某一串扩域F<sub>0</sub>，F<sub>1</sub>，…，F<sub>k</sub>的最后一个域F<sub>k</sub>．我们可以假设k是使得扩域F<sub>k</sub>包含三次方程（4）的一个根的最小正整数．k肯定必须大于零，因为定理已假定在有理数域F<sub>0</sub>中没有根x．因此x能写成</p>
+<p class="normaltext5">x＝p＋q<img src="../Images/image00833.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/></p>
+<p class="normaltext6">的形式，其中p，q，w在前一个域F<sub>k－1</sub>中，但<img src="../Images/image00833.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>不在其中．恰如上一小节特殊的方程z<sup class="suptext">3</sup>－2＝0那样，可以推出F<sub>k</sub>中的另一个数</p>
+<p class="normaltext5">y＝p－q<img src="../Images/image00833.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/></p>
+<p class="normaltext6">也是方程（4）的根．如前所述，我们看到q≠0，因此x≠y．</p>
+<p class="normaltext">由（5）我们知道方程（4）的第三个根u由u＝-a－x－y给出．但x＋y＝2p，这意味着</p>
+<p class="normaltext5">u＝-a－2p．</p>
+<p class="normaltext6">在这里<img src="../Images/image00833.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>消失了，所以u是域F<sub>k－1</sub>中的一个数．这和k是使F<sub>k</sub>包含（4）的一个根的<b>最小</b>正整数的假设矛盾．因此假设是荒谬的，在这种域F<sub>k</sub>中不能有（4）的根．一般定理证毕．在这个定理的基础上，如果只用圆规和直尺的作图问题，等价于代数上一个没有有理根的三次方程的求解问题的话，那么作图的不可能性就得到证明了．就倍立方体问题来说，这等价性是很显然的．现在我们将对其他两个希腊问题建立这个等价性．</p>
+<h4 class="title4" id="mllj13">3．三等分任意角</h4>
+<p class="normaltext">我们现在要证明只用圆规和直尺三等分任意角<b>一般说来</b>是不可能的．当然，像90°和180°那样的角是可以三等分的．我们要说明的是，<b>对每一个角</b>的三等分都有效的办法是不存在的．为了证明这一点，只要表明有一个角不能三等分就足够了，因为一个合理的<b>一般方法</b>必须适用于每一种情况．因此如果我们能够证明，例如60°角只用圆规和直尺不能三等分，那就证明了一般方法是不存在的．</p>
+<p class="normaltext">我们可以用各种不同的方法，来得到这个问题的代数等价问题．最简单地是考虑由余弦cosθ＝g给出的角θ．这时问题等价于求量x＝cos（<img src="../Images/image00839.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>）的问题．应用一个简单的三角公式（见<a href="part0013.xhtml#a23">此处</a>），可知<img src="../Images/image00839.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>的余弦和θ的余弦的关系为</p>
+<p class="normaltext5">cosθ＝g＝4cos<sup class="suptext">3</sup>（<img src="../Images/image00839.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>）－3cos（<img src="../Images/image00839.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>）．</p>
+<p class="normaltext6">换句话说，三等分一个由cosθ＝g决定的角θ的问题，可归结为三次方程</p>
+<p class="picture"><img src="../Images/image00840.jpeg" alt="alt"/></p>
+<p class="normaltext6">的根的作图问题．为了说明在一般情况下这是不可能的，我们取θ＝60°，即g＝cos60°＝<img src="../Images/image00531.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．方程（6）这时变成</p>
+<p class="picture"><img src="../Images/image00841.jpeg" alt="alt"/></p>
+<p class="normaltext6">利用上一小节证明的定理，我们只需要说明这个方程没有有理根．设v＝2z，则这方程变成</p>
+<p class="picture"><img src="../Images/image00842.jpeg" alt="alt"/></p>
+<p class="normaltext6">如果存在有理数v＝<img src="../Images/image00780.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>满足这个方程，其中r，s是不含大于1的公因子的整数，则我们将有r<sup class="suptext">3</sup>－3s<sup class="suptext">2</sup>r＝s<sup class="suptext">3</sup>．由此推出s<sup class="suptext">3</sup>＝r（r<sup class="suptext">2</sup>－3s<sup class="suptext">2</sup>）能被r整除．这意味着r和s有公因子，除非r＝±1．同样s<sup class="suptext">2</sup>是r<sup class="suptext">3</sup>＝s<sup class="suptext">2</sup>（s＋3r）的一个因子，这意味着r和s有公因子，除非s＝±1．由于我们假设了r和s没有公因子，这就表明可能满足方程（8）的有理数只能是+1和-1．将+1和-1代入方程（8），我们发现都不是它的根．因此（8），从而（7），没有有理根．这证明了三等分角是不可能的．</p>
+<p class="normaltexta">只用圆规和直尺不能三等分任意的角，这个定理仅当直尺<b>不能作别的用途</b>，只许用来画通过任意二给定点的直线时，才是正确的．我们在一般地刻划可作图的量的特性时，直尺的用途总是只限于此．如果允许直尺作其他用途，可作图的总体就可以大大扩充．下述的三等分角的方法很好地说明了这一点，这个例子是在阿基米德（Archimedes）的著作中发现的．</p>
+<p class="normaltext2">给定了任意一个角x，如图36．向左延长该角的底边，且以O为中心、以任意长r为半径画一个半圆．在直尺上标出A，B两点使AB＝r．让B点保持在半圆上，滑动直尺使A落在角x的底边的延长线上，且让直尺通过角的终边与以O为中心的半圆的交点．用直尺在这个位置上划一直线，它和原来的角x的底边形成一个角y．</p>
+<p class="picture"><img src="../Images/image00843.jpeg" alt="alt"/></p>
+<p class="tz"><b>图36</b>　阿基米德的三等分角</p>
+<p class="normaltexta"><b>习题：</b>说明这样的作法实际上得出y＝<img src="../Images/image00844.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．</p>
+<h4 class="title4" id="mllj14">4．正七边形</h4>
+<p class="normaltext">现在我们考虑求内接于单位圆的正七边形的边长x的问题．处理这问题最简单的方法是利用复数（见第二章§5）．我们知道正七边形的顶点是方程</p>
+<p class="picture"><img src="../Images/image00845.jpeg" alt="alt"/></p>
+<p class="normaltext6">的根，这里是把这些顶点的坐标x，y看作复数z＝x＋yi的实部和虚部．这方程有一个根z＝1，而其余的根是方程</p>
+<p class="picture"><img src="../Images/image00846.jpeg" alt="alt"/></p>
+<p class="normaltext6">的根，这个方程是用z－1除（9）而得到的（见<a href="part0013.xhtml#a41">此处</a>）．用z<sup class="suptext">3</sup>除（10），得</p>
+<p class="picture"><img src="../Images/image00847.jpeg" alt="alt"/></p>
+<p class="normaltext6">通过一个简单的代数变换，可以把它写成</p>
+<p class="picture"><img src="../Images/image00848.jpeg" alt="alt"/></p>
+<p class="normaltext6">用y表示量z＋<img src="../Images/image00660.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，我们由（12）得出</p>
+<p class="picture"><img src="../Images/image00849.jpeg" alt="alt"/></p>
+<p class="normaltext">我们知道z，即1的七次方根，是由</p>
+<p class="picture"><img src="../Images/image00850.jpeg" alt="alt"/></p>
+<p class="normaltext6">给出的，其中φ＝<img src="../Images/image00851.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>是正七边形的边所对的圆心角；同样从<a href="part0013.xhtml#b43">此处</a>的习题2，我们知道<img src="../Images/image00660.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝cosφ－isinφ，所以y＝z＋<img src="../Images/image00660.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝2cosφ．如果我们能作出y，我们就能作出cosφ，反之亦然．因此如果我们能证明y是不能作图的，我们就同时证明了cosφ，即正七边形，是不能作图的．借助于第二小节的定理，剩下的只是表明方程（13）没有有理根．这也是用反证法来证明的．假设（13）有一个有理根<img src="../Images/image00780.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，其中r和s是不含公因子的整数．则我们有</p>
+<p class="picture"><img src="../Images/image00852.jpeg" alt="alt"/></p>
+<p class="normaltext6">如前所述，可以看出r<sup class="suptext">3</sup>有因子s，而s<sup class="suptext">3</sup>有因子r．由于s和r没有公因子，因此每一个必须等于±1．这样如果y是有理数的话，只能取值+1和-1．把这些数代入这个方程，我们发现都不满足．所以y，从而正七边形的边，是不可能作图的．</p>
+<h4 class="title4" id="mllj15">5．关于化圆为方的问题</h4>
+<p class="normaltext">我们已经用比较初等的方法处理了倍立方体、三等分角和作正七边形的问题．化圆为方的问题比较起来是更为困难的，而且需要高深的数学分析方法．由于一个半径为r的圆的面积是πr<sup class="suptext">2</sup>，因此作一个面积等于单位圆的正方形，相当于作一条长为<img src="../Images/image00853.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>的线段，这个线段将是所求正方形的边．这线段是否可以作图等价于数π是否可以作图．看一下我们刻划可作图量的特点的一般方法，我们可以这样来说明化圆为方问题是不可解的，即说明π不能包含在由有理数域F<sub>0</sub>连续添加平方根而达到的任意域F<sub>k</sub>中．由于任何这样的域的所有元素都是代数数，即满足整系数代数方程，因此只要能说明π不是代数数而是超越数（见<a href="part0013.xhtml#a24">此处</a>）就够了．</p>
+<p class="normaltext" id="b72">证明π是超越数的技巧是厄密特（C. Hermite，1822～1901）给出的，他证明了数e是超越数．林德曼（F. Lindemann）稍微修改了一下厄密特的方法，在1882年成功地证明了π的超越性，从而完全解决了化圆为方这个古老的问题．这个证明对学过高等数学分析的学生来说是能理解的，但是它超出了本书的范围．</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<h2 class="title2" id="mllj16">第2部分　作图的各种方法</h2>
+<h3 class="title3" id="mllj17">§4　几何变换　反演</h3>
+<h4 class="title4" id="mllj18">1．一般说明</h4>
+<p class="normaltext">在这一章的第二部分，我们将系统地讨论某些可以应用于作图问题的一般原理．有不少问题，从“几何变换”的一般观点来看会更加清楚．因此我们将不研究个别的作图问题，而把与某个变换过程相联系的一类问题作为一个整体同时加以考虑．有关几何变换类的概念能使问题得到澄清，但它的作用决不限于作图问题，而是影响到几何中几乎所有的一切．在第四章和第五章我们将讨论几何变换的一般情况．在这里我们研究一种特殊类型的变换，即平面对圆的反演，它是对直线的普通反射的推广．</p>
+<p class="normaltext">平面到它自身的<b>变换</b>或<b>映射</b>意味着这样一个规则：对平面上的每一个点P，我们指定另一点P′，称为P在变换下的<b>像</b>，点P称为P′的<b>原像</b>．把一条给定的直线L作为镜子，平面对它的<b>反射</b>是这种变换的一个简单例子，即对L一侧的点P，在L的另一侧存在它的像P′，使L垂直平分线段PP′．一个变换可以使平面上的某些点不动，在反射的情况下，L上的点就是不动的．</p>
+<p class="normaltext">还可以举出一些变换，例如，平面围绕着一个固定点O的<b>旋转</b>；每个点沿着一固定方向以一定的距离d<b>平移</b>（这样的变换没有不动点）．更一般的是，平面的<b>刚体运动</b>，它可以想象为旋转变换和平移变换的合成．</p>
+<p class="picture"><img src="../Images/image00854.jpeg" alt="alt"/></p>
+<p class="tz"><b>图37</b>　点对直线的反射</p>
+<p class="picture"><img src="../Images/image00855.jpeg" alt="alt"/></p>
+<p class="tz"><b>图38</b>　点对圆的反演</p>
+<p class="normaltext">现在使我们感兴趣的特殊类型的变换是对圆的<b>反演</b>（有时人们也称之为圆反射，因为在原像和像之间，它所表示的关系和圆镜反射类似）．在一确定的平面上，设C是以O为中心（称为反演中心）、以r为半径的给定圆．点P的像定义为这样的点P′，它位于直线OP上，和P同在O的一边，且使得</p>
+<p class="picture"><img src="../Images/image00856.jpeg" alt="alt"/></p>
+<p class="normaltext6">点P和P′称为关于C的反演点．由这定义得知，如果P′是P的反演点，则P是P′的反演点．一个反演使圆C的内部变换为圆外部，因为对OP＜r，我们有OP′＞r，而对OP＞r，我们有OP′＜r．平面上只有圆C本身的点在反演下保持不变．</p>
+<p class="normaltext">规则（1）没有定义圆心O的像．显然，如果动点P趋近于O，则像P′将越来越远地往平面外退去．由此，有时我们说，在反演下O本身对应着<b>无穷远点</b>．引进了这个术语，我们就可以说，一个反演毫无例外地建立了平面上的点和它的像之间的一一对应关系：平面上的每一个点有一个且仅有一个像，而且它本身是一个且仅是一个点的原像．这个性质是前面考虑过的所有变换都具备的．</p>
+<h4 class="title4" id="mllj19">2．反演的性质</h4>
+<p class="normaltext">反演最重要的性质是把直线和圆变成直线和圆．更确切地说，我们将表明，经过反演</p>
+<p class="normaltext" id="b11">（a）过O的一条直线变成过O的一条直线；</p>
+<p class="normaltext">（b）不过O的一条直线变成过O的一个圆；</p>
+<p class="normaltext">（c）过O的一个圆变成不过O的一条直线；</p>
+<p class="normaltext">（d）不过O的一个圆变成不过O的一个圆．</p>
+<p class="normaltext">命题（a）是显然的，因为由反演定义，直线上任一点的像在同一直线上，所以虽然直线上的点是交换了，但直线作为一个整体仍然变为它本身．</p>
+<p class="normaltext">为了证明命题（b），由O作L的垂线（图39）．设A是垂线和L的交点，A′是A的反演点．标出L上任一点P，且令P′是它的反演点．由于OA·OA′＝OP·OP′＝r<sup class="suptext">2</sup>，得</p>
+<p class="picture"><img src="../Images/image00857.jpeg" alt="alt"/></p>
+<p class="picture"><img src="../Images/image00858.jpeg" alt="alt"/></p>
+<p class="tz"><b>图39</b>　直线L对圆的反演</p>
+<p class="normaltext6">因此三角形OP′A′和三角形OAP相似，角OP′A′是直角．由初等几何得知，P′在以OA′为直径的圆K上，所以L的反演就是这个圆．这就证明了（b）．现在命题（c）可由下一事实立即推出：由于L的反演为K，所以K的反演为L．</p>
+<p class="normaltext">剩下要证明的是命题（d）．设K是任意一个不经过O的圆，圆心为M，半径为k．为了得到它的像，我们过O作一直线交K于A、B，然后确定当经过O的直线以所有可能方式和K相交时，像A′、B′如何变化．用a、b、a′、b′、m表示距离OA、OB、OA′、OB′、OM，t表示从O到K的切线长．按反演定义，我们有aa′＝bb′＝r<sup class="suptext">2</sup>，根据圆的初等性质我们有ab＝t<sup class="suptext">2</sup>．如果用第二个关系式除第一个关系式，就可得到</p>
+<p class="picture"><img src="../Images/image00859.jpeg" alt="alt"/></p>
+<p class="normaltext6">其中c<sup class="suptext">2</sup>是只依赖于r和t的常数，它对A，B的所有位置都是一样的．过A′我们画一条平行于BM的直线交OM于Q，记OQ＝q，A′Q＝ρ，则<img src="../Images/image00860.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image00861.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image00862.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，或</p>
+<p class="picture"><img src="../Images/image00863.jpeg" alt="alt"/></p>
+<p class="picture"><img src="../Images/image00864.jpeg" alt="alt"/></p>
+<p class="tz"><b>图40</b>　圆的反演</p>
+<p class="normaltext6">这意味着无论A、B的位置如何，Q总是在OM的同一位置上，并且和A′Q的距离保持不变．同样，由<img src="../Images/image00865.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image00866.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，得B′Q＝ρ．因此K上所有点A、B的像和Q的距离总是等于ρ，即K的像为一圆．（d）得证．</p>
+<h4 class="title4" id="mllj20">3．反演点的几何作图</h4>
+<p class="normaltext">下述定理将在这节的第四小节用到：<b>一给定点P对圆C的反演点P′在几何上只用圆规即可作出．</b>我们首先考虑给定点P位于圆C外的情况．以P为中心，OP为半径画一弧交C于点R和S．以这两个点为中心，r为半径画两个弧，它们相交于O及直线OP上的一点P′．在等腰三角形ORP和ORP′中，</p>
+<p class="normaltext5">∠ORP＝∠ROP＝∠OP′R．</p>
+<p class="normaltext6">所以这两个三角形相似，因此</p>
+<p class="normaltext5"><img src="../Images/image00867.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image00868.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>　即OP·OP′＝r<sup class="suptext">2</sup>．</p>
+<p class="normaltext6">从而P′为所求的P的反演，这就是我们所要作的．</p>
+<p class="normaltext">如果给定的点P位于圆C内部，只要以P为中心，OP为半径的圆交C于两个点，同样的作图和证明仍然成立．否则，采用下面的简单技巧，我们可以把反演点P′的作图化为上面的情况．</p>
+<p class="normaltext" id="b44">首先我们看到，只用圆规我们能在过两个定点A、O的连线上找到一点C使AO＝OC．为此，我们以O为中心，r＝AO为半径画一圆，在这圆上以A为起点标出点P，Q，C，使AP＝PQ＝QC＝r．这时C就是所求的点，因为三角形AOP，OPQ，OQC是等边的，所以OA和OC形成一个180°的角，且OC＝OQ＝OA．重复这个过程，我们能轻易地将AO延长任意倍．顺便指出，由于线段AQ的长为r<img src="../Images/image00819.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>（这一点读者容易验证）．我们不用直尺就从单位长出发作出了<img src="../Images/image00819.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>．</p>
+<p class="picture"><img src="../Images/image00869.jpeg" alt="alt"/></p>
+<p class="tz"><b>图41</b>　圆外一点的反演</p>
+<p class="picture"><img src="../Images/image00870.jpeg" alt="alt"/></p>
+<p class="tz"><b>图42</b>　把一个线段加倍</p>
+<p class="normaltext">现在我们能作出圆C内任一点P的反演点．首先我们能在OP上找到一点R，它和O的距离是OP的一整数倍，而且位于C外，</p>
+<p class="normaltext5">OR＝n·OP．</p>
+<p class="picture"><img src="../Images/image00871.jpeg" alt="alt"/></p>
+<p class="tz"><b>图43</b>　圆内一点的反演</p>
+<p class="normaltext6">要做到这一点，只须连续用圆规标出距离OP直到C外．现在我们用先前给出的作图法求出R的反演点R′，于是</p>
+<p class="picture"><img src="../Images/image00872.jpeg" alt="alt"/></p>
+<p class="normaltext6">因此，满足OP′＝nOR′的点P′，就是所求的反演点．</p>
+<h4 class="title4" id="mllj21">4．只用圆规如何二等分一线段及求圆心</h4>
+<p class="normaltext">现在我们已经学会了只用圆规如何求出一给定点的反演点，这样我们就能进行某些有趣的作图了．例如，考虑只用圆规求出两给定点A，B之间的中点问题（不可以划直线！）作法是这样的：以B为圆心，AB为半径画圆．以A为起点，AB为半径标出三段弧，最后一点C将落在直线AB上，且有AB＝BC．现在以A为圆心，AB为半径画圆．令C′为C关于这个圆的反演点，则</p>
+<p class="normaltext5">AC′·AC＝AB<sup class="suptext">2</sup></p>
+<p class="normaltext5">AC′·2AB＝AB<sup class="suptext">2</sup></p>
+<p class="normaltext5">2AC′＝AB．</p>
+<p class="normaltext6">因此C′是所求的中点．</p>
+<p class="picture"><img src="../Images/image00873.jpeg" alt="alt"/></p>
+<p class="tz"><b>图44</b>　求线段中点</p>
+<p class="normaltext">另一个用到反演点的圆规作图是，设有某个其圆心未知，但给定了圆周的圆，求该圆的圆心．我们在圆周上任取一点P，以它为中心画一圆交给定圆于R和S．以这两点为中心、以RP＝SP为半径画二弧相交于点Q．和图41比较，可以看出未知圆心Q′是Q对于以P为圆心的圆的反演．所以Q′只用圆规就能作出．</p>
+<p class="picture"><img src="../Images/image00874.jpeg" alt="alt"/></p>
+<p class="tz"><b>图45</b>　求圆心</p>
+<h3 class="title3" id="mllj22">§5　用其他工具作图　只用圆规的马歇罗尼作图</h3>
+<h4 class="title4" id="mllj23">*1．倍立方体的古典作图</h4>
+<p class="normaltext">直到现在，我们考虑的仅仅是只用圆规和直尺的几何作图问题．如果允许用其他工具的话，可能的作图种类自然就扩大了．例如，希腊人用如下方式解决倍立方体问题．考虑（如图46）一个刚性的直角MZN和一个可移动的直角十字架B，VW，PQ．此外，两个附加的边RS和TU允许在直角边上垂直滑动．在这十字架上选取两个固定点E和G，使得GB＝a和BE＝f为预先给定的长度．适当移动十字架，使E和G相应地位于NZ和MZ上，再滑动TU和RS两个边，我们就能使整个仪器成为这样的状态，十字架的直杆BW，BQ，BV通过矩形ADEZ的顶点A，D，E．如果f＞a，这样一种安排总是可能的．我们立刻看到a∶x＝x∶y＝y∶f．这时如果把仪器调整得使f等于2a，则有x<sup class="suptext">3</sup>＝2a<sup class="suptext">3</sup>．因此x将是这样一个立方体的边，它的体积是以a为边的立方体的体积的二倍．这就是倍立方体问题所要求的解．</p>
+<p class="picture"><img src="../Images/image00875.jpeg" alt="alt"/></p>
+<p class="tz"><b>图46</b>　倍立方体的一个工具</p>
+<h4 class="title4" id="mllj24">2．只限于用圆规</h4>
+<p class="normaltext">允许使用各种各样的仪器，我们就能解决很多的作图问题，这当然是很自然的．于是人们可能认为，更多地限制可使用的仪器将缩小可作图的范围．然而意大利人马歇罗尼（Mascheroni，1750～1800）却发现了一个令人吃惊的事实：<b>所有用圆规和直尺可以实现的几何作图，只用圆规也都能作出．</b>当然不用直尺我们不能画出连接两点的直线，所以这个基本作图实际上不包括在马歇罗尼的理论中．为了补救这一点，我们必须把一条直线想象成是由它上面的任意两点所给定的．我们可以只用圆规找出以这种方式给定的两条直线的交点，同样地，可以找出一条直线和一给定圆的交点．</p>
+<p class="normaltext" id="a42">马歇罗尼作图最简单的例子可能是作一线段AB的两倍．它的解法在<a href="part0015.xhtml#b44">此处</a>已经给出．在<a href="part0015.xhtml#mllj21">此处</a>我们二等分了一直线段．现在我们要解决当圆心O已知时，圆上给定弧AB的二等分问题．作法如下：以A和B为圆心，AO为半径画两个弧，从O标出弧上两点P，Q，使OP和OQ等于AB．然后以P和Q为圆心，PB和QA为半径画两个弧相交于R．最后以OR为半径，以P或Q为圆心画一弧与AB相交，这交点就是所求的弧AB的中点．这个证明留给读者作为练习．</p>
+<p class="normaltext" id="b45">若对于用圆规和直尺可能实现的每一个作图问题，都实际地给出其只用圆规的作图方法，以此来证明马歇罗尼的一般定理是不可能的．因为可作图的问题的数目不是有限的．但是，通过证明下述四种基本作图都可以只用圆规来实现，我们就能达到同样的目的：</p>
+<p class="normaltext">1．给定圆心和半径，画一圆．</p>
+<p class="normaltext">2．求两个圆的交点．</p>
+<p class="normaltext">3．求一条直线和一个圆的交点．</p>
+<p class="normaltext">4．求两条直线的交点．</p>
+<p class="normaltext6">通常意义下（指只用圆规和直尺）的任何几何作图都是由一连串有限个这些初等作图构成的．显然前两个只用圆规是可以实现的．为了解决比较困难的问题3和4，要依靠上一小节介绍的反演性质．</p>
+<p class="picture"><img src="../Images/image00876.jpeg" alt="alt"/></p>
+<p class="tz"><b>图47</b>　用圆规二等分弧</p>
+<p class="normaltext">现在我们来解决问题3，即求圆C和由A，B两点给定的直线的交点．以A和B为圆心，AO和BO为相应的半径，画两个弧相交于P．现在利用<a href="part0015.xhtml#mllj20">此处</a>的方法，只用圆规确定P关于圆C的反演点Q．再画出以Q为中心，OQ为半径的圆（它必定与圆C相交）；此圆与给定圆C的交点X和X′就是所求的点．为了证明这一点，我们只需要说明由X和X′到O和P是等距离的，因为从作图得知A，B就是如此．这一点由如下事实可得：由Q的反演点到X和X′的距离等于C的半径（<a href="part0015.xhtml#mllj20">此处</a>）．注意，过X，X′，O的圆是直线AB的反演，因为这个圆和直线AB都与C交于相同的点（圆周上的点是它们自己的反演）．</p>
+<p class="picture"><img src="../Images/image00877.jpeg" alt="alt"/></p>
+<p class="tz"><b>图48</b>　圆和不过圆心的直线的交点</p>
+<p class="normaltext">这个作图方法仅当直线AB通过C的圆心时才无效．然而这时可以通过<a href="part0015.xhtml#b45">此处</a>给出的作图方法来求交点，它是C上的弧B<sub>1</sub>B<sub>2</sub>的中点，其中B<sub>1</sub>和B<sub>2</sub>是以B为圆心的任意圆与C的交点．</p>
+<p class="picture"><img src="../Images/image00878.jpeg" alt="alt"/></p>
+<p class="tz"><b>图49</b>　圆和过圆心的直线的交点</p>
+<p class="normaltext">求一圆，它是连接两个给定点的直线的反演，这个方法能立刻给出问题4的解．假设给定两条直线AB和A′B′（图50）．在平面上画任意圆C，且用前面的方法求出AB和A′B′的反演圆．这两个圆相交于O和另一点Y．Y的反演点X就是所求的交点，并且能用前面用过的方法作出．X是所求的点，这是显然的，因为Y是AB和A′B′的公共点的唯一的反演点，因此Y的反演点X必须同时在AB和A′B′上．</p>
+<p class="picture"><img src="../Images/image00879.jpeg" alt="alt"/></p>
+<p class="tz"><b>图50</b>　两条直线的交点</p>
+<p class="normaltext">有了这两个作图，我们就证明了只用圆规的马歇罗尼作图与用圆规和直尺的通常几何作图之间的等价性．我们没有致力于对一个个问题提供巧妙的解法，因为我们的目的是着重于对马歇罗尼作图从总的方面作某些考察．但是，现在我们要给出作正五边形的例子．更确切地说，我们要在圆周上找五个点，它们是圆内接正五边形的顶点．</p>
+<p class="normaltext">设A是给定圆K上的任意点．内接正六边形的边长等于K的半径．因此我们能找出圆K上点B，C，D，使<img src="../Images/image00880.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＝<img src="../Images/image00881.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＝<img src="../Images/image00882.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>＝60°（图51）．以A和D为圆心，AC为半径，我们画两个弧相交于X．因此如果O是K的圆心，一个以A为圆心，OX为半径的弧将交K于BC的中点F（见<a href="part0015.xhtml#a42">此处</a>）．现在我们以F为圆心，K的半径为半径画一弧交K于G和H．设点Y与G和H的距离等于OX，而O介于Y和X之间．则AY等于所求的正五边形的边．证明留给读者作练习．注意在作图中仅仅用了三种不同的半径．</p>
+<p class="picture"><img src="../Images/image00883.jpeg" alt="alt"/></p>
+<p class="tz"><b>图51</b>　正五边形的作图</p>
+<p class="normaltext">1928年丹麦数学家吉尔姆斯累夫（Hjelmslev）在哥本哈根的一家书店里发现了一本书：《欧几里得·丹麦本》（Euclides Danicus），是一个不出名的作者莫尔（G. Mohr）在1672年出版的．从书名来看，人们可能以为这不过是欧几里得《原本》的一个译本或译注．然而当吉尔姆斯累夫查阅这本书时，他惊奇地发现，它实质上包含了马歇罗尼问题，而且早在马歇罗尼之前已经完全解决了这个问题．</p>
+<p class="normaltexta"><b>习题：</b>下面是关于莫尔作图的描述．验证它们的合理性．为什么它们解决了马歇罗尼问题？</p>
+<p class="normaltext2">1）在一个长为p的线段AB上，作一垂线BC．（提示：延长AB到D点使AB＝BD，以A，D为圆心画任意圆，从而确定C．）</p>
+<p class="normaltext2">2）在平面上给定长为p，q的两个线段，这里p＞q．利用1）作一长为x＝<img src="../Images/image00884.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>的线段．</p>
+<p class="normaltext2">3）从一给定线段a作线段a<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>．（提示：注意（a<img src="../Images/image00770.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>）<sup class="suptext">2</sup>＝（a<img src="../Images/image00819.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>）<sup class="suptext">2</sup>－a<sup class="suptext">2</sup>．）</p>
+<p class="normaltext2">4）用给定线段p，q作一线段x＝<img src="../Images/image00885.jpeg" class="tpzz1" alt="alt" style="height:1.3em"/>．（提示：用关系式x<sup class="suptext">2</sup>＝2p<sup class="suptext">2</sup>－（p<sup class="suptext">2</sup>－q<sup class="suptext">2</sup>）．）求作其他类似的图．</p>
+<p class="normaltext2">5）平面上给定长为p和q的线段，用前面的结果作长为p＋q，p－q的线段．</p>
+<p class="normaltext2">6）验证并且证明下面在长为a的线段AB上求中点M的作图．在AB的延长线上求出C，D，使CA＝AB＝BD．作等腰三角形ECD，其中EC＝ED＝2a．求出以EC和ED为直径的圆的交点M．</p>
+<p class="normaltext2">7）作点A在直线BC上的垂足．</p>
+<p class="normaltext2">8）给定线段a，p和q，作x使x∶a＝p∶q．</p>
+<p class="normaltextb">9）给定线段a和b，作x＝ab．</p>
+<p class="normaltext" id="a27">施泰纳（J. Steiner，1796～1863）为马歇罗尼的作图所鼓舞，试图以直尺替代圆规，仅以它为工具来作图．当然只用直尺不能超出一个给定的数域，因此对经典意义下的所有几何作图来说，它是不够的．然而引人注目的是，施泰纳可以把圆规的使用只限于一次．他证明了，在平面上，只要给定一固定圆和它的圆心，那么凡是能用圆规和直尺实现的各种作图，都可以只用直尺来作．这些作图需要运用一些射影方法，我们将在后面加以说明（见<a href="part0016.xhtml#mllj23">此处</a>）．</p>
+<p class="normaltexta">*　这个圆和它的圆心是不可缺少的．例如，只给定一个圆而没给出圆心，就不可能只用直尺找出它的圆心．为了证明这一点，我们需要用到后面将要讨论的一个事实（<a href="part0016.xhtml#b46">此处</a>）：存在具有下述性质的平面到它自身的变换，（a）给定的圆在这变换下不变．（b）任意直线变成直线．（c）给定的圆心变到其他某个点．仅仅是这样一个变换的存在，就表明了只用直尺作这个给定圆的圆心是不可能的．因为，只要这样的作图是可行的，它不外乎将通过画若干条直线、求它们之间的交点以及求它们和这给定圆的交点来实现．现在如果对给定圆加上在作图中产生的所有点和直线所组成的整个图形实施我们假设存在的这个变换，则变换后的图形将满足作图的所有要求，但是其结果将产生一个不是给定圆的圆心的点．因此这样的作图是不可能的．</p>
+<h4 class="title4" id="mllj25">3．用机械工具作图　机械曲线　旋轮线</h4>
+<p class="normaltext">设计机械工具用来画圆和直线以外的曲线，我们就能大大扩充作图的范围．例如，如果我们有一个画双曲线xy＝k的工具和另一个画抛物线y＝ax<sup class="suptext">2</sup>＋bx＋c的工具，则任何一个可归结为三次方程</p>
+<p class="picture"><img src="../Images/image00886.jpeg" alt="alt"/></p>
+<p class="normaltext6">的问题都可以用这些工具通过作图来解决．因为如果我们令</p>
+<p class="picture"><img src="../Images/image00887.jpeg" alt="alt"/></p>
+<p class="picture"><img src="../Images/image00888.jpeg" alt="alt"/></p>
+<p class="tz"><b>图52</b>　三次方程的图解</p>
+<p class="normaltext6">则解方程（1）相当于通过消去y来解联立方程（2），即（1）的根就是（2）中的双曲线和抛物线的交点的x坐标．因此如果我们有一些工具可用来画方程（2）的双曲线和抛物线的话，那么就可以用作图方法来解（1）．</p>
+<p class="normaltext">自古以来，数学家就知道有许多有趣的曲线能用简单的机械工具来确定和作图．在这些“机械曲线”中，旋轮线（也称摆线）是最引人注目的，托勒密（Ptolemy，约公元200年）以十分巧妙的方式用它们来描述太空中行星的运动．</p>
+<p class="normaltext">如果一个圆沿着一直线无滑动地滚动，则圆周上某一固定点所描出的曲线就是最简单的旋轮线．图53表明了这滚动着的圆上一点P的四个位置．旋轮线的一般形状是支撑在这直线上的一系列拱形线．</p>
+<p class="picture"><img src="../Images/image00889.jpeg" alt="alt"/></p>
+<p class="tz"><b>图53</b>　旋轮线</p>
+<p class="normaltext">如果把点P选在圆的内部（如在一个轮子的辐条上）或在圆半径的延长线上（如在火车轮的凸缘轮上），就可以得到这种曲线的不同变形．图54表明了这两种曲线．</p>
+<p class="picture"><img src="../Images/image00890.jpeg" alt="alt"/></p>
+<p class="tz"><b>图54</b>　一般旋轮线</p>
+<p class="normaltext">旋轮线的进一步变形可以这样来得到，让一个圆不是在直线上而是在另一个圆上滚动．如果滚动着的半径为r的圆c内切于较大的半径为R的圆C，则c的圆周上一固定点的轨迹为<b>圆内旋轮线</b>（或内摆线）．</p>
+<p class="normaltext">如果圆c恰好滚过C的整个圆周，只有当C的半径为c的半径的整数倍时，点P才能回到它原来的位置．图55说明了R＝3r的情形．更一般地，如果C的半径为c的半径的<img src="../Images/image00484.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>倍，则这圆内旋轮线要绕C转n周之后才闭合，它是由m个拱形线组成的．一个有趣的特殊情况出现在R＝2r时，这时内圆的任一点P将描出大圆的一个直径（图56）．对这一事实的证明，我们把它当作一个习题留给读者．</p>
+<p class="picture"><img src="../Images/image00891.jpeg" alt="alt"/></p>
+<p class="tz"><b>图55</b>　圆内三尖旋轮线</p>
+<p class="picture"><img src="../Images/image00892.jpeg" alt="alt"/></p>
+<p class="tz"><b>图56</b>　一个圆在另一个半径是其二倍的圆内滚动时，圆上一点作直线运动</p>
+<p class="normaltext">滚动一个圆使它外切于一个固定圆，还能产生另一种旋轮线．这样的曲线称为<b>圆外旋轮线</b>（或外摆线）．</p>
+<h4 class="title4" id="mllj26">*4．连杆　波西里叶和哈特的反演器</h4>
+<p class="normaltext">现在我们暂且丢开旋轮线这一课题（它们将在一个预料不到的地方再次出现）而来考虑产生曲线的其他方法．画曲线的最简单的机械工具是<b>连杆</b>．连杆是一组刚体小杆用轴以某种方式连接在一起的，整个系统要有适当的活动自由，使得它上面的某一点能描绘出特定的曲线．圆规实际上就是一个简单的连杆，从原理上讲，它就是由钉在一个点上的单个杆组成的．</p>
+<p class="normaltext">连杆在机械作图中已经使用了很久．历史上最著名的例子是“瓦特平行四边形”．瓦特（J. Watt）发明它是为了把他的蒸汽机的活塞和飞轮上的一点连结起来，使飞轮的旋转运动变成活塞的直线运动．瓦特的解只是近似的，而作一个连杆以推动一个点<b>精确地</b>作直线运动的问题，尽管有许多著名的数学家致力于此，过去却一直没能解决．有一个时期，关于某些问题的解的不可能性的证明引起了人们的广泛注意，于是出现了一种猜测，以为作这样的连杆是不可能的．1864年，法国海军军官波西里叶（Peaucellier）发明了一个简单的连杆解决了这个问题，这在当时引起了轰动．但是由于引进了有效的润滑剂，蒸汽机的这个技术问题已经失去了它的意义．</p>
+<p class="picture"><img src="../Images/image00893.jpeg" alt="alt"/></p>
+<p class="tz"><b>图57</b>　旋转转化为直线运动</p>
+<p class="normaltext">波西里叶连杆的作用在于把圆周运动变成直线运动．它建立在§4讨论的反演理论的基础上．如图58所示，这连杆由七根刚体小杆组成，其中两根长为t，四根长为s，第七根为任意长．O和R是两个固定点，置于使OR＝PR的位置上．整个装置按照这些给定的条件自由地运动．我们要证明，<b>当P以R为中心PR为半径描出一个圆时，Q将描出一条直线段．</b>用T表示由S到OQ的垂线的垂足，我们看到</p>
+<p class="picture"><img src="../Images/image00894.jpeg" alt="alt"/></p>
+<p class="normaltext6">量t<sup class="suptext">2</sup>－s<sup class="suptext">2</sup>是常数，记为r<sup class="suptext">2</sup>．由于OP·OQ＝r<sup class="suptext">2</sup>，P和Q是关于以O为圆心，r为半径的圆的反演点．当P描出一圆周路程时（它经过O），Q描出该圆周的反演曲线．这曲线必定是一直线，因为我们已经证明了过O的圆的反演是一直线．因此Q的路程是一直线而无须用直尺来画．</p>
+<p class="picture"><img src="../Images/image00895.jpeg" alt="alt"/></p>
+<p class="tz"><b>图58</b>　把旋转运动变成直线运动的波西里叶变换</p>
+<p class="normaltext">解决同样问题的另一种连杆是哈特（Hart）的反演工具．如图59，它是由五根杆联结而成的．其中AB＝CD，BC＝AD，点O、P和Q分别固定在杆AB，AD和CB上，且使<img src="../Images/image00896.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image00897.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image00898.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image00484.jpeg" class="tpzz1" alt="alt" style="height:2.1em"/>．点O和S固定在平面上使OS＝PS，而连杆的其余部分可以自由运动．显然AC总是平行于BD的．因此，O、P和Q共线且OP平行于AC．画AE和CF垂直于BD，我们有</p>
+<p class="picture"><img src="../Images/image00899.jpeg" alt="alt"/></p>
+<p class="normaltext6">但是ED<sup class="suptext">2</sup>＋AE<sup class="suptext">2</sup>＝AD<sup class="suptext">2</sup>，EB<sup class="suptext">2</sup>＋AE<sup class="suptext">2</sup>＝AB<sup class="suptext">2</sup>，因此ED<sup class="suptext">2</sup>－EB<sup class="suptext">2</sup>＝AD<sup class="suptext">2</sup>－AB<sup class="suptext">2</sup>．现在<img src="../Images/image00900.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image00901.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image00902.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>，且<img src="../Images/image00902.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image00903.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image00902.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．于是OP·OQ＝<img src="../Images/image00904.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>＝<img src="../Images/image00905.jpeg" class="tpzz1" alt="alt" style="height:2.3em"/>．这个量对连杆的所有可能位置都是一样的，所以P和Q是关于某个以O为圆心的圆的反演点．当连杆运动时，P描出一个以S为圆心而过O的圆，因而它的反演点Q描出一直线．</p>
+<p class="picture"><img src="../Images/image00906.jpeg" alt="alt"/></p>
+<p class="tz"><b>图59</b>　哈特的反演工具</p>
+<p class="normaltext">至少从原理上讲，能描画椭圆、双曲线，实际上，能描画由任意次代数方程f（x，y）＝0给出的曲线的其他连杆都可设计出来．</p>
+<h3 class="title3" id="mllj27">§6．再谈反演及其应用</h3>
+<h4 class="title4" id="mllj28">1．角的不变性　圆族</h4>
+<p class="normaltext">虽然圆的反演大大改变了几何图形的样子，然而值得注意的是，新的图形继续保持旧的图形的许多性质．有一些性质在变换下不变，即具有“不变性”．如我们所知，反演把圆和直线变成圆和直线．现在我们添上另一个重要性质：<b>两条直线或曲线的夹角在反演下是不变的．</b>即任意两条相交的曲线在反演下变成另外两条曲线，它们仍然相交且交成同样的角．当然，两条曲线之间的夹角是指它们的切线之间的夹角．</p>
+<p class="normaltext">其证明可以从图60看出，这个图表明一条曲线C和一条直线OL交于点P的这种特殊情形．C的反演C′交OL于反演点P′，因为OL是它自身的反演，P′仍在OL上．现在我们要说明OL与C在P点的切线之间的夹角x<sub>0</sub>在数值上将等于相应的角y<sub>0</sub>．为此我们选取曲线C上靠近P的一点A，且画割线AP．A点的反演是A′，它同时在直线OA和曲线C′上，因此必定是它们的交点．我们画割线A′P′，由反演定义可知</p>
+<p class="normaltext5">r<sup class="suptext">2</sup>＝OP·OP′＝OA·OA′，</p>
+<p class="normaltext6">或</p>
+<p class="picture"><img src="../Images/image00907.jpeg" alt="alt"/></p>
+<p class="normaltext6">即三角形OAP和OA′P′相似．因此角x等于∠OA′P′，我们称之为y．我们的最后一步是让A沿着C移动到P点．这导致割线AP转到C在P点的切线位置上，而角x趋于x<sub>0</sub>．同时A′将到达P′，A′P′将转到P′点的切线上，角y趋于y<sub>0</sub>．由于在A的每一个位置上x等于y，通过取极限我们一定有x<sub>0</sub>＝y<sub>0</sub>．</p>
+<p class="picture"><img src="../Images/image00908.jpeg" alt="alt"/></p>
+<p class="tz"><b>图60</b>　在反演下，角的不变性</p>
+<p class="normaltext">但是我们的证明只完成了一部分，因为我们仅仅考虑了曲线和一条过O的直线相交的情况．关于两条曲线C，C<sup class="suptext">*</sup>在P点形成一角z的一般情况，现在是容易处理的．因为，显然直线OPP′分z为两个角，而我们知道每一个角在反演下是不变的．</p>
+<p class="normaltextc">应当注意，虽然反演保持了角的数值，但它改变了角的<b>方向</b>；即如果过P的一条射线以逆时针方向扫过角x<sub>0</sub>，则它的象以顺时针方向扫过角y<sub>0</sub>．</p>
+<p class="normaltext">在反演下，角的不变性的一个特殊推论是，两个正交（即交成直角）的圆或直线经过反演仍然正交，而两个相切（即交成零度角）的圆仍然保持相切．</p>
+<p class="normaltext" id="a53">我们考虑一族通过反演中心O和平面上另一固定点A的所有圆．从§4第二小节，我们知道这族圆变成一族直线，它们由A的象A′放射出去．和原来这族圆正交的圆将变成与过A′的直线正交的圆，如图61所示（正交圆用虚线表示）．放射直线的简单图像和这些圆的图像表面上看来很不相同，然而我们看到它们是紧密联系的——实际上，从反演理论的观点来看，它们是完全等价的．</p>
+<p class="picture"><img src="../Images/image00909.jpeg" alt="alt"/></p>
+<p class="tz"><b>图61</b>　用反演相联系的两组正交圆</p>
+<p class="normaltext">利用在反演中心彼此相切的一族圆可以说明反演的另一种效果．经过变换，它们变成了一族平行线．原因是圆的象是直线，而其中任意两条线都不相交，因为原来的圆只在O点相交．</p>
+<p class="picture"><img src="../Images/image00909.jpeg" alt="alt"/></p>
+<p class="tz"><b>图62</b>　相切的圆变成平行线</p>
+<h4 class="title4" id="mllj29">2．在阿波罗尼斯问题上的应用</h4>
+<p class="normaltext">下述阿波罗尼斯问题的简单几何解法，可以很好地说明反演理论的用途．通过关于任意一个圆心的反演，对三个给定圆的阿波罗尼斯问题可以变换为对另外三个圆的相应的问题（这是为什么？）．因此，如果我们能够解决任意一组三个圆的问题，则对于由这三个圆通过反演而得到的另外一组三个圆来说，问题也解决了．我们要利用这个事实，办法是在所有这些等价的三个圆中选择问题的解是最简单的一组．</p>
+<p class="normaltext">我们从圆心为A、B、C的三个圆出发．假设所求的圆U的圆心为O，半径为ρ，而且和这三个给定的圆外切．如果我们把这三个给定的圆的半径都加上同一个量d，则以原来的O为圆心，ρ－d为半径的圆显然是这个新问题的解．我们利用这个办法，预先使三个给定的圆中有两个在点K相切，以此代替原来的那三个给定圆（图63）．其次我们用圆心为K的某个圆来反演整个图形．于是以B和C为圆心的圆变成了平行线b和c，而第三个圆变成了另一个圆a（图64）．我们知道a，b，c都可以用圆规和直尺来作．未知圆U变成一个和a，b，c都相切的圆u，它的半径r显然是b和c之间的距离的一半，它的圆心O′是b和c之间的中线与以A′为圆心（a的圆心）、r＋s为半径（s是a的半径）的圆的交点之一．最后作u的反演圆，我们便得到了所求的阿波罗尼斯圆U．（它的圆心O是u的圆心对于以K为反演中心的那个反演圆的反演）．</p>
+<p class="picture"><img src="../Images/image00910.jpeg" alt="alt"/></p>
+<p class="tz"><b>图63</b>　阿波罗尼斯作图的预备</p>
+<p class="picture"><img src="../Images/image00911.jpeg" alt="alt"/></p>
+<p class="tz"><b>图64</b>　阿波罗尼斯问题的解</p>
+<h4 class="title4" id="mllj30">*3．重复反射</h4>
+<p class="normaltext">每个人都熟悉用好几面镜子时出现的奇怪的反射现象．如果在一个长方形的屋子里，四面墙上都挂满了不吸收光的理想镜子的话，一个光点将会有无穷多个像，每一个像对应于通过反射得到的各个全等的房间（图65）．一些比较不规则的镜子装置，例如三角形镜子，能给出一系列更为复杂的像．只有当反射后的三角形互不重叠地覆盖住整个平面时，所得的图形才易于描述．这种现象只出现于直角等腰三角形、等边三角形以及由等边三角形的一半作成的直角三角形的情况，见图66．</p>
+<p class="picture"><img src="../Images/image00912.jpeg" alt="alt"/></p>
+<p class="tz"><b>图65</b>　在矩形墙中的重复反射</p>
+<p class="picture"><img src="../Images/image00913.jpeg" alt="alt"/></p>
+<p class="tz"><b>图66</b>　三角形镜子的规则装置</p>
+<p class="normaltext">如果我们考虑关于一对圆的重复反射，情况将更有趣．如果站在两个同心圆镜面之间，我们将看到无穷多个与它们同心的其他圆．这些圆的一个序列趋于无穷，而另一个序列则汇聚在圆心周围．</p>
+<p class="normaltext">两个外离的圆的情况略为复杂一些．这时这些圆和它们的像逐次彼此互相反射，每次反射均变小，直到它们缩成分属于两圆的两个点．（这两个点有下述性质，它们关于这两个圆是互为反演的．）图67显示了这种情形．图68是用三个圆生成的美丽图案．</p>
+<p class="picture"><img src="../Images/image00914.jpeg" alt="alt"/></p>
+<p class="tz"><b>图67</b>　两个圆中的重复反射</p>
+<p class="picture"><img src="../Images/image00915.jpeg" alt="alt"/></p>
+<p class="tz"><b>图68</b>　三个圆的重复反射</p>
+</body></html>
