@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_254" class="calibre7"><strong class="calibre6">21.3　JavaScript语言是否需要抽象类和<code class="calibre17">interface</code></strong></h2>
+<p class="calibre1">通过前面的讲解，我们明白了抽象类和<code class="calibre9">interface</code>的作用主要都是以下两点。</p>
+<ul class="calibre14">
+<li class="calibre15"><p class="calibre1">通过向上转型来隐藏对象的真正类型，以表现对象的多态性。</p>
+</li>
+<li class="calibre15"><p class="calibre1">约定类与类之间的一些契约行为。</p>
+</li>
+</ul>
+<p class="calibre1">对于JavaScript而言，因为JavaScript是一门动态类型语言，类型本身在JavaScript中是一个相对模糊的概念。也就是说，不需要利用抽象类或者<code class="calibre9">interface</code>给对象进行“向上转型”。除了<code class="calibre9">number</code>、<code class="calibre9">string</code>、boolean等基本数据类型之外，其他的对象都可以被看成“天生”被“向上转型”成了<code class="calibre9">Object</code>类型：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var ary = new Array();
+var date = new Date();
+
+</code></pre>
+<p class="calibre1">如果JavaScript是一门静态类型语言，上面的代码也许可以理解为：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">Array ary = new Array();
+Date date = new Date();
+
+</code></pre>
+<p class="calibre1">或者：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">Object ary = new Array();
+Object date = new Date();
+
+</code></pre>
+<p class="calibre1">很少有人在JavaScript开发中去关心对象的真正类型。在动态类型语言中，对象的多态性是与生俱来的，但在另外一些静态类型语言中，对象类型之间的解耦非常重要，甚至有一些设计模式的主要目的就是专门隐藏对象的真正类型。</p>
+<p class="calibre1">因为不需要进行向上转型，接口在JavaScript中的最大作用就退化到了检查代码的规范性。比如检查某个对象是否实现了某个方法，或者检查是否给函数传入了预期类型的参数。如果忽略了这两点，有可能会在代码中留下一些隐藏的bug。比如我们尝试执行<code class="calibre9">obj</code>对象的<code class="calibre9">show</code>方法，但是<code class="calibre9">obj</code>对象本身却没有实现这个方法，代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">function show( obj ){
+    obj.show();        // Uncaught TypeError: undefined is not a function
+}
+
+var myObject = {};    // myObject对象没有show方法
+show( myObject );
+
+</code></pre>
+<p class="calibre1">或者：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">function show( obj ){
+    obj.show();        // TypeError: number is not a function
+}
+
+var myObject = {    // myObject.show不是Function类型
+    show: 1
+};
+show( myObject );
+
+</code></pre>
+<p class="calibre1">此时，我们不得不加上一些防御性代码：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">function show( obj ){
+    if ( obj &amp;&amp; typeof obj.show === 'function' ){
+        obj.show();
+    }
+}
+
+</code></pre>
+<p class="calibre1">或者：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">function show( obj ){
+    try{
+        obj.show();
+    }catch( e ){
+
+    }
+}
+
+var myObject = {};    // myObject对象没有show方法
+// var myObject = {    // myObject.show不是Function类型
+    // show: 1
+// };
+
+show( myObject );
+
+</code></pre>
+<p class="calibre1">如果JavaScript有编译器帮我们检查代码的规范性，那事情要比现在美好得多，我们不用在业务代码中到处插入一些跟业务逻辑无关的防御性代码。 作为一门解释执行的动态类型语言，把希望寄托在编译器上是不可能了。如果要处理这类异常情况，我们只有手动编写一些接口检查的代码。</p>
+</body></html>

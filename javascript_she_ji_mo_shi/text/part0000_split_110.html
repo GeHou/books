@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_156" class="calibre7"><strong class="calibre6">11.7　真的需要“继承”吗</strong></h2>
+<p class="calibre1">模板方法模式是基于继承的一种设计模式，父类封装了子类的算法框架和方法的执行顺序，子类继承父类之后，父类通知子类执行这些方法，好莱坞原则很好地诠释了这种设计技巧，即高层组件调用底层组件。</p>
+<p class="calibre1">本章我们通过模板方法模式，编写了一个Coffee or Tea的例子。模板方法模式是为数不多的基于继承的设计模式，但JavaScript语言实际上没有提供真正的类式继承，继承是通过对象与对象之间的委托来实现的。也就是说，虽然我们在形式上借鉴了提供类式继承的语言，但本章学习到的模板方法模式并不十分正宗。而且在JavaScript这般灵活的语言中，实现这样一个例子，是否真的需要继承这种重武器呢？</p>
+<p class="calibre1">在好莱坞原则的指导之下，下面这段代码可以达到和继承一样的效果。</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var Beverage = function( param ){
+
+    var boilWater = function(){
+        console.log( '把水煮沸' );
+    };
+
+    var brew = param.brew || function(){
+        throw new Error( '必须传递brew方法' );
+    };
+
+    var pourInCup = param.pourInCup || function(){
+        throw new Error( '必须传递pourInCup方法' );
+    };
+
+    var addCondiments = param.addCondiments || function(){
+        throw new Error( '必须传递addCondiments方法' );
+    };
+
+    var F = function(){};
+
+    F.prototype.init = function(){
+        boilWater();
+        brew();
+        pourInCup();
+        addCondiments();
+    };
+
+    return F;
+};
+
+var Coffee = Beverage({
+    brew: function(){
+        console.log( '用沸水冲泡咖啡' );
+    },
+    pourInCup: function(){
+         console.log( '把咖啡倒进杯子' );
+     },
+     addCondiments: function(){
+         console.log( '加糖和牛奶' );
+     }
+});
+
+var Tea = Beverage({
+    brew: function(){
+        console.log( '用沸水浸泡茶叶' );
+    },
+    pourInCup: function(){
+         console.log( '把茶倒进杯子' );
+     },
+     addCondiments: function(){
+         console.log( '加柠檬' );
+     }
+});
+
+
+var coffee = new Coffee();
+coffee.init();
+
+var tea = new Tea();
+tea.init();
+
+</code></pre>
+<p class="calibre1">在这段代码中，我们把<code class="calibre9">brew</code>、<code class="calibre9">pourInCup</code>、<code class="calibre9">addCondiments</code>这些方法依次传入<code class="calibre9">Beverage</code>函数，<code class="calibre9">Beverage</code> 函数被调用之后返回构造器F。F类中包含了“模板方法”<code class="calibre9">F.prototype.init</code>。跟继承得到的效果一样，该“模板方法”里依然封装了饮料子类的算法框架。</p>
+</body></html>

@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_67" class="calibre7"><strong class="calibre6">5.1　使用策略模式计算奖金</strong></h2>
+<p class="calibre1">策略模式有着广泛的应用。本节我们就以年终奖的计算为例进行介绍。</p>
+<p class="calibre1">很多公司的年终奖是根据员工的工资基数和年底绩效情况来发放的。例如，绩效为S的人年终奖有4倍工资，绩效为A的人年终奖有3倍工资，而绩效为B的人年终奖是2倍工资。假设财务部要求我们提供一段代码，来方便他们计算员工的年终奖。</p>
+<p class="calibre1"><strong class="calibre2">1. 最初的代码实现</strong></p>
+<p class="calibre1">我们可以编写一个名为<code class="calibre9">calculateBonus</code>的函数来计算每个人的奖金数额。很显然，<code class="calibre9">calculateBonus</code>函数要正确工作，就需要接收两个参数：员工的工资数额和他的绩效考核等级。代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var calculateBonus = function( performanceLevel, salary ){
+
+    if ( performanceLevel === 'S' ){
+        return salary * 4;
+    }
+
+    if ( performanceLevel === 'A' ){
+        return salary * 3;
+    }
+
+    if ( performanceLevel === 'B' ){
+        return salary * 2;
+    }
+
+};
+
+calculateBonus( 'B', 20000  );      // 输出：40000
+calculateBonus( 'S', 6000 );      // 输出：24000
+
+</code></pre>
+<p class="calibre1">可以发现，这段代码十分简单，但是存在着显而易见的缺点。</p>
+<ul class="calibre14">
+<li class="calibre15"><p class="calibre1"><code class="calibre9">calculateBonus</code>函数比较庞大，包含了很多<code class="calibre9">if-else</code>语句，这些语句需要覆盖所有的逻辑分支。</p>
+</li>
+<li class="calibre15"><p class="calibre1"><code class="calibre9">calculateBonus</code>函数缺乏弹性，如果增加了一种新的绩效等级C，或者想把绩效S的奖金系数改为5，那我们必须深入<code class="calibre9">calculateBonus</code>函数的内部实现，这是违反开放-封闭原则的。</p>
+</li>
+<li class="calibre15"><p class="calibre1">算法的复用性差，如果在程序的其他地方需要重用这些计算奖金的算法呢？我们的选择只有复制和粘贴。</p>
+</li>
+</ul>
+<p class="calibre1">因此，我们需要重构这段代码。</p>
+<p class="calibre1"><strong class="calibre2">2. 使用组合函数重构代码</strong></p>
+<p class="calibre1">一般最容易想到的办法就是使用组合函数来重构代码，我们把各种算法封装到一个个的小函数里面，这些小函数有着良好的命名，可以一目了然地知道它对应着哪种算法，它们也可以被复用在程序的其他地方。代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var performanceS = function( salary ){
+    return salary * 4;
+};
+
+var performanceA = function( salary ){
+    return salary * 3;
+};
+
+var performanceB = function( salary ){
+    return salary * 2;
+};
+
+var calculateBonus = function( performanceLevel, salary ){
+
+    if ( performanceLevel === 'S' ){
+        return performanceS( salary );
+    }
+
+    if ( performanceLevel === 'A' ){
+        return performanceA( salary );
+    }
+
+    if ( performanceLevel === 'B' ){
+        return performanceB( salary );
+    }
+
+};
+
+calculateBonus(  'A' , 10000 );    // 输出：30000
+
+</code></pre>
+<p class="calibre1">目前，我们的程序得到了一定的改善，但这种改善非常有限，我们依然没有解决最重要的问题：<code class="calibre9">calculateBonus</code>函数有可能越来越庞大，而且在系统变化的时候缺乏弹性。</p>
+<p class="calibre1"><strong class="calibre2">3. 使用策略模式重构代码</strong></p>
+<p class="calibre1">经过思考，我们想到了更好的办法——使用策略模式来重构代码。策略模式指的是定义一系列的算法，把它们一个个封装起来。将不变的部分和变化的部分隔开是每个设计模式的主题，策略模式也不例外，策略模式的目的就是将算法的使用与算法的实现分离开来。</p>
+<p class="calibre1">在这个例子里，算法的使用方式是不变的，都是根据某个算法取得计算后的奖金数额。而算法的实现是各异和变化的，每种绩效对应着不同的计算规则。</p>
+<p class="calibre1">一个基于策略模式的程序至少由两部分组成。第一个部分是一组策略类，策略类封装了具体的算法，并负责具体的计算过程。 第二个部分是环境类Context，Context接受客户的请求，随后把请求委托给某一个策略类。要做到这点，说明Context中要维持对某个策略对象的引用。</p>
+<p class="calibre1">现在用策略模式来重构上面的代码。第一个版本是模仿传统面向对象语言中的实现。我们先把每种绩效的计算规则都封装在对应的策略类里面：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var performanceS = function(){};
+
+performanceS.prototype.calculate = function( salary ){
+    return salary * 4;
+};
+
+var performanceA = function(){};
+
+performanceA.prototype.calculate = function( salary ){
+    return salary * 3;
+};
+
+var performanceB = function(){};
+
+performanceB.prototype.calculate = function( salary ){
+    return salary * 2;
+};
+
+</code></pre>
+<p class="calibre1">接下来定义奖金类<code class="calibre9">Bonus</code>：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var Bonus = function(){
+    this.salary = null;      // 原始工资
+    this.strategy = null;    // 绩效等级对应的策略对象
+};
+
+Bonus.prototype.setSalary = function( salary ){
+    this.salary = salary;    // 设置员工的原始工资
+};
+
+Bonus.prototype.setStrategy = function( strategy ){
+    this.strategy = strategy;    // 设置员工绩效等级对应的策略对象
+};
+
+Bonus.prototype.getBonus = function(){    // 取得奖金数额
+    return this.strategy.calculate( this.salary );    // 把计算奖金的操作委托给对应的策略对象
+};
+
+</code></pre>
+<p class="calibre1">在完成最终的代码之前，我们再来回顾一下策略模式的思想：</p>
+<blockquote class="calibre8">
+<p class="calibre1">定义一系列的算法，把它们一个个封装起来，并且使它们可以相互替换<span class="Zhu Shi Bian Hao ">1</span>。</p>
+</blockquote>
+<p class="Zhu Shi Nei Rong "><span class="Zhu Shi Bian Hao Xia ">1</span>“并且使它们可以相互替换”，这句话在很大程度上是相对于静态类型语言而言的。因为静态类型语言中有类型检查机制，所以各个策略类需要实现同样的接口。当它们的真正类型被隐藏在接口后面时，它们才能被相互替换。而在JavaScript这种“类型模糊”的语言中没有这种困扰，任何对象都可以被替换使用。因此，JavaScript中的“可以相互替换使用”表现为它们具有相同的目标和意图。</p>
+<p class="calibre1">这句话如果说得更详细一点，就是：定义一系列的算法，把它们各自封装成策略类，算法被封装在策略类内部的方法里。在客户对Context发起请求的时候，Context总是把请求委托给这些策略对象中间的某一个进行计算。</p>
+<p class="calibre1">现在我们来完成这个例子中剩下的代码。先创建一个<code class="calibre9">bonus</code>对象，并且给<code class="calibre9">bonus</code>对象设置一些原始的数据，比如员工的原始工资数额。接下来把某个计算奖金的策略对象也传入<code class="calibre9">bonus</code>对象内部保存起来。当调用<code class="calibre9">bonus.getBonus()</code>来计算奖金的时候，<code class="calibre9">bonus</code>对象本身并没有能力进行计算，而是把请求委托给了之前保存好的策略对象：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var bonus = new Bonus();
+
+bonus.setSalary( 10000 );
+bonus.setStrategy( new performanceS() );  // 设置策略对象
+
+console.log( bonus.getBonus() );    // 输出：40000
+
+bonus.setStrategy( new performanceA() );  // 设置策略对象
+console.log( bonus.getBonus() );    // 输出：30000
+
+</code></pre>
+<p class="calibre1">刚刚我们用策略模式重构了这段计算年终奖的代码，可以看到通过策略模式重构之后，代码变得更加清晰，各个类的职责更加鲜明。但这段代码是基于传统面向对象语言的模仿，下一节我们将了解用JavaScript实现的策略模式。</p>
+</body></html>

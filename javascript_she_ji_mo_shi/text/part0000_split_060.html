@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_98" class="calibre7"><strong class="calibre6">7.2　实现自己的迭代器</strong></h2>
+<p class="calibre1">现在我们来自己实现一个<code class="calibre9">each</code>函数，<code class="calibre9">each</code>函数接受2个参数，第一个为被循环的数组，第二个为循环中的每一步后将被触发的回调函数：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var each = function( ary, callback ){
+    for ( var i = 0, l = ary.length; i &lt; l; i++ ){
+        callback.call( ary[i], i, ary[ i ] );  // 把下标和元素当作参数传给callback函数
+    }
+};
+
+each( [ 1, 2, 3 ], function( i, n ){
+    alert ( [ i, n ] );
+});
+
+</code></pre>
+</body></html>

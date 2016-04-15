@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_235" class="calibre7"><strong class="calibre6">18.1　设计模式中的SRP原则</strong></h2>
+<p class="calibre1">SRP原则在很多设计模式中都有着广泛的运用，例如代理模式、迭代器模式、单例模式和装饰者模式。</p>
+<p class="calibre1"><strong class="calibre2">1. 代理模式</strong></p>
+<p class="calibre1">我们在第6章中已经见过这个图片预加载的例子了。通过增加虚拟代理的方式，把预加载图片的职责放到代理对象中，而本体仅仅负责往页面中添加<code class="calibre9">img</code>标签，这也是它最原始的职责。</p>
+<p class="calibre1"><code class="calibre9">myImage</code>负责往页面中添加<code class="calibre9">img</code>标签：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var myImage = (function(){
+    var imgNode = document.createElement( 'img' );
+    document.body.appendChild( imgNode );
+    return {
+        setSrc: function( src ){
+            imgNode.src = src;
+        }
+    }
+})();
+
+</code></pre>
+<p class="calibre1"><code class="calibre9">proxyImage</code>负责预加载图片，并在预加载完成之后把请求交给本体<code class="calibre9">myImage</code>：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var proxyImage = (function(){
+    var img = new Image;
+    img.onload = function(){
+        myImage.setSrc( this.src );
+    }
+    return {
+        setSrc: function( src ){
+            myImage.setSrc( 'file:// /C:/Users/svenzeng/Desktop/loading.gif' );
+            img.src = src;
+        }
+    }
+})();
+
+proxyImage.setSrc( 'http:// imgcache.qq.com/music/photo/000GGDys0yA0Nk.jpg' );
+
+</code></pre>
+<p class="calibre1">把添加<code class="calibre9">img</code>标签的功能和预加载图片的职责分开放到两个对象中，这两个对象各自都只有一个被修改的动机。在它们各自发生改变的时候，也不会影响另外的对象。</p>
+<p class="calibre1"><strong class="calibre2">2. 迭代器模式</strong></p>
+<p class="calibre1">我们有这样一段代码，先遍历一个集合，然后往页面中添加一些div，这些div的<code class="calibre9">innerHTML</code>分别对应集合里的元素：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var appendDiv = function( data ){
+    for ( var i = 0, l = data.length; i &lt; l; i++ ){
+        var div = document.createElement( 'div' );
+        div.innerHTML = data[ i ];
+        document.body.appendChild( div );
+    }
+};
+
+appendDiv( [ 1, 2, 3, 4, 5, 6 ] );
+
+</code></pre>
+<p class="calibre1">这其实是一段很常见的代码，经常用于ajax请求之后，在回调函数中遍历ajax请求返回的数据，然后在页面中渲染节点。</p>
+<p class="calibre1"><code class="calibre9">appendDiv</code>函数本来只是负责渲染数据，但是在这里它还承担了遍历聚合对象<code class="calibre9">data</code>的职责。我们想象一下，如果有一天cgi返回的<code class="calibre9">data</code>数据格式从<code class="calibre9">array</code>变成了<code class="calibre9">object</code>，那我们遍历<code class="calibre9">data</code>的代码就会出现问题，必须改成 <code class="calibre9">for ( var i in data )</code>的方式，这时候必须去修改<code class="calibre9">appendDiv</code>里的代码，否则因为遍历方式的改变，导致不能顺利往页面中添加div节点。</p>
+<p class="calibre1">我们有必要把遍历<code class="calibre9">data</code>的职责提取出来，这正是迭代器模式的意义，迭代器模式提供了一种方法来访问聚合对象，而不用暴露这个对象的内部表示。</p>
+<p class="calibre1">当把迭代聚合对象的职责单独封装在<code class="calibre9">each</code>函数中后，即使以后还要增加新的迭代方式，我们只需要修改<code class="calibre9">each</code>函数即可，<code class="calibre9">appendDiv</code>函数不会受到牵连，代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var each = function( obj, callback ) {
+    var value,
+           i = 0,
+        length = obj.length,
+        isArray = isArraylike( obj );    // isArraylike函数未实现，可以翻阅jQuery源代码
+
+    if ( isArray ) {    // 迭代类数组
+         for ( ; i &lt; length; i++ ) {
+             callback.call( obj[ i ], i, obj[ i ] );
+         }
+    } else {
+         for ( i in obj ) {    // 迭代object对象
+              value = callback.call( obj[ i ], i, obj[ i ] );
+         }
+     }
+       return obj;
+   };
+
+ var appendDiv = function( data ){
+    each( data, function( i, n ){
+        var div = document.createElement( 'div' );
+        div.innerHTML = n;
+        document.body.appendChild( div );
+    });
+ };
+
+appendDiv( [ 1, 2, 3, 4, 5, 6 ] );
+appendDiv({a:1,b:2,c:3,d:4} );
+
+</code></pre>
+<p class="calibre1"><strong class="calibre2">3. 单例模式</strong></p>
+<p class="calibre1">第4章曾实现过一个惰性单例，最开始的代码是这样的：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var createLoginLayer = (function(){
+    var div;
+    return function(){
+        if ( !div ){
+            div = document.createElement( 'div' );
+            div.innerHTML = '我是登录浮窗';
+            div.style.display = 'none';
+            document.body.appendChild( div );
+        }
+        return div;
+    }
+})();
+
+</code></pre>
+<p class="calibre1">现在我们把管理单例的职责和创建登录浮窗的职责分别封装在两个方法里，这两个方法可以独立变化而互不影响，当它们连接在一起的时候，就完成了创建唯一登录浮窗的功能，下面的代码显然是更好的做法：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var getSingle = function( fn ){    // 获取单例
+    var result;
+       return function(){
+          return result || ( result = fn .apply(this, arguments ) );
+       }
+};
+
+var createLoginLayer = function(){        // 创建登录浮窗
+    var div = document.createElement( 'div' );
+    div.innerHTML = '我是登录浮窗';
+    document.body.appendChild( div );
+    return div;
+};
+
+var createSingleLoginLayer = getSingle( createLoginLayer );
+
+var loginLayer1 = createSingleLoginLayer();
+var loginLayer2 = createSingleLoginLayer();
+
+alert ( loginLayer1 === loginLayer2 );    // 输出： true
+
+</code></pre>
+<p class="calibre1"><strong class="calibre2">4. 装饰者模式</strong></p>
+<p class="calibre1">使用装饰者模式的时候，我们通常让类或者对象一开始只具有一些基础的职责，更多的职责在代码运行时被动态装饰到对象上面。装饰者模式可以为对象动态增加职责，从另一个角度来看，这也是分离职责的一种方式。</p>
+<p class="calibre1">下面是第15章曾提到的例子，我们把数据上报的功能单独放在一个函数里，然后把这个函数动态装饰到业务函数上面：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">&lt;html&gt;
+    &lt;body&gt;
+        &lt;button tag="login" id="button"&gt;点击打开登录浮层&lt;/button&gt;
+    &lt;/body&gt;
+
+&lt;script&gt;
+
+Function.prototype.after = function( afterfn ){
+    var __self = this;
+    return function(){
+        var ret = __self.apply( this, arguments );
+        afterfn.apply( this, arguments );
+        return ret;
+    }
+};
+
+var showLogin = function(){
+    console.log( '打开登录浮层' );
+};
+
+var log = function(){
+    console.log( '上报标签为: ' + this.getAttribute( 'tag' ) );
+};
+
+document.getElementById( 'button' ).onclick = showLogin.after( log );
+    // 打开登录浮层之后上报数据
+
+&lt;/script&gt;
+&lt;/html&gt;
+
+</code></pre>
+<p class="calibre1">SRP原则的应用难点就是如何去分离职责，下面的小节我们将开始讨论这点。</p>
+</body></html>

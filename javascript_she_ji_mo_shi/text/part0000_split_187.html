@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_258" class="calibre7"><strong class="calibre6">22.1　提炼函数</strong></h2>
+<p class="calibre1">在JavaScript开发中，我们大部分时间都在与函数打交道，所以我们希望这些函数有着良好的命名，函数体内包含的逻辑清晰明了。如果一个函数过长，不得不加上若干注释才能让这个函数显得易读一些，那这些函数就很有必要进行重构。</p>
+<p class="calibre1">如果在函数中有一段代码可以被独立出来，那我们最好把这些代码放进另外一个独立的函数中。这是一种很常见的优化工作，这样做的好处主要有以下几点。</p>
+<ul class="calibre14">
+<li class="calibre15"><p class="calibre1">避免出现超大函数。</p>
+</li>
+<li class="calibre15"><p class="calibre1">独立出来的函数有助于代码复用。</p>
+</li>
+<li class="calibre15"><p class="calibre1">独立出来的函数更容易被覆写。</p>
+</li>
+<li class="calibre15"><p class="calibre1">独立出来的函数如果拥有一个良好的命名，它本身就起到了注释的作用。</p>
+</li>
+</ul>
+<p class="calibre1">比如在一个负责取得用户信息的函数里面，我们还需要打印跟用户信息有关的log，那么打印log的语句就可以被封装在一个独立的函数里：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var getUserInfo = function(){
+    ajax( 'http:// xxx.com/userInfo', function( data ){
+        console.log( 'userId: ' + data.userId );
+        console.log( 'userName: ' + data.userName );
+        console.log( 'nickName: ' + data.nickName );
+    });
+};
+
+</code></pre>
+<p class="calibre1">改成：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var getUserInfo = function(){
+    ajax( 'http:// xxx.com/userInfo', function( data ){
+        printDetails( data );
+    });
+};
+
+var printDetails = function( data ){
+    console.log( 'userId: ' + data.userId );
+    console.log( 'userName: ' + data.userName );
+    console.log( 'nickName: ' + data.nickName );
+};
+
+</code></pre>
+</body></html>

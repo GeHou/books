@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_68" class="calibre7"><strong class="calibre6">5.2　JavaScript版本的策略模式</strong></h2>
+<p class="calibre1">在5.1节中，我们让<code class="calibre9">strategy</code>对象从各个策略类中创建而来，这是模拟一些传统面向对象语言的实现。实际上在JavaScript语言中，函数也是对象，所以更简单和直接的做法是把<code class="calibre9">strategy</code>直接定义为函数：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var strategies = {
+    "S": function( salary ){
+        return salary * 4;
+    },
+    "A": function( salary ){
+        return salary * 3;
+    },
+    "B": function( salary ){
+        return salary * 2;
+    }
+};
+
+</code></pre>
+<p class="calibre1">同样，Context也没有必要必须用<code class="calibre9">Bonus</code>类来表示，我们依然用<code class="calibre9">calculateBonus</code> 函数充当Context来接受用户的请求。经过改造，代码的结构变得更加简洁：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var strategies = {
+    "S": function( salary ){
+        return salary * 4;
+    },
+    "A": function( salary ){
+        return salary * 3;
+    },
+    "B": function( salary ){
+        return salary * 2;
+    }
+};
+
+var calculateBonus = function( level, salary ){
+    return strategies[ level ]( salary );
+};
+
+console.log( calculateBonus( 'S', 20000 ) );     // 输出：80000
+console.log( calculateBonus( 'A', 10000 ) );     // 输出：30000
+
+</code></pre>
+<p class="calibre1">在接下来的缓动动画和表单验证的例子中，我们用到的都是这种函数形式的策略对象。</p>
+</body></html>

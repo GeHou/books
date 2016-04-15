@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_223" class="calibre7"><strong class="calibre6">16.7　状态模式中的性能优化点</strong></h2>
+<p class="calibre1">在这两个例子中，我们并没有太多地从性能方面考虑问题，实际上，这里有一些比较大的优化点。</p>
+<ul class="calibre14">
+<li class="calibre15"><p class="calibre1">有两种选择来管理<code class="calibre9">state</code>对象的创建和销毁。第一种是仅当<code class="calibre9">state</code>对象被需要时才创建并随后销毁，另一种是一开始就创建好所有的状态对象，并且始终不销毁它们。如果<code class="calibre9">state</code>对象比较庞大，可以用第一种方式来节省内存，这样可以避免创建一些不会用到的对象并及时地回收它们。但如果状态的改变很频繁，最好一开始就把这些<code class="calibre9">state</code>对象都创建出来，也没有必要销毁它们，因为可能很快将再次用到它们。</p>
+</li>
+<li class="calibre15"><p class="calibre1">在本章的例子中，我们为每个<code class="calibre9">Context</code>对象都创建了一组<code class="calibre9">state</code>对象，实际上这些<code class="calibre9">state</code>对象之间是可以共享的，各<code class="calibre9">Context</code>对象可以共享一个<code class="calibre9">state</code>对象，这也是享元模式的应用场景之一。</p>
+</li>
+</ul>
+</body></html>

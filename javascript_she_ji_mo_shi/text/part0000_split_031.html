@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_61" class="calibre7"><strong class="calibre6">4.3　用代理实现单例模式</strong></h2>
+<p class="calibre1">现在我们通过引入代理类的方式，来解决上面提到的问题。</p>
+<p class="calibre1">我们依然使用4.2节中的代码，首先在<code class="calibre9">CreateDiv</code>构造函数中，把负责管理单例的代码移除出去，使它成为一个普通的创建<code class="calibre9">div</code>的类：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var CreateDiv = function( html ){
+    this.html = html;
+    this.init();
+};
+
+CreateDiv.prototype.init = function(){
+    var div = document.createElement( 'div' );
+    div.innerHTML = this.html;
+    document.body.appendChild( div );
+};
+
+</code></pre>
+<p class="calibre1">接下来引入代理类<code class="calibre9">proxySingletonCreateDiv</code>：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var ProxySingletonCreateDiv = (function(){
+
+    var instance;
+    return function( html ){
+        if ( !instance ){
+            instance = new CreateDiv( html );
+        }
+
+        return instance;
+    }
+
+})();
+
+var a = new ProxySingletonCreateDiv( 'sven1' );
+var b = new ProxySingletonCreateDiv( 'sven2' );
+
+alert ( a === b );
+
+</code></pre>
+<p class="calibre1">通过引入代理类的方式，我们同样完成了一个单例模式的编写，跟之前不同的是，现在我们把负责管理单例的逻辑移到了代理类<code class="calibre9">proxySingletonCreateDiv</code>中。这样一来，<code class="calibre9">CreateDiv</code>就变成了一个普通的类，它跟<code class="calibre9">proxySingletonCreateDiv</code>组合起来可以达到单例模式的效果。</p>
+<p class="calibre1">本例是缓存代理的应用之一，在第6章中，我们将继续了解代理带来的好处。</p>
+</body></html>

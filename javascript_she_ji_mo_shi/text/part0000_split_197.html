@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_268" class="calibre7"><strong class="calibre6">22.11　用<code class="calibre17">return</code>退出多重循环</strong></h2>
+<p class="calibre1">假设在函数体内有一个两重循环语句，我们需要在内层循环中判断，当达到某个临界条件时退出外层的循环。我们大多数时候会引入一个控制标记变量：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var func = function(){
+    var flag = false;
+    for ( var i = 0; i &lt; 10; i++ ){
+        for ( var j = 0; j &lt; 10; j++ ){
+            if ( i * j &gt;30 ){
+                flag = true;
+                break;
+            }
+        }
+        if ( flag === true ){
+            break;
+        }
+    }
+};
+
+</code></pre>
+<p class="calibre1">第二种做法是设置循环标记：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var func = function(){
+    outerloop:
+    for ( var i = 0; i &lt; 10; i++ ){
+        innerloop:
+        for ( var j = 0; j &lt; 10; j++ ){
+            if ( i * j &gt;30 ){
+                break outerloop;
+            }
+        }
+    }
+};
+
+</code></pre>
+<p class="calibre1">这两种做法无疑都让人头晕目眩，更简单的做法是在需要中止循环的时候直接退出整个方法：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var func = function(){
+    for ( var i = 0; i &lt; 10; i++ ){
+        for ( var j = 0; j &lt; 10; j++ ){
+            if ( i * j &gt;30 ){
+                return;
+            }
+        }
+    }
+};
+
+</code></pre>
+<p class="calibre1">当然用<code class="calibre9">return</code>直接退出方法会带来一个问题，如果在循环之后还有一些将被执行的代码呢？如果我们提前退出了整个方法，这些代码就得不到被执行的机会：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var func = function(){
+    for ( var i = 0; i &lt; 10; i++ ){
+        for ( var j = 0; j &lt; 10; j++ ){
+            if ( i * j &gt;30 ){
+                return;
+            }
+        }
+    }
+    console.log( i );    // 这句代码没有机会被执行
+};
+
+</code></pre>
+<p class="calibre1">为了解决这个问题，我们可以把循环后面的代码放到<code class="calibre9">return</code>后面，如果代码比较多，就应该把它们提炼成一个单独的函数：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var print = function( i ){
+    console.log( i );
+};
+
+var func = function(){
+    for ( var i = 0; i &lt; 10; i++ ){
+        for ( var j = 0; j &lt; 10; j++ ){
+            if ( i * j &gt;30 ){
+                return print( i );
+            }
+        }
+    }
+};
+
+func();</code></pre>
+
+<p class="calibre4" style="margin:0pt; border:0pt; height:1em" id="calibre_pb_253"> </p>
+</body></html>

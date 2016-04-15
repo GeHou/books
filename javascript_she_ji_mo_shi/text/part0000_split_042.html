@@ -1,0 +1,279 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_75" class="calibre7"><strong class="calibre6">5.6　表单校验</strong></h2>
+<p class="calibre1">在一个Web项目中，注册、登录、修改用户信息等功能的实现都离不开提交表单。</p>
+<p class="calibre1">在将用户输入的数据交给后台之前，常常要做一些客户端力所能及的校验工作，比如注册的时候需要校验是否填写了用户名，密码的长度是否符合规定，等等。这样可以避免因为提交不合法数据而带来的不必要网络开销。</p>
+<p class="calibre1">假设我们正在编写一个注册的页面，在点击注册按钮之前，有如下几条校验逻辑。</p>
+<ul class="calibre14">
+<li class="calibre15"><p class="calibre1">用户名不能为空。</p>
+</li>
+<li class="calibre15"><p class="calibre1">密码长度不能少于6位。</p>
+</li>
+<li class="calibre15"><p class="calibre1">手机号码必须符合格式。</p>
+</li>
+</ul>
+<h3 id="nav_point_76" class="calibre11"><strong class="calibre6">5.6.1　表单校验的第一个版本</strong></h3>
+<p class="calibre1">现在编写表单校验的第一个版本，可以提前透露的是，目前我们还没有引入策略模式。代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">&lt;html&gt;
+    &lt;body&gt;
+        &lt;form action="http:// xxx.com/register" id="registerForm" method="post"&gt;
+            请输入用户名：&lt;input type="text" name="userName"/ &gt;
+            请输入密码：&lt;input type="text" name="password"/ &gt;
+            请输入手机号码：&lt;input type="text" name="phoneNumber"/ &gt;
+            &lt;button&gt;提交&lt;/button&gt;
+        &lt;/form&gt;
+    &lt;script&gt;
+        var registerForm = document.getElementById( 'registerForm' );
+
+        registerForm.onsubmit = function(){
+            if ( registerForm.userName.value === '' ){
+                alert ( '用户名不能为空' );
+                return false;
+            }
+
+            if ( registerForm.password.value.length &lt; 6 ){
+                alert ( '密码长度不能少于6位' );
+                return false;
+            }
+            if ( !/(^1[3|5|8][0-9]{9}$)/.test( registerForm.phoneNumber.value ) ){
+                alert ( '手机号码格式不正确' );
+                return false;
+            }
+        }
+     &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+<p class="calibre1">这是一种很常见的代码编写方式，它的缺点跟计算奖金的最初版本一模一样。</p>
+<ul class="calibre14">
+<li class="calibre15"><p class="calibre1"><code class="calibre9">registerForm.onsubmit</code>函数比较庞大，包含了很多<code class="calibre9">if-else</code>语句，这些语句需要覆盖所有的校验规则。</p>
+</li>
+<li class="calibre15"><p class="calibre1"><code class="calibre9">registerForm.onsubmit</code>函数缺乏弹性，如果增加了一种新的校验规则，或者想把密码的长度校验从6改成8，我们都必须深入<code class="calibre9">registerForm.onsubmit</code>函数的内部实现，这是违反开放—封闭原则的。</p>
+</li>
+<li class="calibre15"><p class="calibre1">算法的复用性差，如果在程序中增加了另外一个表单，这个表单也需要进行一些类似的校验，那我们很可能将这些校验逻辑复制得漫天遍野。</p>
+</li>
+</ul>
+<h3 id="nav_point_77" class="calibre11"><strong class="calibre6">5.6.2　用策略模式重构表单校验</strong></h3>
+<p class="calibre1">下面我们将用策略模式来重构表单校验的代码，很显然第一步我们要把这些校验逻辑都封装成策略对象：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var strategies = {
+    isNonEmpty: function( value, errorMsg ){    // 不为空
+        if ( value === '' ){
+            return errorMsg ;
+        }
+    },
+    minLength: function( value, length, errorMsg ){    // 限制最小长度
+        if ( value.length &lt; length ){
+            return errorMsg;
+        }
+    },
+    isMobile: function( value, errorMsg ){    // 手机号码格式
+        if ( !/(^1[3|5|8][0-9]{9}$)/.test( value ) ){
+            return errorMsg;
+        }
+    }
+};
+
+</code></pre>
+<p class="calibre1">接下来我们准备实现<code class="calibre9">Validator</code>类。<code class="calibre9">Validator</code>类在这里作为Context，负责接收用户的请求并委托给<code class="calibre9">strategy</code>对象。在给出<code class="calibre9">Validator</code>类的代码之前，有必要提前了解用户是如何向<code class="calibre9">Validator</code>类发送请求的，这有助于我们知道如何去编写<code class="calibre9">Validator</code>类的代码。代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var validataFunc = function(){
+    var validator = new Validator();    // 创建一个validator对象
+
+       /***************添加一些校验规则****************/
+    validator.add( registerForm.userName, 'isNonEmpty', '用户名不能为空' );
+    validator.add( registerForm.password, 'minLength:6', '密码长度不能少于6位' );
+    validator.add( registerForm.phoneNumber, 'isMobile', '手机号码格式不正确' );
+
+    var errorMsg = validator.start();    // 获得校验结果
+    return errorMsg;  // 返回校验结果
+}
+
+ var registerForm = document.getElementById( 'registerForm' );
+ registerForm.onsubmit = function(){
+     var errorMsg = validataFunc();   // 如果errorMsg有确切的返回值，说明未通过校验
+     if ( errorMsg ){
+         alert ( errorMsg );
+         return false;    // 阻止表单提交
+     }
+};
+
+</code></pre>
+<p class="calibre1">从这段代码中可以看到，我们先创建了一个<code class="calibre9">validator</code>对象，然后通过<code class="calibre9">validator.add</code>方法，往<code class="calibre9">validator</code>对象中添加一些校验规则。<code class="calibre9">validator.add</code>方法接受3个参数，以下面这句代码说明：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">validator.add( registerForm.password, 'minLength:6', '密码长度不能少于6位' );
+
+</code></pre>
+<ul class="calibre14">
+<li class="calibre15"><p class="calibre1"><code class="calibre9">registerForm.password</code>为参与校验的<code class="calibre9">input</code>输入框。</p>
+</li>
+<li class="calibre15"><p class="calibre1"><code class="calibre9">'minLength:6'</code>是一个以冒号隔开的字符串。冒号前面的<code class="calibre9">minLength</code>代表客户挑选的<code class="calibre9">strategy</code>对象，冒号后面的数字6表示在校验过程中所必需的一些参数。<code class="calibre9">'minLength:6'</code>的意思就是校验<code class="calibre9">registerForm.password</code>这个文本输入框的<code class="calibre9">value</code>最小长度为6。如果这个字符串中不包含冒号，说明校验过程中不需要额外的参数信息，比如<code class="calibre9">'isNonEmpty'</code>。</p>
+</li>
+<li class="calibre15"><p class="calibre1">第3个参数是当校验未通过时返回的错误信息。</p>
+</li>
+</ul>
+<p class="calibre1">当我们往<code class="calibre9">validator</code>对象里添加完一系列的校验规则之后，会调用<code class="calibre9">validator.start()</code>方法来启动校验。如果<code class="calibre9">validator.start()</code>返回了一个确切的<code class="calibre9">errorMsg</code> 字符串当作返回值，说明该次校验没有通过，此时需让<code class="calibre9">registerForm.onsubmit</code>方法返回<code class="calibre9">false</code>来阻止表单的提交。</p>
+<p class="calibre1">最后是<code class="calibre9">Validator</code>类的实现：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var Validator = function(){
+    this.cache = [];        // 保存校验规则
+};
+
+Validator.prototype.add = function( dom, rule, errorMsg ){
+    var ary = rule.split( ':' );    // 把strategy和参数分开
+    this.cache.push(function(){  // 把校验的步骤用空函数包装起来，并且放入cache
+        var strategy = ary.shift();     // 用户挑选的strategy
+        ary.unshift( dom.value );    // 把input的value添加进参数列表
+        ary.push( errorMsg );    // 把errorMsg添加进参数列表
+        return strategies[ strategy ].apply( dom, ary );
+    });
+};
+
+Validator.prototype.start = function(){
+    for ( var i = 0, validatorFunc; validatorFunc = this.cache[ i++ ]; ){
+        var msg = validatorFunc();    // 开始校验，并取得校验后的返回信息
+        if ( msg ){     // 如果有确切的返回值，说明校验没有通过
+            return msg;
+        }
+    }
+};
+
+</code></pre>
+<p class="calibre1">使用策略模式重构代码之后，我们仅仅通过“配置”的方式就可以完成一个表单的校验，这些校验规则也可以复用在程序的任何地方，还能作为插件的形式，方便地被移植到其他项目中。</p>
+<p class="calibre1">在修改某个校验规则的时候，只需要编写或者改写少量的代码。比如我们想将用户名输入框的校验规则改成用户名不能少于4个字符。可以看到，这时候的修改是毫不费力的。代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">validator.add( registerForm.userName, 'isNonEmpty', '用户名不能为空' );
+
+// 改成：
+validator.add( registerForm.userName, 'minLength:10', '用户名长度不能小于10位' );
+
+</code></pre>
+<h3 id="nav_point_78" class="calibre11"><strong class="calibre6">5.6.3　给某个文本输入框添加多种校验规则</strong></h3>
+<p class="calibre1">为了让读者把注意力放在策略模式的使用上，目前我们的表单校验实现留有一点小遗憾：一个文本输入框只能对应一种校验规则，比如，用户名输入框只能校验输入是否为空：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">validator.add( registerForm.userName, 'isNonEmpty', '用户名不能为空' );
+
+</code></pre>
+<p class="calibre1">如果我们既想校验它是否为空，又想校验它输入文本的长度不小于10呢？我们期望以这样的形式进行校验：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">validator.add( registerForm.userName, [{
+        strategy: 'isNonEmpty',
+        errorMsg: '用户名不能为空'
+    }, {
+        strategy: 'minLength:6',
+        errorMsg: '用户名长度不能小于10位'
+    }] );
+
+</code></pre>
+<p class="calibre1">下面提供的代码可用于一个文本输入框对应多种校验规则：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">&lt;html&gt;
+    &lt;body&gt;
+        &lt;form action="http:// xxx.com/register" id="registerForm" method="post"&gt;
+            请输入用户名：&lt;input type="text" name="userName"/ &gt;
+            请输入密码：&lt;input type="text" name="password"/ &gt;
+            请输入手机号码：&lt;input type="text" name="phoneNumber"/ &gt;
+            &lt;button&gt;提交&lt;/button&gt;
+        &lt;/form&gt;
+    &lt;script&gt;
+
+      /***********************策略对象**************************/
+
+        var strategies = {
+            isNonEmpty: function( value, errorMsg ){
+                if ( value === '' ){
+                    return errorMsg;
+                }
+            },
+            minLength: function( value, length, errorMsg ){
+                if ( value.length &lt; length ){
+                    return errorMsg;
+                }
+            },
+            isMobile: function( value, errorMsg ){
+                if ( !/(^1[3|5|8][0-9]{9}$)/.test( value ) ){
+                    return errorMsg;
+                }
+            }
+        };
+
+       /***********************Validator 类**************************/
+
+        var Validator = function(){
+            this.cache = [];
+        };
+
+        Validator.prototype.add = function( dom, rules ){
+
+            var self = this;
+
+            for ( var i = 0, rule; rule = rules[ i++ ]; ){
+                (function( rule ){
+                    var strategyAry = rule.strategy.split( ':' );
+                    var errorMsg = rule.errorMsg;
+
+                    self.cache.push(function(){
+                        var strategy = strategyAry.shift();
+                        strategyAry.unshift( dom.value );
+                        strategyAry.push( errorMsg );
+                        return strategies[ strategy ].apply( dom, strategyAry );
+                    });
+                })( rule )
+            }
+
+        };
+
+        Validator.prototype.start = function(){
+            for ( var i = 0, validatorFunc; validatorFunc = this.cache[ i++ ]; ){
+                var errorMsg = validatorFunc();
+                if ( errorMsg ){
+                    return errorMsg;
+                }
+            }
+        };
+
+      /***********************客户调用代码**************************/
+
+        var registerForm = document.getElementById( 'registerForm' );
+
+        var validataFunc = function(){
+            var validator = new Validator();
+
+            validator.add( registerForm.userName, [{
+                strategy: 'isNonEmpty',
+                errorMsg: '用户名不能为空'
+            }, {
+                strategy: 'minLength:6',
+                errorMsg: '用户名长度不能小于10位'
+            }]);
+
+            validator.add( registerForm.password, [{
+                strategy: 'minLength:6',
+                errorMsg: '密码长度不能小于6位'
+            }]);
+
+            validator.add( registerForm.phoneNumber, [{
+                strategy: 'isMobile',
+                errorMsg: '手机号码格式不正确'
+            }]);
+
+            var errorMsg = validator.start();
+            return errorMsg;
+        }
+
+        registerForm.onsubmit = function(){
+             var errorMsg = validataFunc();
+
+             if ( errorMsg ){
+                  alert ( errorMsg );
+                  return false;
+             }
+         };
+
+
+     &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+</body></html>

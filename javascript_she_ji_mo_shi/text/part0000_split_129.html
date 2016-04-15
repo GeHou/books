@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_184" class="calibre7"><strong class="calibre6">13.8　用职责链模式获取文件上传对象</strong></h2>
+<p class="calibre1">在第7章有一个用迭代器获取文件上传对象的例子：当时我们创建了一个迭代器来迭代获取合适的文件上传对象，其实用职责链模式可以更简单，我们完全不用创建这个多余的迭代器，完整代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var getActiveUploadObj = function(){
+    try{
+        return new ActiveXObject("TXFTNActiveX.FTNUpload");    // IE上传控件
+    }catch(e){
+        return 'nextSuccessor' ;
+    }
+};
+
+var getFlashUploadObj = function(){
+    if ( supportFlash() ){
+        var str = '&lt;object type="application/x-shockwave-flash"&gt;&lt;/object&gt;';
+        return $( str ).appendTo( $('body') );
+    }
+    return 'nextSuccessor' ;
+};
+
+var getFormUpladObj = function(){
+    return $( '&lt;form&gt;&lt;input name="file" type="file"/&gt;&lt;/form&gt;' ).appendTo( $('body') );
+};
+
+var getUploadObj = getActiveUploadObj.after( getFlashUploadObj ).after( getFormUpladObj );
+
+console.log(  getUploadObj()  );
+
+</code></pre>
+</body></html>

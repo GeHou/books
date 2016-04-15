@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h1 id="nav_point_239" class="not-in-toc"><strong class="calibre6">第 19 章　最少知识原则</strong></h1>
+<p class="calibre1">最少知识原则（LKP）说的是一个软件实体应当尽可能少地与其他实体发生相互作用。这里的软件实体是一个广义的概念，不仅包括对象，还包括系统、类、模块、函数、变量等。本节我们主要针对对象来说明这个原则，下面引用《面向对象设计原理与模式》一书中的例子来解释最少知识原则：</p>
+<blockquote class="calibre8">
+<p class="calibre1">某军队中的将军需要挖掘一些散兵坑。下面是完成任务的一种方式：将军可以通知上校让他叫来少校，然后让少校找来上尉，并让上尉通知一个军士，最后军士唤来一个士兵，然后命令士兵挖掘一些散兵坑。</p>
+</blockquote>
+<p class="calibre1">这种方式十分荒谬，不是吗？不过，我们还是先来看一下这个过程的等价代码：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">gerneral.getColonel( c ).getMajor( m ).getCaptain( c ) .getSergeant( s ).getPrivate( p ).digFoxhole();
+
+</code></pre>
+<p class="calibre1">让代码通过这么长的消息链才能完成一个任务，这就像让将军通过那么多繁琐的步骤才能命令别人挖掘散兵坑一样荒谬！而且，这条链中任何一个对象的改动都会影响整条链的结果。</p>
+<p class="calibre1">最有可能的是，将军自己根本就不会考虑挖散兵坑这样的细节信息。但是如果将军真的考虑了这个问题的话，他一定会通知某个军官：“我不关心这个工作如何完成，但是你得命令人去挖散兵坑。”</p>
+</body></html>

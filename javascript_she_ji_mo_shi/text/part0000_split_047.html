@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_83" class="calibre7"><strong class="calibre6">6.1　第一个例子——小明追MM的故事</strong></h2>
+<p class="calibre1">下面我们从一个小例子开始熟悉代理模式的结构。</p>
+<blockquote class="calibre8">
+<p class="calibre1">在四月一个晴朗的早晨，小明遇见了他的百分百女孩，我们暂且称呼小明的女神为A。两天之后，小明决定给A送一束花来表白。刚好小明打听到A和他有一个共同的朋友B，于是内向的小明决定让B来代替自己完成送花这件事情。</p>
+</blockquote>
+<p class="Tu "><img src="../images/00012.gif" alt="" width="70%" class="calibre22"/></p>
+<p class="calibre1">虽然小明的故事必然以悲剧收场，因为追MM更好的方式是送一辆宝马。不管怎样，我们还是先用代码来描述一下小明追女神的过程，先看看不用代理模式的情况：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var Flower = function(){};
+
+var xiaoming = {
+    sendFlower: function( target ){
+        var flower = new Flower();
+        target.receiveFlower( flower );
+    }
+};
+
+var A = {
+    receiveFlower: function( flower ){
+        console.log( '收到花 ' + flower );
+    }
+};
+
+xiaoming.sendFlower( A );
+
+</code></pre>
+<p class="calibre1">接下来，我们引入代理B，即小明通过B来给A送花：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var Flower = function(){};
+
+var xiaoming = {
+    sendFlower: function( target){
+    var flower = new Flower();
+        target.receiveFlower( flower );
+    }
+};
+
+var B = {
+    receiveFlower: function( flower ){
+        A.receiveFlower( flower );
+    }
+};
+
+var A = {
+    receiveFlower: function( flower ){
+        console.log( '收到花 ' + flower );
+    }
+};
+
+xiaoming.sendFlower( B );
+
+</code></pre>
+<p class="calibre1">很显然，执行结果跟第一段代码一致，至此我们就完成了一个最简单的代理模式的编写。</p>
+<p class="calibre1">也许读者会疑惑，小明自己去送花和代理B帮小明送花，二者看起来并没有本质的区别，引入一个代理对象看起来只是把事情搞复杂了而已。</p>
+<p class="calibre1">的确，此处的代理模式毫无用处，它所做的只是把请求简单地转交给本体。但不管怎样，我们开始引入了代理，这是一个不错的起点。</p>
+<p class="calibre1">现在我们改变故事的背景设定，假设当A在心情好的时候收到花，小明表白成功的几率有60%，而当A在心情差的时候收到花，小明表白的成功率无限趋近于0。</p>
+<p class="calibre1">小明跟A刚刚认识两天，还无法辨别A什么时候心情好。如果不合时宜地把花送给A，花被直接扔掉的可能性很大，这束花可是小明吃了7天泡面换来的。</p>
+<p class="calibre1">但是A的朋友B却很了解A，所以小明只管把花交给B，B会监听A的心情变化，然后选择A心情好的时候把花转交给A，代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var Flower = function(){};
+
+var xiaoming = {
+    sendFlower: function( target){
+        var flower = new Flower();
+        target.receiveFlower( flower );
+    }
+};
+
+var B = {
+    receiveFlower: function( flower ){
+        A.listenGoodMood(function(){    // 监听A的好心情
+            A.receiveFlower( flower );
+        });
+    }
+};
+
+var A = {
+    receiveFlower: function( flower ){
+        console.log( '收到花 ' + flower );
+    },
+    listenGoodMood: function( fn ){
+        setTimeout(function(){    // 假设10秒之后A的心情变好
+            fn();
+        }, 10000 );
+    }
+};
+
+xiaoming.sendFlower( B );
+
+</code></pre>
+</body></html>

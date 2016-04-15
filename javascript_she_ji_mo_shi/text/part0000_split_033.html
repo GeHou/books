@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_63" class="calibre7"><strong class="calibre6">4.5　惰性单例</strong></h2>
+<p class="calibre1">前面我们了解了单例模式的一些实现办法，本节我们来了解惰性单例。</p>
+<p class="calibre1">惰性单例指的是在需要的时候才创建对象实例。惰性单例是单例模式的重点，这种技术在实际开发中非常有用，有用的程度可能超出了我们的想象，实际上在本章开头就使用过这种技术，<code class="calibre9">instance</code> 实例对象总是在我们调用<code class="calibre9">Singleton.getInstance</code> 的时候才被创建，而不是在页面加载好的时候就创建，代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">Singleton.getInstance = (function(){
+    var instance = null;
+    return function( name ){
+        if ( !instance ){
+            instance = new Singleton( name );
+        }
+        return instance;
+    }
+})();
+
+</code></pre>
+<p class="calibre1">不过这是基于“类”的单例模式，前面说过，基于“类”的单例模式在JavaScript中并不适用，下面我们将以WebQQ的登录浮窗为例，介绍与全局变量结合实现惰性的单例。</p>
+<p class="calibre1">假设我们是WebQQ的开发人员（网址是web.qq.com），当点击左边导航里QQ头像时，会弹出一个登录浮窗（如图4-1所示），很明显这个浮窗在页面里总是唯一的，不可能出现同时存在两个登录窗口的情况。</p>
+<p class="Tu "><img src="../images/00007.jpeg" alt="" width="80%" class="calibre19"/></p>
+<p class="calibre1"><strong class="calibre2">图　4-1</strong></p>
+<p class="calibre1">第一种解决方案是在页面加载完成的时候便创建好这个<code class="calibre9">div</code>浮窗，这个浮窗一开始肯定是隐藏状态的，当用户点击登录按钮的时候，它才开始显示：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">&lt;html&gt;
+    &lt;body&gt;
+        &lt;button id="loginBtn"&gt;登录&lt;/button&gt;
+    &lt;/body&gt;
+
+&lt;script&gt;
+    var loginLayer = (function(){
+        var div = document.createElement( 'div' );
+        div.innerHTML = '我是登录浮窗';
+        div.style.display = 'none';
+        document.body.appendChild( div );
+        return div;
+    })();
+
+    document.getElementById( 'loginBtn' ).onclick = function(){
+        loginLayer.style.display = 'block';
+    };
+&lt;/script&gt;
+&lt;/html&gt;
+
+</code></pre>
+<p class="calibre1">这种方式有一个问题，也许我们进入WebQQ只是玩玩游戏或者看看天气，根本不需要进行登录操作，因为登录浮窗总是一开始就被创建好，那么很有可能将白白浪费一些DOM节点。</p>
+<p class="calibre1">现在改写一下代码，使用户点击登录按钮的时候才开始创建该浮窗：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">&lt;html&gt;
+    &lt;body&gt;
+        &lt;button id="loginBtn"&gt;登录&lt;/button&gt;
+    &lt;/body&gt;
+
+&lt;script&gt;
+    var createLoginLayer = function(){
+        var div = document.createElement( 'div' );
+        div.innerHTML = '我是登录浮窗';
+        div.style.display = 'none';
+        document.body.appendChild( div );
+        return div;
+    };
+
+    document.getElementById( 'loginBtn' ).onclick = function(){
+        var loginLayer = createLoginLayer();
+        loginLayer.style.display = 'block';
+    };
+&lt;/script&gt;
+&lt;/html&gt;
+
+</code></pre>
+<p class="calibre1">虽然现在达到了惰性的目的，但失去了单例的效果。当我们每次点击登录按钮的时候，都会创建一个新的登录浮窗<code class="calibre9">div</code>。虽然我们可以在点击浮窗上的关闭按钮时（此处未实现）把这个浮窗从页面中删除掉，但这样频繁地创建和删除节点明显是不合理的，也是不必要的。</p>
+<p class="calibre1">也许读者已经想到了，我们可以用一个变量来判断是否已经创建过登录浮窗，这也是本节第一段代码中的做法：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var createLoginLayer = (function(){
+    var div;
+    return function(){
+        if ( !div ){
+            div = document.createElement( 'div' );
+            div.innerHTML = '我是登录浮窗';
+            div.style.display = 'none';
+            document.body.appendChild( div );
+        }
+
+        return div;
+    }
+})();
+
+document.getElementById( 'loginBtn' ).onclick = function(){
+    var loginLayer = createLoginLayer();
+    loginLayer.style.display = 'block';
+};
+
+</code></pre>
+</body></html>

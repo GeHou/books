@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_122" class="calibre7"><strong class="calibre6">9.3　JavaScript中的命令模式</strong></h2>
+<p class="calibre1">也许我们会感到很奇怪，所谓的命令模式，看起来就是给对象的某个方法取了<code class="calibre9">execute</code>的名字。引入<code class="calibre9">command</code>对象和<code class="calibre9">receiver</code>这两个无中生有的角色无非是把简单的事情复杂化了，即使不用什么模式，用下面寥寥几行代码就可以实现相同的功能：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var bindClick = function( button, func ){
+    button.onclick = func;
+};
+
+var MenuBar = {
+    refresh: function(){
+        console.log( '刷新菜单界面' );
+    }
+};
+
+var SubMenu = {
+    add: function(){
+        console.log( '增加子菜单' );
+    },
+    del: function(){
+        console.log( '删除子菜单' );
+    }
+};
+
+bindClick( button1, MenuBar.refresh );
+bindClick( button2, SubMenu.add );
+bindClick( button3, SubMenu.del );
+
+</code></pre>
+<p class="calibre1">这种说法是正确的，9.2节中的示例代码是模拟传统面向对象语言的命令模式实现。命令模式将过程式的请求调用封装在<code class="calibre9">command</code>对象的<code class="calibre9">execute</code>方法里，通过封装方法调用，我们可以把运算块包装成形。<code class="calibre9">command</code>对象可以被四处传递，所以在调用命令的时候，客户（Client）不需要关心事情是如何进行的。</p>
+<p class="calibre1">命令模式的由来，其实是<strong class="calibre2">回调</strong>（<code class="calibre9">callback</code>）函数的一个面向对象的替代品。</p>
+<p class="calibre1">JavaScript作为将函数作为一等对象的语言，跟策略模式一样，命令模式也早已融入到了JavaScript语言之中。运算块不一定要封装在<code class="calibre9">command.execute</code>方法中，也可以封装在普通函数中。函数作为一等对象，本身就可以被四处传递。即使我们依然需要请求“接收者”，那也未必使用面向对象的方式，闭包可以完成同样的功能。</p>
+<p class="calibre1">在面向对象设计中，命令模式的接收者被当成<code class="calibre9">command</code>对象的属性保存起来，同时约定执行命令的操作调用<code class="calibre9">command.execute</code>方法。在使用闭包的命令模式实现中，接收者被封闭在闭包产生的环境中，执行命令的操作可以更加简单，仅仅执行回调函数即可。无论接收者被保存为对象的属性，还是被封闭在闭包产生的环境中，在将来执行命令的时候，接收者都能被顺利访问。用闭包实现的命令模式如下代码所示：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var setCommand = function( button, func ){
+    button.onclick = function(){
+        func();
+    }
+};
+
+var MenuBar = {
+    refresh: function(){
+        console.log( '刷新菜单界面' );
+    }
+};
+
+var RefreshMenuBarCommand = function( receiver ){
+    return function(){
+        receiver.refresh();
+    }
+};
+
+var refreshMenuBarCommand = RefreshMenuBarCommand( MenuBar );
+
+setCommand( button1, refreshMenuBarCommand );
+
+</code></pre>
+<p class="calibre1">当然，如果想更明确地表达当前正在使用命令模式，或者除了执行命令之外，将来有可能还要提供撤销命令等操作。那我们最好还是把执行函数改为调用<code class="calibre9">execute</code>方法：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var RefreshMenuBarCommand = function( receiver ){
+    return {
+        execute: function(){
+            receiver.refresh();
+        }
+    }
+};
+
+var setCommand = function( button, command ){
+    button.onclick = function(){
+        command.execute();
+    }
+};
+
+var refreshMenuBarCommand = RefreshMenuBarCommand( MenuBar );
+setCommand( button1, refreshMenuBarCommand );
+
+</code></pre>
+</body></html>

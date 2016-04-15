@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_214" class="calibre7"><strong class="calibre6">16.2　状态模式的定义</strong></h2>
+<p class="calibre1">通过电灯的例子，相信我们对于状态模式已经有了一定程度的了解。现在回头来看GoF中对状态模式的定义：</p>
+<blockquote class="calibre8">
+<p class="calibre1">允许一个对象在其内部状态改变时改变它的行为，对象看起来似乎修改了它的类。</p>
+</blockquote>
+<p class="calibre1">我们以逗号分割，把这句话分为两部分来看。第一部分的意思是将状态封装成独立的类，并将请求委托给当前的状态对象，当对象的内部状态改变时，会带来不同的行为变化。电灯的例子足以说明这一点，在off和on这两种不同的状态下，我们点击同一个按钮，得到的行为反馈是截然不同的。</p>
+<p class="calibre1">第二部分是从客户的角度来看，我们使用的对象，在不同的状态下具有截然不同的行为，这个对象看起来是从不同的类中实例化而来的，实际上这是使用了委托的效果。</p>
+</body></html>

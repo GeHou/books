@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_262" class="calibre7"><strong class="calibre6">22.5　提前让函数退出代替嵌套条件分支</strong></h2>
+<p class="calibre1">许多程序员都有这样一种观念：“每个函数只能有一个入口和一个出口。”现代编程语言都会限制函数只有一个入口。但关于“函数只有一个出口”，往往会有一些不同的看法。</p>
+<p class="calibre1">下面这段伪代码是遵守“函数只有一个出口的”的典型代码：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var del = function( obj ){
+    var ret;
+    if ( !obj.isReadOnly ){    // 不为只读的才能被删除
+        if ( obj.isFolder ){    // 如果是文件夹
+            ret = deleteFolder( obj );
+        }else if ( obj.isFile ){    // 如果是文件
+            ret = deleteFile( obj );
+        }
+    }
+    return ret;
+};
+
+</code></pre>
+<p class="calibre1">嵌套的条件分支语句绝对是代码维护者的噩梦，对于阅读代码的人来说，嵌套的<code class="calibre9">if</code>、<code class="calibre9">else</code>语句相比平铺的<code class="calibre9">if</code>、<code class="calibre9">else</code>，在阅读和理解上更加困难，有时候一个外层<code class="calibre9">if</code>分支的左括号和右括号之间相隔500米之远。用《重构》里的话说，嵌套的条件分支往往是由一些深信“每个函数只能有一个出口的”程序员写出的。但实际上，如果对函数的剩余部分不感兴趣，那就应该立即退出。引导阅读者去看一些没有用的<code class="calibre9">else</code>片段，只会妨碍他们对程序的理解。</p>
+<p class="calibre1">于是我们可以挑选一些条件分支，在进入这些条件分支之后，就立即让这个函数退出。要做到这一点，有一个常见的技巧，即在面对一个嵌套的<code class="calibre9">if</code>分支时，我们可以把外层<code class="calibre9">if</code>表达式进行反转。重构后的<code class="calibre9">del</code>函数如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var del = function( obj ){
+    if ( obj.isReadOnly ){    // 反转if表达式
+        return;
+    }
+    if ( obj.isFolder ){
+        return deleteFolder( obj );
+    }
+    if ( obj.isFile ){
+        return deleteFile( obj );
+    }
+};
+
+</code></pre>
+</body></html>

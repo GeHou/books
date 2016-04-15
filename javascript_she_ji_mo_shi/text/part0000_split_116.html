@@ -1,0 +1,231 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_162" class="calibre7"><strong class="calibre6">12.4　文件上传的例子</strong></h2>
+<p class="calibre1">在微云上传模块的开发中，我们曾经借助享元模式提升了程序的性能。下面我们就讲述这个例子。</p>
+<h3 id="nav_point_163" class="calibre11"><strong class="calibre6">12.4.1　对象爆炸</strong></h3>
+<p class="calibre1">在微云上传模块的开发中，我曾经经历过对象爆炸的问题。微云的文件上传功能虽然可以选择依照队列，一个一个地排队上传，但也支持同时选择2000个文件。每一个文件都对应着一个JavaScript上传对象的创建，在第一版开发中，的确往程序里同时new了2000个<code class="calibre9">upload</code>对象，结果可想而知，Chrome中还勉强能够支撑，IE下直接进入假死状态。</p>
+<p class="calibre1">微云支持好几种上传方式，比如浏览器插件、Flash和表单上传等，为了简化例子，我们先假设只有插件和Flash这两种。不论是插件上传，还是Flash上传，原理都是一样的，当用户选择了文件之后，插件和Flash都会通知调用Window下的一个全局JavaScript函数，它的名字是<code class="calibre9">startUpload</code>，用户选择的文件列表被组合成一个数组<code class="calibre9">files</code>塞进该函数的参数列表里，代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var id = 0;
+
+window.startUpload = function( uploadType, files ){    // uploadType区分是控件还是flash
+    for ( var i = 0, file; file = files[ i++ ]; ){
+        var uploadObj = new Upload( uploadType, file.fileName, file.fileSize );
+        uploadObj.init( id++ );    // 给upload对象设置一个唯一的id
+    }
+};
+
+</code></pre>
+<p class="calibre1">当用户选择完文件之后，<code class="calibre9">startUpload</code>函数会遍历<code class="calibre9">files</code>数组来创建对应的<code class="calibre9">upload</code>对象。接下来定义<code class="calibre9">Upload</code>构造函数，它接受3个参数，分别是插件类型、文件名和文件大小。这些信息都已经被插件组装在<code class="calibre9">files</code>数组里返回，代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var Upload = function( uploadType, fileName, fileSize ){
+    this.uploadType = uploadType;
+    this.fileName = fileName;
+    this.fileSize = fileSize;
+    this.dom= null;
+};
+
+Upload.prototype.init = function( id ){
+    var that = this;
+    this.id = id;
+    this.dom = document.createElement( 'div' );
+    this.dom.innerHTML =
+               '&lt;span&gt;文件名称:'+ this.fileName +', 文件大小: '+ this.fileSize +'&lt;/span&gt;' +
+               '&lt;button class="delFile"&gt;删除&lt;/button&gt;';
+
+    this.dom.querySelector( '.delFile' ).onclick = function(){
+        that.delFile();
+    }
+    document.body.appendChild( this.dom );
+};
+
+</code></pre>
+<p class="calibre1">同样为了简化示例，我们暂且去掉了<code class="calibre9">upload</code>对象的其他功能，只保留删除文件的功能，对应的方法是<code class="calibre9">Upload.prototype.delFile</code>。该方法中有一个逻辑：当被删除的文件小于3000 KB时，该文件将被直接删除。否则页面中会弹出一个提示框，提示用户是否确认要删除该文件，代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">Upload.prototype.delFile = function(){
+    if ( this.fileSize &lt; 3000 ){
+        return this.dom.parentNode.removeChild( this.dom );
+    }
+
+    if ( window.confirm( '确定要删除该文件吗? ' + this.fileName ) ){
+        return this.dom.parentNode.removeChild( this.dom );
+    }
+};
+
+</code></pre>
+<p class="calibre1">接下来分别创建3个插件上传对象和3个Flash上传对象：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">startUpload( 'plugin', [
+    {
+        fileName: '1.txt',
+        fileSize: 1000
+    },
+    {
+        fileName: '2.html',
+        fileSize: 3000
+    },
+    {
+        fileName: '3.txt',
+        fileSize: 5000
+    }
+]);
+
+startUpload( 'flash', [
+    {
+        fileName: '4.txt',
+        fileSize: 1000
+    },
+    {
+        fileName: '5.html',
+        fileSize: 3000
+    },
+    {
+        fileName: '6.txt',
+        fileSize: 5000
+    }
+]);
+
+</code></pre>
+<p class="calibre1">当点击删除最后一个文件时，可以看到弹出了是否确认删除的提示，如图12-1所示。</p>
+<p class="Tu "><img src="../images/00023.gif" alt="{%}" class="calibre13"/></p>
+<p class="calibre1"><strong class="calibre2">图　12-1</strong></p>
+<h3 id="nav_point_164" class="calibre11"><strong class="calibre6">12.4.2　享元模式重构文件上传</strong></h3>
+<p class="calibre1">上一节的代码是第一版的文件上传，在这段代码里有多少个需要上传的文件，就一共创建了多少个<code class="calibre9">upload</code>对象，接下来我们用享元模式重构它。</p>
+<p class="calibre1">首先，我们需要确认插件类型<code class="calibre9">uploadType</code>是内部状态，那为什么单单<code class="calibre9">uploadType</code>是内部状态呢？前面讲过，划分内部状态和外部状态的关键主要有以下几点。</p>
+<ul class="calibre14">
+<li class="calibre15"><p class="calibre1">内部状态储存于对象内部。</p>
+</li>
+<li class="calibre15"><p class="calibre1">内部状态可以被一些对象共享。</p>
+</li>
+<li class="calibre15"><p class="calibre1">内部状态独立于具体的场景，通常不会改变。</p>
+</li>
+<li class="calibre15"><p class="calibre1">外部状态取决于具体的场景，并根据场景而变化，外部状态不能被共享。</p>
+</li>
+</ul>
+<p class="calibre1">在文件上传的例子里，<code class="calibre9">upload</code>对象必须依赖<code class="calibre9">uploadType</code>属性才能工作，这是因为插件上传、Flash上传、表单上传的实际工作原理有很大的区别，它们各自调用的接口也是完全不一样的，必须在对象创建之初就明确它是什么类型的插件，才可以在程序的运行过程中，让它们分别调用各自的<code class="calibre9">start</code>、<code class="calibre9">pause</code>、<code class="calibre9">cancel</code>、<code class="calibre9">del</code>等方法。</p>
+<p class="calibre1">实际上在微云的真实代码中，虽然插件和Flash上传对象最终创建自一个大的工厂类，但它们实际上根据<code class="calibre9">uploadType</code>值的不同，分别是来自于两个不同类的对象。（在目前的例子中，为了简化代码，我们把插件和Flash的构造函数合并成了一个。）</p>
+<p class="calibre1">一旦明确了<code class="calibre9">uploadType</code>，无论我们使用什么方式上传，这个上传对象都是可以被任何文件共用的。而<code class="calibre9">fileName</code>和<code class="calibre9">fileSize</code>是根据场景而变化的，每个文件的<code class="calibre9">fileName</code>和<code class="calibre9">fileSize</code>都不一样，<code class="calibre9">fileName</code>和<code class="calibre9">fileSize</code>没有办法被共享，它们只能被划分为外部状态。</p>
+<h3 id="nav_point_165" class="calibre11"><strong class="calibre6">12.4.3　剥离外部状态</strong></h3>
+<p class="calibre1">明确了<code class="calibre9">uploadType</code>作为内部状态之后，我们再把其他的外部状态从构造函数中抽离出来， <code class="calibre9">Upload</code>构造函数中只保留<code class="calibre9">uploadType</code>参数：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var Upload = function( uploadType){
+    this.uploadType = uploadType;
+};
+
+</code></pre>
+<p class="calibre1"><code class="calibre9">Upload.prototype.init</code>函数也不再需要，因为<code class="calibre9">upload</code>对象初始化的工作被放在了<code class="calibre9">upload- Manager.add</code>函数里面，接下来只需要定义<code class="calibre9">Upload.prototype.del</code>函数即可：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">Upload.prototype.delFile = function( id ){
+    uploadManager.setExternalState( id, this );  // (1)
+
+    if ( this.fileSize &lt; 3000 ){
+        return this.dom.parentNode.removeChild( this.dom );
+    }
+
+    if ( window.confirm( '确定要删除该文件吗? ' + this.fileName ) ){
+        return this.dom.parentNode.removeChild( this.dom );
+    }
+};
+
+</code></pre>
+<p class="calibre1">在开始删除文件之前，需要读取文件的实际大小，而文件的实际大小被储存在外部管理器<code class="calibre9">uploadManager</code>中，所以在这里需要通过<code class="calibre9">uploadManager.setExternalState</code>方法给共享对象设置正确的<code class="calibre9">fileSize</code>，上段代码中的(1)处表示把当前<code class="calibre9">id</code>对应的对象的外部状态都组装到共享对象中。</p>
+<h3 id="nav_point_166" class="calibre11"><strong class="calibre6">12.4.4　工厂进行对象实例化</strong></h3>
+<p class="calibre1">接下来定义一个工厂来创建<code class="calibre9">upload</code>对象，如果某种内部状态对应的共享对象已经被创建过，那么直接返回这个对象，否则创建一个新的对象：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var UploadFactory = (function(){
+    var createdFlyWeightObjs = {};
+
+    return {
+        create: function( uploadType){
+            if ( createdFlyWeightObjs [ uploadType] ){
+                return createdFlyWeightObjs [ uploadType];
+            }
+
+            return createdFlyWeightObjs [ uploadType] = new Upload( uploadType);
+        }
+    }
+})();
+
+</code></pre>
+<h3 id="nav_point_167" class="calibre11"><strong class="calibre6">12.4.5　管理器封装外部状态</strong></h3>
+<p class="calibre1">现在我们来完善前面提到的<code class="calibre9">uploadManager</code>对象，它负责向<code class="calibre9">UploadFactory</code>提交创建对象的请求，并用一个<code class="calibre9">uploadDatabase</code> 对象保存所有<code class="calibre9">upload</code>对象的外部状态，以便在程序运行过程中给<code class="calibre9">upload</code>共享对象设置外部状态，代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var uploadManager = (function(){
+    var uploadDatabase = {};
+
+    return {
+        add: function( id, uploadType, fileName, fileSize ){
+            var flyWeightObj = UploadFactory.create( uploadType );
+
+            var dom = document.createElement( 'div' );
+            dom.innerHTML =
+                    '&lt;span&gt;文件名称:'+ fileName +', 文件大小: '+ fileSize +'&lt;/span&gt;' +
+                    '&lt;button class="delFile"&gt;删除&lt;/button&gt;';
+
+            dom.querySelector( '.delFile' ).onclick = function(){
+                flyWeightObj.delFile( id );
+            }
+
+            document.body.appendChild( dom );
+
+            uploadDatabase[ id ] = {
+                fileName: fileName,
+                fileSize: fileSize,
+                dom: dom
+            };
+
+            return flyWeightObj ;
+        },
+        setExternalState: function( id, flyWeightObj ){
+            var uploadData = uploadDatabase[ id ];
+            for ( var i in uploadData ){
+                flyWeightObj[ i ] = uploadData[ i ];
+            }
+        }
+    }
+})();
+
+</code></pre>
+<p class="calibre1">然后是开始触发上传动作的<code class="calibre9">startUpload</code>函数：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var id = 0;
+
+window.startUpload = function( uploadType, files ){
+   for ( var i = 0, file; file = files[ i++ ]; ){
+        var uploadObj = uploadManager.add( ++id, uploadType, file.fileName, file.fileSize );
+   }
+};
+
+</code></pre>
+<p class="calibre1">最后是测试时间，运行下面的代码后，可以发现运行结果跟用享元模式重构之前一致：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">startUpload( 'plugin', [
+    {
+        fileName: '1.txt',
+        fileSize: 1000
+    },
+    {
+        fileName: '2.html',
+        fileSize: 3000
+    },
+    {
+        fileName: '3.txt',
+        fileSize: 5000
+    }
+]);
+
+startUpload( 'flash', [
+    {
+        fileName: '4.txt',
+        fileSize: 1000
+    },
+    {
+        fileName: '5.html',
+        fileSize: 3000
+    },
+    {
+        fileName: '6.txt',
+        fileSize: 5000
+    }
+]);
+
+</code></pre>
+<p class="calibre1">享元模式重构之前的代码里一共创建了6个<code class="calibre9">upload</code>对象，而通过享元模式重构之后，对象的数量减少为2，更幸运的是， 就算现在同时上传2000个文件，需要创建的<code class="calibre9">upload</code>对象数量依然是2。</p>
+</body></html>

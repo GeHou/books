@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_126" class="calibre7"><strong class="calibre6">9.7　宏命令</strong></h2>
+<p class="calibre1">宏命令是一组命令的集合，通过执行宏命令的方式，可以一次执行一批命令。想象一下，家里有一个万能遥控器，每天回家的时候，只要按一个特别的按钮，它就会帮我们关上房间门，顺便打开电脑并登录QQ。</p>
+<p class="calibre1">下面我们看看如何逐步创建一个宏命令。首先，我们依然要创建好各种<code class="calibre9">Command</code>：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var closeDoorCommand = {
+    execute: function(){
+        console.log( '关门' );
+    }
+};
+
+var openPcCommand = {
+    execute: function(){
+        console.log( '开电脑' );
+    }
+};
+
+var openQQCommand = {
+    execute: function(){
+        console.log( '登录QQ' );
+    }
+};
+
+</code></pre>
+<p class="calibre1">接下来定义宏命令<code class="calibre9">MacroCommand</code>，它的结构也很简单。<code class="calibre9">macroCommand.add</code>方法表示把子命令添加进宏命令对象，当调用宏命令对象的<code class="calibre9">execute</code>方法时，会迭代这一组子命令对象，并且依次执行它们的<code class="calibre9">execute</code>方法：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var MacroCommand = function(){
+    return {
+        commandsList: [],
+        add: function( command ){
+            this.commandsList.push( command );
+        },
+        execute: function(){
+            for ( var i = 0, command; command = this.commandsList[ i++ ]; ){
+               command.execute();
+            }
+        }
+    }
+};
+
+var macroCommand = MacroCommand();
+macroCommand.add( closeDoorCommand );
+macroCommand.add( openPcCommand );
+macroCommand.add( openQQCommand );
+
+macroCommand.execute();
+
+</code></pre>
+<p class="calibre1">当然我们还可以为宏命令添加撤销功能，跟<code class="calibre9">macroCommand.execute</code>类似，当调用<code class="calibre9">macroCommand.undo</code>方法时，宏命令里包含的所有子命令对象要依次执行各自的<code class="calibre9">undo</code>操作。</p>
+<p class="calibre1">宏命令是命令模式与组合模式的联用产物，关于组合模式的知识，我们将在第10章详细介绍。</p>
+</body></html>

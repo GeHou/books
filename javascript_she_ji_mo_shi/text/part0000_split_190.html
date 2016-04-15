@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_261" class="calibre7"><strong class="calibre6">22.4　合理使用循环</strong></h2>
+<p class="calibre1">在函数体内，如果有些代码实际上负责的是一些重复性的工作，那么合理利用循环不仅可以完成同样的功能，还可以使代码量更少。下面有一段创建<code class="calibre9">XHR</code>对象的代码，为了简化示例，我们只考虑版本9以下的IE浏览器，代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var createXHR = function(){
+    var xhr;
+    try{
+        xhr = new ActiveXObject( 'MSXML2.XMLHttp.6.0' );
+    }catch(e){
+        try{
+            xhr = new ActiveXObject( 'MSXML2.XMLHttp.3.0' );
+        }catch(e){
+            xhr = new ActiveXObject( 'MSXML2.XMLHttp' );
+        }
+    }
+    return xhr;
+};
+
+var xhr = createXHR();
+
+</code></pre>
+<p class="calibre1">下面我们灵活地运用循环，可以得到跟上面代码一样的效果：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var createXHR = function(){
+var versions= [ 'MSXML2.XMLHttp.6.0ddd', 'MSXML2.XMLHttp.3.0', 'MSXML2.XMLHttp' ];
+    for ( var i = 0, version; version = versions[ i++ ]; ){
+        try{
+            return new ActiveXObject( version );
+        }catch(e){
+
+        }
+    }
+};
+
+var xhr = createXHR();
+
+</code></pre>
+</body></html>

@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_178" class="calibre7"><strong class="calibre6">13.2　实际开发中的职责链模式</strong></h2>
+<p class="calibre1">假设我们负责一个售卖手机的电商网站，经过分别交纳500元定金和200元定金的两轮预定后（订单已在此时生成），现在已经到了正式购买的阶段。</p>
+<p class="calibre1">公司针对支付过定金的用户有一定的优惠政策。在正式购买后，已经支付过500元定金的用户会收到100元的商城优惠券，200元定金的用户可以收到50元的优惠券，而之前没有支付定金的用户只能进入普通购买模式，也就是没有优惠券，且在库存有限的情况下不一定保证能买到。</p>
+<p class="calibre1">我们的订单页面是PHP吐出的模板，在页面加载之初，PHP会传递给页面几个字段。</p>
+<ul class="calibre14">
+<li class="calibre15"><p class="calibre1"><code class="calibre9">orderType</code>：表示订单类型（定金用户或者普通购买用户），<code class="calibre9">code</code>的值为1的时候是500元定金用户，为2的时候是200元定金用户，为3的时候是普通购买用户。</p>
+</li>
+<li class="calibre15"><p class="calibre1"><code class="calibre9">pay</code>：表示用户是否已经支付定金，值为<code class="calibre9">true</code>或者<code class="calibre9">false</code>， 虽然用户已经下过500元定金的订单，但如果他一直没有支付定金，现在只能降级进入普通购买模式。</p>
+</li>
+<li class="calibre15"><p class="calibre1"><code class="calibre9">stock</code>：表示当前用于普通购买的手机库存数量，已经支付过500元或者200元定金的用户不受此限制。</p>
+</li>
+</ul>
+<p class="calibre1">下面我们把这个流程写成代码：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var order = function( orderType, pay, stock ){
+    if ( orderType === 1 ){        // 500元定金购买模式
+        if ( pay === true ){    // 已支付定金
+            console.log( '500元定金预购, 得到100优惠券' );
+        }else{    // 未支付定金，降级到普通购买模式
+            if ( stock &gt; 0 ){    // 用于普通购买的手机还有库存
+                console.log( '普通购买, 无优惠券' );
+            }else{
+                console.log( '手机库存不足' );
+            }
+        }
+    }
+
+    else if ( orderType === 2 ){     // 200元定金购买模式
+        if ( pay === true ){
+            console.log( '200元定金预购, 得到50优惠券' );
+        }else{
+            if ( stock &gt; 0 ){
+                console.log( '普通购买, 无优惠券' );
+            }else{
+                console.log( '手机库存不足' );
+            }
+        }
+    }
+
+    else if ( orderType === 3 ){
+        if ( stock &gt; 0 ){
+            console.log( '普通购买, 无优惠券' );
+        }else{
+            console.log( '手机库存不足' );
+        }
+    }
+};
+
+order( 1 , true, 500);  // 输出： 500元定金预购, 得到100优惠券
+
+</code></pre>
+<p class="calibre1">虽然我们得到了意料中的运行结果，但这远远算不上一段值得夸奖的代码。<code class="calibre9">order</code>函数不仅巨大到难以阅读，而且需要经常进行修改。虽然目前项目能正常运行，但接下来的维护工作无疑是个梦魇。恐怕只有最“新手”的程序员才会写出这样的代码。</p>
+</body></html>

@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_108" class="calibre7"><strong class="calibre6">8.3　DOM事件</strong></h2>
+<p class="calibre1">实际上，只要我们曾经在DOM节点上面绑定过事件函数，那我们就曾经使用过发布—订阅模式，来看看下面这两句简单的代码发生了什么事情：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">document.body.addEventListener( 'click', function(){
+    alert(2);
+}, false );
+
+document.body.click();    // 模拟用户点击
+
+</code></pre>
+<p class="calibre1">在这里需要监控用户点击<code class="calibre9">document.body</code>的动作，但是我们没办法预知用户将在什么时候点击。所以我们订阅<code class="calibre9">document.body</code>上的<code class="calibre9">click</code>事件，当<code class="calibre9">body</code>节点被点击时，<code class="calibre9">body</code>节点便会向订阅者发布这个消息。这很像购房的例子，购房者不知道房子什么时候开售，于是他在订阅消息后等待售楼处发布消息。</p>
+<p class="calibre1">当然我们还可以随意增加或者删除订阅者，增加任何订阅者都不会影响发布者代码的编写：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">document.body.addEventListener( 'click', function(){
+    alert(2);
+}, false );
+
+document.body.addEventListener( 'click', function(){
+    alert(3);
+}, false );
+
+document.body.addEventListener( 'click', function(){
+    alert(4);
+}, false );
+
+document.body.click();    // 模拟用户点击
+
+</code></pre>
+<p class="calibre1">注意，手动触发事件更好的做法是IE下用<code class="calibre9">fireEvent</code>，标准浏览器下用<code class="calibre9">dispatchEvent</code>实现。</p>
+</body></html>

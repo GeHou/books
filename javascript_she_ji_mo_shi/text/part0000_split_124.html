@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_179" class="calibre7"><strong class="calibre6">13.3　用职责链模式重构代码</strong></h2>
+<p class="calibre1">现在我们采用职责链模式重构这段代码，先把500元订单、200元订单以及普通购买分成3个函数。</p>
+<p class="calibre1">接下来把<code class="calibre9">orderType</code>、<code class="calibre9">pay</code>、<code class="calibre9">stock</code>这3个字段当作参数传递给500元订单函数，如果该函数不符合处理条件，则把这个请求传递给后面的200元订单函数，如果200元订单函数依然不能处理该请求，则继续传递请求给普通购买函数，代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">// 500元订单
+
+var order500 = function( orderType, pay, stock ){
+    if ( orderType === 1 &amp;&amp; pay === true ){
+        console.log( '500元定金预购, 得到100优惠券' );
+    }else{
+        order200( orderType, pay, stock );    // 将请求传递给200元订单
+    }
+};
+
+// 200元订单
+
+var order200 = function( orderType, pay, stock ){
+    if ( orderType === 2 &amp;&amp; pay === true ){
+        console.log( '200元定金预购, 得到50优惠券' );
+    }else{
+        orderNormal( orderType, pay, stock );    // 将请求传递给普通订单
+    }
+};
+
+// 普通购买订单
+
+var orderNormal = function( orderType, pay, stock ){
+    if ( stock &gt; 0 ){
+        console.log( '普通购买, 无优惠券' );
+    }else{
+        console.log( '手机库存不足' );
+    }
+};
+
+// 测试结果：
+
+order500( 1 , true, 500);    // 输出：500元定金预购, 得到100优惠券
+order500( 1, false, 500 );   // 输出：普通购买, 无优惠券
+order500( 2, true, 500 );    // 输出：200元定金预购, 得到50优惠券
+order500( 3, false, 500 );   // 输出：普通购买, 无优惠券
+order500( 3, false, 0 );     // 输出：手机库存不足
+
+</code></pre>
+<p class="calibre1">可以看到，执行结果和前面那个巨大的<code class="calibre9">order</code>函数完全一样，但是代码的结构已经清晰了很多，我们把一个大函数拆分了3个小函数，去掉了许多嵌套的条件分支语句。</p>
+<p class="calibre1">目前已经有了不小的进步，但我们不会满足于此，虽然已经把大函数拆分成了互不影响的3个小函数，但可以看到，请求在链条传递中的顺序非常僵硬，传递请求的代码被耦合在了业务函数之中：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var order500 = function( orderType, pay, stock ){
+    if ( orderType === 1 &amp;&amp; pay === true ){
+        console.log( '500元定金预购, 得到100优惠券' );
+    }else{
+        order200( orderType, pay, stock );
+        // order200和order500耦合在一起
+    }
+};
+
+</code></pre>
+<p class="calibre1">这依然是违反开放-封闭原则的，如果有天我们要增加300元预订或者去掉200元预订，意味着就必须改动这些业务函数内部。就像一根环环相扣打了死结的链条，如果要增加、拆除或者移动一个节点，就必须得先砸烂这根链条。</p>
+</body></html>

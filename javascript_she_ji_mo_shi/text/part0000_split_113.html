@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_159" class="calibre7"><strong class="calibre6">12.1　初识享元模式</strong></h2>
+<p class="calibre1">假设有个内衣工厂，目前的产品有50种男式内衣和50种女士内衣，为了推销产品，工厂决定生产一些塑料模特来穿上他们的内衣拍成广告照片。 正常情况下需要50个男模特和50个女模特，然后让他们每人分别穿上一件内衣来拍照。不使用享元模式的情况下，在程序里也许会这样写：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var Model = function( sex, underwear){
+    this.sex = sex;
+    this.underwear= underwear;
+};
+
+Model.prototype.takePhoto = function(){
+    console.log( 'sex= ' + this.sex + ' underwear=' + this.underwear);
+};
+
+for ( var i = 1; i &lt;= 50; i++ ){
+    var maleModel = new Model( 'male', 'underwear' + i );
+    maleModel.takePhoto();
+};
+
+for ( var j = 1; j &lt;= 50; j++ ){
+    var femaleModel= new Model( 'female', 'underwear' + j );
+    femaleModel.takePhoto();
+};
+
+</code></pre>
+<p class="calibre1">要得到一张照片，每次都需要传入<code class="calibre9">sex</code>和<code class="calibre9">underwear</code>参数，如上所述，现在一共有50种男内衣和50种女内衣，所以一共会产生100个对象。如果将来生产了10000种内衣，那这个程序可能会因为存在如此多的对象已经提前崩溃。</p>
+<p class="calibre1">下面我们来考虑一下如何优化这个场景。虽然有100种内衣，但很显然并不需要50个男模特和50个女模特。其实男模特和女模特各自有一个就足够了，他们可以分别穿上不同的内衣来拍照。</p>
+<p class="calibre1">现在来改写一下代码，既然只需要区别男女模特，那我们先把<code class="calibre9">underwear</code>参数从构造函数中移除，构造函数只接收<code class="calibre9">sex</code>参数：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var Model = function( sex ){
+    this.sex = sex;
+};
+
+Model.prototype.takePhoto = function(){
+    console.log( 'sex= ' + this.sex + ' underwear=' + this.underwear);
+};
+
+</code></pre>
+<p class="calibre1">分别创建一个男模特对象和一个女模特对象：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var maleModel = new Model( 'male' ),
+    femaleModel = new Model( 'female' );
+
+</code></pre>
+<p class="calibre1">给男模特依次穿上所有的男装，并进行拍照：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">for ( var i = 1; i &lt;= 50; i++ ){
+    maleModel.underwear = 'underwear' + i;
+    maleModel.takePhoto();
+};
+
+</code></pre>
+<p class="calibre1">同样，给女模特依次穿上所有的女装，并进行拍照：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">for ( var j = 1; j &lt;= 50; j++ ){
+    femaleModel.underwear = 'underwear' + j;
+    femaleModel.takePhoto();
+};
+
+</code></pre>
+<p class="calibre1">可以看到，改进之后的代码，只需要两个对象便完成了同样的功能。</p>
+</body></html>

@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_264" class="calibre7"><strong class="calibre6">22.7　尽量减少参数数量</strong></h2>
+<p class="calibre1">如果调用一个函数时需要传入多个参数，那这个函数是让人望而生畏的，我们必须搞清楚这些参数代表的含义，必须小心翼翼地把它们按照顺序传入该函数。而如果一个函数不需要传入任何参数就可以使用，这种函数是深受人们喜爱的。在实际开发中，向函数传递参数不可避免，但我们应该尽量减少函数接收的参数数量。下面举个非常简单的示例。 有一个画图函数<code class="calibre9">draw</code>，它现在只能绘制正方形，接收了3个参数，分别是图形的<code class="calibre9">width</code>、<code class="calibre9">heigth</code>以及<code class="calibre9">square</code>：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var draw = function( width, height, square ){};
+
+</code></pre>
+<p class="calibre1">但实际上正方形的面积是可以通过<code class="calibre9">width</code>和<code class="calibre9">height</code>计算出来的，于是我们可以把参数<code class="calibre9">square</code>从<code class="calibre9">draw</code>函数中去掉：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var draw = function( width, height ){
+    var square = width * height;
+};
+
+</code></pre>
+<p class="calibre1">假设以后这个<code class="calibre9">draw</code>函数开始支持绘制圆形，我们需要把参数<code class="calibre9">width</code>和<code class="calibre9">height</code>换成半径<code class="calibre9">radius</code>， 但图形的面积<code class="calibre9">square</code>始终不应该由客户传入，而是应该在<code class="calibre9">draw</code>函数内部，由传入的参数加上一定的规则计算得来。此时，我们可以使用策略模式，让<code class="calibre9">draw</code>函数成为一个支持绘制多种图形的函数。</p>
+</body></html>

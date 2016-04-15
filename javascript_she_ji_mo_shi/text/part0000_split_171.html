@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_242" class="calibre7"><strong class="calibre6">19.3　封装在最少知识原则中的体现</strong></h2>
+<p class="calibre1">封装在很大程度上表达的是数据的隐藏。一个模块或者对象可以将内部的数据或者实现细节隐藏起来，只暴露必要的接口API供外界访问。对象之间难免产生联系，当一个对象必须引用另外一个对象的时候，我们可以让对象只暴露必要的接口，让对象之间的联系限制在最小的范围之内。</p>
+<p class="calibre1">同时，封装也用来限制变量的作用域。在JavaScript中对变量作用域的规定是：</p>
+<ul class="calibre14">
+<li class="calibre15"><p class="calibre1">变量在全局声明，或者在代码的任何位置隐式申明（不用<code class="calibre9">var</code>），则该变量在全局可见；</p>
+</li>
+<li class="calibre15"><p class="calibre1">变量在函数内显式申明（使用<code class="calibre9">var</code>），则在函数内可见。</p>
+</li>
+</ul>
+<p class="calibre1">把变量的可见性限制在一个尽可能小的范围内，这个变量对其他不相关模块的影响就越小，变量被改写和发生冲突的机会也越小。这也是广义的最少知识原则的一种体现。</p>
+<p class="calibre1">假设我们要编写一个具有缓存效果的计算乘积的函数<code class="calibre9">function mult (){}</code>，我们需要一个对象<code class="calibre9">var cache = {}</code>来保存已经计算过的结果。<code class="calibre9">cache</code>对象显然只对<code class="calibre9">mult</code>有用，把<code class="calibre9">cache</code>对象放在<code class="calibre9">mult</code>形成的闭包中，显然比把它放在全局作用域更加合适，代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var mult = (function(){
+    var cache = {};
+    return function(){
+        var args = Array.prototype.join.call( arguments, ',' );
+        if ( cache[ args ] ){
+            return cache[ args ];
+        }
+        var a = 1;
+        for ( var i = 0, l = arguments.length; i &lt; l; i++ ){
+            a = a * arguments[i];
+        }
+        return cache[ args ] = a;
+    }
+
+})();
+
+mult( 1, 2, 3 );    // 输出： 6
+
+</code></pre>
+<p class="calibre1">其实，最少知识原则也叫迪米特法则（Law of Demeter，LoD），“迪米特”这个名字源自1987年美国东北大学一个名为“Demeter”的研究项目。</p>
+<p class="calibre1">许多人更倾向于使用迪米特法则这个名字，也许是因为显得更酷一点。但本书参考<em class="calibre18">Head First Design Patterns</em> 的建议，称之为最少知识原则。一是因为这个名字更能体现其含义，另一个原因是“法则”给人的感觉是必须强制遵守，而原则只是一种指导，没有哪条原则是在实际开发中必须遵守的。比如，虽然遵守最小知识原则减少了对象之间的依赖，但也有可能增加一些庞大到难以维护的第三者对象。跟单一职责原则一样，在实际开发中，是否选择让代码符合最少知识原则，要根据具体的环境来定。</p>
+
+<p class="calibre4" style="margin:0pt; border:0pt; height:1em" id="calibre_pb_221"> </p>
+</body></html>

@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_123" class="calibre7"><strong class="calibre6">9.4　撤销命令</strong></h2>
+<p class="calibre1">命令模式的作用不仅是封装运算块，而且可以很方便地给命令对象增加撤销操作。就像订餐时客人可以通过电话来取消订单一样。下面来看撤销命令的例子。</p>
+<p class="calibre1">本节的目标是利用5.4节中的<code class="calibre9">Animate</code>类来编写一个动画，这个动画的表现是让页面上的小球移动到水平方向的某个位置。现在页面中有一个input文本框和一个button按钮，文本框中可以输入一些数字，表示小球移动后的水平位置，小球在用户点击按钮后立刻开始移动，代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">&lt;body&gt;
+    &lt;div id="ball" style="position:absolute;background:#000;width:50px;height:50px"&gt;&lt;/div&gt;
+    输入小球移动后的位置：&lt;input id="pos"/&gt;
+    &lt;button id="moveBtn"&gt;开始移动&lt;/button&gt;
+&lt;/body&gt;
+
+&lt;script&gt;
+    var ball = document.getElementById( 'ball' );
+    var pos = document.getElementById( 'pos' );
+    var moveBtn = document.getElementById( 'moveBtn' );
+
+    moveBtn.onclick = function(){
+        var animate = new Animate( ball );
+        animate.start( 'left', pos.value, 1000, 'strongEaseOut' );
+    };
+&lt;/script&gt;
+
+</code></pre>
+<p class="calibre1">如果文本框输入200，然后点击moveBtn按钮，可以看到小球顺利地移动到水平方向200px的位置。现在我们需要一个方法让小球还原到开始移动之前的位置。当然也可以在文本框中再次输入-200，并且点击moveBtn按钮，这也是一个办法，不过显得很笨拙。页面上最好有一个撤销按钮，点击撤销按钮之后，小球便能回到上一次的位置。</p>
+<p class="calibre1">在给页面中增加撤销按钮之前，先把目前的代码改为用命令模式实现：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var ball = document.getElementById( 'ball' );
+var pos = document.getElementById( 'pos' );
+var moveBtn = document.getElementById( 'moveBtn' );
+
+var MoveCommand = function( receiver, pos ){
+    this.receiver = receiver;
+    this.pos = pos;
+};
+
+MoveCommand.prototype.execute = function(){
+    this.receiver.start( 'left', this.pos, 1000, 'strongEaseOut' );
+};
+
+var moveCommand;
+
+moveBtn.onclick = function(){
+    var animate = new Animate( ball );
+    moveCommand = new MoveCommand( animate, pos.value );
+    moveCommand.execute();
+};
+
+</code></pre>
+<p class="calibre1">接下来增加撤销按钮：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">&lt;body&gt;
+    &lt;div id="ball" style="position:absolute;background:#000;width:50px;height:50px"&gt;&lt;/div&gt;
+    输入小球移动后的位置：&lt;input id="pos"/&gt;
+    &lt;button id="moveBtn"&gt;开始移动&lt;/button&gt;
+    &lt;button id="cancelBtn"&gt;cancel&lt;/cancel&gt; &lt;!--增加取消按钮--&gt;
+&lt;/body&gt;
+
+</code></pre>
+<p class="calibre1">撤销操作的实现一般是给命令对象增加一个名为<code class="calibre9">unexecude</code>或者<code class="calibre9">undo</code>的方法，在该方法里执行<code class="calibre9">execute</code>的反向操作。在<code class="calibre9">command.execute</code>方法让小球开始真正运动之前，我们需要先记录小球的当前位置，在<code class="calibre9">unexecude</code>或者<code class="calibre9">undo</code>操作中，再让小球回到刚刚记录下的位置，代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">&lt;script&gt;
+    var ball = document.getElementById( 'ball' );
+    var pos = document.getElementById( 'pos' );
+    var moveBtn = document.getElementById( 'moveBtn' );
+    var cancelBtn = document.getElementById( 'cancelBtn' );
+
+    var MoveCommand = function( receiver, pos ){
+        this.receiver = receiver;
+        this.pos = pos;
+        this.oldPos = null;
+    };
+
+    MoveCommand.prototype.execute = function(){
+        this.receiver.start( 'left', this.pos, 1000, 'strongEaseOut' );
+        this.oldPos = this.receiver.dom.getBoundingClientRect()[ this.receiver.propertyName ];
+        // 记录小球开始移动前的位置
+    };
+
+    MoveCommand.prototype.undo = function(){
+        this.receiver.start( 'left', this.oldPos, 1000, 'strongEaseOut' );
+        // 回到小球移动前记录的位置
+    };
+
+    var moveCommand;
+
+    moveBtn.onclick = function(){
+        var animate = new Animate( ball );
+        moveCommand = new MoveCommand( animate, pos.value );
+        moveCommand.execute();
+    };
+
+    cancelBtn.onclick = function(){
+        moveCommand.undo();        // 撤销命令
+    };
+&lt;/script&gt;
+
+</code></pre>
+<p class="calibre1">现在通过命令模式轻松地实现了撤销功能。如果用普通的方法调用来实现，也许需要每次都手工记录小球的运动轨迹，才能让它还原到之前的位置。而命令模式中小球的原始位置在小球开始移动前已经作为<code class="calibre9">command</code>对象的属性被保存起来，所以只需要再提供一个<code class="calibre9">undo</code>方法，并且在<code class="calibre9">undo</code>方法中让小球回到刚刚记录的原始位置就可以了。</p>
+<p class="calibre1">撤销是命令模式里一个非常有用的功能，试想一下开发一个围棋程序的时候，我们把每一步棋子的变化都封装成命令，则可以轻而易举地实现悔棋功能。同样，撤销命令还可以用于实现文本编辑器的Ctrl+Z功能。</p>
+</body></html>

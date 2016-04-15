@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_130" class="calibre7"><strong class="calibre6">10.1　回顾宏命令</strong></h2>
+<p class="calibre1">我们在第9章命令模式中讲解过宏命令的结构和作用。宏命令对象包含了一组具体的子命令对象，不管是宏命令对象，还是子命令对象，都有一个<code class="calibre9">execute</code>方法负责执行命令。现在回顾一下这段安装在万能遥控器上的宏命令代码：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var closeDoorCommand = {
+    execute: function(){
+          console.log( '关门' );
+    }
+};
+
+var openPcCommand = {
+    execute: function(){
+        console.log( '开电脑' );
+    }
+};
+
+var openQQCommand = {
+    execute: function(){
+        console.log( '登录QQ' );
+    }
+};
+
+var MacroCommand = function(){
+    return {
+        commandsList: [],
+        add: function( command ){
+            this.commandsList.push( command );
+        },
+        execute: function(){
+            for ( var i = 0, command; command = this.commandsList[ i++ ]; ){
+               command.execute();
+            }
+        }
+    }
+
+};
+
+var macroCommand = MacroCommand();
+
+macroCommand.add( closeDoorCommand );
+macroCommand.add( openPcCommand );
+macroCommand.add( openQQCommand );
+
+macroCommand.execute();
+
+</code></pre>
+<p class="calibre1">通过观察这段代码，我们很容易发现，宏命令中包含了一组子命令，它们组成了一个树形结构，这里是一棵结构非常简单的树，如图10-1所示。</p>
+<p class="Tu "><img src="../images/00018.gif" alt="{%}" class="calibre13"/></p>
+<p class="calibre1"><strong class="calibre2">图　10-1</strong></p>
+<p class="calibre1">其中，<code class="calibre9">marcoCommand</code>被称为组合对象，<code class="calibre9">closeDoorCommand</code>、<code class="calibre9">openPcCommand</code>、<code class="calibre9">openQQCommand</code>都是叶对象。 在<code class="calibre9">macroCommand</code>的<code class="calibre9">execute</code>方法里，并不执行真正的操作，而是遍历它所包含的叶对象，把真正的<code class="calibre9">execute</code>请求委托给这些叶对象。</p>
+<p class="calibre1"><code class="calibre9">macroCommand</code>表现得像一个命令，但它实际上只是一组真正命令的“代理”。并非真正的代理，虽然结构上相似，但<code class="calibre9">macroCommand</code>只负责传递请求给叶对象，它的目的不在于控制对叶对象的访问。</p>
+</body></html>

@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_253" class="calibre7"><strong class="calibre6">21.2　<code class="calibre17">interface</code></strong></h2>
+<p class="calibre1">除了用抽象类来完成面向接口编程之外，使用<code class="calibre9">interface</code>也可以达到同样的效果。虽然很多人在实际使用中刻意区分抽象类和<code class="calibre9">interface</code>，但使用<code class="calibre9">interface</code>实际上也是继承的一种方式，叫作接口继承。</p>
+<p class="calibre1">相对于单继承的抽象类，一个类可以实现多个<code class="calibre9">interface</code>。抽象类中除了<code class="calibre9">abstract</code>方法之外，还可以有一些供子类公用的具体方法。<code class="calibre9">interface</code>使抽象的概念更进一步，它产生一个完全抽象的类，不提供任何具体实现和方法体（Java 8已经有了提供实现方法的<code class="calibre9">interface</code>），但允许该<code class="calibre9">interface</code>的创建者确定方法名、参数列表和返回类型，这相当于提供一些行为上的约定，但不关心该行为的具体实现过程。</p>
+<p class="calibre1"><code class="calibre9">interface</code>同样可以用于向上转型，这也是让对象表现出多态性的一条途径，实现了同一个接口的两个类就可以被相互替换使用。</p>
+<p class="calibre1">再回到用抽象类实现让鸭子和鸡发出叫声的故事。这个故事得以完美收场的关键是让抽象类<code class="calibre9">Animal</code>给<code class="calibre9">duck</code>和<code class="calibre9">chicken</code>进行向上转型。但此时也引入了一个限制，抽象类是基于单继承的，也就是说我们不可能让<code class="calibre9">Duck</code>和<code class="calibre9">Chicken</code>再继承自另一个家禽类。如果使用<code class="calibre9">interface</code>，可以仅仅针对发出叫声这个行为来编写程序，同时一个类也可以实现多个<code class="calibre9">interface</code>。</p>
+<p class="calibre1">下面用<code class="calibre9">interface</code>来改写基于抽象类的代码。我们先定义<code class="calibre9">Animal</code>接口，所有实现了<code class="calibre9">Animal</code>接口的动物类都将拥有<code class="calibre9">Animal</code>接口中约定的行为：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">public interface Animal{
+    abstract void makeSound();
+}
+
+public class Duck implements Animal{
+    public void makeSound() {      // 重写Animal接口的makeSound抽象方法
+        System.out.println( "嘎嘎嘎" );
+    }
+}
+
+public class Chicken implements Animal{
+    public void makeSound() {     // 重写Animal接口的makeSound抽象方法
+        System.out.println( "咯咯咯" );
+    }
+}
+
+public class AnimalSound {
+    public void makeSound( Animal animal ){
+        animal.makeSound();
+    }
+}
+
+public class Test {
+    public static void main( String args[] ){
+        Animal duck = new Duck();
+        Animal chicken = new Chicken();
+
+        AnimalSound animalSound = new AnimalSound();
+        animalSound.makeSound( duck );     // 输出：嘎嘎嘎
+        animalSound.makeSound( chicken );     // 输出：咯咯咯
+    }
+}
+
+</code></pre>
+</body></html>

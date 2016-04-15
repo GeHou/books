@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_110" class="calibre7"><strong class="calibre6">8.5　发布－订阅模式的通用实现</strong></h2>
+<p class="calibre1">现在我们已经看到了如何让售楼处拥有接受订阅和发布事件的功能。假设现在小明又去另一个售楼处买房子，那么这段代码是否必须在另一个售楼处对象上重写一次呢，有没有办法可以让所有对象都拥有发布—订阅功能呢？</p>
+<p class="calibre1">答案显然是有的，JavaScript作为一门解释执行的语言，给对象动态添加职责是理所当然的事情。</p>
+<p class="calibre1">所以我们把发布—订阅的功能提取出来，放在一个单独的对象内：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var event = {
+    clientList: [],
+    listen: function( key, fn ){
+        if ( !this.clientList[ key ] ){
+            this.clientList[ key ] = [];
+        }
+        this.clientList[ key ].push( fn );    // 订阅的消息添加进缓存列表
+    },
+    trigger: function(){
+        var key = Array.prototype.shift.call( arguments ),    // (1);
+            fns = this.clientList[ key ];
+
+        if ( !fns || fns.length === 0 ){    // 如果没有绑定对应的消息
+            return false;
+        }
+
+        for( var i = 0, fn; fn = fns[ i++ ]; ){
+            fn.apply( this, arguments );    // (2) // arguments 是trigger时带上的参数
+        }
+    }
+};
+
+</code></pre>
+<p class="calibre1">再定义一个<code class="calibre9">installEvent</code>函数，这个函数可以给所有的对象都动态安装发布—订阅功能：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var installEvent = function( obj ){
+    for ( var i in event ){
+        obj[ i ] = event[ i ];
+    }
+};
+
+</code></pre>
+<p class="calibre1">再来测试一番，我们给售楼处对象<code class="calibre9">salesOffices</code>动态增加发布—订阅功能：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var salesOffices = {};
+installEvent( salesOffices );
+
+salesOffices.listen( 'squareMeter88', function( price ){    // 小明订阅消息
+    console.log( '价格= ' + price );
+});
+
+salesOffices.listen( 'squareMeter100', function( price ){     // 小红订阅消息
+    console.log( '价格= ' + price );
+});
+
+salesOffices.trigger( 'squareMeter88', 2000000 );    // 输出：2000000
+salesOffices.trigger( 'squareMeter100', 3000000 );    // 输出：3000000
+
+</code></pre>
+</body></html>

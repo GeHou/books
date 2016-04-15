@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_180" class="calibre7"><strong class="calibre6">13.4　灵活可拆分的职责链节点</strong></h2>
+<p class="calibre1">本节我们采用一种更灵活的方式，来改进上面的职责链模式，目标是让链中的各个节点可以灵活拆分和重组。</p>
+<p class="calibre1">首先需要改写一下分别表示3种购买模式的节点函数，我们约定，如果某个节点不能处理请求，则返回一个特定的字符串 <code class="calibre9">'nextSuccessor'</code>来表示该请求需要继续往后面传递：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var order500 = function( orderType, pay, stock ){
+    if ( orderType === 1 &amp;&amp; pay === true ){
+        console.log( '500元定金预购，得到100优惠券' );
+    }else{
+        return 'nextSuccessor';    // 我不知道下一个节点是谁，反正把请求往后面传递
+    }
+};
+
+var order200 = function( orderType, pay, stock ){
+    if ( orderType === 2 &amp;&amp; pay === true ){
+        console.log( '200元定金预购，得到50优惠券' );
+    }else{
+        return 'nextSuccessor';    // 我不知道下一个节点是谁，反正把请求往后面传递
+    }
+};
+
+var orderNormal = function( orderType, pay, stock ){
+    if ( stock &gt; 0 ){
+        console.log( '普通购买，无优惠券' );
+    }else{
+        console.log( '手机库存不足' );
+    }
+};
+
+</code></pre>
+<p class="calibre1">接下来需要把函数包装进职责链节点，我们定义一个构造函数<code class="calibre9">Chain</code>，在new <code class="calibre9">Chain</code>的时候传递的参数即为需要被包装的函数， 同时它还拥有一个实例属性<code class="calibre9">this.successor</code>，表示在链中的下一个节点。</p>
+<p class="calibre1">此外<code class="calibre9">Chain</code>的<code class="calibre9">prototype</code>中还有两个函数，它们的作用如下所示：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">// Chain.prototype.setNextSuccessor  指定在链中的下一个节点
+// Chain.prototype.passRequest  传递请求给某个节点
+
+var Chain = function( fn ){
+    this.fn = fn;
+    this.successor = null;
+};
+
+Chain.prototype.setNextSuccessor = function( successor ){
+    return this.successor = successor;
+};
+
+Chain.prototype.passRequest = function(){
+    var ret = this.fn.apply( this, arguments );
+
+    if ( ret === 'nextSuccessor' ){
+        return this.successor &amp;&amp; this.successor.passRequest.apply( this.successor, arguments );
+    }
+
+    return ret;
+};
+
+</code></pre>
+<p class="calibre1">现在我们把3个订单函数分别包装成职责链的节点：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var chainOrder500 = new Chain( order500 );
+var chainOrder200 = new Chain( order200 );
+var chainOrderNormal = new Chain( orderNormal );
+
+</code></pre>
+<p class="calibre1">然后指定节点在职责链中的顺序：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">chainOrder500.setNextSuccessor( chainOrder200 );
+chainOrder200.setNextSuccessor( chainOrderNormal );
+
+</code></pre>
+<p class="calibre1">最后把请求传递给第一个节点：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">chainOrder500.passRequest( 1, true, 500 );    // 输出：500元定金预购，得到100优惠券
+chainOrder500.passRequest( 2, true, 500 );    // 输出：200元定金预购，得到50优惠券
+chainOrder500.passRequest( 3, true, 500 );    // 输出：普通购买，无优惠券
+chainOrder500.passRequest( 1, false, 0 );     // 输出：手机库存不足
+
+</code></pre>
+<p class="calibre1">通过改进，我们可以自由灵活地增加、移除和修改链中的节点顺序，假如某天网站运营人员又想出了支持300元定金购买，那我们就在该链中增加一个节点即可：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var order300 = function(){
+    // 具体实现略
+};
+
+chainOrder300= new Chain( order300 );
+chainOrder500.setNextSuccessor( chainOrder300);
+chainOrder300.setNextSuccessor( chainOrder200);
+
+</code></pre>
+<p class="calibre1">对于程序员来说，我们总是喜欢去改动那些相对容易改动的地方，就像改动框架的配置文件远比改动框架的源代码简单得多。在这里完全不用理会原来的订单函数代码，我们要做的只是增加一个节点，然后重新设置链中相关节点的顺序。</p>
+</body></html>

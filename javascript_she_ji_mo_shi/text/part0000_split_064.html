@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_102" class="calibre7"><strong class="calibre6">7.6　中止迭代器</strong></h2>
+<p class="calibre1">迭代器可以像普通<code class="calibre9">for</code>循环中的<code class="calibre9">break</code>一样，提供一种跳出循环的方法。在1.4节jQuery的<code class="calibre9">each</code>函数里有这样一句：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">if ( value === false ) {
+    break;
+ }
+
+</code></pre>
+<p class="calibre1">这句代码的意思是，约定如果回调函数的执行结果返回<code class="calibre9">false</code>，则提前终止循环。下面我们把之前的<code class="calibre9">each</code>函数改写一下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var each = function( ary, callback ){
+    for ( var i = 0, l = ary.length; i &lt; l; i++ ){
+        if ( callback( i, ary[ i ] ) === false ){    // callback的执行结果返回false，提前终止迭代
+            break;
+        }
+    }
+};
+
+each( [ 1, 2, 3, 4, 5 ], function( i, n ){
+    if ( n &gt; 3 ){         // n大于3的时候终止循环
+        return false;
+    }
+    console.log( n );    // 分别输出：1, 2, 3
+});
+
+</code></pre>
+</body></html>

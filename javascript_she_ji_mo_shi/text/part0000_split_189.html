@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_260" class="calibre7"><strong class="calibre6">22.3　把条件分支语句提炼成函数</strong></h2>
+<p class="calibre1">在程序设计中，复杂的条件分支语句是导致程序难以阅读和理解的重要原因，而且容易导致一个庞大的函数。假设现在有一个需求是编写一个计算商品价格的<code class="calibre9">getPrice</code>函数，商品的计算只有一个规则：如果当前正处于夏季，那么全部商品将以8折出售。代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var getPrice = function( price ){
+    var date = new Date();
+    if ( date.getMonth() &gt;= 6 &amp;&amp; date.getMonth() &lt;= 9 ){    // 夏天
+        return price * 0.8;
+    }
+    return price;
+};
+
+</code></pre>
+<p class="calibre1">观察这句代码：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">if ( date.getMonth() &gt;= 6 &amp;&amp; date.getMonth() &lt;= 9 ){
+    // ...
+}
+
+</code></pre>
+<p class="calibre1">这句代码要表达的意思很简单，就是判断当前是否正处于夏天（7~10月）。尽管这句代码很短小，但代码表达的意图和代码自身还存在一些距离，阅读代码的人必须要多花一些精力才能明白它传达的意图。其实可以把这句代码提炼成一个单独的函数，既能更准确地表达代码的意思，函数名本身又能起到注释的作用。代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var isSummer = function(){
+    var date = new Date();
+    return date.getMonth() &gt;= 6 &amp;&amp; date.getMonth() &lt;= 9;
+};
+
+var getPrice = function( price ){
+    if ( isSummer() ){    // 夏天
+        return price * 0.8;
+    }
+    return price;
+};
+
+</code></pre>
+</body></html>

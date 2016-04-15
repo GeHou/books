@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_225" class="calibre7"><strong class="calibre6">16.9　JavaScript版本的状态机</strong></h2>
+<p class="calibre1">前面两个示例都是模拟传统面向对象语言的状态模式实现，我们为每种状态都定义一个状态子类，然后在Context中持有这些状态对象的引用，以便把<code class="calibre9">currState</code>设置为当前的状态对象。</p>
+<p class="calibre1">状态模式是状态机的实现之一，但在JavaScript这种“无类”语言中，没有规定让状态对象一定要从类中创建而来。另外一点，JavaScript可以非常方便地使用委托技术，并不需要事先让一个对象持有另一个对象。下面的状态机选择了通过<code class="calibre9">Function.prototype.call</code>方法直接把请求委托给某个字面量对象来执行。</p>
+<p class="calibre1">下面改写电灯的例子，来展示这种更加轻巧的做法：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var Light = function(){
+    this.currState = FSM.off;    // 设置当前状态
+    this.button = null;
+};
+
+Light.prototype.init = function(){
+       var button = document.createElement( 'button' ),
+        self = this;
+
+    button.innerHTML = '已关灯';
+    this.button = document.body.appendChild( button );
+
+    this.button.onclick = function(){
+        self.currState.buttonWasPressed.call( self );    // 把请求委托给FSM状态机
+    }
+};
+
+var FSM = {
+    off: {
+        buttonWasPressed: function(){
+            console.log( '关灯' );
+            this.button.innerHTML = '下一次按我是开灯';
+            this.currState = FSM.on;
+        }
+    },
+    on: {
+        buttonWasPressed: function(){
+            console.log( '开灯' );
+            this.button.innerHTML = '下一次按我是关灯';
+            this.currState = FSM.off;
+        }
+    }
+};
+
+var light = new Light();
+light.init();
+
+</code></pre>
+<p class="calibre1">接下来尝试另外一种方法，即利用下面的<code class="calibre9">delegate</code>函数来完成这个状态机编写。这是面向对象设计和闭包互换的一个例子，前者把变量保存为对象的属性，而后者把变量封闭在闭包形成的环境中：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var delegate = function( client, delegation ){
+    return {
+        buttonWasPressed: function(){    // 将客户的操作委托给delegation对象
+            return delegation.buttonWasPressed.apply( client, arguments );
+        }
+    }
+};
+
+var FSM = {
+    off: {
+        buttonWasPressed: function(){
+            console.log( '关灯' );
+            this.button.innerHTML = '下一次按我是开灯';
+            this.currState = this.onState;
+        }
+    },
+    on: {
+        buttonWasPressed: function(){
+            console.log( '开灯' );
+            this.button.innerHTML = '下一次按我是关灯';
+            this.currState = this.offState;
+        }
+    }
+};
+
+var Light = function(){
+    this.offState = delegate( this, FSM.off );
+    this.onState = delegate( this, FSM.on );
+    this.currState = this.offState;    // 设置初始状态为关闭状态
+    this.button = null;
+};
+
+Light.prototype.init = function(){
+    var button = document.createElement( 'button' ),
+        self = this;
+    button.innerHTML = '已关灯';
+    this.button = document.body.appendChild( button );
+    this.button.onclick = function(){
+        self.currState.buttonWasPressed();
+    }
+};
+
+var light = new Light();
+light.init();
+
+</code></pre>
+</body></html>

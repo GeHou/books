@@ -1,0 +1,1635 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="zho">
+  <head>
+    <meta content="25c62e3c-587e-4098-9cfe-bb6d7b0d8927" name="dtb:uid"/>
+    <meta content="2" name="dtb:depth"/>
+    <meta content="calibre (1.12.0)" name="dtb:generator"/>
+    <meta content="0" name="dtb:totalPageCount"/>
+    <meta content="0" name="dtb:maxPageNumber"/>
+  </head>
+  <docTitle>
+    <text>JavaScript设计模式与开发实践</text>
+  </docTitle>
+  <navMap>
+    <navPoint class="chapter" id="num_1" playOrder="1">
+      <navLabel>
+        <text>序</text>
+      </navLabel>
+      <content src="text/part0000_split_002.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_2" playOrder="2">
+      <navLabel>
+        <text>本书结构</text>
+      </navLabel>
+      <content src="text/part0000_split_003.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_3" playOrder="3">
+      <navLabel>
+        <text>目标读者</text>
+      </navLabel>
+      <content src="text/part0000_split_004.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_4" playOrder="4">
+      <navLabel>
+        <text>示例代码与勘误</text>
+      </navLabel>
+      <content src="text/part0000_split_005.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_5" playOrder="5">
+      <navLabel>
+        <text>致谢</text>
+      </navLabel>
+      <content src="text/part0000_split_006.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_6" playOrder="6">
+      <navLabel>
+        <text>前言</text>
+      </navLabel>
+      <content src="text/part0000_split_007.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_7" playOrder="7">
+      <navLabel>
+        <text>学习模式的作用</text>
+      </navLabel>
+      <content src="text/part0000_split_008.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_8" playOrder="8">
+      <navLabel>
+        <text>模式在不同语言之间的区别</text>
+      </navLabel>
+      <content src="text/part0000_split_009.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_9" playOrder="9">
+      <navLabel>
+        <text>设计模式的适用性</text>
+      </navLabel>
+      <content src="text/part0000_split_010.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_10" playOrder="10">
+      <navLabel>
+        <text>分辨模式的关键是意图而不是结构</text>
+      </navLabel>
+      <content src="text/part0000_split_011.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_11" playOrder="11">
+      <navLabel>
+        <text>对JavaScript设计模式的误解</text>
+      </navLabel>
+      <content src="text/part0000_split_012.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_12" playOrder="12">
+      <navLabel>
+        <text>模式的发展</text>
+      </navLabel>
+      <content src="text/part0000_split_013.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_13" playOrder="13">
+      <navLabel>
+        <text>第一部分　基础知识</text>
+      </navLabel>
+      <content src="text/part0000_split_014.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_14" playOrder="14">
+      <navLabel>
+        <text>第 1 章　面向对象的JavaScript</text>
+      </navLabel>
+      <content src="text/part0000_split_015.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_15" playOrder="15">
+      <navLabel>
+        <text>1.1　动态类型语言和鸭子类型</text>
+      </navLabel>
+      <content src="text/part0000_split_016.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_16" playOrder="16">
+      <navLabel>
+        <text>1.2　多态</text>
+      </navLabel>
+      <content src="text/part0000_split_017.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_17" playOrder="17">
+      <navLabel>
+        <text>1.2.1　一段“多态”的JavaScript代码</text>
+      </navLabel>
+      <content src="text/part0000_split_017.html#nav_point_16"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_18" playOrder="18">
+      <navLabel>
+        <text>1.2.2　对象的多态性</text>
+      </navLabel>
+      <content src="text/part0000_split_017.html#nav_point_17"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_19" playOrder="19">
+      <navLabel>
+        <text>1.2.3　类型检查和多态</text>
+      </navLabel>
+      <content src="text/part0000_split_017.html#nav_point_18"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_20" playOrder="20">
+      <navLabel>
+        <text>1.2.4　使用继承得到多态效果</text>
+      </navLabel>
+      <content src="text/part0000_split_017.html#nav_point_19"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_21" playOrder="21">
+      <navLabel>
+        <text>1.2.5　JavaScript的多态</text>
+      </navLabel>
+      <content src="text/part0000_split_017.html#nav_point_20"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_22" playOrder="22">
+      <navLabel>
+        <text>1.2.6　多态在面向对象程序设计中的作用</text>
+      </navLabel>
+      <content src="text/part0000_split_017.html#nav_point_21"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_23" playOrder="23">
+      <navLabel>
+        <text>1.2.7　设计模式与多态</text>
+      </navLabel>
+      <content src="text/part0000_split_017.html#nav_point_22"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_24" playOrder="24">
+      <navLabel>
+        <text>1.3　封装</text>
+      </navLabel>
+      <content src="text/part0000_split_018.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_25" playOrder="25">
+      <navLabel>
+        <text>1.3.1　封装数据</text>
+      </navLabel>
+      <content src="text/part0000_split_018.html#nav_point_24"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_26" playOrder="26">
+      <navLabel>
+        <text>1.3.2　封装实现</text>
+      </navLabel>
+      <content src="text/part0000_split_018.html#nav_point_25"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_27" playOrder="27">
+      <navLabel>
+        <text>1.3.3　封装类型</text>
+      </navLabel>
+      <content src="text/part0000_split_018.html#nav_point_26"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_28" playOrder="28">
+      <navLabel>
+        <text>1.3.4　封装变化</text>
+      </navLabel>
+      <content src="text/part0000_split_018.html#nav_point_27"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_29" playOrder="29">
+      <navLabel>
+        <text>1.4　原型模式和基于原型继承的JavaScript对象系统</text>
+      </navLabel>
+      <content src="text/part0000_split_019.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_30" playOrder="30">
+      <navLabel>
+        <text>1.4.1　使用克隆的原型模式</text>
+      </navLabel>
+      <content src="text/part0000_split_019.html#nav_point_29"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_31" playOrder="31">
+      <navLabel>
+        <text>1.4.2　克隆是创建对象的手段</text>
+      </navLabel>
+      <content src="text/part0000_split_019.html#nav_point_30"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_32" playOrder="32">
+      <navLabel>
+        <text>1.4.3　体验Io语言</text>
+      </navLabel>
+      <content src="text/part0000_split_019.html#nav_point_31"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_33" playOrder="33">
+      <navLabel>
+        <text>1.4.4　原型编程范型的一些规则</text>
+      </navLabel>
+      <content src="text/part0000_split_019.html#nav_point_32"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_34" playOrder="34">
+      <navLabel>
+        <text>1.4.5　JavaScript中的原型继承</text>
+      </navLabel>
+      <content src="text/part0000_split_019.html#nav_point_33"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_35" playOrder="35">
+      <navLabel>
+        <text>1.4.6　原型继承的未来</text>
+      </navLabel>
+      <content src="text/part0000_split_019.html#nav_point_34"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_36" playOrder="36">
+      <navLabel>
+        <text>1.4.6　小结</text>
+      </navLabel>
+      <content src="text/part0000_split_019.html#nav_point_35"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_37" playOrder="37">
+      <navLabel>
+        <text>第 2 章　this、call和apply</text>
+      </navLabel>
+      <content src="text/part0000_split_020.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_38" playOrder="38">
+      <navLabel>
+        <text>2.1　this</text>
+      </navLabel>
+      <content src="text/part0000_split_021.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_39" playOrder="39">
+      <navLabel>
+        <text>2.1.1　this的指向</text>
+      </navLabel>
+      <content src="text/part0000_split_021.html#nav_point_38"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_40" playOrder="40">
+      <navLabel>
+        <text>2.1.2　丢失的this</text>
+      </navLabel>
+      <content src="text/part0000_split_021.html#nav_point_39"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_41" playOrder="41">
+      <navLabel>
+        <text>2.2　call和apply</text>
+      </navLabel>
+      <content src="text/part0000_split_022.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_42" playOrder="42">
+      <navLabel>
+        <text>2.2.1　call和apply的区别</text>
+      </navLabel>
+      <content src="text/part0000_split_022.html#nav_point_41"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_43" playOrder="43">
+      <navLabel>
+        <text>2.2.2　call和apply的用途</text>
+      </navLabel>
+      <content src="text/part0000_split_022.html#nav_point_42"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_44" playOrder="44">
+      <navLabel>
+        <text>第 3 章　闭包和高阶函数</text>
+      </navLabel>
+      <content src="text/part0000_split_023.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_45" playOrder="45">
+      <navLabel>
+        <text>3.1　闭包</text>
+      </navLabel>
+      <content src="text/part0000_split_024.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_46" playOrder="46">
+      <navLabel>
+        <text>3.1.1　变量的作用域</text>
+      </navLabel>
+      <content src="text/part0000_split_024.html#nav_point_45"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_47" playOrder="47">
+      <navLabel>
+        <text>3.1.2　变量的生存周期</text>
+      </navLabel>
+      <content src="text/part0000_split_024.html#nav_point_46"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_48" playOrder="48">
+      <navLabel>
+        <text>3.1.3　闭包的更多作用</text>
+      </navLabel>
+      <content src="text/part0000_split_024.html#nav_point_47"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_49" playOrder="49">
+      <navLabel>
+        <text>3.1.4　闭包和面向对象设计</text>
+      </navLabel>
+      <content src="text/part0000_split_024.html#nav_point_48"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_50" playOrder="50">
+      <navLabel>
+        <text>3.1.5　用闭包实现命令模式</text>
+      </navLabel>
+      <content src="text/part0000_split_024.html#nav_point_49"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_51" playOrder="51">
+      <navLabel>
+        <text>3.1.6　闭包与内存管理</text>
+      </navLabel>
+      <content src="text/part0000_split_024.html#nav_point_50"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_52" playOrder="52">
+      <navLabel>
+        <text>3.2　高阶函数</text>
+      </navLabel>
+      <content src="text/part0000_split_025.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_53" playOrder="53">
+      <navLabel>
+        <text>3.2.1　函数作为参数传递</text>
+      </navLabel>
+      <content src="text/part0000_split_025.html#nav_point_52"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_54" playOrder="54">
+      <navLabel>
+        <text>3.2.2　函数作为返回值输出</text>
+      </navLabel>
+      <content src="text/part0000_split_025.html#nav_point_53"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_55" playOrder="55">
+      <navLabel>
+        <text>3.2.3　高阶函数实现AOP</text>
+      </navLabel>
+      <content src="text/part0000_split_025.html#nav_point_54"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_56" playOrder="56">
+      <navLabel>
+        <text>3.2.4　高阶函数的其他应用</text>
+      </navLabel>
+      <content src="text/part0000_split_025.html#nav_point_55"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_57" playOrder="57">
+      <navLabel>
+        <text>3.3　小结</text>
+      </navLabel>
+      <content src="text/part0000_split_026.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_58" playOrder="58">
+      <navLabel>
+        <text>第二部分　设计模式</text>
+      </navLabel>
+      <content src="text/part0000_split_027.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_59" playOrder="59">
+      <navLabel>
+        <text>第 4 章　单例模式</text>
+      </navLabel>
+      <content src="text/part0000_split_028.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_60" playOrder="60">
+      <navLabel>
+        <text>4.1　实现单例模式</text>
+      </navLabel>
+      <content src="text/part0000_split_029.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_61" playOrder="61">
+      <navLabel>
+        <text>4.2　透明的单例模式</text>
+      </navLabel>
+      <content src="text/part0000_split_030.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_62" playOrder="62">
+      <navLabel>
+        <text>4.3　用代理实现单例模式</text>
+      </navLabel>
+      <content src="text/part0000_split_031.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_63" playOrder="63">
+      <navLabel>
+        <text>4.4　JavaScript中的单例模式</text>
+      </navLabel>
+      <content src="text/part0000_split_032.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_64" playOrder="64">
+      <navLabel>
+        <text>4.5　惰性单例</text>
+      </navLabel>
+      <content src="text/part0000_split_033.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_65" playOrder="65">
+      <navLabel>
+        <text>4.6　通用的惰性单例</text>
+      </navLabel>
+      <content src="text/part0000_split_034.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_66" playOrder="66">
+      <navLabel>
+        <text>4.7　小结</text>
+      </navLabel>
+      <content src="text/part0000_split_035.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_67" playOrder="67">
+      <navLabel>
+        <text>第 5 章　策略模式</text>
+      </navLabel>
+      <content src="text/part0000_split_036.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_68" playOrder="68">
+      <navLabel>
+        <text>5.1　使用策略模式计算奖金</text>
+      </navLabel>
+      <content src="text/part0000_split_037.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_69" playOrder="69">
+      <navLabel>
+        <text>5.2　JavaScript版本的策略模式</text>
+      </navLabel>
+      <content src="text/part0000_split_038.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_70" playOrder="70">
+      <navLabel>
+        <text>5.3　多态在策略模式中的体现</text>
+      </navLabel>
+      <content src="text/part0000_split_039.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_71" playOrder="71">
+      <navLabel>
+        <text>5.4　使用策略模式实现缓动动画</text>
+      </navLabel>
+      <content src="text/part0000_split_040.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_72" playOrder="72">
+      <navLabel>
+        <text>5.4.1　实现动画效果的原理</text>
+      </navLabel>
+      <content src="text/part0000_split_040.html#nav_point_71"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_73" playOrder="73">
+      <navLabel>
+        <text>5.4.2　思路和一些准备工作</text>
+      </navLabel>
+      <content src="text/part0000_split_040.html#nav_point_72"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_74" playOrder="74">
+      <navLabel>
+        <text>5.4.3　让小球运动起来</text>
+      </navLabel>
+      <content src="text/part0000_split_040.html#nav_point_73"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_75" playOrder="75">
+      <navLabel>
+        <text>5.5　更广义的“算法”</text>
+      </navLabel>
+      <content src="text/part0000_split_041.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_76" playOrder="76">
+      <navLabel>
+        <text>5.6　表单校验</text>
+      </navLabel>
+      <content src="text/part0000_split_042.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_77" playOrder="77">
+      <navLabel>
+        <text>5.6.1　表单校验的第一个版本</text>
+      </navLabel>
+      <content src="text/part0000_split_042.html#nav_point_76"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_78" playOrder="78">
+      <navLabel>
+        <text>5.6.2　用策略模式重构表单校验</text>
+      </navLabel>
+      <content src="text/part0000_split_042.html#nav_point_77"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_79" playOrder="79">
+      <navLabel>
+        <text>5.6.3　给某个文本输入框添加多种校验规则</text>
+      </navLabel>
+      <content src="text/part0000_split_042.html#nav_point_78"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_80" playOrder="80">
+      <navLabel>
+        <text>5.7　策略模式的优缺点</text>
+      </navLabel>
+      <content src="text/part0000_split_043.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_81" playOrder="81">
+      <navLabel>
+        <text>5.8　一等函数对象与策略模式</text>
+      </navLabel>
+      <content src="text/part0000_split_044.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_82" playOrder="82">
+      <navLabel>
+        <text>5.9　小结</text>
+      </navLabel>
+      <content src="text/part0000_split_045.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_83" playOrder="83">
+      <navLabel>
+        <text>第 6 章　代理模式</text>
+      </navLabel>
+      <content src="text/part0000_split_046.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_84" playOrder="84">
+      <navLabel>
+        <text>6.1　第一个例子——小明追MM的故事</text>
+      </navLabel>
+      <content src="text/part0000_split_047.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_85" playOrder="85">
+      <navLabel>
+        <text>6.2　保护代理和虚拟代理</text>
+      </navLabel>
+      <content src="text/part0000_split_048.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_86" playOrder="86">
+      <navLabel>
+        <text>6.3　虚拟代理实现图片预加载</text>
+      </navLabel>
+      <content src="text/part0000_split_049.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_87" playOrder="87">
+      <navLabel>
+        <text>6.4　代理的意义</text>
+      </navLabel>
+      <content src="text/part0000_split_050.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_88" playOrder="88">
+      <navLabel>
+        <text>6.5　代理和本体接口的一致性</text>
+      </navLabel>
+      <content src="text/part0000_split_051.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_89" playOrder="89">
+      <navLabel>
+        <text>6.6　虚拟代理合并HTTP请求</text>
+      </navLabel>
+      <content src="text/part0000_split_052.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_90" playOrder="90">
+      <navLabel>
+        <text>6.7　虚拟代理在惰性加载中的应用</text>
+      </navLabel>
+      <content src="text/part0000_split_053.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_91" playOrder="91">
+      <navLabel>
+        <text>6.8　缓存代理</text>
+      </navLabel>
+      <content src="text/part0000_split_054.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_92" playOrder="92">
+      <navLabel>
+        <text>6.8.1　缓存代理的例子——计算乘积</text>
+      </navLabel>
+      <content src="text/part0000_split_054.html#nav_point_91"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_93" playOrder="93">
+      <navLabel>
+        <text>6.8.2　缓存代理用于ajax异步请求数据</text>
+      </navLabel>
+      <content src="text/part0000_split_054.html#nav_point_92"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_94" playOrder="94">
+      <navLabel>
+        <text>6.9　用高阶函数动态创建代理</text>
+      </navLabel>
+      <content src="text/part0000_split_055.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_95" playOrder="95">
+      <navLabel>
+        <text>6.10　其他代理模式</text>
+      </navLabel>
+      <content src="text/part0000_split_056.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_96" playOrder="96">
+      <navLabel>
+        <text>6.11　小结</text>
+      </navLabel>
+      <content src="text/part0000_split_057.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_97" playOrder="97">
+      <navLabel>
+        <text>第 7 章　迭代器模式</text>
+      </navLabel>
+      <content src="text/part0000_split_058.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_98" playOrder="98">
+      <navLabel>
+        <text>7.1　jQuery中的迭代器</text>
+      </navLabel>
+      <content src="text/part0000_split_059.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_99" playOrder="99">
+      <navLabel>
+        <text>7.2　实现自己的迭代器</text>
+      </navLabel>
+      <content src="text/part0000_split_060.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_100" playOrder="100">
+      <navLabel>
+        <text>7.3　内部迭代器和外部迭代器</text>
+      </navLabel>
+      <content src="text/part0000_split_061.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_101" playOrder="101">
+      <navLabel>
+        <text>7.4　迭代类数组对象和字面量对象</text>
+      </navLabel>
+      <content src="text/part0000_split_062.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_102" playOrder="102">
+      <navLabel>
+        <text>7.5　倒序迭代器</text>
+      </navLabel>
+      <content src="text/part0000_split_063.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_103" playOrder="103">
+      <navLabel>
+        <text>7.6　中止迭代器</text>
+      </navLabel>
+      <content src="text/part0000_split_064.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_104" playOrder="104">
+      <navLabel>
+        <text>7.7　迭代器模式的应用举例</text>
+      </navLabel>
+      <content src="text/part0000_split_065.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_105" playOrder="105">
+      <navLabel>
+        <text>7.8　小结</text>
+      </navLabel>
+      <content src="text/part0000_split_066.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_106" playOrder="106">
+      <navLabel>
+        <text>第 8 章　发布—订阅模式</text>
+      </navLabel>
+      <content src="text/part0000_split_067.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_107" playOrder="107">
+      <navLabel>
+        <text>8.1　现实中的发布－订阅模式</text>
+      </navLabel>
+      <content src="text/part0000_split_068.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_108" playOrder="108">
+      <navLabel>
+        <text>8.2　发布－订阅模式的作用</text>
+      </navLabel>
+      <content src="text/part0000_split_069.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_109" playOrder="109">
+      <navLabel>
+        <text>8.3　DOM事件</text>
+      </navLabel>
+      <content src="text/part0000_split_070.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_110" playOrder="110">
+      <navLabel>
+        <text>8.4　自定义事件</text>
+      </navLabel>
+      <content src="text/part0000_split_071.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_111" playOrder="111">
+      <navLabel>
+        <text>8.5　发布－订阅模式的通用实现</text>
+      </navLabel>
+      <content src="text/part0000_split_072.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_112" playOrder="112">
+      <navLabel>
+        <text>8.6　取消订阅的事件</text>
+      </navLabel>
+      <content src="text/part0000_split_073.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_113" playOrder="113">
+      <navLabel>
+        <text>8.7　真实的例子——网站登录</text>
+      </navLabel>
+      <content src="text/part0000_split_074.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_114" playOrder="114">
+      <navLabel>
+        <text>8.8　全局的发布－订阅对象</text>
+      </navLabel>
+      <content src="text/part0000_split_075.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_115" playOrder="115">
+      <navLabel>
+        <text>8.9　模块间通信</text>
+      </navLabel>
+      <content src="text/part0000_split_076.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_116" playOrder="116">
+      <navLabel>
+        <text>8.10　必须先订阅再发布吗</text>
+      </navLabel>
+      <content src="text/part0000_split_077.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_117" playOrder="117">
+      <navLabel>
+        <text>8.11　全局事件的命名冲突</text>
+      </navLabel>
+      <content src="text/part0000_split_078.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_118" playOrder="118">
+      <navLabel>
+        <text>8.12　JavaScript实现发布－订阅模式的便利性</text>
+      </navLabel>
+      <content src="text/part0000_split_079.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_119" playOrder="119">
+      <navLabel>
+        <text>8.13　小结</text>
+      </navLabel>
+      <content src="text/part0000_split_080.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_120" playOrder="120">
+      <navLabel>
+        <text>第 9 章　命令模式</text>
+      </navLabel>
+      <content src="text/part0000_split_081.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_121" playOrder="121">
+      <navLabel>
+        <text>9.1　命令模式的用途</text>
+      </navLabel>
+      <content src="text/part0000_split_082.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_122" playOrder="122">
+      <navLabel>
+        <text>9.2　命令模式的例子——菜单程序</text>
+      </navLabel>
+      <content src="text/part0000_split_083.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_123" playOrder="123">
+      <navLabel>
+        <text>9.3　JavaScript中的命令模式</text>
+      </navLabel>
+      <content src="text/part0000_split_084.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_124" playOrder="124">
+      <navLabel>
+        <text>9.4　撤销命令</text>
+      </navLabel>
+      <content src="text/part0000_split_085.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_125" playOrder="125">
+      <navLabel>
+        <text>9.5　撤消和重做</text>
+      </navLabel>
+      <content src="text/part0000_split_086.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_126" playOrder="126">
+      <navLabel>
+        <text>9.6　命令队列</text>
+      </navLabel>
+      <content src="text/part0000_split_087.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_127" playOrder="127">
+      <navLabel>
+        <text>9.7　宏命令</text>
+      </navLabel>
+      <content src="text/part0000_split_088.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_128" playOrder="128">
+      <navLabel>
+        <text>9.8　智能命令与傻瓜命令</text>
+      </navLabel>
+      <content src="text/part0000_split_089.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_129" playOrder="129">
+      <navLabel>
+        <text>9.9　小结</text>
+      </navLabel>
+      <content src="text/part0000_split_090.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_130" playOrder="130">
+      <navLabel>
+        <text>第 10 章　组合模式</text>
+      </navLabel>
+      <content src="text/part0000_split_091.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_131" playOrder="131">
+      <navLabel>
+        <text>10.1　回顾宏命令</text>
+      </navLabel>
+      <content src="text/part0000_split_092.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_132" playOrder="132">
+      <navLabel>
+        <text>10.2　组合模式的用途</text>
+      </navLabel>
+      <content src="text/part0000_split_093.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_133" playOrder="133">
+      <navLabel>
+        <text>10.3　请求在树中传递的过程</text>
+      </navLabel>
+      <content src="text/part0000_split_094.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_134" playOrder="134">
+      <navLabel>
+        <text>10.4　更强大的宏命令</text>
+      </navLabel>
+      <content src="text/part0000_split_095.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_135" playOrder="135">
+      <navLabel>
+        <text>10.5　抽象类在组合模式中的作用</text>
+      </navLabel>
+      <content src="text/part0000_split_096.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_136" playOrder="136">
+      <navLabel>
+        <text>10.6　透明性带来的安全问题</text>
+      </navLabel>
+      <content src="text/part0000_split_097.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_137" playOrder="137">
+      <navLabel>
+        <text>10.7　组合模式的例子——扫描文件夹</text>
+      </navLabel>
+      <content src="text/part0000_split_098.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_138" playOrder="138">
+      <navLabel>
+        <text>10.8　一些值得注意的地方</text>
+      </navLabel>
+      <content src="text/part0000_split_099.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_139" playOrder="139">
+      <navLabel>
+        <text>10.9　引用父对象</text>
+      </navLabel>
+      <content src="text/part0000_split_100.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_140" playOrder="140">
+      <navLabel>
+        <text>10.10　何时使用组合模式</text>
+      </navLabel>
+      <content src="text/part0000_split_101.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_141" playOrder="141">
+      <navLabel>
+        <text>10.11　小结</text>
+      </navLabel>
+      <content src="text/part0000_split_102.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_142" playOrder="142">
+      <navLabel>
+        <text>第 11 章　模板方法模式</text>
+      </navLabel>
+      <content src="text/part0000_split_103.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_143" playOrder="143">
+      <navLabel>
+        <text>11.1　模板方法模式的定义和组成</text>
+      </navLabel>
+      <content src="text/part0000_split_104.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_144" playOrder="144">
+      <navLabel>
+        <text>11.2　第一个例子——Coffee or Tea</text>
+      </navLabel>
+      <content src="text/part0000_split_105.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_145" playOrder="145">
+      <navLabel>
+        <text>11.2.1　先泡一杯咖啡</text>
+      </navLabel>
+      <content src="text/part0000_split_105.html#nav_point_144"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_146" playOrder="146">
+      <navLabel>
+        <text>11.2.2　泡一壶茶</text>
+      </navLabel>
+      <content src="text/part0000_split_105.html#nav_point_145"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_147" playOrder="147">
+      <navLabel>
+        <text>11.2.3　分离出共同点</text>
+      </navLabel>
+      <content src="text/part0000_split_105.html#nav_point_146"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_148" playOrder="148">
+      <navLabel>
+        <text>11.2.4　创建Coffee子类和Tea子类</text>
+      </navLabel>
+      <content src="text/part0000_split_105.html#nav_point_147"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_149" playOrder="149">
+      <navLabel>
+        <text>11.3　抽象类</text>
+      </navLabel>
+      <content src="text/part0000_split_106.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_150" playOrder="150">
+      <navLabel>
+        <text>11.3.1　抽象类的作用</text>
+      </navLabel>
+      <content src="text/part0000_split_106.html#nav_point_149"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_151" playOrder="151">
+      <navLabel>
+        <text>11.3.2　抽象方法和具体方法</text>
+      </navLabel>
+      <content src="text/part0000_split_106.html#nav_point_150"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_152" playOrder="152">
+      <navLabel>
+        <text>11.3.3　用Java实现Coffee or Tea的例子</text>
+      </navLabel>
+      <content src="text/part0000_split_106.html#nav_point_151"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_153" playOrder="153">
+      <navLabel>
+        <text>11.3.4　JavaScript没有抽象类的缺点和解决方案</text>
+      </navLabel>
+      <content src="text/part0000_split_106.html#nav_point_152"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_154" playOrder="154">
+      <navLabel>
+        <text>11.4　模板方法模式的使用场景</text>
+      </navLabel>
+      <content src="text/part0000_split_107.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_155" playOrder="155">
+      <navLabel>
+        <text>11.5　钩子方法</text>
+      </navLabel>
+      <content src="text/part0000_split_108.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_156" playOrder="156">
+      <navLabel>
+        <text>11.6　好莱坞原则</text>
+      </navLabel>
+      <content src="text/part0000_split_109.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_157" playOrder="157">
+      <navLabel>
+        <text>11.7　真的需要“继承”吗</text>
+      </navLabel>
+      <content src="text/part0000_split_110.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_158" playOrder="158">
+      <navLabel>
+        <text>11.8　小结</text>
+      </navLabel>
+      <content src="text/part0000_split_111.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_159" playOrder="159">
+      <navLabel>
+        <text>第 12 章　享元模式</text>
+      </navLabel>
+      <content src="text/part0000_split_112.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_160" playOrder="160">
+      <navLabel>
+        <text>12.1　初识享元模式</text>
+      </navLabel>
+      <content src="text/part0000_split_113.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_161" playOrder="161">
+      <navLabel>
+        <text>12.2　内部状态与外部状态</text>
+      </navLabel>
+      <content src="text/part0000_split_114.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_162" playOrder="162">
+      <navLabel>
+        <text>12.3　享元模式的通用结构</text>
+      </navLabel>
+      <content src="text/part0000_split_115.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_163" playOrder="163">
+      <navLabel>
+        <text>12.4　文件上传的例子</text>
+      </navLabel>
+      <content src="text/part0000_split_116.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_164" playOrder="164">
+      <navLabel>
+        <text>12.4.1　对象爆炸</text>
+      </navLabel>
+      <content src="text/part0000_split_116.html#nav_point_163"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_165" playOrder="165">
+      <navLabel>
+        <text>12.4.2　享元模式重构文件上传</text>
+      </navLabel>
+      <content src="text/part0000_split_116.html#nav_point_164"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_166" playOrder="166">
+      <navLabel>
+        <text>12.4.3　剥离外部状态</text>
+      </navLabel>
+      <content src="text/part0000_split_116.html#nav_point_165"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_167" playOrder="167">
+      <navLabel>
+        <text>12.4.4　工厂进行对象实例化</text>
+      </navLabel>
+      <content src="text/part0000_split_116.html#nav_point_166"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_168" playOrder="168">
+      <navLabel>
+        <text>12.4.5　管理器封装外部状态</text>
+      </navLabel>
+      <content src="text/part0000_split_116.html#nav_point_167"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_169" playOrder="169">
+      <navLabel>
+        <text>12.5　享元模式的适用性</text>
+      </navLabel>
+      <content src="text/part0000_split_117.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_170" playOrder="170">
+      <navLabel>
+        <text>12.6　再谈内部状态和外部状态</text>
+      </navLabel>
+      <content src="text/part0000_split_118.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_171" playOrder="171">
+      <navLabel>
+        <text>12.6.1　没有内部状态的享元</text>
+      </navLabel>
+      <content src="text/part0000_split_118.html#nav_point_170"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_172" playOrder="172">
+      <navLabel>
+        <text>12.6.2　没有外部状态的享元</text>
+      </navLabel>
+      <content src="text/part0000_split_118.html#nav_point_171"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_173" playOrder="173">
+      <navLabel>
+        <text>12.7　对象池</text>
+      </navLabel>
+      <content src="text/part0000_split_119.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_174" playOrder="174">
+      <navLabel>
+        <text>12.7.1　对象池实现</text>
+      </navLabel>
+      <content src="text/part0000_split_119.html#nav_point_173"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_175" playOrder="175">
+      <navLabel>
+        <text>12.7.2　通用对象池实现</text>
+      </navLabel>
+      <content src="text/part0000_split_119.html#nav_point_174"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_176" playOrder="176">
+      <navLabel>
+        <text>12.8　小结</text>
+      </navLabel>
+      <content src="text/part0000_split_120.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_177" playOrder="177">
+      <navLabel>
+        <text>第 13 章　职责链模式</text>
+      </navLabel>
+      <content src="text/part0000_split_121.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_178" playOrder="178">
+      <navLabel>
+        <text>13.1　现实中的职责链模式</text>
+      </navLabel>
+      <content src="text/part0000_split_122.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_179" playOrder="179">
+      <navLabel>
+        <text>13.2　实际开发中的职责链模式</text>
+      </navLabel>
+      <content src="text/part0000_split_123.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_180" playOrder="180">
+      <navLabel>
+        <text>13.3　用职责链模式重构代码</text>
+      </navLabel>
+      <content src="text/part0000_split_124.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_181" playOrder="181">
+      <navLabel>
+        <text>13.4　灵活可拆分的职责链节点</text>
+      </navLabel>
+      <content src="text/part0000_split_125.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_182" playOrder="182">
+      <navLabel>
+        <text>13.5　异步的职责链</text>
+      </navLabel>
+      <content src="text/part0000_split_126.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_183" playOrder="183">
+      <navLabel>
+        <text>13.6　职责链模式的优缺点</text>
+      </navLabel>
+      <content src="text/part0000_split_127.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_184" playOrder="184">
+      <navLabel>
+        <text>13.7　用AOP实现职责链</text>
+      </navLabel>
+      <content src="text/part0000_split_128.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_185" playOrder="185">
+      <navLabel>
+        <text>13.8　用职责链模式获取文件上传对象</text>
+      </navLabel>
+      <content src="text/part0000_split_129.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_186" playOrder="186">
+      <navLabel>
+        <text>13.9　小结</text>
+      </navLabel>
+      <content src="text/part0000_split_130.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_187" playOrder="187">
+      <navLabel>
+        <text>第 14 章　中介者模式</text>
+      </navLabel>
+      <content src="text/part0000_split_131.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_188" playOrder="188">
+      <navLabel>
+        <text>14.1　现实中的中介者</text>
+      </navLabel>
+      <content src="text/part0000_split_132.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_189" playOrder="189">
+      <navLabel>
+        <text>14.2　中介者模式的例子——泡泡堂游戏</text>
+      </navLabel>
+      <content src="text/part0000_split_133.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_190" playOrder="190">
+      <navLabel>
+        <text>14.2.1　为游戏增加队伍</text>
+      </navLabel>
+      <content src="text/part0000_split_133.html#nav_point_189"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_191" playOrder="191">
+      <navLabel>
+        <text>14.2.2　玩家增多带来的困扰</text>
+      </navLabel>
+      <content src="text/part0000_split_133.html#nav_point_190"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_192" playOrder="192">
+      <navLabel>
+        <text>14.2.3　用中介者模式改造泡泡堂游戏</text>
+      </navLabel>
+      <content src="text/part0000_split_133.html#nav_point_191"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_193" playOrder="193">
+      <navLabel>
+        <text>14.3　中介者模式的例子——购买商品</text>
+      </navLabel>
+      <content src="text/part0000_split_134.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_194" playOrder="194">
+      <navLabel>
+        <text>14.3.1　开始编写代码</text>
+      </navLabel>
+      <content src="text/part0000_split_134.html#nav_point_193"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_195" playOrder="195">
+      <navLabel>
+        <text>14.3.2　对象之间的联系</text>
+      </navLabel>
+      <content src="text/part0000_split_134.html#nav_point_194"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_196" playOrder="196">
+      <navLabel>
+        <text>14.3.3　可能遇到的困难</text>
+      </navLabel>
+      <content src="text/part0000_split_134.html#nav_point_195"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_197" playOrder="197">
+      <navLabel>
+        <text>14.3.4　引入中介者</text>
+      </navLabel>
+      <content src="text/part0000_split_134.html#nav_point_196"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_198" playOrder="198">
+      <navLabel>
+        <text>14.4　小结</text>
+      </navLabel>
+      <content src="text/part0000_split_135.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_199" playOrder="199">
+      <navLabel>
+        <text>第 15 章　装饰者模式</text>
+      </navLabel>
+      <content src="text/part0000_split_136.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_200" playOrder="200">
+      <navLabel>
+        <text>15.1　模拟传统面向对象语言的装饰者模式</text>
+      </navLabel>
+      <content src="text/part0000_split_137.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_201" playOrder="201">
+      <navLabel>
+        <text>15.2　装饰者也是包装器</text>
+      </navLabel>
+      <content src="text/part0000_split_138.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_202" playOrder="202">
+      <navLabel>
+        <text>15.3　回到JavaScript的装饰者</text>
+      </navLabel>
+      <content src="text/part0000_split_139.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_203" playOrder="203">
+      <navLabel>
+        <text>15.4　装饰函数</text>
+      </navLabel>
+      <content src="text/part0000_split_140.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_204" playOrder="204">
+      <navLabel>
+        <text>15.5　用AOP装饰函数</text>
+      </navLabel>
+      <content src="text/part0000_split_141.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_205" playOrder="205">
+      <navLabel>
+        <text>15.6　AOP的应用实例</text>
+      </navLabel>
+      <content src="text/part0000_split_142.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_206" playOrder="206">
+      <navLabel>
+        <text>15.6.1　数据统计上报</text>
+      </navLabel>
+      <content src="text/part0000_split_142.html#nav_point_205"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_207" playOrder="207">
+      <navLabel>
+        <text>15.6.2　用AOP动态改变函数的参数</text>
+      </navLabel>
+      <content src="text/part0000_split_142.html#nav_point_206"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_208" playOrder="208">
+      <navLabel>
+        <text>15.6.3　插件式的表单验证</text>
+      </navLabel>
+      <content src="text/part0000_split_142.html#nav_point_207"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_209" playOrder="209">
+      <navLabel>
+        <text>15.7　装饰者模式和代理模式</text>
+      </navLabel>
+      <content src="text/part0000_split_143.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_210" playOrder="210">
+      <navLabel>
+        <text>15.8　小结</text>
+      </navLabel>
+      <content src="text/part0000_split_144.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_211" playOrder="211">
+      <navLabel>
+        <text>第 16 章　状态模式</text>
+      </navLabel>
+      <content src="text/part0000_split_145.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_212" playOrder="212">
+      <navLabel>
+        <text>16.1　初识状态模式</text>
+      </navLabel>
+      <content src="text/part0000_split_146.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_213" playOrder="213">
+      <navLabel>
+        <text>16.1.1　第一个例子：电灯程序</text>
+      </navLabel>
+      <content src="text/part0000_split_146.html#nav_point_212"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_214" playOrder="214">
+      <navLabel>
+        <text>16.1.2　状态模式改进电灯程序</text>
+      </navLabel>
+      <content src="text/part0000_split_146.html#nav_point_213"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_215" playOrder="215">
+      <navLabel>
+        <text>16.2　状态模式的定义</text>
+      </navLabel>
+      <content src="text/part0000_split_147.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_216" playOrder="216">
+      <navLabel>
+        <text>16.3　状态模式的通用结构</text>
+      </navLabel>
+      <content src="text/part0000_split_148.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_217" playOrder="217">
+      <navLabel>
+        <text>16.4　缺少抽象类的变通方式</text>
+      </navLabel>
+      <content src="text/part0000_split_149.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_218" playOrder="218">
+      <navLabel>
+        <text>16.5　另一个状态模式示例——文件上传</text>
+      </navLabel>
+      <content src="text/part0000_split_150.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_219" playOrder="219">
+      <navLabel>
+        <text>16.5.1　更复杂的切换条件</text>
+      </navLabel>
+      <content src="text/part0000_split_150.html#nav_point_218"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_220" playOrder="220">
+      <navLabel>
+        <text>16.5.2　一些准备工作</text>
+      </navLabel>
+      <content src="text/part0000_split_150.html#nav_point_219"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_221" playOrder="221">
+      <navLabel>
+        <text>16.5.3　开始编写代码</text>
+      </navLabel>
+      <content src="text/part0000_split_150.html#nav_point_220"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_222" playOrder="222">
+      <navLabel>
+        <text>16.5.4　状态模式重构文件上传程序</text>
+      </navLabel>
+      <content src="text/part0000_split_150.html#nav_point_221"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_223" playOrder="223">
+      <navLabel>
+        <text>16.6　状态模式的优缺点</text>
+      </navLabel>
+      <content src="text/part0000_split_151.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_224" playOrder="224">
+      <navLabel>
+        <text>16.7　状态模式中的性能优化点</text>
+      </navLabel>
+      <content src="text/part0000_split_152.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_225" playOrder="225">
+      <navLabel>
+        <text>16.8　状态模式和策略模式的关系</text>
+      </navLabel>
+      <content src="text/part0000_split_153.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_226" playOrder="226">
+      <navLabel>
+        <text>16.9　JavaScript版本的状态机</text>
+      </navLabel>
+      <content src="text/part0000_split_154.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_227" playOrder="227">
+      <navLabel>
+        <text>16.10　表驱动的有限状态机</text>
+      </navLabel>
+      <content src="text/part0000_split_155.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_228" playOrder="228">
+      <navLabel>
+        <text>16.11　实际项目中的其他状态机</text>
+      </navLabel>
+      <content src="text/part0000_split_156.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_229" playOrder="229">
+      <navLabel>
+        <text>16.12　小结</text>
+      </navLabel>
+      <content src="text/part0000_split_157.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_230" playOrder="230">
+      <navLabel>
+        <text>第 17 章　适配器模式</text>
+      </navLabel>
+      <content src="text/part0000_split_158.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_231" playOrder="231">
+      <navLabel>
+        <text>17.1　现实中的适配器</text>
+      </navLabel>
+      <content src="text/part0000_split_159.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_232" playOrder="232">
+      <navLabel>
+        <text>17.2　适配器模式的应用</text>
+      </navLabel>
+      <content src="text/part0000_split_160.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_233" playOrder="233">
+      <navLabel>
+        <text>17.3　小结</text>
+      </navLabel>
+      <content src="text/part0000_split_161.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_234" playOrder="234">
+      <navLabel>
+        <text>第三部分　设计原则和编程技巧</text>
+      </navLabel>
+      <content src="text/part0000_split_162.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_235" playOrder="235">
+      <navLabel>
+        <text>第 18 章　单一职责原则</text>
+      </navLabel>
+      <content src="text/part0000_split_163.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_236" playOrder="236">
+      <navLabel>
+        <text>18.1　设计模式中的SRP原则</text>
+      </navLabel>
+      <content src="text/part0000_split_164.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_237" playOrder="237">
+      <navLabel>
+        <text>18.2　何时应该分离职责</text>
+      </navLabel>
+      <content src="text/part0000_split_165.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_238" playOrder="238">
+      <navLabel>
+        <text>18.3　违反SRP原则</text>
+      </navLabel>
+      <content src="text/part0000_split_166.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_239" playOrder="239">
+      <navLabel>
+        <text>18.4　SRP原则的优缺点</text>
+      </navLabel>
+      <content src="text/part0000_split_167.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_240" playOrder="240">
+      <navLabel>
+        <text>第 19 章　最少知识原则</text>
+      </navLabel>
+      <content src="text/part0000_split_168.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_241" playOrder="241">
+      <navLabel>
+        <text>19.1　减少对象之间的联系</text>
+      </navLabel>
+      <content src="text/part0000_split_169.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_242" playOrder="242">
+      <navLabel>
+        <text>19.2　设计模式中的最少知识原则</text>
+      </navLabel>
+      <content src="text/part0000_split_170.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_243" playOrder="243">
+      <navLabel>
+        <text>19.3　封装在最少知识原则中的体现</text>
+      </navLabel>
+      <content src="text/part0000_split_171.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_244" playOrder="244">
+      <navLabel>
+        <text>第 20 章　开放-封闭原则</text>
+      </navLabel>
+      <content src="text/part0000_split_172.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_245" playOrder="245">
+      <navLabel>
+        <text>20.1　扩展window.onload函数</text>
+      </navLabel>
+      <content src="text/part0000_split_173.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_246" playOrder="246">
+      <navLabel>
+        <text>20.2　开放和封闭</text>
+      </navLabel>
+      <content src="text/part0000_split_174.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_247" playOrder="247">
+      <navLabel>
+        <text>20.3　用对象的多态性消除条件分支</text>
+      </navLabel>
+      <content src="text/part0000_split_175.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_248" playOrder="248">
+      <navLabel>
+        <text>20.4　找出变化的地方</text>
+      </navLabel>
+      <content src="text/part0000_split_176.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_249" playOrder="249">
+      <navLabel>
+        <text>20.5　设计模式中的开放－封闭原则</text>
+      </navLabel>
+      <content src="text/part0000_split_177.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_250" playOrder="250">
+      <navLabel>
+        <text>20.6　开放－封闭原则的相对性</text>
+      </navLabel>
+      <content src="text/part0000_split_178.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_251" playOrder="251">
+      <navLabel>
+        <text>20.7　接受第一次愚弄</text>
+      </navLabel>
+      <content src="text/part0000_split_179.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_252" playOrder="252">
+      <navLabel>
+        <text>第 21 章　接口和面向接口编程</text>
+      </navLabel>
+      <content src="text/part0000_split_180.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_253" playOrder="253">
+      <navLabel>
+        <text>21.1　回到Java的抽象类</text>
+      </navLabel>
+      <content src="text/part0000_split_181.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_254" playOrder="254">
+      <navLabel>
+        <text>21.2　interface</text>
+      </navLabel>
+      <content src="text/part0000_split_182.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_255" playOrder="255">
+      <navLabel>
+        <text>21.3　JavaScript语言是否需要抽象类和interface</text>
+      </navLabel>
+      <content src="text/part0000_split_183.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_256" playOrder="256">
+      <navLabel>
+        <text>21.4　用鸭子类型进行接口检查</text>
+      </navLabel>
+      <content src="text/part0000_split_184.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_257" playOrder="257">
+      <navLabel>
+        <text>21.5　用TypeScript编写基于interface的命令模式</text>
+      </navLabel>
+      <content src="text/part0000_split_185.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_258" playOrder="258">
+      <navLabel>
+        <text>第 22 章　代码重构</text>
+      </navLabel>
+      <content src="text/part0000_split_186.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_259" playOrder="259">
+      <navLabel>
+        <text>22.1　提炼函数</text>
+      </navLabel>
+      <content src="text/part0000_split_187.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_260" playOrder="260">
+      <navLabel>
+        <text>22.2　合并重复的条件片段</text>
+      </navLabel>
+      <content src="text/part0000_split_188.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_261" playOrder="261">
+      <navLabel>
+        <text>22.3　把条件分支语句提炼成函数</text>
+      </navLabel>
+      <content src="text/part0000_split_189.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_262" playOrder="262">
+      <navLabel>
+        <text>22.4　合理使用循环</text>
+      </navLabel>
+      <content src="text/part0000_split_190.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_263" playOrder="263">
+      <navLabel>
+        <text>22.5　提前让函数退出代替嵌套条件分支</text>
+      </navLabel>
+      <content src="text/part0000_split_191.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_264" playOrder="264">
+      <navLabel>
+        <text>22.6　传递对象参数代替过长的参数列表</text>
+      </navLabel>
+      <content src="text/part0000_split_192.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_265" playOrder="265">
+      <navLabel>
+        <text>22.7　尽量减少参数数量</text>
+      </navLabel>
+      <content src="text/part0000_split_193.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_266" playOrder="266">
+      <navLabel>
+        <text>22.8　少用三目运算符</text>
+      </navLabel>
+      <content src="text/part0000_split_194.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_267" playOrder="267">
+      <navLabel>
+        <text>22.9　合理使用链式调用</text>
+      </navLabel>
+      <content src="text/part0000_split_195.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_268" playOrder="268">
+      <navLabel>
+        <text>22.10　分解大型类</text>
+      </navLabel>
+      <content src="text/part0000_split_196.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_269" playOrder="269">
+      <navLabel>
+        <text>22.11　用return退出多重循环</text>
+      </navLabel>
+      <content src="text/part0000_split_197.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_270" playOrder="270">
+      <navLabel>
+        <text>参考文献</text>
+      </navLabel>
+      <content src="text/part0000_split_198.html"/>
+    </navPoint>
+  </navMap>
+</ncx>

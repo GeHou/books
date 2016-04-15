@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_10" class="calibre7"><strong class="calibre6">对JavaScript设计模式的误解</strong></h2>
+<p class="calibre1">虽然JavaScript是一门完全面向对象的语言，但在很长一段时间内，JavaScript在人们的印象中只是用来验证表单，或者完成一些简单动画特效的脚本语言。在JavaScript语言上运用设计模式难免显得小题大做。但目前JavaScript已成为最流行的语言之一，在许多大型Web项目中，JavaScript代码的数量已经非常多了。我们绝对有必要把一些优秀的设计模式借鉴到JavaScript这门语言中。许多优秀的JavaScript开源框架也运用了不少设计模式。</p>
+<p class="calibre1">JavaScript设计模式的社区目前还几乎是一片荒漠。网络上有一些讨论JavaScript设计模式的资料和文章，但这些资料和文章大多都存在两个问题。</p>
+<p class="calibre1">第一个问题是习惯把静态类型语言的设计模式照搬到JavaScript中，比如有人为了模拟JavaScript版本的工厂方法（Factory Method）模式，而生硬地把创建对象的步骤延迟到子类中。实际上，在Java等静态类型语言中，让子类来“决定”创建何种对象的原因是为了让程序迎合依赖倒置原则（DIP）。在这些语言中创建对象时，先解开对象类型之间的耦合关系非常重要，这样才有机会在将来让对象表现出多态性。</p>
+<p class="calibre1">而在JavaScript这种类型模糊的语言中，对象多态性是天生的，一个变量既可以指向一个类，又可以随时指向另外一个类。JavaScript不存在类型耦合的问题，自然也没有必要刻意去把对象“延迟”到子类创建，也就是说，JavaScript实际上是不需要工厂方法模式的。模式的存在首先是能为我们解决什么问题，这种牵强的模拟只会让人觉得设计模式既难懂又没什么用处。</p>
+<p class="calibre1">另一个问题是习惯根据模式的名字去臆测该模式的一切。比如命令模式本意是把请求封装到对象中，利用命令模式可以解开请求发送者和请求接受者之间的耦合关系。但命令模式经常被人误解为只是一个名为execute的普通方法调用。这个方法除了叫作execute之外，其实并没有看出其他用处。所以许多人会误会命令模式的意图，以为它其实没什么用处，从而联想到其他设计模式也没有用处。</p>
+<p class="calibre1">这些误解都影响了设计模式在JavaScript语言中的发展。</p>
+</body></html>

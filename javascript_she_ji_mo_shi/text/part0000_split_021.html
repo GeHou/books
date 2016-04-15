@@ -1,0 +1,213 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_37" class="calibre7"><strong class="calibre6">2.1　<code class="calibre17">this</code></strong></h2>
+<p class="calibre1">跟别的语言大相径庭的是，JavaScript的<code class="calibre9">this</code>总是指向一个对象，而具体指向哪个对象是在运行时基于函数的执行环境动态绑定的，而非函数被声明时的环境。</p>
+<h3 id="nav_point_38" class="calibre11"><strong class="calibre6">2.1.1　<code class="calibre17">this</code>的指向</strong></h3>
+<p class="calibre1">除去不常用的<code class="calibre9">with</code>和<code class="calibre9">eval</code>的情况，具体到实际应用中，<code class="calibre9">this</code>的指向大致可以分为以下4种。</p>
+<ul class="calibre14">
+<li class="calibre15"><p class="calibre1">作为对象的方法调用。</p>
+</li>
+<li class="calibre15"><p class="calibre1">作为普通函数调用。</p>
+</li>
+<li class="calibre15"><p class="calibre1">构造器调用。</p>
+</li>
+<li class="calibre15"><p class="calibre1"><code class="calibre9">Function.prototype.call</code>或<code class="calibre9">Function.prototype.apply</code>调用。</p>
+</li>
+</ul>
+<p class="calibre1">下面我们分别进行介绍。</p>
+<p class="calibre1"><strong class="calibre2">1. 作为对象的方法调用</strong></p>
+<p class="calibre1">当函数作为对象的方法被调用时，<code class="calibre9">this</code>指向该对象：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var obj = {
+    a: 1,
+    getA: function(){
+        alert ( this === obj );    // 输出：true
+        alert ( this.a );    // 输出: 1
+    }
+};
+
+obj.getA();
+
+</code></pre>
+<p class="calibre1"><strong class="calibre2">2. 作为普通函数调用</strong></p>
+<p class="calibre1">当函数不作为对象的属性被调用时，也就是我们常说的普通函数方式，此时的<code class="calibre9">this</code>总是指向全局对象。在浏览器的JavaScript里，这个全局对象是<code class="calibre9">window</code>对象。</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">window.name = 'globalName';
+
+var getName = function(){
+    return this.name;
+};
+
+console.log( getName() );    // 输出：globalName
+
+</code></pre>
+<p class="calibre1">或者：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">window.name = 'globalName';
+
+var myObject = {
+    name: 'sven',
+    getName: function(){
+        return this.name;
+    }
+};
+
+var getName = myObject.getName;
+console.log( getName() );    // globalName
+
+</code></pre>
+<p class="calibre1">有时候我们会遇到一些困扰，比如在<code class="calibre9">div</code>节点的事件函数内部，有一个局部的<code class="calibre9">callback</code>方法，<code class="calibre9">callback</code>被作为普通函数调用时，<code class="calibre9">callback</code>内部的<code class="calibre9">this</code>指向了<code class="calibre9">window</code>，但我们往往是想让它指向该<code class="calibre9">div</code>节点，见如下代码：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">&lt;html&gt;
+    &lt;body&gt;
+        &lt;div id="div1"&gt;我是一个div&lt;/div&gt;
+    &lt;/body&gt;
+    &lt;script&gt;
+
+    window.id = 'window';
+
+    document.getElementById( 'div1' ).onclick = function(){
+        alert ( this.id );        // 输出：'div1'
+        var callback = function(){
+            alert ( this.id );        // 输出：'window'
+        }
+        callback();
+    };
+
+    &lt;/script&gt;
+&lt;/html&gt;
+
+</code></pre>
+<p class="calibre1">此时有一种简单的解决方案，可以用一个变量保存<code class="calibre9">div</code>节点的引用：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">document.getElementById( 'div1' ).onclick = function(){
+    var that = this;    // 保存div的引用
+    var callback = function(){
+        alert ( that.id );    // 输出：'div1'
+    }
+    callback();
+};
+
+</code></pre>
+<p class="calibre1">在ECMAScript 5的<code class="calibre9">strict</code>模式下，这种情况下的<code class="calibre9">this</code>已经被规定为不会指向全局对象，而是<code class="calibre9">undefined</code>：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">function func(){
+    "use strict"
+    alert ( this );    // 输出：undefined
+}
+
+func();
+
+</code></pre>
+<p class="calibre1"><strong class="calibre2">3. 构造器调用</strong></p>
+<p class="calibre1">JavaScript中没有类，但是可以从构造器中创建对象，同时也提供了<code class="calibre9">new</code>运算符，使得构造器看起来更像一个类。</p>
+<p class="calibre1">除了宿主提供的一些内置函数，大部分JavaScript函数都可以当作构造器使用。构造器的外表跟普通函数一模一样，它们的区别在于被调用的方式。当用<code class="calibre9">new</code>运算符调用函数时，该函数总会返回一个对象，通常情况下，构造器里的<code class="calibre9">this</code>就指向返回的这个对象，见如下代码：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var MyClass = function(){
+    this.name = 'sven';
+};
+
+var obj = new MyClass();
+alert ( obj.name );     // 输出：sven
+
+</code></pre>
+<p class="calibre1">但用<code class="calibre9">new</code>调用构造器时，还要注意一个问题，如果构造器显式地返回了一个<code class="calibre9">object</code>类型的对象，那么此次运算结果最终会返回这个对象，而不是我们之前期待的<code class="calibre9">this</code>：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var MyClass = function(){
+    this.name = 'sven';
+    return {    // 显式地返回一个对象
+        name: 'anne'
+    }
+};
+
+var obj = new MyClass();
+alert ( obj.name );     // 输出：anne
+
+</code></pre>
+<p class="calibre1">如果构造器不显式地返回任何数据，或者是返回一个非对象类型的数据，就不会造成上述问题：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var MyClass = function(){
+    this.name = 'sven'
+    return 'anne';    // 返回string类型
+};
+
+var obj = new MyClass();
+alert ( obj.name );     // 输出：sven
+
+</code></pre>
+<p class="calibre1"><strong class="calibre2">4. <code class="calibre9">Function.prototype.call</code>或<code class="calibre9">Function.prototype.apply</code>调用</strong></p>
+<p class="calibre1">跟普通的函数调用相比，用<code class="calibre9">Function.prototype.call</code>或<code class="calibre9">Function.prototype.apply</code>可以动态地改变传入函数的<code class="calibre9">this</code>：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var obj1 = {
+    name: 'sven',
+    getName: function(){
+        return this.name;
+    }
+};
+
+var obj2 = {
+    name: 'anne'
+};
+
+console.log( obj1.getName() );     // 输出: sven
+console.log( obj1.getName.call( obj2 ) );    // 输出：anne
+
+</code></pre>
+<p class="calibre1"><code class="calibre9">call</code>和<code class="calibre9">apply</code>方法能很好地体现JavaScript的函数式语言特性，在JavaScript中，几乎每一次编写函数式语言风格的代码，都离不开<code class="calibre9">call</code>和<code class="calibre9">apply</code>。在JavaScript诸多版本的设计模式中，也用到了<code class="calibre9">call</code>和<code class="calibre9">apply</code>。在下一节会详细介绍它们。</p>
+<h3 id="nav_point_39" class="calibre11"><strong class="calibre6">2.1.2　丢失的<code class="calibre17">this</code></strong></h3>
+<p class="calibre1">这是一个经常遇到的问题，我们先看下面的代码：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var obj = {
+    myName: 'sven',
+    getName: function(){
+        return this.myName;
+    }
+};
+
+console.log( obj.getName() );    // 输出：'sven'
+
+var getName2 = obj.getName;
+console.log( getName2() );    // 输出：undefined
+
+</code></pre>
+<p class="calibre1">当调用<code class="calibre9">obj.getName</code>时，<code class="calibre9">getName</code>方法是作为<code class="calibre9">obj</code>对象的属性被调用的，根据2.1.1节提到的规律，此时的<code class="calibre9">this</code>指向<code class="calibre9">obj</code>对象，所以<code class="calibre9">obj.getName()</code>输出<code class="calibre9">'sven'</code>。</p>
+<p class="calibre1">当用另外一个变量<code class="calibre9">getName2</code>来引用<code class="calibre9">obj.getName</code>，并且调用<code class="calibre9">getName2</code>时，根据2.1.2节提到的规律，此时是普通函数调用方式，<code class="calibre9">this</code>是指向全局<code class="calibre9">window</code>的，所以程序的执行结果是<code class="calibre9">undefined</code>。</p>
+<p class="calibre1">再看另一个例子，<code class="calibre9">document.getElementById</code>这个方法名实在有点过长，我们大概尝试过用一个短的函数来代替它，如同<code class="calibre9">prototype.js</code>等一些框架所做过的事情：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var getId = function( id ){
+    return document.getElementById( id );
+};
+
+getId( 'div1' );
+
+</code></pre>
+<p class="calibre1">我们也许思考过为什么不能用下面这种更简单的方式：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var getId = document.getElementById;
+getId( 'div1' );
+
+</code></pre>
+<p class="calibre1">现在不妨花1分钟时间，让这段代码在浏览器中运行一次：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">&lt;html&gt;
+    &lt;body&gt;
+        &lt;div id="div1"&gt;我是一个div&lt;/div&gt;
+    &lt;/body&gt;
+    &lt;script&gt;
+
+    var getId = document.getElementById;
+    getId( 'div1' );
+
+    &lt;/script&gt;
+&lt;/html&gt;
+
+</code></pre>
+<p class="calibre1">在Chrome、Firefox、IE10中执行过后就会发现，这段代码抛出了一个异常。这是因为许多引擎的<code class="calibre9">document.getElementById</code>方法的内部实现中需要用到<code class="calibre9">this</code>。这个<code class="calibre9">this</code>本来被期望指向<code class="calibre9">document</code>，当<code class="calibre9">getElementById</code>方法作为<code class="calibre9">document</code>对象的属性被调用时，方法内部的<code class="calibre9">this</code>确实是指向<code class="calibre9">document</code>的。</p>
+<p class="calibre1">但当用<code class="calibre9">getId</code>来引用<code class="calibre9">document.getElementById</code>之后，再调用<code class="calibre9">getId</code>，此时就成了普通函数调用，函数内部的<code class="calibre9">this</code>指向了<code class="calibre9">window</code>，而不是原来的<code class="calibre9">document</code>。</p>
+<p class="calibre1">我们可以尝试利用<code class="calibre9">apply</code>把<code class="calibre9">document</code>当作<code class="calibre9">this</code>传入<code class="calibre9">getId</code>函数，帮助“修正”<code class="calibre9">this</code>：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">document.getElementById = (function( func ){
+    return function(){
+        return func.apply( document, arguments );
+    }
+})( document.getElementById );
+
+var getId = document.getElementById;
+var div = getId( 'div1' );
+
+alert (div.id);    // 输出： div1
+
+</code></pre>
+</body></html>

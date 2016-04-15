@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_161" class="calibre7"><strong class="calibre6">12.3　享元模式的通用结构</strong></h2>
+<p class="calibre1">12.1节的示例初步展示了享元模式的威力，但这还不是一个完整的享元模式，在这个例子中还存在以下两个问题。</p>
+<ul class="calibre14">
+<li class="calibre15"><p class="calibre1">我们通过构造函数显式new出了男女两个<code class="calibre9">model</code>对象，在其他系统中，也许并不是一开始就需要所有的共享对象。</p>
+</li>
+<li class="calibre15"><p class="calibre1">给<code class="calibre9">model</code>对象手动设置了<code class="calibre9">underwear</code>外部状态，在更复杂的系统中，这不是一个最好的方式，因为外部状态可能会相当复杂，它们与共享对象的联系会变得困难。</p>
+</li>
+</ul>
+<p class="calibre1">我们通过一个对象工厂来解决第一个问题，只有当某种共享对象被真正需要时，它才从工厂中被创建出来。对于第二个问题，可以用一个管理器来记录对象相关的外部状态，使这些外部状态通过某个钩子和共享对象联系起来。</p>
+</body></html>

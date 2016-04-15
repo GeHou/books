@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_97" class="calibre7"><strong class="calibre6">7.1　jQuery中的迭代器</strong></h2>
+<p class="calibre1">迭代器模式无非就是循环访问聚合对象中的各个元素。比如jQuery中的<code class="calibre9">$.each</code>函数，其中回调函数中的参数<code class="calibre9">i</code>为当前索引，<code class="calibre9">n</code>为当前元素，代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">$.each( [1, 2, 3], function( i, n ){
+    console.log( '当前下标为： '+ i  );
+    console.log( '当前值为:' + n );
+});
+
+</code></pre>
+</body></html>

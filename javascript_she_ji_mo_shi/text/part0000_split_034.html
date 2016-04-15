@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_64" class="calibre7"><strong class="calibre6">4.6　通用的惰性单例</strong></h2>
+<p class="calibre1">上一节我们完成了一个可用的惰性单例，但是我们发现它还有如下一些问题。</p>
+<ul class="calibre14">
+<li class="calibre15"><p class="calibre1">这段代码仍然是违反单一职责原则的，创建对象和管理单例的逻辑都放在<code class="calibre9">createLoginLayer</code>对象内部。</p>
+</li>
+<li class="calibre15"><p class="calibre1">如果我们下次需要创建页面中唯一的<code class="calibre9">iframe</code>，或者<code class="calibre9">script</code>标签，用来跨域请求数据，就必须得如法炮制，把<code class="calibre9">createLoginLayer</code>函数几乎照抄一遍：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var createIframe= (function(){
+    var iframe;
+    return function(){
+        if ( !iframe){
+            iframe= document.createElement( 'iframe' );
+            iframe.style.display = 'none';
+           document.body.appendChild( iframe);
+        }
+        return iframe;
+    }
+})();
+
+</code></pre>
+</li>
+</ul>
+<p class="calibre1">我们需要把不变的部分隔离出来，先不考虑创建一个<code class="calibre9">div</code>和创建一个<code class="calibre9">iframe</code>有多少差异，管理单例的逻辑其实是完全可以抽象出来的，这个逻辑始终是一样的：用一个变量来标志是否创建过对象，如果是，则在下次直接返回这个已经创建好的对象：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var obj;
+if ( !obj ){
+   obj = xxx;
+}
+
+</code></pre>
+<p class="calibre1">现在我们就把如何管理单例的逻辑从原来的代码中抽离出来，这些逻辑被封装在<code class="calibre9">getSingle</code> 函数内部，创建对象的方法<code class="calibre9">fn</code>被当成参数动态传入<code class="calibre9">getSingle</code>函数：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var getSingle = function( fn ){
+    var result;
+    return function(){
+        return result || ( result = fn .apply(this, arguments ) );
+    }
+};
+
+</code></pre>
+<p class="calibre1">接下来将用于创建登录浮窗的方法用参数<code class="calibre9">fn</code>的形式传入<code class="calibre9">getSingle</code>，我们不仅可以传入<code class="calibre9">createLoginLayer</code>，还能传入<code class="calibre9">createScript</code>、<code class="calibre9">createIframe</code>、<code class="calibre9">createXhr</code>等。之后再让<code class="calibre9">getSingle</code> 返回一个新的函数，并且用一个变量<code class="calibre9">result</code>来保存<code class="calibre9">fn</code>的计算结果。<code class="calibre9">result</code>变量因为身在闭包中，它永远不会被销毁。在将来的请求中，如果<code class="calibre9">result</code>已经被赋值，那么它将返回这个值。代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var createLoginLayer = function(){
+    var div = document.createElement( 'div' );
+    div.innerHTML = '我是登录浮窗';
+    div.style.display = 'none';
+    document.body.appendChild( div );
+    return div;
+};
+
+var createSingleLoginLayer = getSingle( createLoginLayer );
+
+document.getElementById( 'loginBtn' ).onclick = function(){
+    var loginLayer = createSingleLoginLayer();
+    loginLayer.style.display = 'block';
+};
+
+</code></pre>
+<p class="calibre1">下面我们再试试创建唯一的<code class="calibre9">iframe</code>用于动态加载第三方页面：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var createSingleIframe = getSingle( function(){
+    var iframe = document.createElement ( 'iframe' );
+    document.body.appendChild( iframe );
+    return iframe;
+});
+
+document.getElementById( 'loginBtn' ).onclick = function(){
+    var loginLayer = createSingleIframe();
+    loginLayer.src = 'http://baidu.com';
+};
+
+</code></pre>
+<p class="calibre1">在这个例子中，我们把创建实例对象的职责和管理单例的职责分别放置在两个方法里，这两个方法可以独立变化而互不影响，当它们连接在一起的时候，就完成了创建唯一实例对象的功能，看起来是一件挺奇妙的事情。</p>
+<p class="calibre1">这种单例模式的用途远不止创建对象，比如我们通常渲染完页面中的一个列表之后，接下来要给这个列表绑定<code class="calibre9">click</code>事件，如果是通过<code class="calibre9">ajax</code>动态往列表里追加数据，在使用事件代理的前提下，<code class="calibre9">click</code>事件实际上只需要在第一次渲染列表的时候被绑定一次，但是我们不想去判断当前是否是第一次渲染列表，如果借助于jQuery，我们通常选择给节点绑定<code class="calibre9">one</code>事件：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var bindEvent = function(){
+    $( 'div' ).one( 'click', function(){
+        alert ( 'click' );
+    });
+};
+
+var render = function(){
+    console.log( '开始渲染列表' );
+    bindEvent();
+};
+
+render();
+render();
+render();
+
+</code></pre>
+<p class="calibre1">如果利用<code class="calibre9">getSingle</code>函数，也能达到一样的效果。代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var bindEvent = getSingle(function(){
+    document.getElementById( 'div1' ).onclick = function(){
+        alert ( 'click' );
+    }
+    return true;
+});
+
+var render = function(){
+    console.log( '开始渲染列表' );
+    bindEvent();
+};
+
+render();
+render();
+render();
+
+</code></pre>
+<p class="calibre1">可以看到，<code class="calibre9">render</code>函数和<code class="calibre9">bindEvent</code>函数都分别执行了3次，但<code class="calibre9">div</code>实际上只被绑定了一个事件。</p>
+</body></html>

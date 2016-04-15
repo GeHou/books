@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_169" class="calibre7"><strong class="calibre6">12.6　再谈内部状态和外部状态</strong></h2>
+<p class="calibre1">如果顺利的话，通过前面的例子我们已经了解了内部状态和外部状态的概念以及享元模式的工作原理。我们知道，实现享元模式的关键是把内部状态和外部状态分离开来。有多少种内部状态的组合，系统中便最多存在多少个共享对象，而外部状态储存在共享对象的外部，在必要时被传入共享对象来组装成一个完整的对象。现在来考虑两种极端的情况，即对象没有外部状态和没有内部状态的时候。</p>
+<h3 id="nav_point_170" class="calibre11"><strong class="calibre6">12.6.1　没有内部状态的享元</strong></h3>
+<p class="calibre1">在文件上传的例子中，我们分别进行过插件调用和Flash调用，即<code class="calibre9">startUpload( 'plugin', [] )</code>和<code class="calibre9">startUpload( flash, [] )</code>，导致程序中创建了内部状态不同的两个共享对象。也许你会奇怪，在文件上传程序里，一般都会提前通过特性检测来选择一种上传方式，如果浏览器支持插件就用插件上传，如果不支持插件，就用Flash上传。那么，什么情况下既需要插件上传又需要Flash上传呢？</p>
+<p class="calibre1">实际上这个需求是存在的，很多网盘都提供了极速上传（控件）与普通上传（Flash）两种模式，如果极速上传不好使（可能是没有安装控件或者控件损坏），用户还可以随时切换到普通上传模式，所以这里确实是需要同时存在两个不同的<code class="calibre9">upload</code>共享对象。</p>
+<p class="calibre1">但不是每个网站都必须做得如此复杂，很多小一些的网站就只支持单一的上传方式。假设我们是这个网站的开发者，不需要考虑极速上传与普通上传之间的切换，这意味着在之前的代码中作为内部状态的<code class="calibre9">uploadType</code>属性是可以删除掉的。</p>
+<p class="calibre1">在继续使用享元模式的前提下，构造函数<code class="calibre9">Upload</code>就变成了无参数的形式：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var Upload = function(){};
+
+</code></pre>
+<p class="calibre1">其他属性如<code class="calibre9">fileName</code>、<code class="calibre9">fileSize</code>、<code class="calibre9">dom</code>依然可以作为外部状态保存在共享对象外部。在<code class="calibre9">uploadType</code>作为内部状态的时候，它可能为控件，也可能为Flash，所以当时最多可以组合出两个共享对象。而现在已经没有了内部状态，这意味着只需要唯一的一个共享对象。现在我们要改写创建享元对象的工厂，代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var UploadFactory = (function(){
+    var uploadObj;
+    return {
+        create: function(){
+            if ( uploadObj ){
+                return uploadObj;
+            }
+            return uploadObj = new Upload();
+        }
+    }
+})();
+
+</code></pre>
+<p class="calibre1">管理器部分的代码不需要改动，还是负责剥离和组装外部状态。可以看到，当对象没有内部状态的时候，生产共享对象的工厂实际上变成了一个单例工厂。虽然这时候的共享对象没有内部状态的区分，但还是有剥离外部状态的过程，我们依然倾向于称之为享元模式。</p>
+<h3 id="nav_point_171" class="calibre11"><strong class="calibre6">12.6.2　没有外部状态的享元</strong></h3>
+<p class="calibre1">网上许多资料中，经常把Java或者C#的字符串看成享元，这种说法是否正确呢？我们看看下面这段Java代码，来分析一下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">// Java代码
+
+public class Test {
+
+    public static void main( String args[] ){
+        String a1 = new String( "a" ).intern();
+        String a2 = new String( "a" ).intern();
+        System.out.println( a1 == a2 );    // true
+    }
+}
+
+</code></pre>
+<p class="calibre1">在这段Java代码里，分别new了两个字符串对象<code class="calibre9">a1</code>和<code class="calibre9">a2</code>。<code class="calibre9">intern</code>是一种对象池技术， <code class="calibre9">new String("a").intern()</code>的含义如下。</p>
+<ul class="calibre14">
+<li class="calibre15"><p class="calibre1">如果值为<code class="calibre9">a</code>的字符串对象已经存在于对象池中，则返回这个对象的引用。</p>
+</li>
+<li class="calibre15"><p class="calibre1">反之，将字符串a的对象添加进对象池，并返回这个对象的引用。</p>
+</li>
+</ul>
+<p class="calibre1">所以<code class="calibre9">a1 == a2</code>的结果是<code class="calibre9">true</code>，但这并不是使用了享元模式的结果，享元模式的关键是区别内部状态和外部状态。享元模式的过程是剥离外部状态，并把外部状态保存在其他地方，在合适的时刻再把外部状态组装进共享对象。这里并没有剥离外部状态的过程，<code class="calibre9">a1</code>和<code class="calibre9">a2</code>指向的完全就是同一个对象，所以如果没有外部状态的分离，即使这里使用了共享的技术，但并不是一个纯粹的享元模式。</p>
+</body></html>

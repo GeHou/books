@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_134" class="calibre7"><strong class="calibre6">10.5　抽象类在组合模式中的作用</strong></h2>
+<p class="calibre1">前面说到，组合模式最大的优点在于可以一致地对待组合对象和基本对象。客户不需要知道当前处理的是宏命令还是普通命令，只要它是一个命令，并且有<code class="calibre9">execute</code>方法，这个命令就可以被添加到树中。</p>
+<p class="calibre1">这种透明性带来的便利，在静态类型语言中体现得尤为明显。比如在Java中，实现组合模式的关键是<code class="calibre9">Composite</code>类和<code class="calibre9">Leaf</code>类都必须继承自一个<code class="calibre9">Compenent</code>抽象类。这个<code class="calibre9">Compenent</code>抽象类既代表组合对象，又代表叶对象，它也能够保证组合对象和叶对象拥有同样名字的方法，从而可以对同一消息都做出反馈。组合对象和叶对象的具体类型被隐藏在<code class="calibre9">Compenent</code>抽象类身后。</p>
+<p class="calibre1">针对<code class="calibre9">Compenent</code>抽象类来编写程序，客户操作的始终是<code class="calibre9">Compenent</code>对象，而不用去区分到底是组合对象还是叶对象。所以我们往同一个对象里的<code class="calibre9">add</code>方法里，既可以添加组合对象，也可以添加叶对象，代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">// Java代码
+
+public abstract class Component{
+    // add方法，参数为Component类型
+    public void add( Component child ){}
+    // remove方法，参数为Component类型
+    public void remove( Component child ){}
+}
+
+public class Composite extends Component{
+    // add方法，参数为Component类型
+    public void add( Component child ){}
+    // remove方法，参数为Component类型
+    public void remove( Component child ){}
+}
+
+public class Leaf extends Component{
+    // add方法，参数为Component类型
+    public void add( Component child ){
+        throw new UnsupportedOperationException()    // 叶对象不能再添加子节点
+    }
+    // remove方法，参数为Component类型
+    public void remove( Component child ){
+    }
+}
+
+public class client(){
+
+    public static void main( String args[] ){
+        Component root = new Composite();
+
+        Component c1 = new Composite();
+        Component c2 = new Composite();
+
+        Component leaf1 = new Leaf();
+        Component leaf2 = new Leaf();
+
+        root.add(c1);
+        root.add(c2);
+
+        c1.add(leaf1);
+        c1.add(leaf2);
+
+        root.remove();
+    }
+}
+
+</code></pre>
+<p class="calibre1">然而在JavaScript这种动态类型语言中，对象的多态性是与生俱来的，也没有编译器去检查变量的类型，所以我们通常不会去模拟一个“怪异”的抽象类，JavaScript中实现组合模式的难点在于要保证组合对象和叶对象对象拥有同样的方法，这通常需要用鸭子类型的思想对它们进行接口检查。</p>
+<p class="calibre1">在JavaScript中实现组合模式，看起来缺乏一些严谨性，我们的代码算不上安全，但能更快速和自由地开发，这既是JavaScript的缺点，也是它的优点。</p>
+</body></html>

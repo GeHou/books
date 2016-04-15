@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_227" class="calibre7"><strong class="calibre6">16.11　实际项目中的其他状态机</strong></h2>
+<p class="calibre1">在实际开发中，很多场景都可以用状态机来模拟， 比如一个下拉菜单在hover动作下有显示、悬浮、隐藏等状态；一次TCP请求有建立连接、监听、关闭等状态；一个格斗游戏中人物有攻击、防御、跳跃、跌倒等状态。</p>
+<p class="calibre1">状态机在游戏开发中也有着广泛的用途，特别是游戏AI的逻辑编写。在我曾经开发的HTML5版街头霸王游戏里，游戏主角Ryu有走动、攻击、防御、跌倒、跳跃等多种状态。这些状态之间既互相联系又互相约束。比如Ryu在走动的过程中如果被攻击，就会由走动状态切换为跌倒状态。在跌倒状态下，Ryu既不能攻击也不能防御。同样，Ryu也不能在跳跃的过程中切换到防御状态，但是可以进行攻击。这种场景就很适合用状态机来描述。代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var FSM = {
+    walk: {
+        attack: function(){
+            console.log( '攻击' );
+        },
+        defense: function(){
+            console.log( '防御' );
+        },
+        jump: function(){
+            console.log( '跳跃' );
+        }
+    },
+
+    attack: {
+        walk: function(){
+            console.log( '攻击的时候不能行走' );
+        },
+        defense: function(){
+            console.log( '攻击的时候不能防御' );
+        },
+        jump: function(){
+            console.log( '攻击的时候不能跳跃' );
+        }
+    }
+}
+
+</code></pre>
+</body></html>

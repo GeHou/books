@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_138" class="calibre7"><strong class="calibre6">10.9　引用父对象</strong></h2>
+<p class="calibre1">在11.7节提到的例子中，组合对象保存了它下面的子节点的引用，这是组合模式的特点，此时树结构是从上至下的。但有时候我们需要在子节点上保持对父节点的引用，比如在组合模式中使用职责链时，有可能需要让请求从子节点往父节点上冒泡传递。还有当我们删除某个文件的时候，实际上是从这个文件所在的上层文件夹中删除该文件的。</p>
+<p class="calibre1">现在来改写扫描文件夹的代码，使得在扫描整个文件夹之前，我们可以先移除某一个具体的文件。</p>
+<p class="calibre1">首先改写<code class="calibre9">Folder</code>类和<code class="calibre9">File</code>类，在这两个类的构造函数中，增加<code class="calibre9">this.parent</code>属性，并且在调用<code class="calibre9">add</code>方法的时候，正确设置文件或者文件夹的父节点：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var Folder = function( name ){
+    this.name = name;
+    this.parent = null;    // 增加this.parent属性
+    this.files = [];
+};
+
+Folder.prototype.add = function( file ){
+    file.parent = this;    // 设置父对象
+    this.files.push( file );
+};
+
+Folder.prototype.scan = function(){
+    console.log( '开始扫描文件夹: ' + this.name );
+    for ( var i = 0, file, files = this.files; file = files[ i++ ]; ){
+        file.scan();
+    }
+};
+
+</code></pre>
+<p class="calibre1">接下来增加<code class="calibre9">Folder.prototype.remove</code>方法，表示移除该文件夹：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">Folder.prototype.remove = function(){
+    if ( !this.parent ){    // 根节点或者树外的游离节点
+        return;
+    }
+    for ( var files = this.parent.files, l = files.length - 1; l &gt;=0; l-- ){
+        var file = files[ l ];
+        if ( file === this ){
+            files.splice( l, 1 );
+        }
+    }
+};
+
+</code></pre>
+<p class="calibre1">在 <code class="calibre9">File.prototype.remove</code>方法里，首先会判断<code class="calibre9">this.parent</code>，如果<code class="calibre9">this.parent</code>为<code class="calibre9">null</code>，那么这个文件夹要么是树的根节点，要么是还没有添加到树的游离节点，这时候没有节点需要从树中移除，我们暂且让<code class="calibre9">remove</code>方法直接<code class="calibre9">return</code>，表示不做任何操作。</p>
+<p class="calibre1">如果<code class="calibre9">this.parent</code>不为<code class="calibre9">null</code>，则说明该文件夹有父节点存在，此时遍历父节点中保存的子节点列表，删除想要删除的子节点。</p>
+<p class="calibre1"><code class="calibre9">File</code>类的实现基本一致：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var File = function( name ){
+    this.name = name;
+    this.parent = null;
+};
+
+File.prototype.add = function(){
+    throw new Error( '不能添加在文件下面' );
+};
+
+File.prototype.scan = function(){
+    console.log( '开始扫描文件: ' + this.name );
+};
+
+File.prototype.remove = function(){
+    if ( !this.parent ){    // 根节点或者树外的游离节点
+        return;
+    }
+    for ( var files = this.parent.files, l = files.length - 1; l &gt;=0; l-- ){
+        var file = files[ l ];
+        if ( file === this ){
+            files.splice( l, 1 );
+        }
+    }
+};
+
+</code></pre>
+<p class="calibre1">下面测试一下我们的移除文件功能：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var folder = new Folder( '学习资料' );
+var folder1 = new Folder( 'JavaScript' );
+var file1 = new Folder ( '深入浅出Node.js' );
+
+folder1.add( new File( 'JavaScript设计模式与开发实践' ) );
+folder.add( folder1 );
+folder.add( file1 );
+
+folder1.remove();    // 移除文件夹
+folder.scan();
+
+</code></pre>
+<p class="calibre1">执行结果如图10-5所示。</p>
+<p class="Tu "><img src="../images/00022.gif" alt="{%}" class="calibre13"/></p>
+<p class="calibre1"><strong class="calibre2">图　10-5</strong></p>
+</body></html>

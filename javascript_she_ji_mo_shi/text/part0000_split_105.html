@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_143" class="calibre7"><strong class="calibre6">11.2　第一个例子——Coffee or Tea</strong></h2>
+<p class="calibre1">咖啡与茶是一个经典的例子，经常用来讲解模板方法模式，这个例子的原型来自《Head First设计模式》。这一节我们就用JavaScript来实现这个例子。</p>
+<h3 id="nav_point_144" class="calibre11"><strong class="calibre6">11.2.1　先泡一杯咖啡</strong></h3>
+<p class="calibre1">首先，我们先来泡一杯咖啡，如果没有什么太个性化的需求，泡咖啡的步骤通常如下：</p>
+<p class="calibre1">(1) 把水煮沸</p>
+<p class="calibre1">(2) 用沸水冲泡咖啡</p>
+<p class="calibre1">(3) 把咖啡倒进杯子</p>
+<p class="calibre1">(4) 加糖和牛奶</p>
+<p class="calibre1">通过下面这段代码，我们就能得到一杯香浓的咖啡：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var Coffee = function(){};
+
+Coffee.prototype.boilWater = function(){
+    console.log( '把水煮沸' );
+};
+
+Coffee.prototype.brewCoffeeGriends = function(){
+    console.log( '用沸水冲泡咖啡' );
+};
+
+Coffee.prototype.pourInCup = function(){
+    console.log( '把咖啡倒进杯子' );
+};
+
+Coffee.prototype.addSugarAndMilk = function(){
+    console.log( '加糖和牛奶' );
+};
+
+Coffee.prototype.init = function(){
+    this.boilWater();
+    this.brewCoffeeGriends();
+    this.pourInCup();
+    this.addSugarAndMilk();
+};
+
+var coffee = new Coffee();
+coffee.init();
+
+</code></pre>
+<h3 id="nav_point_145" class="calibre11"><strong class="calibre6">11.2.2　泡一壶茶</strong></h3>
+<p class="calibre1">接下来，开始准备我们的茶，泡茶的步骤跟泡咖啡的步骤相差并不大：</p>
+<p class="calibre1">(1) 把水煮沸</p>
+<p class="calibre1">(2) 用沸水浸泡茶叶</p>
+<p class="calibre1">(3) 把茶水倒进杯子</p>
+<p class="calibre1">(4) 加柠檬</p>
+<p class="calibre1">同样用一段代码来实现泡茶的步骤：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var Tea = function(){};
+
+Tea.prototype.boilWater = function(){
+    console.log( '把水煮沸' );
+};
+
+Tea.prototype.steepTeaBag = function(){
+    console.log( '用沸水浸泡茶叶' );
+};
+
+Tea.prototype.pourInCup = function(){
+    console.log( '把茶水倒进杯子' );
+};
+
+Tea.prototype.addLemon = function(){
+    console.log( '加柠檬' );
+};
+
+Tea.prototype.init = function(){
+    this.boilWater();
+    this.steepTeaBag();
+    this.pourInCup();
+    this.addLemon();
+};
+
+var tea = new Tea();
+tea.init();
+
+</code></pre>
+<h3 id="nav_point_146" class="calibre11"><strong class="calibre6">11.2.3　分离出共同点</strong></h3>
+<p class="calibre1">现在我们分别泡好了一杯咖啡和一壶茶，经过思考和比较，我们发现咖啡和茶的冲泡过程是大同小异的，如表11-1所示。</p>
+<p class="calibre1"><strong class="calibre2">表11-1　咖啡和茶的冲泡过程</strong></p>
+<table width="90%" border="1" class="calibre24">
+<thead class="calibre25">
+<tr class="calibre26">
+<th class="calibre27"><p class="calibre1">泡咖啡</p></th>
+<th class="calibre27"><p class="calibre1">泡茶</p></th>
+</tr>
+</thead>
+<tbody class="calibre28">
+<tr class="calibre26">
+<td class="calibre29"><p class="calibre1">把水煮沸</p></td>
+<td class="calibre29"><p class="calibre1">把水煮沸</p></td>
+</tr>
+<tr class="calibre30">
+<td class="calibre29"><p class="calibre1">用沸水冲泡咖啡</p></td>
+<td class="calibre29"><p class="calibre1">用沸水浸泡茶叶</p></td>
+</tr>
+<tr class="calibre26">
+<td class="calibre29"><p class="calibre1">把咖啡倒进杯子</p></td>
+<td class="calibre29"><p class="calibre1">把茶水倒进杯子</p></td>
+</tr>
+<tr class="calibre30">
+<td class="calibre29"><p class="calibre1">加糖和牛奶</p></td>
+<td class="calibre29"><p class="calibre1">加柠檬</p></td>
+</tr>
+</tbody>
+</table>
+<p class="calibre1">我们找到泡咖啡和泡茶主要有以下不同点。</p>
+<ul class="calibre14">
+<li class="calibre15"><p class="calibre1">原料不同。一个是咖啡，一个是茶，但我们可以把它们都抽象为“饮料”。</p>
+</li>
+<li class="calibre15"><p class="calibre1">泡的方式不同。咖啡是冲泡，而茶叶是浸泡，我们可以把它们都抽象为“泡”。</p>
+</li>
+<li class="calibre15"><p class="calibre1">加入的调料不同。一个是糖和牛奶，一个是柠檬，但我们可以把它们都抽象为“调料”。</p>
+</li>
+</ul>
+<p class="calibre1">经过抽象之后，不管是泡咖啡还是泡茶，我们都能整理为下面四步：</p>
+<p class="calibre1">(1) 把水煮沸</p>
+<p class="calibre1">(2) 用沸水冲泡饮料</p>
+<p class="calibre1">(3) 把饮料倒进杯子</p>
+<p class="calibre1">(4) 加调料</p>
+<p class="calibre1">所以，不管是冲泡还是浸泡，我们都能给它一个新的方法名称，比如说<code class="calibre9">brew()</code>。同理，不管是加糖和牛奶，还是加柠檬，我们都可以称之为<code class="calibre9">addCondiments()</code>。</p>
+<p class="calibre1">让我们忘记最开始创建的<code class="calibre9">Coffee</code>类和<code class="calibre9">Tea</code>类。 现在可以创建一个抽象父类来表示泡一杯饮料的整个过程。不论是<code class="calibre9">Coffee</code>，还是<code class="calibre9">Tea</code>，都被我们用<code class="calibre9">Beverage</code>来表示，代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var Beverage = function(){};
+
+Beverage.prototype.boilWater = function(){
+    console.log( '把水煮沸' );
+};
+
+Beverage.prototype.brew = function(){};      // 空方法，应该由子类重写
+
+Beverage.prototype.pourInCup = function(){};    // 空方法，应该由子类重写
+
+Beverage.prototype.addCondiments = function(){};    // 空方法，应该由子类重写
+
+Beverage.prototype.init = function(){
+    this.boilWater();
+    this.brew();
+    this.pourInCup();
+    this.addCondiments();
+};
+
+</code></pre>
+<h3 id="nav_point_147" class="calibre11"><strong class="calibre6">11.2.4　创建Coffee子类和Tea子类</strong></h3>
+<p class="calibre1">现在创建一个<code class="calibre9">Beverage</code>类的对象对我们来说没有意义，因为世界上能喝的东西没有一种真正叫“饮料”的，饮料在这里还只是一个抽象的存在。接下来我们要创建咖啡类和茶类，并让它们继承饮料类：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var Coffee = function(){};
+
+Coffee.prototype = new Beverage();
+
+</code></pre>
+<p class="calibre1">接下来要重写抽象父类中的一些方法，只有“把水煮沸”这个行为可以直接使用父类<code class="calibre9">Beverage</code>中的<code class="calibre9">boilWater</code>方法，其他方法都需要在<code class="calibre9">Coffee</code>子类中重写，代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">Coffee.prototype.brew = function(){
+    console.log( '用沸水冲泡咖啡' );
+};
+
+Coffee.prototype.pourInCup = function(){
+    console.log( '把咖啡倒进杯子' );
+};
+
+Coffee.prototype.addCondiments = function(){
+    console.log( '加糖和牛奶' );
+};
+
+var Coffee = new Coffee();
+Coffee.init();
+
+</code></pre>
+<p class="calibre1">至此我们的<code class="calibre9">Coffee</code>类已经完成了，当调用<code class="calibre9">coffee</code>对象的<code class="calibre9">init</code>方法时，由于<code class="calibre9">coffee</code>对象和<code class="calibre9">Coffee</code>构造器的原型<code class="calibre9">prototype</code>上都没有对应的<code class="calibre9">init</code>方法，所以该请求会顺着原型链，被委托给<code class="calibre9">Coffee</code>的“父类”<code class="calibre9">Beverage</code>原型上的<code class="calibre9">init</code>方法。</p>
+<p class="calibre1">而<code class="calibre9">Beverage.prototype.init</code>方法中已经规定好了泡饮料的顺序，所以我们能成功地泡出一杯咖啡，代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">Beverage.prototype.init = function(){
+    this.boilWater();
+    this.brew();
+    this.pourInCup();
+    this.addCondiments();
+};
+
+</code></pre>
+<p class="calibre1">接下来照葫芦画瓢，来创建我们的<code class="calibre9">Tea</code>类：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var Tea = function(){};
+
+Tea.prototype = new Beverage();
+
+Tea.prototype.brew = function(){
+    console.log( '用沸水浸泡茶叶' );
+};
+
+Tea.prototype.pourInCup = function(){
+    console.log( '把茶倒进杯子' );
+};
+
+Tea.prototype.addCondiments = function(){
+    console.log( '加柠檬' );
+};
+
+var tea = new Tea();
+tea.init();
+
+</code></pre>
+<p class="calibre1">本章一直讨论的是模板方法模式，那么在上面的例子中，到底谁才是所谓的模板方法呢？答案是<code class="calibre9">Beverage.prototype.init</code>。</p>
+<p class="calibre1"><code class="calibre9">Beverage.prototype.init</code>被称为模板方法的原因是，该方法中封装了子类的算法框架，它作为一个算法的模板，指导子类以何种顺序去执行哪些方法。在<code class="calibre9">Beverage.prototype.init</code>方法中，算法内的每一个步骤都清楚地展示在我们眼前。</p>
+</body></html>

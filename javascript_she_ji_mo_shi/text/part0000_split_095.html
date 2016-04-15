@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_133" class="calibre7"><strong class="calibre6">10.4　更强大的宏命令</strong></h2>
+<p class="calibre1">目前的万能遥控器，包含了关门、开电脑、登录QQ这3个命令。现在我们需要一个“超级万能遥控器”，可以控制家里所有的电器，这个遥控器拥有以下功能：</p>
+<ul class="calibre14">
+<li class="calibre15"><p class="calibre1">打开空调</p>
+</li>
+<li class="calibre15"><p class="calibre1">打开电视和音响</p>
+</li>
+<li class="calibre15"><p class="calibre1">关门、开电脑、登录QQ</p>
+</li>
+</ul>
+<p class="calibre1">首先在节点中放置一个按钮button来表示这个超级万能遥控器，超级万能遥控器上安装了一个宏命令，当执行这个宏命令时，会依次遍历执行它所包含的子命令，代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">&lt;html&gt;
+    &lt;body&gt;
+        &lt;button id="button"&gt;按我&lt;/button&gt;
+    &lt;/body&gt;
+
+    &lt;script&gt;
+
+    var MacroCommand = function(){
+        return {
+            commandsList: [],
+            add: function( command ){
+                this.commandsList.push( command );
+            },
+            execute: function(){
+                for ( var i = 0, command; command = this.commandsList[ i++ ]; ){
+                    command.execute();
+                }
+            }
+         }
+    };
+
+    var openAcCommand = {
+        execute: function(){
+            console.log( '打开空调' );
+        }
+    };
+
+/**********家里的电视和音响是连接在一起的，所以可以用一个宏命令来组合打开电视和打开音响的命令*********/
+
+    var openTvCommand = {
+        execute: function(){
+            console.log( '打开电视' );
+        }
+    };
+
+    var openSoundCommand = {
+        execute: function(){
+            console.log( '打开音响' );
+        }
+    };
+
+    var macroCommand1 = MacroCommand();
+    macroCommand1.add( openTvCommand );
+    macroCommand1.add( openSoundCommand );
+
+/*********关门、打开电脑和打登录QQ的命令****************/
+
+    var closeDoorCommand = {
+        execute: function(){
+              console.log( '关门' );
+        }
+    };
+
+    var openPcCommand = {
+        execute: function(){
+            console.log( '开电脑' );
+        }
+    };
+
+    var openQQCommand = {
+        execute: function(){
+            console.log( '登录QQ' );
+        }
+    };
+
+    var macroCommand2 = MacroCommand();
+    macroCommand2.add( closeDoorCommand );
+    macroCommand2.add( openPcCommand );
+    macroCommand2.add( openQQCommand );
+
+/*********现在把所有的命令组合成一个“超级命令”**********/
+
+    var macroCommand = MacroCommand();
+    macroCommand.add( openAcCommand );
+    macroCommand.add( macroCommand1 );
+    macroCommand.add( macroCommand2 );
+
+/*********最后给遥控器绑定“超级命令”**********/
+
+    var setCommand = (function( command ){
+        document.getElementById( 'button' ).onclick = function(){
+            command.execute();
+        }
+    })( macroCommand );
+
+    &lt;/script&gt;
+&lt;/html&gt;
+
+</code></pre>
+<p class="calibre1">当按下遥控器的按钮时，所有命令都将被依次执行，执行结果如图10-3所示。</p>
+<p class="Tu "><img src="../images/00020.gif" alt="{%}" class="calibre13"/></p>
+<p class="calibre1"><strong class="calibre2">图　10-3</strong></p>
+<p class="calibre1">从这个例子中可以看到，基本对象可以被组合成更复杂的组合对象，组合对象又可以被组合，这样不断递归下去，这棵树的结构可以支持任意多的复杂度。在树最终被构造完成之后，让整颗树最终运转起来的步骤非常简单，只需要调用最上层对象的<code class="calibre9">execute</code>方法。每当对最上层的对象进行一次请求时，实际上是在对整个树进行深度优先的搜索，而创建组合对象的程序员并不关心这些内在的细节，往这棵树里面添加一些新的节点对象是非常容易的事情。</p>
+</body></html>

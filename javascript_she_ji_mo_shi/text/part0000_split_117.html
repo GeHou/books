@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_168" class="calibre7"><strong class="calibre6">12.5　享元模式的适用性</strong></h2>
+<p class="calibre1">享元模式是一种很好的性能优化方案，但它也会带来一些复杂性的问题，从前面两组代码的比较可以看到，使用了享元模式之后，我们需要分别多维护一个<code class="calibre9">factory</code>对象和一个<code class="calibre9">manager</code>对象，在大部分不必要使用享元模式的环境下，这些开销是可以避免的。</p>
+<p class="calibre1">享元模式带来的好处很大程度上取决于如何使用以及何时使用，一般来说，以下情况发生时便可以使用享元模式。</p>
+<ul class="calibre14">
+<li class="calibre15"><p class="calibre1">一个程序中使用了大量的相似对象。</p>
+</li>
+<li class="calibre15"><p class="calibre1">由于使用了大量对象，造成很大的内存开销。</p>
+</li>
+<li class="calibre15"><p class="calibre1">对象的大多数状态都可以变为外部状态。</p>
+</li>
+<li class="calibre15"><p class="calibre1">剥离出对象的外部状态之后，可以用相对较少的共享对象取代大量对象。</p>
+</li>
+</ul>
+<p class="calibre1">可以看到，文件上传的例子完全符合这四点。</p>
+</body></html>

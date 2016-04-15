@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_183" class="calibre7"><strong class="calibre6">13.7　用AOP实现职责链</strong></h2>
+<p class="calibre1">在之前的职责链实现中，我们利用了一个<code class="calibre9">Chain</code>类来把普通函数包装成职责链的节点。其实利用JavaScript的函数式特性，有一种更加方便的方法来创建职责链。</p>
+<p class="calibre1">下面我们改写一下3.2.3节<code class="calibre9">Function.prototype.after</code>函数，使得第一个函数返回<code class="calibre9">'nextSuccessor'</code>时，将请求继续传递给下一个函数，无论是返回字符串<code class="calibre9">'nextSuccessor'</code>或者<code class="calibre9">false</code>都只是一个约定，当然在这里我们也可以让函数返回<code class="calibre9">false</code>表示传递请求，选择<code class="calibre9">'nextSuccessor'</code>字符串是因为它看起来更能表达我们的目的，代码如下：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">Function.prototype.after = function( fn ){
+    var self = this;
+    return function(){
+        var ret = self.apply( this, arguments );
+        if ( ret === 'nextSuccessor' ){
+            return fn.apply( this, arguments );
+        }
+
+        return ret;
+    }
+};
+
+var order = order500yuan.after( order200yuan ).after( orderNormal );
+
+order( 1, true, 500 );    // 输出：500元定金预购，得到100优惠券
+order( 2, true, 500 );    // 输出：200元定金预购，得到50优惠券
+order( 1, false, 500 );   // 输出：普通购买，无优惠券
+
+</code></pre>
+<p class="calibre1">用AOP来实现职责链既简单又巧妙，但这种把函数叠在一起的方式，同时也叠加了函数的作用域，如果链条太长的话，也会对性能有较大的影响。</p>
+</body></html>

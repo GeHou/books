@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_7" class="calibre7"><strong class="calibre6">模式在不同语言之间的区别</strong></h2>
+<p class="calibre1">《设计模式》一书的副标题是“可复用面向对象软件的基础”。《设计模式》这本书完全是从面向对象设计的角度出发的，通过对封装、继承、多态、组合等技术的反复使用，提炼出一些可重复使用的面向对象设计技巧。所以有一种说法是设计模式仅仅是就面向对象的语言而言的。</p>
+<p class="calibre1">《设计模式》最初讲的确实是静态类型语言中的设计模式，原书大部分代码由C++写成，但设计模式实际上是解决某些问题的一种思想，与具体使用的语言无关。模式社区和语言一直都在发展，如今，除了主流的面向对象语言，函数式语言的发展也非常迅猛。在函数式或者其他编程范型的语言中，设计模式依然存在。</p>
+<p class="calibre1">人类飞上天空需要借助飞机等工具，而鸟儿天生就有翅膀。在Dota游戏里，牛头人的人生目标是买一把跳刀（跳刀可以使用跳跃技能），而敌法师天生就有跳跃技能。因为语言的不同，一些设计模式在另外一些语言中的实现也许跟我们在《设计模式》一书中看到的大相径庭，这一点也不令人意外。</p>
+<p class="calibre1">Google的研究总监Peter Norvig早在1996年一篇名为“动态语言设计模式”的演讲中，就指出了GoF所提出的23种设计模式，其中有16种在Lisp语言中已经是天然的实现。比如，Command模式在Java中需要一个命令类，一个接收者类，一个调用者类。Command模式把运算块封装在命令对象的方法内，成为该对象的行为，并把命令对象四处传递。但在Lisp或者JavaScript这些把函数当作一等对象的语言中，函数便能封装运算块，并且函数可以被当成对象一样四处传递，这样一来，命令模式在Lisp或者JavaScript中就成为了一种隐形的模式。</p>
+<p class="calibre1">在Java这种静态编译型语言中，无法动态地给已存在的对象添加职责，所以一般通过包装类的方式来实现装饰者模式。但在JavaScript这种动态解释型语言中，给对象动态添加职责是再简单不过的事情。这就造成了JavaScript语言的装饰者模式不再关注于给对象动态添加职责，而是关注于给函数动态添加职责。</p>
+</body></html>

@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_216" class="calibre7"><strong class="calibre6">16.4　缺少抽象类的变通方式</strong></h2>
+<p class="calibre1">我们看到，在状态类中将定义一些共同的行为方法，Context最终会将请求委托给状态对象的这些方法，在这个例子里，这个方法就是<code class="calibre9">buttonWasPressed</code>。无论增加了多少种状态类，它们都必须实现<code class="calibre9">buttonWasPressed</code>方法。</p>
+<p class="calibre1">在Java中，所有的状态类必须继承自一个<code class="calibre9">State</code>抽象父类，当然如果没有共同的功能值得放入抽象父类中，也可以选择实现<code class="calibre9">State</code>接口。这样做的原因一方面是我们曾多次提过的向上转型，另一方面是保证所有的状态子类都实现了<code class="calibre9">buttonWasPressed</code>方法。遗憾的是，JavaScript既不支持抽象类，也没有接口的概念。所以在使用状态模式的时候要格外小心，如果我们编写一个状态子类时，忘记了给这个状态子类实现<code class="calibre9">buttonWasPressed</code>方法，则会在状态切换的时候抛出异常。因为Context总是把请求委托给状态对象的<code class="calibre9">buttonWasPressed</code>方法。</p>
+<p class="calibre1">不论怎样严格要求程序员，也许都避免不了犯错的那一天，毕竟如果没有编译器的帮助，只依靠程序员的自觉以及一点好运气，是不靠谱的。这里建议的解决方案跟《模板方法模式》中一致，让抽象父类的抽象方法直接抛出一个异常，这个异常至少会在程序运行期间就被发现：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var State = function(){};
+
+State.prototype.buttonWasPressed = function(){
+    throw new Error( '父类的buttonWasPressed方法必须被重写' );
+};
+
+var SuperStrongLightState = function( light ){
+    this.light = light;
+};
+
+SuperStrongLightState.prototype = new State();   // 继承抽象父类
+
+SuperStrongLightState.prototype.buttonWasPressed = function(){    // 重写buttonWasPressed方法
+    console.log( '关灯' );
+    this.light.setState( this.light.offLightState );
+};
+
+</code></pre>
+</body></html>

@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_203" class="calibre7"><strong class="calibre6">15.5　用AOP装饰函数</strong></h2>
+<p class="calibre1">首先给出<code class="calibre9">Function.prototype.before</code>方法和<code class="calibre9">Function.prototype.after</code>方法：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">Function.prototype.before = function( beforefn ){
+    var __self = this;  // 保存原函数的引用
+    return function(){    // 返回包含了原函数和新函数的"代理"函数
+        beforefn.apply( this, arguments );  // 执行新函数，且保证this不被劫持，新函数接受的参数
+                                            // 也会被原封不动地传入原函数，新函数在原函数之前执行
+        return __self.apply( this, arguments );  // 执行原函数并返回原函数的执行结果，
+                                                 // 并且保证this不被劫持
+    }
+}
+
+Function.prototype.after = function( afterfn ){
+    var __self = this;
+    return function(){
+        var ret = __self.apply( this, arguments );
+        afterfn.apply( this, arguments );
+        return ret;
+    }
+};
+
+</code></pre>
+<p class="calibre1"><code class="calibre9">Function.prototype.before</code>接受一个函数当作参数，这个函数即为新添加的函数，它装载了新添加的功能代码。</p>
+<p class="calibre1">接下来把当前的<code class="calibre9">this</code>保存起来，这个<code class="calibre9">this</code>指向原函数，然后返回一个“代理”函数，这个“代理”函数只是结构上像代理而已，并不承担代理的职责（比如控制对象的访问等）。它的工作是把请求分别转发给新添加的函数和原函数，且负责保证它们的执行顺序，让新添加的函数在原函数之前执行（前置装饰），这样就实现了动态装饰的效果。</p>
+<p class="calibre1">我们注意到，通过<code class="calibre9">Function.prototype.apply</code>来动态传入正确的<code class="calibre9">this</code>，保证了函数在被装饰之后，<code class="calibre9">this</code>不会被劫持。</p>
+<p class="calibre1"><code class="calibre9">Function.prototype.after</code>的原理跟<code class="calibre9">Function.prototype.before</code>一模一样，唯一不同的地方在于让新添加的函数在原函数执行之后再执行。</p>
+<p class="calibre1">下面来试试用<code class="calibre9">Function.prototype.before</code>的威力：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">&lt;html&gt;
+    &lt;button id="button"&gt;&lt;/button&gt;
+    &lt;script&gt;
+    Function.prototype.before = function( beforefn ){
+        var __self = this;
+        return function(){
+            beforefn.apply( this, arguments );
+            return __self.apply( this, arguments );
+        }
+    }
+
+    document.getElementById = document.getElementById.before(function(){
+        alert (1);
+    });
+
+    var button = document.getElementById( 'button' );
+    console.log( button );
+    &lt;/script&gt;
+&lt;/html&gt;
+
+</code></pre>
+<p class="calibre1">再回到<code class="calibre9">window.onload</code>的例子，看看用<code class="calibre9">Function.prototype.after</code>来增加新的<code class="calibre9">window.onload</code>事件是多么简单：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">window.onload = function(){
+    alert (1);
+}
+
+window.onload = ( window.onload || function(){} ).after(function(){
+    alert (2);
+}).after(function(){
+    alert (3);
+}).after(function(){
+    alert (4);
+});
+
+</code></pre>
+<p class="calibre1">值得提到的是，上面的AOP实现是在<code class="calibre9">Function.prototype</code>上添加<code class="calibre9">before</code>和<code class="calibre9">after</code>方法，但许多人不喜欢这种污染原型的方式，那么我们可以做一些变通，把原函数和新函数都作为参数传入<code class="calibre9">before</code>或者<code class="calibre9">after</code>方法：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var before = function( fn, beforefn ){
+    return function(){
+        beforefn.apply( this, arguments );
+        return fn.apply( this, arguments );
+    }
+}
+
+var a = before(
+    function(){alert (3)},
+    function(){alert (2)}
+);
+
+a = before( a, function(){alert (1);} );
+a();
+
+</code></pre>
+</body></html>

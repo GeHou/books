@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>未知</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="../stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="../page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="calibre">
+<h2 id="nav_point_202" class="calibre7"><strong class="calibre6">15.4　装饰函数</strong></h2>
+<p class="calibre1">在JavaScript中，几乎一切都是对象，其中函数又被称为一等对象。在平时的开发工作中，也许大部分时间都在和函数打交道。在JavaScript中可以很方便地给某个对象扩展属性和方法，但却很难在不改动某个函数源代码的情况下，给该函数添加一些额外的功能。在代码的运行期间，我们很难切入某个函数的执行环境。</p>
+<p class="calibre1">要想为函数添加一些功能，最简单粗暴的方式就是直接改写该函数，但这是最差的办法，直接违反了开放-封闭原则：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var a = function(){
+    alert (1);
+}
+
+// 改成：
+
+var a = function(){
+    alert (1);
+    alert (2);
+}
+
+</code></pre>
+<p class="calibre1">很多时候我们不想去碰原函数，也许原函数是由其他同事编写的，里面的实现非常杂乱。甚至在一个古老的项目中，这个函数的源代码被隐藏在一个我们不愿碰触的阴暗角落里。现在需要一个办法，在不改变函数源代码的情况下，能给函数增加功能，这正是开放-封闭原则给我们指出的光明道路。</p>
+<p class="calibre1">其实在15.3节的代码中，我们已经找到了一种答案，通过保存原引用的方式就可以改写某个函数：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var a = function(){
+    alert (1);
+}
+
+var _a = a;
+
+a = function(){
+    _a();
+    alert (2);
+}
+
+a();
+
+</code></pre>
+<p class="calibre1">这是实际开发中很常见的一种做法，比如我们想给<code class="calibre9">window</code>绑定<code class="calibre9">onload</code>事件，但是又不确定这个事件是不是已经被其他人绑定过，为了避免覆盖掉之前的<code class="calibre9">window.onload</code>函数中的行为，我们一般都会先保存好原先的<code class="calibre9">window.onload</code>，把它放入新的<code class="calibre9">window.onload</code>里执行：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">window.onload = function(){
+    alert (1);
+}
+
+var _onload = window.onload || function(){};
+
+window.onload = function(){
+    _onload();
+    alert (2);
+}
+
+</code></pre>
+<p class="calibre1">这样的代码当然是符合开放-封闭原则的，我们在增加新功能的时候，确实没有修改原来的<code class="calibre9">window.onload</code>代码，但是这种方式存在以下两个问题。</p>
+<ul class="calibre14">
+<li class="calibre15"><p class="calibre1">必须维护<code class="calibre9">_onload</code>这个中间变量，虽然看起来并不起眼，但如果函数的装饰链较长，或者需要装饰的函数变多，这些中间变量的数量也会越来越多。</p>
+</li>
+<li class="calibre15"><p class="calibre1">其实还遇到了<code class="calibre9">this</code>被劫持的问题，在<code class="calibre9">window.onload</code>的例子中没有这个烦恼，是因为调用普通函数<code class="calibre9">_onload</code>时，<code class="calibre9">this</code>也指向<code class="calibre9">window</code>，跟调用<code class="calibre9">window.onload</code>时一样（函数作为对象的方法被调用时，<code class="calibre9">this</code>指向该对象，所以此处<code class="calibre9">this</code>也只指向<code class="calibre9">window</code>）。现在把<code class="calibre9">window.onload</code>换成<code class="calibre9">document.getElementById</code>，代码如下:</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">var _getElementById = document.getElementById;
+　
+　
+document.getElementById = function( id ){
+    alert (1);
+    return _getElementById( id );       // (1)
+}
+　
+　
+var button = document.getElementById( 'button' );
+&lt;/script&gt;
+
+</code></pre>
+</li>
+</ul>
+<p class="calibre1">执行这段代码，我们看到在弹出<code class="calibre9">alert(1)</code>之后，紧接着控制台抛出了异常：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">// 输出： Uncaught TypeError: Illegal invocation
+
+</code></pre>
+<p class="calibre1">异常发生在(1) 处的<code class="calibre9">_getElementById( id )</code>这句代码上，此时<code class="calibre9">_getElementById</code>是一个全局函数，当调用一个全局函数时，<code class="calibre9">this</code>是指向<code class="calibre9">window</code>的，而<code class="calibre9">document.getElementById</code>方法的内部实现需要使用<code class="calibre9">this</code>引用，<code class="calibre9">this</code>在这个方法内预期是指向<code class="calibre9">document</code>，而不是<code class="calibre9">window,</code> 这是错误发生的原因，所以使用现在的方式给函数增加功能并不保险。</p>
+<p class="calibre1">改进后的代码可以满足需求，我们要手动把<code class="calibre9">document</code>当作上下文<code class="calibre9">this</code>传入<code class="calibre9">_getElementById</code>：</p>
+<pre class="Dai Ma Wu Xing Hao "><code class="calibre9">&lt;html&gt;
+    &lt;button id="button"&gt;&lt;/button&gt;
+    &lt;script&gt;
+    var _getElementById = document.getElementById;
+
+    document.getElementById = function(){
+        alert (1);
+        return _getElementById.apply( document, arguments );
+    }
+
+    var button = document.getElementById( 'button' );
+    &lt;/script&gt;
+&lt;/html&gt;
+
+</code></pre>
+<p class="calibre1">但这样做显然很不方便，下面我们引入本书3.7节介绍过的AOP，来提供一种完美的方法给函数动态增加功能。</p>
+</body></html>
